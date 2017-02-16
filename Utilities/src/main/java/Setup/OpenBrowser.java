@@ -1,6 +1,5 @@
 package Setup;
 
-import junit.framework.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -16,15 +15,15 @@ class OpenBrowser {
 
     public static WebDriver getDriver(Open browser)
     {
-        ClassLoader loader= Test.class.getClassLoader();
-        System.out.print(loader.getResource("."));
+
         switch (browser)
         {
             case CHROME:
-                System.setProperty("webdriver.chrome.driver",".//resources/chromedriver.exe");
+                System.setProperty("webdriver.chrome.driver",".//resources/chromedriver".replaceFirst(".","Utilities/src/main"));
                 driver=new ChromeDriver();
                 break;
             case FIREFOX:
+                System.setProperty("webdriver.gecko.driver",".//resources/geckodriver".replaceFirst(".","Utilities/src/main"));
                 driver=new FirefoxDriver();
                 break;
             case IE:

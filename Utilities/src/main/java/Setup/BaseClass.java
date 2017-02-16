@@ -6,7 +6,7 @@ import java.util.concurrent.TimeUnit;
 
 public class BaseClass {
 
-    private WebDriver driver;
+    public WebDriver driver;
     public enum url{Pricing};
 
     /*
@@ -21,16 +21,16 @@ public class BaseClass {
        * Set Page load time as 10 seconds
      */
 
-    public WebDriver initBrowser(url link)
+    public WebDriver initBrowser(String url)
     {
-        driver=OpenBrowser.getDriver(OpenBrowser.Open.CHROME);
+        driver=OpenBrowser.getDriver(OpenBrowser.Open.FIREFOX);
 
-        switch (link)
-        {
-            case Pricing:driver.get(Urls.pricingUrl);
-                         break;
-        }
-
+//        switch (link)
+//        {
+//            case Pricing:driver.get(Urls.pricingUrl);
+//                         break;
+//        }
+        driver.get(url);
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.manage().timeouts().pageLoadTimeout(10,TimeUnit.SECONDS);

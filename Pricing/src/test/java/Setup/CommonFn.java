@@ -7,10 +7,10 @@ import org.openqa.selenium.WebElement;
 
 import java.util.List;
 
-public class CommonFn extends Page_Common_steps{
+public class CommonFn extends BaseClass{
 
-    enum page{List,Create};
-    enum module{Calculation_Rule,Workbook,Index,Currency_Exchange,Formula}
+    public enum page{List,Create};
+    public enum module{Calculation_Rule,Workbook,Index,Currency_Exchange,Formula}
 
     public void moveTo(module m,page p)
     {

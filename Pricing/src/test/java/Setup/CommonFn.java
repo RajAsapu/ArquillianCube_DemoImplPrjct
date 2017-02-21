@@ -16,7 +16,21 @@ public class CommonFn {
     private static EventFiringWebDriver edriver= DriverBean.getDriver();
     public enum page{List,Create};
     public enum module{Calculation_Rule,Workbook,Index,Currency_Exchange,Formula}
+    public enum type {manual,automatic}
+    public enum rateBasis{All,Flat,Price_Point_Scale,Point_Break_Scale}
 
+    /*
+     Method to login to the application
+     */
+    public void login()
+    {
+        edriver.findElement(By.id(Constants.login_username_id)).sendKeys(Constants.username);
+        edriver.findElement(By.id(Constants.login_password_id)).sendKeys(Constants.password);
+        edriver.findElement(By.id(Constants.login_submit_id)).click();
+    }
+    /*
+     Method to navigate to a page under a module (eg : List under Index)
+     */
     public void moveTo(module m,page p)
     {
         edriver.findElement(By.linkText(m.toString().replace("_",""))).click();
@@ -34,6 +48,9 @@ public class CommonFn {
         logger.info("User has navigated to "+p+" page under "+m+" module");
     }
 
+    /*
+     Index page common methods
+     */
     public void setStatusIndex(String select)
     {
         WebElement options=edriver.findElement(By.xpath(Constants.index_status_xpath));
@@ -50,10 +67,51 @@ public class CommonFn {
         }
     }
 
-    public void login()
+    public void setType(type temp)
     {
-        edriver.findElement(By.id(Constants.login_username_id)).sendKeys(Constants.username);
-        edriver.findElement(By.id(Constants.login_password_id)).sendKeys(Constants.password);
-        edriver.findElement(By.id(Constants.login_submit_id)).click();
+        WebElement type=edriver.findElement(By.xpath(Constants.index_type_xpath));
+        switch (temp)
+        {
+            case automatic:type.sendKeys("AUTOMATIC");
+                    break;
+            case manual:   type.sendKeys("MANUAL");
+                    break;
+        }
+    }
+    public void setRateBasis(rateBasis rate)
+    {
+        WebElement options=edriver.findElement(By.xpath(Constants.index_rateBasis_xpath));
+        Select s=new Select(options);
+        switch (rate)
+        {
+            case All: s.selectByIndex(0);
+                break;
+            case Flat:s.selectByIndex(1);
+                break;
+            case Price_Point_Scale:s.selectByIndex(2);
+                break;
+            case Point_Break_Scale:s.selectByIndex(3);
+                break;
+            default:System.out.println("Please provide valid rate Basis value in the index page");
+        }
+    }
+    public void selectName(String key)
+    {
+        /*
+          Need to implement code to select the text from auto fill
+         */
+        edriver.findElement(By.xpath(Constants.index_name_xpath)).sendKeys(key);
+    }
+    public void selectCurrency(String key)
+    {
+        WebElement options=edriver.findElement(By.xpath(Constants.index_currency_xpath));
+        Select currList=new Select(options);
+        currList.selectByVisibleText(key);
+    }
+    public void selectUOM(String key)
+    {
+        WebElement options=edriver.findElement(By.xpath(Constants.index_uom_xpath));
+        Select uomList=new Select(options);
+        uomList.selectByVisibleText(key);
     }
 }

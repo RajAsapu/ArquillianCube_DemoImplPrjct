@@ -30,6 +30,7 @@ public class Page_Index_Steps extends CommonFn{
         act.sendKeys(Keys.TAB).perform();
 
         setStatusIndex(status);
+        setType(type.manual);
     }
 
 
@@ -68,6 +69,8 @@ public class Page_Index_Steps extends CommonFn{
         act.sendKeys(Keys.TAB).perform();
 
         setStatusIndex(status);
+        setType(type.manual);
+
     }
 
     @Then("^the user shall be able to view the list of indexes with end date from \"([^\"]*)\" and status as \"([^\"]*)\"$")

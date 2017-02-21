@@ -26,5 +26,9 @@ public class Constants {
       public static String index_EndDateColumn_xpath="//*/p-datatable/div/div[2]/table/tbody/tr[1]/td[3]";
       public static String index_search_xpath="//*/app-root/calc-rule-list/div/div/div/div[2]/form/p-fieldset/fieldset/div/div/div[2]/div[6]/button";
       public static String index_StatusColumn_xpath="//*/p-datatable/div/div[2]/table/tbody/tr[*]/td[1]";
-
+      public static String index_type_xpath="//*/p-fieldset/fieldset/div/div/div[2]/div[1]/div/input";
+      public static String index_rateBasis_xpath="//*/p-fieldset/fieldset/div/div/div[2]/div[2]/div/select";
+      public static String index_name_xpath="//*/p-autocomplete/span/input";
+      public static String index_currency_xpath="//*/fieldset/div/div/div[2]/div[4]/div/select";
+      public static String index_uom_xpath="//*/fieldset/div/div/div[2]/div[5]/div/select";
 }

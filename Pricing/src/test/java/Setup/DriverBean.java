@@ -1,17 +1,17 @@
 package Setup;
 
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.events.EventFiringWebDriver;
 
 public class DriverBean {
 
-    public static WebDriver getDriver() {
-        return driver;
+    public static EventFiringWebDriver getDriver() {
+        return edriver;
     }
 
-    public static void setDriver(WebDriver driver) {
-        DriverBean.driver = driver;
+    public static void setDriver(EventFiringWebDriver edriver) {
+        DriverBean.edriver = edriver;
     }
 
-    public static WebDriver driver;
+    public static EventFiringWebDriver edriver;
 
 }

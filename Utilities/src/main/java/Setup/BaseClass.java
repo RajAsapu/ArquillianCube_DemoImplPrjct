@@ -2,11 +2,16 @@ package Setup;
 
 import Constants.Urls;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.events.EventFiringWebDriver;
+
 import java.util.concurrent.TimeUnit;
 
 public class BaseClass {
 
     public WebDriver driver;
+    private EventFiringWebDriver edriver;
+    private IEventListener listener;
+
     public enum url{Pricing};
 
     /*
@@ -21,15 +26,20 @@ public class BaseClass {
        * Set Page load time as 10 seconds
      */
 
-    public WebDriver initBrowser(String url)
+    public EventFiringWebDriver initBrowser(String url)
     {
         driver=OpenBrowser.getDriver(OpenBrowser.Open.CHROME);
 
-        driver.get(url);
-        driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        driver.manage().timeouts().pageLoadTimeout(10,TimeUnit.SECONDS);
-        return driver;
+        listener=new IEventListener();
+        edriver=new EventFiringWebDriver(driver);
+        edriver.register(listener);
+
+        edriver.navigate().to(url);
+        edriver.manage().window().maximize();
+        edriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        edriver.manage().timeouts().pageLoadTimeout(10,TimeUnit.SECONDS);
+
+        return edriver;
     }
 
     /*
@@ -37,6 +47,7 @@ public class BaseClass {
      */
     public void closeBrowser()
     {
-        driver.quit();
+        edriver.unregister(listener);
+        edriver.quit();
     }
 }

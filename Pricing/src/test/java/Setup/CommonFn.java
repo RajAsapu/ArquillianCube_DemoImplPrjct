@@ -3,21 +3,22 @@ package Setup;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.events.EventFiringWebDriver;
 import org.openqa.selenium.support.ui.Select;
 
 import java.util.List;
 
 public class CommonFn {
 
-    private static WebDriver driver= DriverBean.getDriver();
+    private static EventFiringWebDriver edriver= DriverBean.getDriver();
     public enum page{List,Create};
     public enum module{Calculation_Rule,Workbook,Index,Currency_Exchange,Formula}
 
     public void moveTo(module m,page p)
     {
-        driver.findElement(By.linkText(m.toString().replace("_",""))).click();
+        edriver.findElement(By.linkText(m.toString().replace("_",""))).click();
 
-        List<WebElement> list=driver.findElements(By.linkText(p.toString()));
+        List<WebElement> list=edriver.findElements(By.linkText(p.toString()));
 
         for(WebElement temp:list)
         {
@@ -31,7 +32,7 @@ public class CommonFn {
 
     public void setStatusIndex(String select)
     {
-        WebElement options=driver.findElement(By.xpath(Constants.index_status_xpath));
+        WebElement options=edriver.findElement(By.xpath(Constants.index_status_xpath));
         Select s=new Select(options);
         switch (select)
         {
@@ -47,8 +48,8 @@ public class CommonFn {
 
     public void login()
     {
-        driver.findElement(By.id(Constants.login_username_id)).sendKeys(Constants.username);
-        driver.findElement(By.id(Constants.login_password_id)).sendKeys(Constants.password);
-        driver.findElement(By.id(Constants.login_submit_id)).click();
+        edriver.findElement(By.id(Constants.login_username_id)).sendKeys(Constants.username);
+        edriver.findElement(By.id(Constants.login_password_id)).sendKeys(Constants.password);
+        edriver.findElement(By.id(Constants.login_submit_id)).click();
     }
 }

@@ -10,13 +10,14 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.When;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.events.EventFiringWebDriver;
 
 import java.io.*;
 import java.util.Map;
 import java.util.Properties;
 
 public class Page_Common_steps extends BaseClass {
-    static WebDriver driver;
+    static EventFiringWebDriver edriver;
     CommonFn fn;
     /*
       Global variables
@@ -63,8 +64,8 @@ public class Page_Common_steps extends BaseClass {
      */
     @Given("^the user has logged into the pricing application$")
     public void the_user_has_logged_into_the_pricing_application(){
-        driver=initBrowser("http://"+props.getProperty("pricingui.ipaddress")+":"+props.getProperty("pricingui.hostname"));
-        DriverBean.setDriver(driver);
+        edriver=initBrowser("http://"+props.getProperty("pricingui.ipaddress")+":"+props.getProperty("pricingui.hostname"));
+        DriverBean.setDriver(edriver);
         fn=new CommonFn();
         fn.login();
     }
@@ -73,7 +74,7 @@ public class Page_Common_steps extends BaseClass {
      */
     @When("^clicks on the search button$")
     public void clicks_on_the_search_button()throws Exception {
-        driver.findElement(By.xpath(Constants.index_search_xpath)).click();
+        edriver.findElement(By.xpath(Constants.index_search_xpath)).click();
         Thread.sleep(5000);
     }
     /*

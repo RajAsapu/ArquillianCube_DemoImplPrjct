@@ -76,6 +76,7 @@ public class CommonFn {
                     break;
             case manual:   type.sendKeys("MANUAL");
                     break;
+            default:logger.error("Please provide valid type value in the index page");
         }
     }
     public void setRateBasis(rateBasis rate)
@@ -92,7 +93,7 @@ public class CommonFn {
                 break;
             case Point_Break_Scale:s.selectByIndex(3);
                 break;
-            default:System.out.println("Please provide valid rate Basis value in the index page");
+            default:logger.error("Please provide valid rate Basis value in the index page");
         }
     }
     public void selectName(String key)

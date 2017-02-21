@@ -31,4 +31,5 @@ public class Constants {
       public static String index_name_xpath="//*/p-autocomplete/span/input";
       public static String index_currency_xpath="//*/fieldset/div/div/div[2]/div[4]/div/select";
       public static String index_uom_xpath="//*/fieldset/div/div/div[2]/div[5]/div/select";
+      public static String index_typeColumn_xpath="//*/p-datatable/div/div[2]/table/tbody/tr[1]/td[4]";
 }

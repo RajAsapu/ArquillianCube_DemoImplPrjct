@@ -6,6 +6,7 @@ import Setup.DriverBean;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -19,6 +20,7 @@ import java.util.List;
 
 public class Page_Index_Steps extends CommonFn{
     private static EventFiringWebDriver edriver= DriverBean.getDriver();
+    final static Logger logger = Logger.getLogger(Page_Index_Steps.class.getName());
 
     @When("^the user enters the start date as \"([^\"]*)\" and status as \"([^\"]*)\"$")
     public void the_user_enters_the_start_date_as_and_status_as(String date, String status)throws Exception{
@@ -79,7 +81,7 @@ public class Page_Index_Steps extends CommonFn{
 
         for(WebElement temp:statusList)
         {
-            if(!temp.equals(arg2))
+            if(!temp.getText().equals(arg2))
             {
                 assert false;
             }
@@ -110,5 +112,29 @@ public class Page_Index_Steps extends CommonFn{
         }
 
         edriver.quit();
+    }
+    @When("^the user enters the type as \"([^\"]*)\"$")
+    public void the_user_enters_the_type_as(String type) throws Throwable {
+        if(type.equals("MANUAL"))
+            setType(CommonFn.type.manual);
+        else if(type.equals("AUTOMATIC"))
+            setType(CommonFn.type.automatic);
+        else
+            logger.error("Invalid type");
+    }
+
+    @Then("^the user shall be able to view the list of indexes with type as \"([^\"]*)\"$")
+    public void the_user_shall_be_able_to_view_the_list_of_indexes_with_type_as(String type) throws Throwable {
+
+        List<WebElement> typeList=edriver.findElements(By.xpath(Constants.index_typeColumn_xpath));
+
+        for(WebElement temp:typeList)
+        {
+            if(!temp.getText().equals(type))
+            {
+                throw new Exception("Type doesn't match (Expected:+"+type+",Actual:"+temp.getText()+") !!");
+            }
+        }
+
     }
 }

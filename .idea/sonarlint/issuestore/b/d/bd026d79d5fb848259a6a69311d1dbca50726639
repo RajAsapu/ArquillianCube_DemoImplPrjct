@@ -1,5 +1,0 @@
-
-Vsquid:S1118":Add a private constructor to hide the implicit public one.(‹İ“8ı™ğÆ£+
-Rsquid:UselessImportCheck")Remove this unused import 'java.io.File'.(†Ğ¥Å8‹ş­ğ£+
-ysquid:S00120"WRename this package name to match the regular expression '^[a-z]+(\.[a-z][a-z0-9]*)*$'.(‚é¾ıúÿÿÿÿ8ı™ğÆ£+
-Jsquid:S2786")Remove this redundant "static" qualifier.(ãî‡Öıÿÿÿÿ8ı™ğÆ£+

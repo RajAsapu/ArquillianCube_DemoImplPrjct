@@ -1,6 +1,0 @@
-
-wsquid:S00115"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(Ä½æÙ8ŠªžÇ£+
-fsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(ÓðŠ/8‚¹œ¤+
-Š"squid:ClassVariableVisibilityCheck"RMake driver a static final constant or non-public and provide accessors if needed.(ÔèË©úÿÿÿÿ8ßÌ‰¤+
-Ksquid:EmptyStatementUsageCheck"Remove this empty statement.(Ä½æÙ8¶ÏžÇ£+
-ysquid:S00120"WRename this package name to match the regular expression '^[a-z]+(\.[a-z][a-z0-9]*)*$'.(‚é¾ýúÿÿÿÿ8ü™ðÆ£+

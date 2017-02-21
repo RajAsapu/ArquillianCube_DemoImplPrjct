@@ -1,6 +1,7 @@
 package DockerHandler
 
 import com.google.common.base.Splitter
+import org.apache.log4j.Logger
 import org.junit.Before
 import org.junit.BeforeClass
 import org.junit.FixMethodOrder
@@ -12,18 +13,20 @@ import java.util.regex.Pattern;
 class HandleDocker extends DockerCommands{
 
     private String output;
+    private boolean isRunning;
     private Map<String,String> map;
     public  enum RContainer {price_ui,price_service}
+    final static Logger logger = Logger.getLogger(HandleDocker.class.getName());
 
     private void isDockerInstalled()
     {
         output= checkVersion.execute().text
 
         if(output.contains("version")) {
-            println output
+            logger.info(output);
         }
         else {
-            println "Docker is not installed"
+            logger.info("Docker is not installed");
             assert false
         }
     }
@@ -31,10 +34,11 @@ class HandleDocker extends DockerCommands{
     private void startDockerDaemon()
     {
         if(startDaemon.execute().alive) {
-            println "Docker started on default ip"
+            logger.info("Docker started on default ip");
         }
         else{
-            println "Docker daemon is not running"
+            logger.info("Docker daemon is not running");
+            assert false;
         }
     }
 
@@ -43,17 +47,31 @@ class HandleDocker extends DockerCommands{
      */
     private void runPriceUiImage()
     {
-        output=runPriceUiImage.execute().text
+        isRunning=runPriceUiImage.execute().alive
 
-        if(output.length()>5)
-            println "Running Price Ui Image ..."
+        if(isRunning)
+        {
+            logger.info("Running Price Ui Container ...");
+        }
+        else
+        {
+            logger.info("Price Ui Container hasn't started...");
+            assert false;
+        }
     }
     public void runPriceServiceImage()
     {
-        output=runPriceServiceImage.execute().text
+        isRunning=runPriceServiceImage.execute().alive
 
-        if(output.length()>5)
-            println "Running Price Service Image ..."
+        if(isRunning)
+        {
+            logger.info("Running Price Service Container ...");
+        }
+        else
+        {
+            logger.info("Price Service Container hasn't started...");
+            assert false;
+        }
     }
     /*
       Retrieve Ip Address and Host port for a container
@@ -71,7 +89,7 @@ class HandleDocker extends DockerCommands{
                 break;
             case RContainer.price_service: command = getIpAndHost_Service;
                 break;
-            default: println "Invalid container"
+            default: logger.info("Invalid container...");
         }
 
         output=command.execute().text.replaceAll("\"","").replaceAll(" ","").find(ip)
@@ -84,8 +102,9 @@ class HandleDocker extends DockerCommands{
 
     private void tearDownDocker()
     {
-        output=stopDaemon.execute().alive
-        println output
+        isRunning=stopDaemon.execute().alive
+        if(isRunning)
+            logger.info("Container has restarted...");
     }
 
     public void runDocker()

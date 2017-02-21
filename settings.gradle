@@ -1,10 +1,6 @@
 rootProject.name = 'wfs'
-include 'Pricing'
+
 include 'Utilities'
 include 'Mapper'
-include 'Enter_Pricing'
-findProject(':Enter_Pricing')?.name = 'Pricing'
-include 'Price'
-findProject(':Price')?.name = 'Pricing'
-include 'Pricing_TestSuite'
+include 'Pricing'
 

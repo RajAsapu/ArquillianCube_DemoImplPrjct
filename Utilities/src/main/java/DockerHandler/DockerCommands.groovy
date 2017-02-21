@@ -8,6 +8,11 @@ class DockerCommands {
     /*
       Need to build the image  by pulling the code from git repo
      */
-    public static String runPriceUiImage = "docker start 10bc174c9c03"
-    public static String getIpAndHost    = "docker inspect 10bc174c9c03 | grep IPAddress"//|awk '/IPAddress/ || /HostPort/'"
+    public static String runPriceUiImage = "docker start runPriceUi"
+    public static String getIpAndHost_Ui    = "docker inspect runPriceUi"
+    /*
+      Need to build the images by pulling the code from git repo
+     */
+     public static String runPriceServiceImage = "docker start runPriceService"
+     public static String getIpAndHost_Service = "docker inspect runPriceService"
 }

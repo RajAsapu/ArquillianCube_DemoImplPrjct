@@ -13,6 +13,7 @@ class HandleDocker extends DockerCommands{
 
     private String output;
     private Map<String,String> map;
+    public  enum RContainer {price_ui,price_service}
 
     private void isDockerInstalled()
     {
@@ -37,19 +38,44 @@ class HandleDocker extends DockerCommands{
         }
     }
 
+    /*
+      Running Containers
+     */
     private void runPriceUiImage()
     {
         output=runPriceUiImage.execute().text
-        println output
+
+        if(output.length()>5)
+            println "Running Price Ui Image ..."
     }
-
-    public Map<String,String> getIPandHostPort()
+    public void runPriceServiceImage()
     {
-        Pattern ip   = ~/IPAddress:[0-9.]*/;
-        Pattern port = ~/HostPort:[0-9]*/
+        output=runPriceServiceImage.execute().text
 
-        output=getIpAndHost.execute().text.replaceAll("\"","").replaceAll(" ","").find(ip)
-        output=output+" "+getIpAndHost.execute().text.replaceAll("\"","").replaceAll(" ","").find(port)
+        if(output.length()>5)
+            println "Running Price Service Image ..."
+    }
+    /*
+      Retrieve Ip Address and Host port for a container
+     */
+    public Map<String,String> getIPandHostPort(RContainer run)
+    {
+        String command;
+
+        Pattern ip   = ~/IPAddress:[0-9.]*/;
+        Pattern port = ~/HostPort:[0-9]*/;
+
+        switch(run)
+        {
+            case RContainer.price_ui: command = getIpAndHost_Ui;
+                break;
+            case RContainer.price_service: command = getIpAndHost_Service;
+                break;
+            default: println "Invalid container"
+        }
+
+        output=command.execute().text.replaceAll("\"","").replaceAll(" ","").find(ip)
+        output=output+" "+command.execute().text.replaceAll("\"","").replaceAll(" ","").find(port)
 
         map=Splitter.on(" ").omitEmptyStrings().withKeyValueSeparator(":").split(output)
 
@@ -70,6 +96,8 @@ class HandleDocker extends DockerCommands{
         startDockerDaemon()
         // Run the price ui image
         runPriceUiImage()
+        // Run the price service image
+        runPriceServiceImage()
     }
     public void stopDocker()
     {

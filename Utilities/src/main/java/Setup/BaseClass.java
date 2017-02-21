@@ -10,7 +10,7 @@ public class BaseClass {
     public enum url{Pricing};
 
     /*
-      Next Step :Implemenet hooks
+      Next Step :Implimenet hooks
      */
 
     /*
@@ -23,13 +23,8 @@ public class BaseClass {
 
     public WebDriver initBrowser(String url)
     {
-        driver=OpenBrowser.getDriver(OpenBrowser.Open.FIREFOX);
+        driver=OpenBrowser.getDriver(OpenBrowser.Open.CHROME);
 
-//        switch (link)
-//        {
-//            case Pricing:driver.get(Urls.pricingUrl);
-//                         break;
-//        }
         driver.get(url);
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);

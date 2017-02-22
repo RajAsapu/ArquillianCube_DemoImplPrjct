@@ -31,6 +31,10 @@ public class Constants {
       public static String index_name_xpath="//*/p-autocomplete/span/input";
       public static String index_currency_xpath="//*/fieldset/div/div/div[2]/div[4]/div/select";
       public static String index_uom_xpath="//*/fieldset/div/div/div[2]/div[5]/div/select";
-      public static String index_typeColumn_xpath="//*/p-datatable/div/div[2]/table/tbody/tr[1]/td[4]";
+      public static String index_typeColumn_xpath="//*/p-datatable/div/div[2]/table/tbody/tr[*]/td[4]";
       public static String index_name_autofill_xpath="//*/calc-rule-list/div/div/div/div[2]/form/p-fieldset/fieldset/div/div/div[2]/div[3]/div/p-autocomplete/span/div/ul/li";
+      public static String index_ratebasisColumn_xpath="//*/p-datatable/div/div[2]/table/tbody/tr[*]/td[12]";
+      public static String index_nameColumn_xpath="//*/p-datatable/div/div[2]/table/tbody/tr[*]/td[5]";
+      public static String index_currencyColumn_xpath="//*/p-datatable/div/div[2]/table/tbody/tr[*]/td[10]";
+      public static String index_uomColumn_xpath="//*/p-datatable/div/div[2]/table/tbody/tr[*]/td[11]";
 }

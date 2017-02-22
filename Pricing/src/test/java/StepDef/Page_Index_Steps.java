@@ -160,13 +160,70 @@ public class Page_Index_Steps extends CommonFn{
 
     @Then("^the user shall be able to view the list of indexes matching the above search criteria$")
     public void the_user_shall_be_able_to_view_the_list_of_indexes_matching_the_above_search_criteria() throws Throwable {
-
-
-
-
+        checkRateBasis_IndexTabe("FLAT");
+        checkName_IndexTabe("NY RBOB Prem Brg");
+        checkCurrency_IndexTabe("USD");
+        checkUom_IndexTabe("USG");
     }
      /*
-      Check if the index list has Rate basis as Flat
+      Check if the index list has expected Rate basis type
       */
+     public void checkRateBasis_IndexTabe(String rate)throws Exception
+     {
+         List<WebElement> rateList= edriver.findElements(By.xpath(Constants.index_ratebasisColumn_xpath));
+
+         for(WebElement temp:rateList)
+         {
+             if(!temp.getText().equals(rate))
+             {
+                 throw new Exception("Rate Basis doesn't match, Expected :"+rate+" Actual:"+temp.getText());
+             }
+         }
+     }
+    /*
+    Check if the index list has expected name
+    */
+    public void checkName_IndexTabe(String name)throws Exception
+    {
+        List<WebElement> nameList= edriver.findElements(By.xpath(Constants.index_nameColumn_xpath));
+
+        for(WebElement temp:nameList)
+        {
+            if(!temp.getText().equals(name.toUpperCase()))
+            {
+                throw new Exception("Name doesn't match, Expected :"+name+" Actual:"+temp.getText());
+            }
+        }
+    }
+    /*
+    Check if the index list has expected currency
+    */
+    public void checkCurrency_IndexTabe(String currency)throws Exception
+    {
+        List<WebElement> currList= edriver.findElements(By.xpath(Constants.index_currencyColumn_xpath));
+
+        for(WebElement temp:currList)
+        {
+            if(!temp.getText().equals(currency))
+            {
+                throw new Exception("Currency doesn't match, Expected :"+currency+" Actual:"+temp.getText());
+            }
+        }
+    }
+    /*
+   Check if the index list has expected currency
+   */
+    public void checkUom_IndexTabe(String uom)throws Exception
+    {
+        List<WebElement> uomList= edriver.findElements(By.xpath(Constants.index_uomColumn_xpath));
+
+        for(WebElement temp:uomList)
+        {
+            if(!temp.getText().equals(uom))
+            {
+                throw new Exception("UOM doesn't match, Expected :"+uom+" Actual:"+temp.getText());
+            }
+        }
+    }
      
 }

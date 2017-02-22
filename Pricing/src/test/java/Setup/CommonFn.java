@@ -10,6 +10,8 @@ import org.openqa.selenium.support.ui.Select;
 
 import java.util.List;
 
+import static Setup.CommonFn.rateBasis.*;
+
 public class CommonFn {
 
     final static Logger logger = Logger.getLogger(CommonFn.class.getName());
@@ -79,19 +81,19 @@ public class CommonFn {
             default:logger.error("Please provide valid type value in the index page");
         }
     }
-    public void setRateBasis(rateBasis rate)
+    public void setRateBasis(String rate)
     {
         WebElement options=edriver.findElement(By.xpath(Constants.index_rateBasis_xpath));
         Select s=new Select(options);
         switch (rate)
         {
-            case All: s.selectByIndex(0);
+            case "All": s.selectByIndex(0);
                 break;
-            case Flat:s.selectByIndex(1);
+            case "Flat":s.selectByIndex(1);
                 break;
-            case Price_Point_Scale:s.selectByIndex(2);
+            case "Price_Point_Scale":s.selectByIndex(2);
                 break;
-            case Point_Break_Scale:s.selectByIndex(3);
+            case "Point_Break_Scale":s.selectByIndex(3);
                 break;
             default:logger.error("Please provide valid rate Basis value in the index page");
         }
@@ -101,7 +103,8 @@ public class CommonFn {
         /*
           Need to implement code to select the text from auto fill
          */
-        edriver.findElement(By.xpath(Constants.index_name_xpath)).sendKeys(key);
+        edriver.findElement(By.xpath(Constants.index_name_xpath)).sendKeys(key.substring(0,key.length()-1));
+        edriver.findElement(By.xpath(Constants.index_name_autofill_xpath)).click();
     }
     public void selectCurrency(String key)
     {

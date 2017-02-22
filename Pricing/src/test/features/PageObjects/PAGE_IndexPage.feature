@@ -30,5 +30,17 @@ Feature: To verify if the user is able to access create page under index.
     And   clicks on the search button
     Then  the user shall be able to view the list of indexes with type as "MANUAL"
 
+  @PageObjects
+  @Page_Index
+  Scenario: To verify if the user is able to search on the list page with rate basis and currency as filters.
+    Given the user has navigated to the "List" page under the "Index"
+    When  the user enters rate basis as "Flat"
+    And   name as "NY RBOB Prem Brg"
+    And   currency as "USD"
+    And   unit of measurement as "USG"
+    And   clicks on the search button
+    Then  the user shall be able to view the list of indexes matching the above search criteria
+
+
 
 

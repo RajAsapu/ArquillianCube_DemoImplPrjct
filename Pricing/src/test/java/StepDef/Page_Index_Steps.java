@@ -137,4 +137,36 @@ public class Page_Index_Steps extends CommonFn{
         }
 
     }
+
+    @When("^the user enters rate basis as \"([^\"]*)\"$")
+    public void the_user_enters_rate_basis_as(String rateBase) throws Throwable {
+        setRateBasis(rateBase);
+    }
+
+    @When("^name as \"([^\"]*)\"$")
+    public void name_as(String name) throws Throwable {
+        selectName(name);
+    }
+
+    @When("^currency as \"([^\"]*)\"$")
+    public void currency_as(String curr) throws Throwable {
+        selectCurrency(curr);
+    }
+
+    @When("^unit of measurement as \"([^\"]*)\"$")
+    public void unit_of_measurement_as(String uom) throws Throwable {
+        selectUOM(uom);
+    }
+
+    @Then("^the user shall be able to view the list of indexes matching the above search criteria$")
+    public void the_user_shall_be_able_to_view_the_list_of_indexes_matching_the_above_search_criteria() throws Throwable {
+
+
+
+
+    }
+     /*
+      Check if the index list has Rate basis as Flat
+      */
+     
 }

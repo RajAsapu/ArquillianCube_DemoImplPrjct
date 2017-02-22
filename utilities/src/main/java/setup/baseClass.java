@@ -1,16 +1,15 @@
-package Setup;
+package setup;
 
-import Constants.Urls;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 
 import java.util.concurrent.TimeUnit;
 
-public class BaseClass {
+public class baseClass {
 
     public WebDriver driver;
     private EventFiringWebDriver edriver;
-    private IEventListener listener;
+    private iEventListener listener;
 
     public enum url{Pricing};
 
@@ -28,9 +27,9 @@ public class BaseClass {
 
     public EventFiringWebDriver initBrowser(String url)
     {
-        driver=OpenBrowser.getDriver(OpenBrowser.Open.FIREFOX);
+        driver= openBrowser.getDriver(openBrowser.Open.FIREFOX);
 
-        listener=new IEventListener();
+        listener=new iEventListener();
         edriver=new EventFiringWebDriver(driver);
         edriver.register(listener);
 

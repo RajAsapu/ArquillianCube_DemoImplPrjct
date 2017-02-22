@@ -1,12 +1,12 @@
-package Constants;
+package constants;
 
 /*
    Class to save the variables
  */
-public class Urls {
+public class urls {
 
     /*
-      Enterprise Module Urls
+      Enterprise Module urls
      */
     public static String pricingUrl="https://epe-priceconfig-ui.dev.aws.wfscorp.com/home";
 

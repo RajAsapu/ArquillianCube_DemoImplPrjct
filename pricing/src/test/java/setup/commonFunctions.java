@@ -1,4 +1,4 @@
-package Setup;
+package setup;
 
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
@@ -8,10 +8,10 @@ import org.openqa.selenium.support.ui.Select;
 
 import java.util.List;
 
-public class CommonFn {
+public class commonFunctions {
 
-    final static Logger logger = Logger.getLogger(CommonFn.class.getName());
-    private static EventFiringWebDriver edriver= DriverBean.getDriver();
+    final static Logger logger = Logger.getLogger(commonFunctions.class.getName());
+    private static EventFiringWebDriver edriver= driverBean.getDriver();
     public enum page{List,Create};
     public enum module{Calculation_Rule,Workbook,Index,Currency_Exchange,Formula}
     public enum type {manual,automatic}
@@ -22,9 +22,9 @@ public class CommonFn {
      */
     public void login()
     {
-        edriver.findElement(By.id(Constants.login_username_id)).sendKeys(Constants.username);
-        edriver.findElement(By.id(Constants.login_password_id)).sendKeys(Constants.password);
-        edriver.findElement(By.id(Constants.login_submit_id)).click();
+        edriver.findElement(By.id(constants.login_username_id)).sendKeys(constants.username);
+        edriver.findElement(By.id(constants.login_password_id)).sendKeys(constants.password);
+        edriver.findElement(By.id(constants.login_submit_id)).click();
     }
     /*
      Method to navigate to a page under a module (eg : List under Index)
@@ -51,7 +51,7 @@ public class CommonFn {
      */
     public void setStatusIndex(String select)
     {
-        WebElement options=edriver.findElement(By.xpath(Constants.indexList_status_xpath));
+        WebElement options=edriver.findElement(By.xpath(constants.indexList_status_xpath));
         Select s=new Select(options);
         switch (select)
         {
@@ -67,7 +67,7 @@ public class CommonFn {
 
     public void setType(type temp)
     {
-        WebElement type=edriver.findElement(By.xpath(Constants.indexList_type_xpath));
+        WebElement type=edriver.findElement(By.xpath(constants.indexList_type_xpath));
         switch (temp)
         {
             case automatic:type.sendKeys("AUTOMATIC");
@@ -79,7 +79,7 @@ public class CommonFn {
     }
     public void setRateBasis(String rate)
     {
-        WebElement options=edriver.findElement(By.xpath(Constants.indexList_rateBasis_xpath));
+        WebElement options=edriver.findElement(By.xpath(constants.indexList_rateBasis_xpath));
         Select s=new Select(options);
         switch (rate)
         {
@@ -99,18 +99,18 @@ public class CommonFn {
         /*
           Need to implement code to select the text from auto fill
          */
-        edriver.findElement(By.xpath(Constants.indexList_name_xpath)).sendKeys(key.substring(0,key.length()-1));
-        edriver.findElement(By.xpath(Constants.indexList_name_autofill_xpath)).click();
+        edriver.findElement(By.xpath(constants.indexList_name_xpath)).sendKeys(key.substring(0,key.length()-1));
+        edriver.findElement(By.xpath(constants.indexList_name_autofill_xpath)).click();
     }
     public void selectCurrency(String key)
     {
-        WebElement options=edriver.findElement(By.xpath(Constants.indexList_currency_xpath));
+        WebElement options=edriver.findElement(By.xpath(constants.indexList_currency_xpath));
         Select currList=new Select(options);
         currList.selectByVisibleText(key);
     }
     public void selectUOM(String key)
     {
-        WebElement options=edriver.findElement(By.xpath(Constants.indexList_uom_xpath));
+        WebElement options=edriver.findElement(By.xpath(constants.indexList_uom_xpath));
         Select uomList=new Select(options);
         uomList.selectByVisibleText(key);
     }

@@ -1,6 +1,6 @@
-package Setup;
+package setup;
 
-public class Constants {
+public class constants {
       /*
       Enterprise pricing identifiers
      */
@@ -18,7 +18,6 @@ public class Constants {
       /*
        Index page identifiers
        */
-      public static String index_startdate_id="dp1487362458312";
       public static String indexList_status_xpath ="//*/calc-rule-list/div/div/div/div[2]/form/p-fieldset/fieldset/div/div/div[1]/div[3]/div/select";
       public static String indexList_startdatepicker_xpath ="//*/app-root/calc-rule-list/div/div/div/div[2]/form/p-fieldset/fieldset/div/div/div[1]/div[1]/div/p-calendar/span/button";
       public static String indexList_StartDateColumn_xpath ="//*/p-datatable/div/div[2]/table/tbody/tr[*]/td[2]";

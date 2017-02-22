@@ -1,10 +1,10 @@
-package StepDef;
+package stepdef;
 
-import DockerHandler.HandleDocker;
-import Setup.BaseClass;
-import Setup.CommonFn;
-import Setup.Constants;
-import Setup.DriverBean;
+import dockerhandler.handleDocker;
+import setup.baseClass;
+import setup.commonFunctions;
+import setup.constants;
+import setup.driverBean;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.When;
 import org.apache.log4j.Logger;
@@ -15,39 +15,41 @@ import java.io.*;
 import java.util.Map;
 import java.util.Properties;
 
-public class Page_Common_steps extends BaseClass {
+public class pageCommonSteps extends baseClass {
     static EventFiringWebDriver edriver;
-    final static Logger logger = Logger.getLogger(Page_Common_steps.class.getName());
-    CommonFn fn;
+    final static Logger logger = Logger.getLogger(pageCommonSteps.class.getName());
+    commonFunctions fn;
     /*
       Global variables
      */
     public Properties props=new Properties();
-    HandleDocker dock=new HandleDocker();
+    handleDocker dock=new handleDocker();
     /*
       Update Pricing.properties file with ip address and host port
      */
     public void updateProperties()
     {
-        Map<String,String> map=dock.getIPandHostPort(HandleDocker.RContainer.price_ui);
+        Map<String,String> map ;
+        File resourceFile;
+        String resourceFilePath;
+        OutputStream out;
         /*
           Load properties file
          */
+        resourceFile=new File(".//");
+        resourceFilePath=resourceFile.getAbsolutePath().replace(".","pricing/src/test/resources/pricing.properties");
+        resourceFile=new File(resourceFilePath);
+
         try {
+            out=new FileOutputStream(resourceFile);
             props.setProperty("pricingui.ipaddress","localhost");
             props.setProperty("pricingui.hostname","4200");
-            File f=new File("Pricing.properties");
-            OutputStream out=new FileOutputStream(f);
-            props.store(out,"Updated pricing Ui params");
-            logger.info("Updated pricing Ui params");
 
-            map=dock.getIPandHostPort(HandleDocker.RContainer.price_service);
+            map=dock.getIPandHostPort(handleDocker.RContainer.price_service);
             props.setProperty("pricingservice.ipaddress",map.get("IPAddress"));
             props.setProperty("pricingservice.hostname",map.get("HostPort"));
-            f=new File("Pricing.properties");
-            out=new FileOutputStream(f);
-            props.store(out,"Updated pricing service params");
-            logger.info("Updated pricing service params");
+            props.store(out,"Ip address and host port are updated");
+            logger.info("Updated pricing properties");
         }
         catch (Exception exp)
         {
@@ -56,7 +58,7 @@ public class Page_Common_steps extends BaseClass {
     }
     @Given("^the docker containers are running$")
     public void the_docker_containers_are_running() {
-        new HandleDocker().runDocker();
+        new handleDocker().runDocker();
         updateProperties();
     }
     /*
@@ -65,9 +67,9 @@ public class Page_Common_steps extends BaseClass {
     @Given("^the user has logged into the pricing application$")
     public void the_user_has_logged_into_the_pricing_application(){
         edriver=initBrowser("http://"+props.getProperty("pricingui.ipaddress")+":"+props.getProperty("pricingui.hostname"));
-        DriverBean.setDriver(edriver);
+        driverBean.setDriver(edriver);
 
-        fn=new CommonFn();
+        fn=new commonFunctions();
         fn.login();
     }
     /*
@@ -75,7 +77,7 @@ public class Page_Common_steps extends BaseClass {
      */
     @When("^clicks on the search button$")
     public void clicks_on_the_search_button()throws Exception {
-        edriver.findElement(By.xpath(Constants.indexList_search_xpath)).click();
+        edriver.findElement(By.xpath(constants.indexList_search_xpath)).click();
         Thread.sleep(5000);
     }
     /*
@@ -83,6 +85,6 @@ public class Page_Common_steps extends BaseClass {
      */
     @Given("^the user has navigated to the \"([^\"]*)\" page under the \"([^\"]*)\"$")
     public void the_user_has_navigated_to_the_page_under_the(String arg1, String arg2)throws Exception{
-        fn.moveTo(CommonFn.module.Index, CommonFn.page.List);
+        fn.moveTo(commonFunctions.module.Index, commonFunctions.page.List);
     }
 }

@@ -3,13 +3,11 @@ package StepDef;
 import Setup.CommonFn;
 import Setup.Constants;
 import Setup.DriverBean;
-import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
@@ -25,7 +23,7 @@ public class Page_Index_Steps extends CommonFn{
     @When("^the user enters the start date as \"([^\"]*)\" and status as \"([^\"]*)\"$")
     public void the_user_enters_the_start_date_as_and_status_as(String date, String status)throws Exception{
 
-        WebElement datepicker=edriver.findElement(By.xpath(Constants.index_startdatepicker_xpath));
+        WebElement datepicker=edriver.findElement(By.xpath(Constants.indexList_startdatepicker_xpath));
 
         Actions act=new Actions(edriver);
         act.click(datepicker).sendKeys(date).perform();
@@ -39,7 +37,7 @@ public class Page_Index_Steps extends CommonFn{
     @Then("^the user shall be able to view the list of indexes with start date from \"([^\"]*)\" and status as \"([^\"]*)\"$")
     public void the_user_shall_be_able_to_view_the_list_of_indexes_with_start_date_from_and_status_as(String arg1, String arg2) throws Exception {
 
-        List<WebElement> statusList=edriver.findElements(By.xpath(Constants.index_StatusColumn_xpath));
+        List<WebElement> statusList=edriver.findElements(By.xpath(Constants.indexList_StatusColumn_xpath));
 
         for(WebElement temp:statusList)
         {
@@ -49,7 +47,7 @@ public class Page_Index_Steps extends CommonFn{
             }
         }
 
-        List<WebElement> startdateList=edriver.findElements(By.xpath(Constants.index_StartDateColumn_xpath));
+        List<WebElement> startdateList=edriver.findElements(By.xpath(Constants.indexList_StartDateColumn_xpath));
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd");
         Date dateSelected=formatter.parse(arg1);
         for(WebElement temp:startdateList)
@@ -64,7 +62,7 @@ public class Page_Index_Steps extends CommonFn{
 
     @When("^the user enters the end date as \"([^\"]*)\" and status as \"([^\"]*)\"$")
     public void the_user_enters_the_end_date_as_and_status_as(String date, String status) throws Throwable {
-        WebElement datepicker=edriver.findElement(By.xpath(Constants.index_enddatepicker_xapth));
+        WebElement datepicker=edriver.findElement(By.xpath(Constants.indexList_enddatepicker_xapth));
 
         Actions act=new Actions(edriver);
         act.click(datepicker).sendKeys(date).perform();
@@ -77,7 +75,7 @@ public class Page_Index_Steps extends CommonFn{
 
     @Then("^the user shall be able to view the list of indexes with end date from \"([^\"]*)\" and status as \"([^\"]*)\"$")
     public void the_user_shall_be_able_to_view_the_list_of_indexes_with_end_date_from_and_status_as(String arg1, String arg2) throws Throwable {
-        List<WebElement> statusList=edriver.findElements(By.xpath(Constants.index_StatusColumn_xpath));
+        List<WebElement> statusList=edriver.findElements(By.xpath(Constants.indexList_StatusColumn_xpath));
 
         for(WebElement temp:statusList)
         {
@@ -87,7 +85,7 @@ public class Page_Index_Steps extends CommonFn{
             }
         }
 
-        List<WebElement> startdateList=edriver.findElements(By.xpath(Constants.index_EndDateColumn_xpath));
+        List<WebElement> startdateList=edriver.findElements(By.xpath(Constants.indexList_EndDateColumn_xpath));
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd");
         Date dateSelected=formatter.parse(arg1);
         for(WebElement temp:startdateList)
@@ -126,7 +124,7 @@ public class Page_Index_Steps extends CommonFn{
     @Then("^the user shall be able to view the list of indexes with type as \"([^\"]*)\"$")
     public void the_user_shall_be_able_to_view_the_list_of_indexes_with_type_as(String type) throws Throwable {
 
-        List<WebElement> typeList=edriver.findElements(By.xpath(Constants.index_typeColumn_xpath));
+        List<WebElement> typeList=edriver.findElements(By.xpath(Constants.indexList_typeColumn_xpath));
 
         for(WebElement temp:typeList)
         {
@@ -170,7 +168,7 @@ public class Page_Index_Steps extends CommonFn{
       */
      public void checkRateBasis_IndexTabe(String rate)throws Exception
      {
-         List<WebElement> rateList= edriver.findElements(By.xpath(Constants.index_ratebasisColumn_xpath));
+         List<WebElement> rateList= edriver.findElements(By.xpath(Constants.indexList_ratebasisColumn_xpath));
 
          for(WebElement temp:rateList)
          {
@@ -185,7 +183,7 @@ public class Page_Index_Steps extends CommonFn{
     */
     public void checkName_IndexTabe(String name)throws Exception
     {
-        List<WebElement> nameList= edriver.findElements(By.xpath(Constants.index_nameColumn_xpath));
+        List<WebElement> nameList= edriver.findElements(By.xpath(Constants.indexList_nameColumn_xpath));
 
         for(WebElement temp:nameList)
         {
@@ -200,7 +198,7 @@ public class Page_Index_Steps extends CommonFn{
     */
     public void checkCurrency_IndexTabe(String currency)throws Exception
     {
-        List<WebElement> currList= edriver.findElements(By.xpath(Constants.index_currencyColumn_xpath));
+        List<WebElement> currList= edriver.findElements(By.xpath(Constants.indexList_currencyColumn_xpath));
 
         for(WebElement temp:currList)
         {
@@ -215,7 +213,7 @@ public class Page_Index_Steps extends CommonFn{
    */
     public void checkUom_IndexTabe(String uom)throws Exception
     {
-        List<WebElement> uomList= edriver.findElements(By.xpath(Constants.index_uomColumn_xpath));
+        List<WebElement> uomList= edriver.findElements(By.xpath(Constants.indexList_uomColumn_xpath));
 
         for(WebElement temp:uomList)
         {

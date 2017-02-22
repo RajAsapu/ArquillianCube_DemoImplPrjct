@@ -1,6 +1,5 @@
 package StepDef;
 
-import Constants.Urls;
 import DockerHandler.HandleDocker;
 import Setup.BaseClass;
 import Setup.CommonFn;
@@ -10,7 +9,6 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.When;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 
 import java.io.*;
@@ -77,7 +75,7 @@ public class Page_Common_steps extends BaseClass {
      */
     @When("^clicks on the search button$")
     public void clicks_on_the_search_button()throws Exception {
-        edriver.findElement(By.xpath(Constants.index_search_xpath)).click();
+        edriver.findElement(By.xpath(Constants.indexList_search_xpath)).click();
         Thread.sleep(5000);
     }
     /*

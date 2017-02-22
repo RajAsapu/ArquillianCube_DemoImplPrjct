@@ -1,16 +1,12 @@
 package Setup;
 
 import org.apache.log4j.Logger;
-import org.junit.Rule;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 import org.openqa.selenium.support.ui.Select;
 
 import java.util.List;
-
-import static Setup.CommonFn.rateBasis.*;
 
 public class CommonFn {
 
@@ -55,7 +51,7 @@ public class CommonFn {
      */
     public void setStatusIndex(String select)
     {
-        WebElement options=edriver.findElement(By.xpath(Constants.index_status_xpath));
+        WebElement options=edriver.findElement(By.xpath(Constants.indexList_status_xpath));
         Select s=new Select(options);
         switch (select)
         {
@@ -71,7 +67,7 @@ public class CommonFn {
 
     public void setType(type temp)
     {
-        WebElement type=edriver.findElement(By.xpath(Constants.index_type_xpath));
+        WebElement type=edriver.findElement(By.xpath(Constants.indexList_type_xpath));
         switch (temp)
         {
             case automatic:type.sendKeys("AUTOMATIC");
@@ -83,7 +79,7 @@ public class CommonFn {
     }
     public void setRateBasis(String rate)
     {
-        WebElement options=edriver.findElement(By.xpath(Constants.index_rateBasis_xpath));
+        WebElement options=edriver.findElement(By.xpath(Constants.indexList_rateBasis_xpath));
         Select s=new Select(options);
         switch (rate)
         {
@@ -103,18 +99,18 @@ public class CommonFn {
         /*
           Need to implement code to select the text from auto fill
          */
-        edriver.findElement(By.xpath(Constants.index_name_xpath)).sendKeys(key.substring(0,key.length()-1));
-        edriver.findElement(By.xpath(Constants.index_name_autofill_xpath)).click();
+        edriver.findElement(By.xpath(Constants.indexList_name_xpath)).sendKeys(key.substring(0,key.length()-1));
+        edriver.findElement(By.xpath(Constants.indexList_name_autofill_xpath)).click();
     }
     public void selectCurrency(String key)
     {
-        WebElement options=edriver.findElement(By.xpath(Constants.index_currency_xpath));
+        WebElement options=edriver.findElement(By.xpath(Constants.indexList_currency_xpath));
         Select currList=new Select(options);
         currList.selectByVisibleText(key);
     }
     public void selectUOM(String key)
     {
-        WebElement options=edriver.findElement(By.xpath(Constants.index_uom_xpath));
+        WebElement options=edriver.findElement(By.xpath(Constants.indexList_uom_xpath));
         Select uomList=new Select(options);
         uomList.selectByVisibleText(key);
     }

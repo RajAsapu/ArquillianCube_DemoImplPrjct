@@ -8,7 +8,7 @@ public class urls {
     /*
       Enterprise Module urls
      */
-    public static String pricingUrl="https://epe-priceconfig-ui.dev.aws.wfscorp.com/home";
+    public static String devPricingUrl="https://epe-priceconfig-ui.dev.aws.wfscorp.com/home";
 
 
 }

@@ -1,5 +1,6 @@
 package setup;
 
+import constants.urls;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 
@@ -9,7 +10,7 @@ public class baseClass {
 
     public WebDriver driver;
     private EventFiringWebDriver edriver;
-    private iEventListener listener;
+    private IEventListener listener;
 
     public enum url{Pricing};
 
@@ -27,13 +28,13 @@ public class baseClass {
 
     public EventFiringWebDriver initBrowser(String url)
     {
-        driver= openBrowser.getDriver(openBrowser.Open.FIREFOX);
+        driver= OpenBrowser.getDriver(OpenBrowser.Open.CHROME);
 
-        listener=new iEventListener();
+        listener=new IEventListener();
         edriver=new EventFiringWebDriver(driver);
         edriver.register(listener);
 
-        edriver.navigate().to(url);
+        edriver.navigate().to(urls.devPricingUrl);
         edriver.manage().window().maximize();
         edriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         edriver.manage().timeouts().pageLoadTimeout(10,TimeUnit.SECONDS);

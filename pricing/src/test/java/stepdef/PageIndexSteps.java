@@ -52,7 +52,7 @@ public class pageIndexSteps extends commonFunctions {
                 assert false;
             }
         }
-
+        Thread.sleep(4000);
         List<WebElement> startdateList=edriver.findElements(By.xpath(constants.indexList_StartDateColumn_xpath));
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd");
         Date dateSelected=formatter.parse(arg1);
@@ -264,5 +264,8 @@ public class pageIndexSteps extends commonFunctions {
         setRateBasis(rate);
         setStatusIndex("Active");
         steps.clicks_on_the_search_button();
+        /*
+          Need to implement code to check the created index !!
+         */
     }
 }

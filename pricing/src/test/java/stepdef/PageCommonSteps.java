@@ -1,8 +1,8 @@
 package stepdef;
 
 import cucumber.api.java.en.And;
-import dockerhandler.handleDocker;
-import setup.baseClass;
+import dockerhandler.HandleDocker;
+import setup.BaseClass;
 import setup.commonFunctions;
 import setup.constants;
 import setup.driverBean;
@@ -16,7 +16,7 @@ import java.io.*;
 import java.util.Map;
 import java.util.Properties;
 
-public class pageCommonSteps extends baseClass {
+public class pageCommonSteps extends BaseClass {
     static EventFiringWebDriver edriver;
     final static Logger logger = Logger.getLogger(pageCommonSteps.class.getName());
     commonFunctions fn;
@@ -24,7 +24,7 @@ public class pageCommonSteps extends baseClass {
       Global variables
      */
     public Properties props=new Properties();
-    handleDocker dock=new handleDocker();
+    HandleDocker dock=new HandleDocker();
     /*
       Update Pricing.properties file with ip address and host port
      */
@@ -46,7 +46,7 @@ public class pageCommonSteps extends baseClass {
             props.setProperty("pricingui.ipaddress","localhost");
             props.setProperty("pricingui.hostname","4200");
 
-            map=dock.getIPandHostPort(handleDocker.RContainer.price_service);
+            map=dock.getIPandHostPort(HandleDocker.RContainer.price_service);
             props.setProperty("pricingservice.ipaddress",map.get("IPAddress"));
             props.setProperty("pricingservice.hostname",map.get("HostPort"));
             props.store(out,"Ip address and host port are updated");
@@ -59,7 +59,7 @@ public class pageCommonSteps extends baseClass {
     }
     @Given("^the docker containers are running$")
     public void the_docker_containers_are_running() {
-        new handleDocker().runDocker();
+        new HandleDocker().runDocker(HandleDocker.env.dev);
         updateProperties();
     }
     /*

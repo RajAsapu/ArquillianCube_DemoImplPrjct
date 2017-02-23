@@ -81,18 +81,19 @@ public class commonFunctions {
     {
         WebElement options=edriver.findElement(By.xpath(constants.indexList_rateBasis_xpath));
         Select s=new Select(options);
-        switch (rate)
-        {
-            case "All": s.selectByIndex(0);
-                break;
-            case "Flat":s.selectByIndex(1);
-                break;
-            case "Price_Point_Scale":s.selectByIndex(2);
-                break;
-            case "Point_Break_Scale":s.selectByIndex(3);
-                break;
-            default:logger.error("Please provide valid rate Basis value in the index page");
-        }
+        s.selectByVisibleText(rate);
+//        switch (rate)
+//        {
+//            case "All": s.selectByIndex(0);
+//                break;
+//            case "Flat":s.selectByIndex(1);
+//                break;
+//            case "Price_Point_Scale":s.selectByIndex(2);
+//                break;
+//            case "Point_Break_Scale":s.selectByIndex(3);
+//                break;
+//            default:logger.error("Please provide valid rate Basis value in the index page");
+//        }
     }
     public void selectName(String key)
     {
@@ -100,18 +101,31 @@ public class commonFunctions {
           Need to implement code to select the text from auto fill
          */
         edriver.findElement(By.xpath(constants.indexList_name_xpath)).sendKeys(key.substring(0,key.length()-1));
-        edriver.findElement(By.xpath(constants.indexList_name_autofill_xpath)).click();
+        List<WebElement> autofillList=edriver.findElements(By.xpath(constants.indexList_name_autofill_xpath));
+        if(autofillList.size()==0)
+        {
+            autofillList=edriver.findElements(By.xpath(constants.indexCreate_name_autofill_path));
+        }
+        autofillList.listIterator().next().click();
     }
     public void selectCurrency(String key)
     {
-        WebElement options=edriver.findElement(By.xpath(constants.indexList_currency_xpath));
-        Select currList=new Select(options);
+        List<WebElement> autofillList=edriver.findElements(By.xpath(constants.indexList_currency_xpath));
+        if(autofillList.size()==0)
+        {
+            autofillList=edriver.findElements(By.xpath(constants.indexCreate_currency_xpath));
+        }
+        Select currList=new Select(autofillList.listIterator().next());
         currList.selectByVisibleText(key);
     }
     public void selectUOM(String key)
     {
-        WebElement options=edriver.findElement(By.xpath(constants.indexList_uom_xpath));
-        Select uomList=new Select(options);
-        uomList.selectByVisibleText(key);
+        List<WebElement> autofillList=edriver.findElements(By.xpath(constants.indexList_uom_xpath));
+        if(autofillList.size()==0)
+        {
+            autofillList=edriver.findElements(By.xpath(constants.indexCreate_uom_xpath));
+        }
+        Select currList=new Select(autofillList.listIterator().next());
+        currList.selectByVisibleText(key);
     }
 }

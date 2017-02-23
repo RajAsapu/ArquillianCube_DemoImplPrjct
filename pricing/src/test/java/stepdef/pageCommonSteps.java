@@ -1,5 +1,6 @@
 package stepdef;
 
+import cucumber.api.java.en.And;
 import dockerhandler.handleDocker;
 import setup.baseClass;
 import setup.commonFunctions;
@@ -76,15 +77,24 @@ public class pageCommonSteps extends baseClass {
       User clicks on the search button in the Index and Currency Exchange pages
      */
     @When("^clicks on the search button$")
-    public void clicks_on_the_search_button()throws Exception {
+    public void clicks_on_the_search_button() {
         edriver.findElement(By.xpath(constants.indexList_search_xpath)).click();
-        Thread.sleep(5000);
+    }
+    /*
+    User clicks on the search button in the Index and Currency Exchange pages
+   */
+    @And("^clicks on the submit button$")
+    public void clicks_on_the_submit_button() {
+        edriver.findElement(By.xpath(constants.indexCreate_submit_xpath)).click();
     }
     /*
       This method is used to navigate to List or Create pages under the Menus (calculation,workbook,index,currency exchange or formula)
      */
     @Given("^the user has navigated to the \"([^\"]*)\" page under the \"([^\"]*)\"$")
-    public void the_user_has_navigated_to_the_page_under_the(String arg1, String arg2)throws Exception{
-        fn.moveTo(commonFunctions.module.Index, commonFunctions.page.List);
+    public void the_user_has_navigated_to_the_page_under_the(String page, String module)throws Exception{
+        if(page.equals("List"))
+            fn.moveTo(commonFunctions.module.Index, commonFunctions.page.List);
+        else if(page.equals("Create"))
+            fn.moveTo(commonFunctions.module.Index, commonFunctions.page.Create);
     }
 }

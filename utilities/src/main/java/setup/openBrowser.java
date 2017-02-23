@@ -2,6 +2,7 @@ package setup;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 
@@ -18,7 +19,12 @@ class openBrowser {
         {
             case CHROME:
                 System.setProperty("webdriver.chrome.driver",".//resources/chromedriver".replaceFirst(".","utilities/src/main"));
-                driver=new ChromeDriver();
+                ChromeOptions options=new ChromeOptions();
+                options.addArguments("--no-sandbox");
+                options.addArguments("--test-type");
+                options.addArguments("--disable-plugins");
+                options.addArguments("--disable-extensions");
+                driver=new ChromeDriver(options);
                 break;
             case FIREFOX:
                 System.setProperty("webdriver.gecko.driver",".//resources/geckodriver".replaceFirst(".","utilities/src/main"));

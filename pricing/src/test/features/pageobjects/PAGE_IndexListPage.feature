@@ -1,8 +1,8 @@
 @PageObjects
 @Page_Index
-Feature: To verify if the user is able to access create page under index.
+Feature: To verify if the user is able to access list page under index.
 
-  Acceptance Criteria: User shall be able to access features in the index page.
+  Acceptance Criteria: User shall be able to access features in the list page under index.
 
   Background:
       Given the docker containers are running

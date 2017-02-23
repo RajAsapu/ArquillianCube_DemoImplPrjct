@@ -16,7 +16,7 @@ public class constants {
       public static String login_password_id="password";
       public static String login_submit_id="kc-login";
       /*
-       Index page identifiers
+       Index : List page identifiers
        */
       public static String indexList_status_xpath ="//*/calc-rule-list/div/div/div/div[2]/form/p-fieldset/fieldset/div/div/div[1]/div[3]/div/select";
       public static String indexList_startdatepicker_xpath ="//*/app-root/calc-rule-list/div/div/div/div[2]/form/p-fieldset/fieldset/div/div/div[1]/div[1]/div/p-calendar/span/button";
@@ -26,7 +26,7 @@ public class constants {
       public static String indexList_search_xpath ="//*/app-root/calc-rule-list/div/div/div/div[2]/form/p-fieldset/fieldset/div/div/div[2]/div[6]/button";
       public static String indexList_StatusColumn_xpath ="//*/p-datatable/div/div[2]/table/tbody/tr[*]/td[1]";
       public static String indexList_type_xpath ="//*/p-fieldset/fieldset/div/div/div[2]/div[1]/div/input";
-      public static String indexList_rateBasis_xpath ="//*/p-fieldset/fieldset/div/div/div[2]/div[2]/div/select";
+      public static String indexList_rateBasis_xpath ="//*/select[@ng-reflect-name='rateBasis']";
       public static String indexList_name_xpath ="//*/p-autocomplete/span/input";
       public static String indexList_currency_xpath ="//*/fieldset/div/div/div[2]/div[4]/div/select";
       public static String indexList_uom_xpath ="//*/fieldset/div/div/div[2]/div[5]/div/select";
@@ -36,4 +36,19 @@ public class constants {
       public static String indexList_nameColumn_xpath ="//*/p-datatable/div/div[2]/table/tbody/tr[*]/td[5]";
       public static String indexList_currencyColumn_xpath ="//*/p-datatable/div/div[2]/table/tbody/tr[*]/td[10]";
       public static String indexList_uomColumn_xpath ="//*/p-datatable/div/div[2]/table/tbody/tr[*]/td[11]";
+      /*
+       Index : Create page identifiers
+       */
+      public static String indexCreate_name_autofill_path="//*/div/div/div/form/p-fieldset/fieldset/div/div/div[1]/div/p-autocomplete/span/div/ul/li";
+      public static String indexCreate_lowprice_xpath="//*[@ng-reflect-name='low']";
+      public static String indexCreate_midprice_xpath="//*[@ng-reflect-name='mid']";
+      public static String indexCreate_highprice_xpath="//*[@ng-reflect-name='high']";
+      public static String indexCreate_closeprice_xpath="//*[@ng-reflect-name='close']";
+      public static String indexCreate_startDatePicker_xpath="//*/div/div/div[3]/div/p-calendar/span/button";
+      public static String indexCreate_endDatePicker_xpath="//*/div/div/div[4]/div/p-calendar/span/button";
+      public static String indexCreate_currency_xpath="//*/p-fieldset/fieldset/div/div/div[9]/div/select";
+      public static String indexCreate_uom_xpath="//*/p-fieldset/fieldset/div/div/div[10]/div/select";
+      public static String indexCreate_comment_xpath="//*[@id='txtDesc']";
+      public static String indexCreate_submit_xpath="//*/button[text()='Submit']";
+
 }

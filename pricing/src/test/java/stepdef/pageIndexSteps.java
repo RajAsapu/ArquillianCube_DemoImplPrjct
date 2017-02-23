@@ -1,5 +1,8 @@
 package stepdef;
 
+import com.google.common.base.Verify;
+import cucumber.api.java.en.And;
+import org.codehaus.groovy.runtime.dgmimpl.arrays.IntegerArrayGetAtMetaMethod;
 import setup.commonFunctions;
 import setup.constants;
 import setup.driverBean;
@@ -12,13 +15,16 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 public class pageIndexSteps extends commonFunctions {
     private static EventFiringWebDriver edriver= driverBean.getDriver();
     final static Logger logger = Logger.getLogger(pageIndexSteps.class.getName());
+    public pageCommonSteps steps=new pageCommonSteps();
 
     @When("^the user enters the start date as \"([^\"]*)\" and status as \"([^\"]*)\"$")
     public void the_user_enters_the_start_date_as_and_status_as(String date, String status)throws Exception{
@@ -70,7 +76,6 @@ public class pageIndexSteps extends commonFunctions {
 
         setStatusIndex(status);
         setType(type.manual);
-
     }
 
     @Then("^the user shall be able to view the list of indexes with end date from \"([^\"]*)\" and status as \"([^\"]*)\"$")
@@ -144,6 +149,11 @@ public class pageIndexSteps extends commonFunctions {
     @When("^name as \"([^\"]*)\"$")
     public void name_as(String name) throws Throwable {
         selectName(name);
+    }
+
+    @And("^comment as \"([^\"]*)\"$")
+    public void comment_as(String comment) throws Throwable {
+        edriver.findElement(By.xpath(constants.indexCreate_comment_xpath)).sendKeys(comment);
     }
 
     @When("^currency as \"([^\"]*)\"$")
@@ -223,5 +233,36 @@ public class pageIndexSteps extends commonFunctions {
             }
         }
     }
-     
+    /*
+     Method to insert high,medium,low and close prices
+     */
+    @When("^([^\"]*),([^\"]*),([^\"]*) and closePrice are entered$")
+    public void and_are_entered(String low, String mid, String high) throws Throwable {
+        edriver.findElement(By.xpath(constants.indexCreate_lowprice_xpath)).sendKeys(low.trim());
+        edriver.findElement(By.xpath(constants.indexCreate_midprice_xpath)).sendKeys(mid.trim());
+        edriver.findElement(By.xpath(constants.indexCreate_highprice_xpath)).sendKeys(high.trim());
+        Random r=new Random();
+        edriver.findElement(By.xpath(constants.indexCreate_closeprice_xpath)).sendKeys(String.valueOf(new DecimalFormat("$#.00000").format(r.nextDouble()* Double.parseDouble(high))));
+    }
+
+    @And("^start date as \"([^\"]*)\" and end date as \"([^\"]*)\"")
+    public void enterStartDateAndEndDate(String startDate, String endDate) throws Throwable {
+        WebElement datepicker=edriver.findElement(By.xpath(constants.indexCreate_startDatePicker_xpath));
+
+        Actions act=new Actions(edriver);
+        act.click(datepicker).sendKeys(startDate).perform();
+        act.sendKeys(Keys.TAB).perform();
+
+        datepicker=edriver.findElement(By.xpath(constants.indexCreate_endDatePicker_xpath));
+        act.click(datepicker).sendKeys(endDate).perform();
+        act.sendKeys(Keys.TAB).perform();
+    }
+    @Then("^the user shall be able to view the created index in the list on filtering with \"([^\"]*)\"$")
+    public void the_user_shall_be_able_to_view_the_created_index_in_the_list_on_filtering_with(String rate) throws Throwable {
+        Thread.sleep(5000);
+        Verify.verify(edriver.getCurrentUrl().contains("/index/list"));
+        setRateBasis(rate);
+        setStatusIndex("Active");
+        steps.clicks_on_the_search_button();
+    }
 }

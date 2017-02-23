@@ -1,5 +1,6 @@
 rootProject.name = 'wfs'
-include 'Pricing'
-include 'Utilities'
-include 'Mapper'
+
+include 'utilities'
+include 'mapper'
+include 'pricing'
 

@@ -8,10 +8,10 @@ import org.openqa.selenium.support.ui.Select;
 
 import java.util.List;
 
-public class commonFunctions {
+public class CommonFunctions {
 
-    final static Logger logger = Logger.getLogger(commonFunctions.class.getName());
-    private static EventFiringWebDriver edriver= driverBean.getDriver();
+    final static Logger logger = Logger.getLogger(CommonFunctions.class.getName());
+    private static EventFiringWebDriver edriver= DriverBean.getDriver();
     public enum page{List,Create};
     public enum module{Calculation_Rule,Workbook,Index,Currency_Exchange,Formula}
     public enum type {manual,automatic}
@@ -22,9 +22,9 @@ public class commonFunctions {
      */
     public void login()
     {
-        edriver.findElement(By.id(constants.login_username_id)).sendKeys(constants.username);
-        edriver.findElement(By.id(constants.login_password_id)).sendKeys(constants.password);
-        edriver.findElement(By.id(constants.login_submit_id)).click();
+        edriver.findElement(By.id(Constants.login_username_id)).sendKeys(Constants.username);
+        edriver.findElement(By.id(Constants.login_password_id)).sendKeys(Constants.password);
+        edriver.findElement(By.id(Constants.login_submit_id)).click();
     }
     /*
      Method to navigate to a page under a module (eg : List under Index)
@@ -51,7 +51,7 @@ public class commonFunctions {
      */
     public void setStatusIndex(String select)
     {
-        WebElement options=edriver.findElement(By.xpath(constants.indexList_status_xpath));
+        WebElement options=edriver.findElement(By.xpath(Constants.indexList_status_xpath));
         Select s=new Select(options);
         switch (select)
         {
@@ -67,7 +67,7 @@ public class commonFunctions {
 
     public void setType(type temp)
     {
-        WebElement type=edriver.findElement(By.xpath(constants.indexList_type_xpath));
+        WebElement type=edriver.findElement(By.xpath(Constants.indexList_type_xpath));
         switch (temp)
         {
             case automatic:type.sendKeys("AUTOMATIC");
@@ -79,7 +79,7 @@ public class commonFunctions {
     }
     public void setRateBasis(String rate)
     {
-        WebElement options=edriver.findElement(By.xpath(constants.indexList_rateBasis_xpath));
+        WebElement options=edriver.findElement(By.xpath(Constants.indexList_rateBasis_xpath));
         Select s=new Select(options);
         s.selectByVisibleText(rate);
 //        switch (rate)
@@ -100,30 +100,30 @@ public class commonFunctions {
         /*
           Need to implement code to select the text from auto fill
          */
-        edriver.findElement(By.xpath(constants.indexList_name_xpath)).sendKeys(key.substring(0,key.length()-1));
-        List<WebElement> autofillList=edriver.findElements(By.xpath(constants.indexList_name_autofill_xpath));
+        edriver.findElement(By.xpath(Constants.indexList_name_xpath)).sendKeys(key.substring(0,key.length()-1));
+        List<WebElement> autofillList=edriver.findElements(By.xpath(Constants.indexList_name_autofill_xpath));
         if(autofillList.size()==0)
         {
-            autofillList=edriver.findElements(By.xpath(constants.indexCreate_name_autofill_path));
+            autofillList=edriver.findElements(By.xpath(Constants.indexCreate_name_autofill_path));
         }
         autofillList.listIterator().next().click();
     }
     public void selectCurrency(String key)
     {
-        List<WebElement> autofillList=edriver.findElements(By.xpath(constants.indexList_currency_xpath));
+        List<WebElement> autofillList=edriver.findElements(By.xpath(Constants.indexList_currency_xpath));
         if(autofillList.size()==0)
         {
-            autofillList=edriver.findElements(By.xpath(constants.indexCreate_currency_xpath));
+            autofillList=edriver.findElements(By.xpath(Constants.indexCreate_currency_xpath));
         }
         Select currList=new Select(autofillList.listIterator().next());
         currList.selectByVisibleText(key);
     }
     public void selectUOM(String key)
     {
-        List<WebElement> autofillList=edriver.findElements(By.xpath(constants.indexList_uom_xpath));
+        List<WebElement> autofillList=edriver.findElements(By.xpath(Constants.indexList_uom_xpath));
         if(autofillList.size()==0)
         {
-            autofillList=edriver.findElements(By.xpath(constants.indexCreate_uom_xpath));
+            autofillList=edriver.findElements(By.xpath(Constants.indexCreate_uom_xpath));
         }
         Select currList=new Select(autofillList.listIterator().next());
         currList.selectByVisibleText(key);

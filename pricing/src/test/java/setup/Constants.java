@@ -1,6 +1,6 @@
 package setup;
 
-public class constants {
+public class Constants {
       /*
       Enterprise pricing identifiers
      */

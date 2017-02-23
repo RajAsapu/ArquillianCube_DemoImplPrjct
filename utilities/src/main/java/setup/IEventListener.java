@@ -5,7 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.events.WebDriverEventListener;
 
-public class iEventListener implements WebDriverEventListener {
+public class IEventListener implements WebDriverEventListener {
     @Override
     public void beforeNavigateTo(String url, WebDriver driver) {
 

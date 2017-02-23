@@ -1,12 +1,12 @@
 package setup;
 
-import constants.urls;
+import constants.Urls;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 
 import java.util.concurrent.TimeUnit;
 
-public class baseClass {
+public class BaseClass {
 
     public WebDriver driver;
     private EventFiringWebDriver edriver;
@@ -34,7 +34,7 @@ public class baseClass {
         edriver=new EventFiringWebDriver(driver);
         edriver.register(listener);
 
-        edriver.navigate().to(urls.devPricingUrl);
+        edriver.navigate().to(Urls.devPricingUrl);
         edriver.manage().window().maximize();
         edriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         edriver.manage().timeouts().pageLoadTimeout(10,TimeUnit.SECONDS);

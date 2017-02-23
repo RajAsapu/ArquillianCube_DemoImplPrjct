@@ -7,7 +7,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 
 
-class openBrowser {
+class OpenBrowser {
 
     static WebDriver driver;
     static enum Open{CHROME,IE,FIREFOX}

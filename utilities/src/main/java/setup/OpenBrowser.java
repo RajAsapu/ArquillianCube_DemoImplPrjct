@@ -7,10 +7,10 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 
 
-class OpenBrowser {
+public class OpenBrowser {
 
     static WebDriver driver;
-    static enum Open{CHROME,IE,FIREFOX}
+    public static enum Open{CHROME,IE,FIREFOX}
 
     public static WebDriver getDriver(Open browser)
     {

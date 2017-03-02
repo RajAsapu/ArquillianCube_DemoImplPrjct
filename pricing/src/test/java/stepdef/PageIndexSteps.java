@@ -25,7 +25,7 @@ public class PageIndexSteps extends CommonFunctions {
     final static Logger logger = Logger.getLogger(PageIndexSteps.class.getName());
     public PageCommonSteps steps=new PageCommonSteps();
 
-    @When("^the user enters the start date as \"([^\"]*)\" and status as \"([^\"]*)\"$")
+    @When("^the user enters the start date as ([^\"]*) and status as ([^\"]*)$")
     public void the_user_enters_the_start_date_as_and_status_as(String date, String status)throws Exception{
 
         WebElement datepicker=edriver.findElement(By.xpath(Constants.indexList_startdatepicker_xpath));
@@ -115,7 +115,7 @@ public class PageIndexSteps extends CommonFunctions {
 
         edriver.quit();
     }
-    @When("^the user enters the type as \"([^\"]*)\"$")
+    @When("^the user enters the type as ([^\"]*)$")
     public void the_user_enters_the_type_as(String type) throws Throwable {
         if(type.equals("MANUAL"))
             setType(CommonFunctions.type.manual);
@@ -140,37 +140,45 @@ public class PageIndexSteps extends CommonFunctions {
 
     }
 
-    @When("^the user enters rate basis as \"([^\"]*)\"$")
+    @When("^the user enters rate basis as ([^\"]*)$")
     public void the_user_enters_rate_basis_as(String rateBase) throws Throwable {
         setRateBasis(rateBase);
     }
 
-    @When("^name as \"([^\"]*)\"$")
+    @When("^name as ([^\"]*)$")
     public void name_as(String name) throws Throwable {
         selectName(name);
     }
 
-    @And("^comment as \"([^\"]*)\"$")
+    @Then("^the codes shall be auto populated$")
+    public void the_codes_shall_be_auto_populated()throws Exception
+    {
+
+    }
+
+    @And("^comment as ([^\"]*)$")
     public void comment_as(String comment) throws Throwable {
         edriver.findElement(By.xpath(Constants.indexCreate_comment_xpath)).sendKeys(comment);
     }
 
-    @When("^currency as \"([^\"]*)\"$")
+    @When("^currency as ([^\"]*)$")
     public void currency_as(String curr) throws Throwable {
         selectCurrency(curr);
     }
 
-    @When("^unit of measurement as \"([^\"]*)\"$")
+    @When("^unit of measurement as ([^\"]*)$")
     public void unit_of_measurement_as(String uom) throws Throwable {
         selectUOM(uom);
     }
 
-    @Then("^the user shall be able to view the list of indexes matching the above search criteria$")
-    public void the_user_shall_be_able_to_view_the_list_of_indexes_matching_the_above_search_criteria() throws Throwable {
-        checkRateBasis_IndexTabe("FLAT");
-        checkName_IndexTabe("NY RBOB Prem Brg");
-        checkCurrency_IndexTabe("USD");
-        checkUom_IndexTabe("USG");
+    @Then("^the user shall be able to view the list of indexes matching the search criteria as \"([^\"]*)\" on list page$")
+    public void the_user_shall_be_able_to_view_the_list_of_indexes_matching_the_above_search_criteria(String args) throws Throwable {
+        Thread.sleep(3000);
+        String[] params=args.split(",");
+        checkRateBasis_IndexTabe(params[3]);
+        checkName_IndexTabe(params[4]);
+        checkCurrency_IndexTabe(params[5]);
+        checkUom_IndexTabe(params[6]);
     }
      /*
       Check if the index list has expected Rate basis type
@@ -181,7 +189,7 @@ public class PageIndexSteps extends CommonFunctions {
 
          for(WebElement temp:rateList)
          {
-             if(!temp.getText().equals(rate))
+             if(!temp.getText().equalsIgnoreCase(rate))
              {
                  throw new Exception("Rate Basis doesn't match, Expected :"+rate+" Actual:"+temp.getText());
              }
@@ -235,16 +243,17 @@ public class PageIndexSteps extends CommonFunctions {
     /*
      Method to insert high,medium,low and close prices
      */
-    @When("^([^\"]*),([^\"]*),([^\"]*) and closePrice are entered$")
-    public void and_are_entered(String low, String mid, String high) throws Throwable {
-        edriver.findElement(By.xpath(Constants.indexCreate_lowprice_xpath)).sendKeys(low.trim());
-        edriver.findElement(By.xpath(Constants.indexCreate_midprice_xpath)).sendKeys(mid.trim());
-        edriver.findElement(By.xpath(Constants.indexCreate_highprice_xpath)).sendKeys(high.trim());
-        Random r=new Random();
-        edriver.findElement(By.xpath(Constants.indexCreate_closeprice_xpath)).sendKeys(String.valueOf(new DecimalFormat("$#.00000").format(r.nextDouble()* Double.parseDouble(high))));
+    @When("^([^\"]*),([^\"]*),([^\"]*) and ([^\"]*) are entered$")
+    public void and_are_entered(String low, String mid, String high,String close) throws Throwable {
+        edriver.findElement(By.id(Constants.indexCreate_lowprice_id)).sendKeys(low.trim());
+        edriver.findElement(By.id(Constants.indexCreate_midprice_id)).sendKeys(mid.trim());
+        edriver.findElement(By.id(Constants.indexCreate_highprice_id)).sendKeys(high.trim());
+//        Random r=new Random();
+//        edriver.findElement(By.xpath(Constants.indexCreate_closeprice_xpath)).sendKeys(String.valueOf(new DecimalFormat("$#.00000").format(r.nextDouble()* Double.parseDouble(high))));
+        edriver.findElement(By.xpath(Constants.indexCreate_closeprice_xpath)).sendKeys(close.trim());
     }
 
-    @And("^start date as \"([^\"]*)\" and end date as \"([^\"]*)\"")
+    @And("^start date as ([^\"]*) and end date as ([^\"]*)")
     public void enterStartDateAndEndDate(String startDate, String endDate) throws Throwable {
         WebElement datepicker=edriver.findElement(By.xpath(Constants.indexCreate_startDatePicker_xpath));
 
@@ -256,7 +265,7 @@ public class PageIndexSteps extends CommonFunctions {
         act.click(datepicker).sendKeys(endDate).perform();
         act.sendKeys(Keys.TAB).perform();
     }
-    @Then("^the user shall be able to view the created index in the list on filtering with \"([^\"]*)\"$")
+    @Then("^the user shall be able to view the created index in the list on filtering with ([^\"]*)$")
     public void the_user_shall_be_able_to_view_the_created_index_in_the_list_on_filtering_with(String rate) throws Throwable {
         Thread.sleep(5000);
         Verify.verify(edriver.getCurrentUrl().contains("/index/list"));

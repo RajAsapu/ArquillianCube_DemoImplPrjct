@@ -14,7 +14,7 @@ public class CommonFunctions {
     private static EventFiringWebDriver edriver= DriverBean.getDriver();
     public enum page{List,Create};
     public enum module{Calculation_Rule,Workbook,Index,Currency_Exchange,Formula}
-    public enum type {manual,automatic}
+    public enum type {all,manual,automatic}
     public enum rateBasis{All,Flat,Price_Point_Scale,Point_Break_Scale}
 
     /*
@@ -68,11 +68,15 @@ public class CommonFunctions {
     public void setType(type temp)
     {
         WebElement type=edriver.findElement(By.xpath(Constants.indexList_type_xpath));
+        Select s=new Select(type);
+
         switch (temp)
         {
-            case automatic:type.sendKeys("AUTOMATIC");
+            case all:s.selectByIndex(0);
+                break;
+            case automatic:s.selectByIndex(2);
                     break;
-            case manual:   type.sendKeys("MANUAL");
+            case manual:   s.selectByIndex(1);
                     break;
             default:logger.error("Please provide valid type value in the index page");
         }
@@ -82,18 +86,6 @@ public class CommonFunctions {
         WebElement options=edriver.findElement(By.xpath(Constants.indexList_rateBasis_xpath));
         Select s=new Select(options);
         s.selectByVisibleText(rate);
-//        switch (rate)
-//        {
-//            case "All": s.selectByIndex(0);
-//                break;
-//            case "Flat":s.selectByIndex(1);
-//                break;
-//            case "Price_Point_Scale":s.selectByIndex(2);
-//                break;
-//            case "Point_Break_Scale":s.selectByIndex(3);
-//                break;
-//            default:logger.error("Please provide valid rate Basis value in the index page");
-//        }
     }
     public void selectName(String key)
     {

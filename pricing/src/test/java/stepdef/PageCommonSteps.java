@@ -1,5 +1,6 @@
 package stepdef;
 
+import constants.Urls;
 import cucumber.api.java.en.And;
 import dockerhandler.HandleDocker;
 import setup.BaseClass;
@@ -49,6 +50,19 @@ public class PageCommonSteps extends BaseClass {
             map=dock.getIPandHostPort(HandleDocker.RContainer.price_service);
             props.setProperty("pricingservice.ipaddress",map.get("IPAddress"));
             props.setProperty("pricingservice.hostname",map.get("HostPort"));
+
+            map=dock.getIPandHostPort(HandleDocker.RContainer.price_db);
+            props.setProperty("pricingdb.ipaddress",map.get("IPAddress"));
+            props.setProperty("pricingdb.hostname",map.get("HostPort"));
+
+            map=dock.getIPandHostPort(HandleDocker.RContainer.price_datamock);
+            props.setProperty("pricingdatamock.ipaddress",map.get("IPAddress"));
+            props.setProperty("pricingdatamock.hostname",map.get("HostPort"));
+
+            map=dock.getIPandHostPort(HandleDocker.RContainer.price_engine);
+            props.setProperty("pricingengine.ipaddress",map.get("IPAddress"));
+            props.setProperty("pricingengine.hostname",map.get("HostPort"));
+
             props.store(out,"Ip address and host port are updated");
             logger.info("Updated pricing properties");
         }
@@ -59,7 +73,12 @@ public class PageCommonSteps extends BaseClass {
     }
     @Given("^the docker containers are running$")
     public void the_docker_containers_are_running() {
-        new HandleDocker().runDocker(HandleDocker.env.dev);
+        new HandleDocker().runDocker(HandleDocker.env.test);
+        updateProperties();
+    }
+    @Given("^the docker mock containers are running$")
+    public void the_docker_mock_containers_are_running() {
+        new HandleDocker().runDocker(HandleDocker.env.test);
         updateProperties();
     }
     /*
@@ -68,6 +87,7 @@ public class PageCommonSteps extends BaseClass {
     @Given("^the user has logged into the pricing application$")
     public void the_user_has_logged_into_the_pricing_application(){
         edriver=initBrowser("http://"+props.getProperty("pricingui.ipaddress")+":"+props.getProperty("pricingui.hostname"));
+        //edriver=initBrowser(Urls.devPricingUrl);
         DriverBean.setDriver(edriver);
 
         fn=new CommonFunctions();

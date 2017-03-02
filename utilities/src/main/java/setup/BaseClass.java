@@ -34,7 +34,7 @@ public class BaseClass {
         edriver=new EventFiringWebDriver(driver);
         edriver.register(listener);
 
-        edriver.navigate().to(Urls.devPricingUrl);
+        edriver.navigate().to(url);
         edriver.manage().window().maximize();
         edriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         edriver.manage().timeouts().pageLoadTimeout(10,TimeUnit.SECONDS);

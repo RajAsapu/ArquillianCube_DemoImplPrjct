@@ -42,7 +42,7 @@ public class DockerPull extends DockerConstants{
             }
 
     }
-    @Test
+
     public void buildPriceUi()throws Exception
     {
         /*
@@ -55,5 +55,19 @@ public class DockerPull extends DockerConstants{
 //        ec.exec("ls -l");
 ////        ec.exec("npm install -g angular-cli");
 ////        ec.exec("ng build "+path);
+    }
+
+    public void loadIndexLookupTables()throws Exception
+    {
+        ec.exec("docker exec -it runPriceDB4.0 bash");
+        ec.exec("cqlsh 10.172.5.62;");
+        ec.exec("COPY wfs_pricing.index_lookup TO './indexLookUp.csv';");
+        Thread.sleep(4000);
+        ec.exec("exit");
+        ec.exec("cqlsh");
+        ec.exec("COPY wfs_pricing.index_lookup FROM './indexLookUp.csv';");
+        Thread.sleep(4000);
+        ec.exec("exit");
+
     }
 }

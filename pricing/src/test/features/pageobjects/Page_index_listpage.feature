@@ -1,5 +1,4 @@
 @PageObjects
-@Page_Index
 Feature: To verify if the user is able to access list page under index.
 
   Acceptance Criteria: User shall be able to access features in the list page under index.
@@ -10,7 +9,7 @@ Feature: To verify if the user is able to access list page under index.
 
   Scenario: To verify if the user is able to search on the list page with start date as filter.
       Given the user has navigated to the "List" page under the "Index"
-      When  the user enters the start date as "2016-12-10" and status as "Active"
+      When  the user enters the start date as 2016-12-10 and status as Active
       And   clicks on the search button
       Then  the user shall be able to view the list of indexes with start date from "2016-12-10" and status as "Active"
 
@@ -22,18 +21,18 @@ Feature: To verify if the user is able to access list page under index.
 
   Scenario: To verify if the user is able to search on the list page with type as filter.
       Given the user has navigated to the "List" page under the "Index"
-      When  the user enters the type as "MANUAL"
+      When  the user enters the type as MANUAL
       And   clicks on the search button
       Then  the user shall be able to view the list of indexes with type as "MANUAL"
 
   Scenario: To verify if the user is able to search on the list page with rate basis and currency as filters.
       Given the user has navigated to the "List" page under the "Index"
-      When  the user enters rate basis as "Flat"
-      And   name as "NY RBOB Prem Brg"
-      And   currency as "USD"
-      And   unit of measurement as "USG"
+      When  the user enters rate basis as Flat
+      And   name as NY RBOB Prem Brg
+      And   currency as USD
+      And   unit of measurement as USG
       And   clicks on the search button
-      Then  the user shall be able to view the list of indexes matching the above search criteria
+      Then  the user shall be able to view the list of indexes matching the search criteria as "<null>,<null>,<null>,<Flat>,<NY RBOB Prem Brg>,<USD>,<USG>" on list page
 
 
 

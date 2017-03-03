@@ -52,4 +52,27 @@ public class Constants {
       public static String indexCreate_comment_xpath="//*[@id='txtDesc']";
       public static String indexCreate_submit_xpath="//*/button[text()='Submit']";
 
+      /*
+       * Currency Exchange
+       * List Page Identifiers
+       * Filters on search
+       */
+      public static String currencyExchangeList_type_xpath="//*/select[@ng-reflect-name='type']";
+      public static String currencyExchangeList_status_xpath="//*/select[@ng-reflect-name='status']";
+      public static String currencyExchangeList_convType_xpath="//*/select[@ng-reflect-name='conversionType']";
+      public static String currencyExchangeList_currForm_xpath="//*/select[@ng-reflect-name='currencyFrom']";
+      public static String currencyExchangeList_currTo_xpath="//*/select[@ng-reflect-name='currencyTo']";
+      public static String currencyExchangeList_submit_xpath="//*/button[text()='Submit']";
+     /*
+       * Currency Exchange
+       * List Page Identifiers
+       * Currency Exchange table column identifiers
+       */
+      public static String currencyExchangeList_statusColumn_xpath="//*/p-datatable/div/div[2]/table/tbody/tr[*]/td[1]";
+      public static String currencyExchangeList_fromColumn_xpath="//*/p-datatable/div/div[2]/table/tbody/tr[*]/td[2]";
+      public static String currencyExchangeList_toColumn_xpath="//*/p-datatable/div/div[2]/table/tbody/tr[*]/td[3]";
+      public static String currencyExchangeList_dateColumn_xpath="//*/p-datatable/div/div[2]/table/tbody/tr[*]/td[4]";
+      public static String currencyExchangeList_rateTypeColumn_xpath="//*/p-datatable/div/div[2]/table/tbody/tr[*]/td[5]";
+      public static String currencyExchangeList_rateColumn_xpath="//*/p-datatable/div/div[2]/table/tbody/tr[*]/td[6]";
+
 }

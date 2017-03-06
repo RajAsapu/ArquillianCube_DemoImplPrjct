@@ -7,7 +7,7 @@ import java.io.InputStreamReader;
 
 public class ExecuteCommands {
 
-    public boolean exec(String command)
+    public static boolean exec(String command)
     {
         String temp=null;
 

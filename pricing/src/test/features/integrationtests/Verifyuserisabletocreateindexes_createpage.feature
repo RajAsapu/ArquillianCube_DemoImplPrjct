@@ -1,4 +1,3 @@
-
 Feature: To verify if the user is able to access create page under index.
 
   Acceptance Criteria: User shall be able to access features in the Create page under index.
@@ -22,15 +21,15 @@ Feature: To verify if the user is able to access create page under index.
     Then  the user shall be able to view the created index in the list on filtering with <rateBasis>
 
     Examples:
-      | lowPrice  | midPrice | highPrice | closePrice  | rateBasis         | name                | startDate   | endDate    |  currency  | uom | comments                |
-      | 10.5      | 15.8     | 30.2      |   18.8      | Flat              | NYMEX H.O. 1ST MTH | 2017-01-10  | 2017-03-10 |  AFN       | 110 | Created for new clients |
+      | lowPrice | midPrice | highPrice | closePrice | rateBasis | name               | startDate  | endDate    | currency | uom | comments                |
+      | 10.5     | 15.8     | 30.2      | 18.8       | Flat      | NYMEX H.O. 1ST MTH | 2017-01-10 | 2017-03-10 | AFN      | 110 | Created for new clients |
 
 
   @Services
   Scenario: To verify if the response from Create index end point.
     Given the user querys POST method on create index end point
-      | lowPrice  | midPrice | highPrice | closePrice  | rateBasis         | name                | startDate   | endDate    |  currency  | uom | comments                |
-      | 10.5      | 15.8     | 30.2      |   18.9      | Flat              | NYMEX H.O. 1ST MTH | 2017-01-10  | 2017-03-11 |  USD       | 110 | Created for new clients |
+      | lowPrice | midPrice | highPrice | closePrice | rateBasis | name               | startDate  | endDate    | currency | uom | comments                |
+      | 10.5     | 15.8     | 30.2      | 18.9       | Flat      | NYMEX H.O. 1ST MTH | 2017-01-10 | 2017-03-11 | USD      | 110 | Created for new clients |
     When  the response from the service is captured
     Then  the service should return a successful response
 #    Examples:

@@ -1,53 +1,49 @@
 package setup;
 
-import constants.Urls;
+import java.util.concurrent.TimeUnit;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 
-import java.util.concurrent.TimeUnit;
-
 public class BaseClass {
 
-    public WebDriver driver;
-    private EventFiringWebDriver edriver;
-    private IEventListener listener;
+	public WebDriver driver;
+	private EventFiringWebDriver edriver;
+	private IEventListener listener;
 
-    public enum url{Pricing};
+		public EventFiringWebDriver initBrowser(String url) {
+		driver = OpenBrowser.getDriver(OpenBrowser.Open.CHROME);
 
-    /*
-      Next Step :Implimenet hooks
-     */
+		listener = new IEventListener();
+		edriver = new EventFiringWebDriver(driver);
+		edriver.register(listener);
 
-    /*
-       Intialization of the Browser
-       * Opens the browser
-       * Maximizes the browser
-       * Set implicit wait time as 10 seconds
-       * Set Page load time as 10 seconds
-     */
+		edriver.navigate().to(url);
+		edriver.manage().window().maximize();
+		edriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		edriver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
 
-    public EventFiringWebDriver initBrowser(String url)
-    {
-        driver= OpenBrowser.getDriver(OpenBrowser.Open.CHROME);
+		return edriver;
+	};
 
-        listener=new IEventListener();
-        edriver=new EventFiringWebDriver(driver);
-        edriver.register(listener);
+	/*
+	 * Next Step :Implimenet hooks
+	 */
 
-        edriver.navigate().to(Urls.devPricingUrl);
-        edriver.manage().window().maximize();
-        edriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        edriver.manage().timeouts().pageLoadTimeout(10,TimeUnit.SECONDS);
+	/*
+	 * Intialization of the Browser Opens the browser Maximizes the browser Set
+	 * implicit wait time as 10 seconds Set Page load time as 10 seconds
+	 */
 
-        return edriver;
-    }
+	/*
+	 * Closes the browser
+	 */
+	public void closeBrowser() {
+		edriver.unregister(listener);
+		edriver.quit();
+	}
 
-    /*
-      Closes the browser
-     */
-    public void closeBrowser()
-    {
-        edriver.unregister(listener);
-        edriver.quit();
-    }
+public enum url {
+		Pricing
+	}
 }

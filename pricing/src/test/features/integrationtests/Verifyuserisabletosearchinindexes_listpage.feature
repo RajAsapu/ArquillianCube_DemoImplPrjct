@@ -1,4 +1,3 @@
-
 Feature: To verify if the user is able to search in the list page under index.
 
   Acceptance Criteria: User shall be able to access features in the search in List page.
@@ -20,8 +19,8 @@ Feature: To verify if the user is able to search in the list page under index.
     And   the user shall be able to view the list of indexes matching the search criteria as "<startDate>,<status>,<type>,<rateBasis>,<name>,<currency>,<uom>" on list page
 
     Examples:
-    | startDate  | status  | type    | rateBasis | name                 | currency  | uom     |
-    | 2016-12-10 | Active  | MANUAL  | Flat      | UNL87 9RVP USG PIPE  | AFN       | 110     |
+      | startDate  | status | type   | rateBasis | name                | currency | uom |
+      | 2016-12-10 | Active | MANUAL | Flat      | UNL87 9RVP USG PIPE | AFN      | 110 |
 
 
   @Services
@@ -31,6 +30,6 @@ Feature: To verify if the user is able to search in the list page under index.
     Then  the service should return a successful response
 
     Examples:
-      | startDate  | status  | type    | rateBasis | name                 | currency  | uom     |
-      | 2016-12-01 | Active  | PRICE-POINT  | Flat      | NY RBOB PREM BRG  | USD       | USG     |
+      | startDate  | status | type        | rateBasis | name             | currency | uom |
+      | 2016-12-01 | Active | PRICE-POINT | Flat      | NY RBOB PREM BRG | USD      | USG |
 

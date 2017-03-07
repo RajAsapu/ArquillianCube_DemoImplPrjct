@@ -20,5 +20,5 @@ Feature: To verify if the user is able to access create page under index.
     Then  the user shall be able to view the created index in the list on filtering with Price Point Scale
 
     Examples:
-    | lowPrice  | midPrice | highPrice | closePrice |
-    | 10.5      | 15.8     | 30.2      |  18.8      |
+      | lowPrice | midPrice | highPrice | closePrice |
+      | 10.5     | 15.8     | 30.2      | 18.8       |

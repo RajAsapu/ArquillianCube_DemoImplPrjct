@@ -5,10 +5,9 @@ package constants;
  */
 public class Urls {
 
-    /*
-      Enterprise Module Urls
-     */
-    public static String devPricingUrl="https://epe-priceconfig-ui.dev.aws.wfscorp.com/home";
-
+	/*
+	 * Enterprise Module Urls
+	 */
+	public static String devPricingUrl = "https://epe-priceconfig-ui.dev.aws.wfscorp.com/home";
 
 }

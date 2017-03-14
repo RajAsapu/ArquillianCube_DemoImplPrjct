@@ -80,4 +80,19 @@ public class Constants {
 	public static String currencyExchangeCreate_fromCurrency_xpath = "//*/select[@ng-reflect-name='currencyFrom']";
 	public static String currencyExchangeCreate_toCurrency_xpath = "//*/select[@ ng-reflect-name='currencyTo']";
 	public static String currencyExchangeCreate_conversionRate_xpath = "//*/input[@type='number']";
+	/*
+	 * Calculation period create page identifiers
+	 */
+	public static String calculationPeriodCreate_name_id = "name";
+	public static String calculationPeriodCreate_startDatePicker_xpath = "//*[@id=\"startDate\"]/span/button";
+	public static String calculationPeriodCreate_endDatePicker_xpath = "//*[@id=\"endDate\"]/span/button";
+	public static String calculationPeriodCreate_type_xpath = "//*/p-fieldset/fieldset/div/div/div[4]/div/select";
+	public static String calculationPeriodCreate_description_name = "description";
+	public static String calculationPeriodCreate_dayrule_xpath = "//*/app-day-rule/div/div[1]/div[1]/div/select";
+	public static String calculationPeriodCreate_daysBeforeEvent_id = "daysBefore";
+	public static String calculationPeriodCreate_daysAfterEvent_id = "daysAfter";
+	public static String calculationPeriodCreate_includeEventDay_id = "includeEvent";
+	public static String calculationPeriodCreate_totalNumberofDays_id = "totalNumberOfDays";
+
+	///html/body/app-root/app-pricing-detail/div/div/form/div[1]/p-fieldset/fieldset/div/div/div[6]/span/app-day-rule/div/div[1]/div[1]/div/select
 }

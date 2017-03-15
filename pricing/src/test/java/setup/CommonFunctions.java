@@ -2,6 +2,7 @@ package setup;
 
 import java.util.List;
 
+import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -153,6 +154,146 @@ public class CommonFunctions {
 		Select choose = new Select(searchType);
 		choose.selectByVisibleText(key);
 	}
+
+	/*
+	 * Calculation Rule - Create page common methods
+	 */
+	public void enterName(String key)
+	{
+		WebElement nameField=edriver.findElement(By.id(Constants.calculationRuleCreate_name_id));
+		nameField.sendKeys(key);
+	}
+
+	public void selectType(String key)
+	{
+		WebElement calType = edriver.findElement(By.xpath(Constants.calculationRuleCreate_type_xpath));
+		Select choose = new Select(calType);
+		choose.selectByVisibleText(key.toUpperCase());
+	}
+
+	public void enterDescription(String key)
+	{
+		WebElement descrp = edriver.findElement(By.name(Constants.calculationRuleCreate_description_name));
+		descrp.sendKeys(key);
+	}
+	/*
+	 * params : key - Day Wrap or Single Day
+	 */
+	public void selectDayRuleType(String key)
+	{
+		WebElement ruleType = edriver.findElement(By.xpath(Constants.calculationRuleCreate_dayrule_xpath));
+		Select choose = new Select(ruleType);
+		choose.selectByVisibleText(key);
+	}
+
+	public void enterDaysBeforeEvent(String key)
+	{
+		WebElement daysBefEvent = edriver.findElement(By.id(Constants.calculationRuleCreate_daysBeforeEvent_id));
+		daysBefEvent.sendKeys(key);
+	}
+
+	public void enterDaysAfterEvent(String key)
+	{
+		WebElement daysAftEvent = edriver.findElement(By.id(Constants.calculationRuleCreate_daysAfterEvent_id));
+		daysAftEvent.sendKeys(key);
+	}
+
+	public void includeEvent(Boolean key)
+	{
+		WebElement daysAftEvent = edriver.findElement(By.id(Constants.calculationRuleCreate_includeEventDay_id));
+
+		if((key && !daysAftEvent.isSelected()) || (!key && daysAftEvent.isSelected()))
+		{
+			daysAftEvent.click();
+		}
+	}
+
+	public int getTotalNumberOfDays()
+	{
+		WebElement noOfDays = edriver.findElement(By.id(Constants.calculationRuleCreate_totalNumberofDays_id));
+		return Integer.parseInt(noOfDays.getText());
+	}
+
+	/*
+	 * Type : Week
+	 */
+	public void selectEffectiveStartDay(String key)
+	{
+		WebElement day= edriver.findElement(By.id(Constants.calculationRuleCreate_efStartDayOfWeek_id));
+		Select choose = new Select(day);
+		choose.selectByVisibleText(key.toUpperCase());
+	}
+
+	public void enterEffTotalNoOfWeeks(String key)
+	{
+		WebElement day= edriver.findElement(By.id(Constants.calculationRuleCreate_efTotalNoOfWeeks_id));
+		day.sendKeys(key);
+	}
+
+	public void selectCalculationStartDay(String key)
+	{
+		WebElement day= edriver.findElement(By.id(Constants.calculationRuleCreate_cpStartDayOfWeek_id));
+		Select choose = new Select(day);
+		choose.selectByVisibleText(key.toUpperCase());
+	}
+
+	public void enterCalTotalNoOfWeeks(String key)
+	{
+		WebElement day= edriver.findElement(By.id(Constants.calculationRuleCreate_cpTotalNoOfWeeks_id));
+		day.sendKeys(key);
+	}
+
+	public void enterCalOffset(String key)
+	{
+		WebElement day= edriver.findElement(By.id(Constants.calculationRuleCreate_cpOffset_id));
+		day.sendKeys(key);
+	}
+
+	public void overLapAllowed(Boolean key)
+	{
+		WebElement overlap = edriver.findElement(By.id(Constants.calculationRuleCreate_cpOverlap_id));
+
+		if((key && !overlap.isSelected()) || (!key && overlap.isSelected()))
+		{
+			overlap.click();
+		}
+	}
+
+	/*
+	 * Type : month
+	 */
+	public void setNoOfMonthsEffPeriod(String key)
+	{
+		WebElement noOfMonths=edriver.findElement(By.id(Constants.calculationRuleCreate_noOfMonthsForEffPeriod_id));
+		noOfMonths.sendKeys(key);
+	}
+
+	public void setEffStartDayOfMonth(String key)
+	{
+		WebElement noOfMonths=edriver.findElement(By.id(Constants.calculationRuleCreate_epStartDayOfMonth_id));
+		noOfMonths.sendKeys(key);
+	}
+
+
+	public void setNoOfMonthsCalPeriod(String key)
+	{
+		WebElement noOfMonths=edriver.findElement(By.id(Constants.calculationRuleCreate_noOfMonthsForCalPeriod_id));
+		noOfMonths.sendKeys(key);
+	}
+
+	public void setCalStartDayOfMonth(String key)
+	{
+		WebElement noOfMonths=edriver.findElement(By.id(Constants.calculationRuleCreate_cpStartDayOfMonth_id));
+		noOfMonths.sendKeys(key);
+	}
+
+	public void selectMonthRuleType(String key)
+	{
+		WebElement noOfMonths=edriver.findElement(By.xpath(Constants.calculationRuleCreate_monthruletype_xpath));
+		Select choose=new Select(noOfMonths);
+		choose.selectByVisibleText(key);
+	}
+
 public enum page {
 		List, Create
 	}

@@ -50,7 +50,7 @@ public class Constants {
 	public static String indexCreate_currency_xpath = "//*/p-fieldset/fieldset/div/div/div[9]/div/select";
 	public static String indexCreate_uom_xpath = "//*/p-fieldset/fieldset/div/div/div[10]/div/select";
 	public static String indexCreate_comment_xpath = "//*[@id='txtDesc']";
-	public static String indexCreate_submit_xpath = "//*/button[text()='Submit']";
+	public static String indexCreate_submit_xpath = "//*/button[normalize-space()='Submit']";
 
 	/*
 	 * Currency Exchange List Page Identifiers Filters on search
@@ -82,17 +82,44 @@ public class Constants {
 	public static String currencyExchangeCreate_conversionRate_xpath = "//*/input[@type='number']";
 	/*
 	 * Calculation period create page identifiers
+	 * Type: Day
 	 */
-	public static String calculationPeriodCreate_name_id = "name";
-	public static String calculationPeriodCreate_startDatePicker_xpath = "//*[@id=\"startDate\"]/span/button";
-	public static String calculationPeriodCreate_endDatePicker_xpath = "//*[@id=\"endDate\"]/span/button";
-	public static String calculationPeriodCreate_type_xpath = "//*/p-fieldset/fieldset/div/div/div[4]/div/select";
-	public static String calculationPeriodCreate_description_name = "description";
-	public static String calculationPeriodCreate_dayrule_xpath = "//*/app-day-rule/div/div[1]/div[1]/div/select";
-	public static String calculationPeriodCreate_daysBeforeEvent_id = "daysBefore";
-	public static String calculationPeriodCreate_daysAfterEvent_id = "daysAfter";
-	public static String calculationPeriodCreate_includeEventDay_id = "includeEvent";
-	public static String calculationPeriodCreate_totalNumberofDays_id = "totalNumberOfDays";
+	public static String calculationRuleCreate_name_id = "name";
+	public static String calculationRuleCreate_startDatePicker_xpath = "//*[@id=\"startDate\"]/span/button";
+	public static String calculationRuleCreate_endDatePicker_xpath = "//*[@id=\"endDate\"]/span/button";
+	public static String calculationRuleCreate_type_xpath = "//*/p-fieldset/fieldset/div/div/div[4]/div/select";
+	public static String calculationRuleCreate_description_name = "description";
+	public static String calculationRuleCreate_dayrule_xpath = "//*/app-day-rule/div/div[1]/div[1]/div/select";
+	public static String calculationRuleCreate_daysBeforeEvent_id = "daysBefore";
+	public static String calculationRuleCreate_daysAfterEvent_id = "daysAfter";
+	public static String calculationRuleCreate_includeEventDay_id = "includeEvent";
+	public static String calculationRuleCreate_totalNumberofDays_id = "totalNumberOfDays";
+	/*
+	 * Type: Week
+	 */
+	public static String calculationRuleCreate_efStartDayOfWeek_id = "startDayOfWeekEP";
+	public static String calculationRuleCreate_efTotalNoOfWeeks_id = "effectivePeriodLength";
+	public static String calculationRuleCreate_cpStartDayOfWeek_id = "startDayOfWeekCP";
+	public static String calculationRuleCreate_cpTotalNoOfWeeks_id = "calculationPeriodLength";
+	public static String calculationRuleCreate_cpOffset_id = "offset";
+	public static String calculationRuleCreate_cpOverlap_id = "overlapAllowed";
+	/*
+ 	 * Type: Month
+ 	 */
+	public static String calculationRuleCreate_monthruletype_xpath = "//*/app-month-rule/div/div[1]/div[1]/div/select";
+	public static String calculationRuleCreate_noOfMonthsForEffPeriod_id = "effectiveAmount";
+	public static String calculationRuleCreate_epStartDayOfMonth_id = "effectiveStart";
+	public static String calculationRuleCreate_noOfMonthsForCalPeriod_id = "calculationAmount";
+	public static String calculationRuleCreate_cpStartDayOfMonth_id = "calculationStart";
+	/*
+	 * Calculation period List page identifiers
+	 */
 
-	///html/body/app-root/app-pricing-detail/div/div/form/div[1]/p-fieldset/fieldset/div/div/div[6]/span/app-day-rule/div/div[1]/div[1]/div/select
+	public static String calculationRuleList_searchByName_xpath = "//*/th[4]/input";
+	public static String calculationRuleList_searchByType_xpath = "//*/th[5]/input";
+	public static String calculationRuleList_searchByDescrp_xpath = "//*/th[6]/input";
+
+	public static String calculationRuleList_nameColumn_xpath = "//*/table/tbody/tr[*]/td[4]";
+	public static String calculationRuleList_typeColumn_xpath = "//*/table/tbody/tr[*]/td[5]";
+	public static String calculationRuleList_descpColumn_xpath = "//*/table/tbody/tr[*]/td[6]";
 }

@@ -12,10 +12,11 @@ public class Hooks {
 		 * Configure arquillian to restart the docker deamon before running the
 		 * tests
 		 */
-		 handle.stopDocker();
+//		 handle.stopDocker();
 	}
 	@After
 	public void tearDown() {
 		DriverBean.getDriver().quit();
+		DriverBean.edriver = null;
 	}
 }

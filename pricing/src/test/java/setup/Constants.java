@@ -114,11 +114,16 @@ public class Constants {
 	/*
 	 * Calculation period List page identifiers
 	 */
-
 	public static String calculationRuleList_searchByName_xpath = "//*/th[4]/input";
 	public static String calculationRuleList_searchByType_xpath = "//*/th[5]/input";
 	public static String calculationRuleList_searchByDescrp_xpath = "//*/th[6]/input";
+	public static String calculationRuleList_statusColumn_xpath = "//*/table/tbody/tr[*]/td[1]";
 	public static String calculationRuleList_nameColumn_xpath = "//*/table/tbody/tr[*]/td[4]";
 	public static String calculationRuleList_typeColumn_xpath = "//*/table/tbody/tr[*]/td[5]";
 	public static String calculationRuleList_descpColumn_xpath = "//*/table/tbody/tr[*]/td[6]";
+	public static String calculationRuleList_addNewRule_linkText = "Add New Rule";
+	public static String calculationRuleList_hdrStatusColumn_xpath = "//*/tr/th[1]";
+	public static String calculationRuleList_hdrNameColumn_xpath = "//*/tr/th[4]/span[2]";
+	public static String calculationRuleList_hdrTypeColumn_xpath = "//*/tr/th[5]/span[2]";
+	public static String calculationRuleList_hdrDescrpColumn_xpath = "//*/tr/th[6]/span[2]";
 }

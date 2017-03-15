@@ -11,7 +11,12 @@ import org.openqa.selenium.support.ui.Select;
 public class CommonFunctions {
 
 	final static Logger logger = Logger.getLogger(CommonFunctions.class.getName());
-	private static EventFiringWebDriver edriver = DriverBean.getDriver();
+	private static EventFiringWebDriver edriver;
+
+	public CommonFunctions()
+	{
+		edriver = DriverBean.getDriver();
+	}
 
 	/*
 	 * Method to login to the application

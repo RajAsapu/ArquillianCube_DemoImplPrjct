@@ -17,13 +17,21 @@ import setup.Constants;
 import setup.DriverBean;
 
 import javax.print.DocFlavor;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class PageCalculationRuleSteps extends CommonFunctions {
 
     final static Logger logger = Logger.getLogger(PageIndexSteps.class.getName());
-    private static EventFiringWebDriver edriver = DriverBean.getDriver();
-    public PageCommonSteps steps = new PageCommonSteps();
+    private static EventFiringWebDriver edriver;
+    public PageCommonSteps steps;
+
+    public PageCalculationRuleSteps()
+    {
+        edriver = DriverBean.getDriver();
+        steps = new PageCommonSteps();
+    }
 
     @When("^the user enters name  as \"([^\"]*)\"$")
     public void the_user_enters_name_as(String name) throws Throwable {
@@ -207,6 +215,76 @@ public class PageCalculationRuleSteps extends CommonFunctions {
             }
         }
 
+    }
+
+    @And("^the user clicks on the add new rule button$")
+    public void the_user_clicks_on_the_add_new_rule_button()
+    {
+        WebElement newRule = edriver.findElement(By.linkText(Constants.calculationRuleList_addNewRule_linkText));
+        newRule.click();
+    }
+
+    @And("^the user clicks on \"([^\"]*)\"$")
+    public void the_user_clicks_on(String hdr) throws Throwable
+    {
+        WebElement header = null;
+        if(hdr.equals("Status"))
+        {
+            header = edriver.findElement(By.xpath(Constants.calculationRuleList_hdrStatusColumn_xpath));
+        }
+        else if(hdr.equals("Name"))
+        {
+            header = edriver.findElement(By.xpath(Constants.calculationRuleList_hdrNameColumn_xpath));
+        }
+        else if(hdr.equals("Type"))
+        {
+            header = edriver.findElement(By.xpath(Constants.calculationRuleList_hdrTypeColumn_xpath));
+        }
+        else if(hdr.equals("Description"))
+        {
+            header = edriver.findElement(By.xpath(Constants.calculationRuleList_hdrDescrpColumn_xpath));
+        }
+        header.click();
+        Thread.sleep(3000);
+    }
+
+    @Then("^the calculation rules shall be displayed in sorted order$")
+    public void the_calculation_rules_shall_be_displayed_in_sorted_order(DataTable table) throws Throwable {
+        List<List<String>> rows = table.raw();
+        String header = rows.get(0).get(0);
+        List<WebElement> columnList = null;
+        List<String> colList =new ArrayList<>();
+        List<String> compareList=new ArrayList<>();
+        if(header.equals("Status"))
+        {
+            columnList = edriver.findElements(By.xpath(Constants.calculationRuleList_statusColumn_xpath));
+        }
+        else if(header.equals("Name"))
+        {
+            columnList = edriver.findElements(By.xpath(Constants.calculationRuleList_nameColumn_xpath));
+        }
+        else if(header.equals("Type"))
+        {
+            columnList = edriver.findElements(By.xpath(Constants.calculationRuleList_typeColumn_xpath));
+        }
+        else if(header.equals("Description"))
+        {
+            columnList = edriver.findElements(By.xpath(Constants.calculationRuleList_descpColumn_xpath));
+        }
+        for(WebElement temp:columnList)
+        {
+            colList.add(temp.getText());
+            compareList.add(temp.getText());
+        }
+        Collections.sort(colList);
+        if(!colList.equals(compareList))
+        {
+            Collections.reverse(colList);
+            if(!colList.equals(compareList))
+            {
+                throw new Exception("Column:"+header+" is not sorted");
+            }
+        }
     }
 
 }

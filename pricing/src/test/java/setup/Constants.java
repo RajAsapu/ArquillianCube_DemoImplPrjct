@@ -118,7 +118,6 @@ public class Constants {
 	public static String calculationRuleList_searchByName_xpath = "//*/th[4]/input";
 	public static String calculationRuleList_searchByType_xpath = "//*/th[5]/input";
 	public static String calculationRuleList_searchByDescrp_xpath = "//*/th[6]/input";
-
 	public static String calculationRuleList_nameColumn_xpath = "//*/table/tbody/tr[*]/td[4]";
 	public static String calculationRuleList_typeColumn_xpath = "//*/table/tbody/tr[*]/td[5]";
 	public static String calculationRuleList_descpColumn_xpath = "//*/table/tbody/tr[*]/td[6]";

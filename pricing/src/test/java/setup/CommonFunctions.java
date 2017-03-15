@@ -2,7 +2,6 @@ package setup;
 
 import java.util.List;
 
-import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;

@@ -185,8 +185,6 @@ public class PageCalculationRuleSteps extends CommonFunctions {
 
     @Then("^the list should display the records matching the filter criteria$")
     public void the_list_should_display_the_records_matching_the_filter_criteria(List<List<String>> table) throws Throwable {
-
-        //List<List<String>> rows = table.raw();
         String type = table.get(0).get(0);
         String key = table.get(0).get(1);
         List<WebElement> rowList = null;

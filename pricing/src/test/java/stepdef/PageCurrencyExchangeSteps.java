@@ -25,9 +25,14 @@ public class PageCurrencyExchangeSteps extends CommonFunctions {
 	/*
 	 * Intialize required objects
 	 */
-	private static EventFiringWebDriver edriver = DriverBean.getDriver();
-	public PageCommonSteps steps = new PageCommonSteps();
+	private static EventFiringWebDriver edriver;
+	public PageCommonSteps steps;
 
+	public PageCurrencyExchangeSteps()
+	{
+		edriver = DriverBean.getDriver();
+		steps = new PageCommonSteps();
+	}
 	@When("^the user selects the search criteria as \"([^\"]*)\"$")
 	public void the_user_selects_the_search_criteria_as(String searchType) throws Throwable {
 		selectSearchType(searchType);

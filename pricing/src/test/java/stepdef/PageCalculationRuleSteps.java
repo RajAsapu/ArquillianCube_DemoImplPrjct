@@ -49,10 +49,6 @@ public class PageCalculationRuleSteps extends CommonFunctions {
         edriver.findElement(By.xpath(Constants.calculationRuleCreate_endDate_xpath)).clear();
         Actions act = new Actions(edriver);
         act.click(datepicker).sendKeys(date).sendKeys(Keys.TAB).perform();
-////        act.sendKeys(Keys.BACK_SPACE).sendKeys(Keys.chord(Keys.CONTROL,"A")).sendKeys(Keys.BACK_SPACE).perform();
-////        Thread.sleep(2000);
-////        act.sendKeys(Keys.BACK_SPACE).keyUp(Keys.CONTROL).perform();
-//                act.
     }
 
     @When("^select type as \"([^\"]*)\"$")
@@ -294,8 +290,6 @@ public class PageCalculationRuleSteps extends CommonFunctions {
     @When("^the user deactivates the existing plan$")
     public void the_user_deactivates_the_existing_plan() throws Throwable {
         WebElement header = edriver.findElement(By.xpath(Constants.calculationRuleList_hdrStatusColumn_xpath));
-        // Descending order
-        header.click();
         // Ascending order
         header.click();
 
@@ -346,4 +340,10 @@ public class PageCalculationRuleSteps extends CommonFunctions {
             set_the_end_date_as(row.get(0).get(0));
         }
     }
+
+    @Then("^the application displays an error message as \"(.*)\"$")
+    public void the_application_displays_an_error_message_as(String errMsg) throws Throwable {
+        assert !edriver.findElement(By.xpath("//*[normalize-space()='"+errMsg+"']")).isDisplayed();
+    }
+
 }

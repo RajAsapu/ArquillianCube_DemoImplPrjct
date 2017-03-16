@@ -1,7 +1,5 @@
 package stepdef;
 
-
-import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const;
 import cucumber.api.DataTable;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
@@ -15,8 +13,6 @@ import org.openqa.selenium.support.events.EventFiringWebDriver;
 import setup.CommonFunctions;
 import setup.Constants;
 import setup.DriverBean;
-
-import javax.print.DocFlavor;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -273,8 +269,11 @@ public class PageCalculationRuleSteps extends CommonFunctions {
         }
         for(WebElement temp:columnList)
         {
-            colList.add(temp.getText());
-            compareList.add(temp.getText());
+            if(temp.getText()!=null && !temp.getText().equals(""))
+            {
+                colList.add(temp.getText().toLowerCase());
+                compareList.add(temp.getText().toLowerCase());
+            }
         }
         Collections.sort(colList);
         if(!colList.equals(compareList))
@@ -285,6 +284,22 @@ public class PageCalculationRuleSteps extends CommonFunctions {
                 throw new Exception("Column:"+header+" is not sorted");
             }
         }
+    }
+
+    @When("^the user deactivates the existing plan$")
+    public void the_user_deactivates_the_existing_plan() throws Throwable {
+        WebElement header = edriver.findElement(By.xpath(Constants.calculationRuleList_hdrStatusColumn_xpath));
+        // Descending order
+        header.click();
+        // Ascending order
+        header.click();
+        WebElement inactive = edriver.findElement(By.xpath(Constants.calculationRuleList_actionInactive_xpath));
+        inactive.click();
+    }
+
+    @Then("^the calculation rules should display the status as inactive$")
+    public void the_calculation_rules_should_display_the_status_as_inactive() throws Throwable {
+
     }
 
 }

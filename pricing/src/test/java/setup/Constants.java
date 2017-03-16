@@ -87,6 +87,7 @@ public class Constants {
 	public static String calculationRuleCreate_name_id = "name";
 	public static String calculationRuleCreate_startDatePicker_xpath = "//*[@id=\"startDate\"]/span/button";
 	public static String calculationRuleCreate_endDatePicker_xpath = "//*[@id=\"endDate\"]/span/button";
+	public static String calculationRuleCreate_endDate_xpath = "//*/p-calendar[@id='endDate']/span/input";
 	public static String calculationRuleCreate_type_xpath = "//*/p-fieldset/fieldset/div/div/div[4]/div/select";
 	public static String calculationRuleCreate_description_name = "description";
 	public static String calculationRuleCreate_dayrule_xpath = "//*/app-day-rule/div/div[1]/div[1]/div/select";
@@ -126,4 +127,8 @@ public class Constants {
 	public static String calculationRuleList_hdrNameColumn_xpath = "//*/tr/th[4]/span[2]";
 	public static String calculationRuleList_hdrTypeColumn_xpath = "//*/tr/th[5]/span[2]";
 	public static String calculationRuleList_hdrDescrpColumn_xpath = "//*/tr/th[6]/span[2]";
+	public static String calculationRuleList_actionView_xpath = "//*/tr[*]/td[7]/span/div/button[1]";
+	public static String calculationRuleList_actionInactive_xpath = "//*/tr[*]/td[7]/span/div/button[2]";
+	public static String calculationRuleList_actionEdit_xpath = "//*/tr[*]/td[7]/span/div/button[3]";
+
 }

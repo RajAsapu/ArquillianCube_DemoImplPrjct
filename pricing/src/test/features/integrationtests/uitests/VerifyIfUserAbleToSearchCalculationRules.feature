@@ -38,5 +38,26 @@ Feature: Calculation Rule - List page
     | Type        |
     | Description |
 
+  Scenario: To verify if the user is able to inactive the existing calculation rule.
+    Given  the user has navigated to the "List" page under the "Calculation_Rule"
+    When   the user deactivates the existing plan
+    Then   the calculation rules should display the status as inactive
+
+  Scenario: To verify if the user is able to view the existing calculation rule.
+    Given  the user has navigated to the "List" page under the "Calculation_Rule"
+    When   the user clicks on the view button of a plan
+    Then   the user shall be able to view the calculation rule details
+
+  Scenario Outline: To verify if the user is able to edit the existing calculation rule.
+    Given  the user has navigated to the "List" page under the "Calculation_Rule"
+    When   the user clicks on the edit button of a plan
+    And    the user shall be able to edit the calculation rule details
+    |<endDate>|
+    And    clicks on the submit button
+    Then   the calculation rule should be updated
+    |<endDate>|
+    Examples:
+    | endDate    |
+    | 2017-08-11 |
 
 

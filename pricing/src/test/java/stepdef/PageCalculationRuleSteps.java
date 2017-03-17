@@ -243,8 +243,8 @@ public class PageCalculationRuleSteps extends CommonFunctions {
         Thread.sleep(3000);
     }
 
-    @Then("^the calculation rules shall be displayed in sorted order$")
-    public void the_calculation_rules_shall_be_displayed_in_sorted_order(DataTable table) throws Throwable {
+    @Then("^the calculation rules shall be displayed in (ascending order|descending order)$")
+    public void the_calculation_rules_shall_be_displayed_in_sorted_order(String order,DataTable table) throws Throwable {
         List<List<String>> rows = table.raw();
         String header = rows.get(0).get(0);
         List<WebElement> columnList = null;
@@ -274,13 +274,21 @@ public class PageCalculationRuleSteps extends CommonFunctions {
                 compareList.add(temp.getText().toLowerCase());
             }
         }
-        Collections.sort(colList);
-        if(!colList.equals(compareList))
+        if(order.contains("asc"))
         {
+            Collections.sort(colList);
+            if(!colList.equals(compareList))
+            {
+                throw new Exception("Column:"+header+" is not sorted in ascending order");
+            }
+        }
+        else
+        {
+            Collections.sort(colList);
             Collections.reverse(colList);
             if(!colList.equals(compareList))
             {
-                throw new Exception("Column:"+header+" is not sorted");
+                throw new Exception("Column:"+header+" is not sorted in descending order");
             }
         }
     }
@@ -324,7 +332,7 @@ public class PageCalculationRuleSteps extends CommonFunctions {
 
     @Then("^the user shall be able to (view|edit) the calculation rule details$")
     public void the_user_shall_be_able_to_view_the_calculation_rule_details(String act,DataTable table) throws Throwable {
-        List<List<String >> row=table.raw();
+
         assert !edriver.findElement(By.id(Constants.calculationRuleCreate_name_id)).isEnabled();
         assert !edriver.findElement(By.xpath(Constants.calculationRuleCreate_type_xpath)).isEnabled();
         assert !edriver.findElement(By.name(Constants.calculationRuleCreate_description_name)).isEnabled();
@@ -335,6 +343,7 @@ public class PageCalculationRuleSteps extends CommonFunctions {
             assert !edriver.findElement(By.id(Constants.calculationRuleCreate_includeEventDay_id)).isEnabled();}
         else if(act.equals("edit"))
         {
+            List<List<String >> row=table.raw();
             set_the_end_date_as(row.get(0).get(0));
         }
     }

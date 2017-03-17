@@ -24,13 +24,16 @@ Feature: Calculation Rule - List page
       |<name>|<startDate>|<endDate>|<type>|<description>|<ruleType>|<daysBeforeEvent>|<daysAfterEvent>|
     Examples:
       | name        | startDate   | endDate      | type       | description | ruleType | daysBeforeEvent | daysAfterEvent  |
-      | TestRule89  | 2017-01-23  | 2017-03-30   | Day        | for testing | Day Wrap | 2               | 2               |
+      | TestRule86  | 2017-01-23  | 2017-03-30   | Day        | for testing | Day Wrap | 2               | 2               |
 
   Scenario Outline: To verify if the user is able to sort the list of calculation rules.
     Given  the user has navigated to the "List" page under the "Calculation_Rule"
     When   the user clicks on "<header>"
-    Then   the calculation rules shall be displayed in sorted order
-    |<header>|
+    Then   the calculation rules shall be displayed in ascending order
+      |<header>|
+    When   the user clicks on "<header>"
+    Then   the calculation rules shall be displayed in descending order
+      |<header>|
     Examples:
     |   header    |
     | Status      |
@@ -47,6 +50,7 @@ Feature: Calculation Rule - List page
     Given  the user has navigated to the "List" page under the "Calculation_Rule"
     When   the user clicks on the view button of a plan
     Then   the user shall be able to view the calculation rule details
+    | active |
 
   Scenario Outline: To verify if the user is able to edit the existing calculation rule.
     Given  the user has navigated to the "List" page under the "Calculation_Rule"
@@ -58,6 +62,6 @@ Feature: Calculation Rule - List page
     |<endDate>|
     Examples:
     | endDate    |
-    | 2017-08-11 |
+    | 2017-08-20 |
 
 

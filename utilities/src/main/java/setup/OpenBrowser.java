@@ -20,6 +20,7 @@ public class OpenBrowser {
 				options.addArguments("--no-sandbox");
 				options.addArguments("--test-type");
 				options.addArguments("--disable-plugins");
+				options.addArguments("--start-maximized");
 				options.addArguments("--disable-extensions");
 				driver = new ChromeDriver(options);
 				break;

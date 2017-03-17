@@ -17,17 +17,15 @@ public class BaseClass {
 		listener = new IEventListener();
 		edriver = new EventFiringWebDriver(driver);
 		edriver.register(listener);
-
 		edriver.navigate().to(url);
-		edriver.manage().window().maximize();
 		edriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		edriver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
 
 		return edriver;
-	};
+	}
 
 	/*
-	 * Next Step :Implimenet hooks
+	 * Next Step :Impliment hooks
 	 */
 
 	/*

@@ -22,6 +22,7 @@ public class PageCalculationRuleSteps extends CommonFunctions {
     final static Logger logger = Logger.getLogger(PageIndexSteps.class.getName());
     private static EventFiringWebDriver edriver;
     public PageCommonSteps steps;
+    public String ruleName;
 
     public PageCalculationRuleSteps()
     {
@@ -45,7 +46,7 @@ public class PageCalculationRuleSteps extends CommonFunctions {
     @When("^set the end date as \"([^\"]*)\"$")
     public void set_the_end_date_as(String date) throws Throwable {
         WebElement datepicker = edriver.findElement(By.xpath(Constants.calculationRuleCreate_endDatePicker_xpath));
-
+        edriver.findElement(By.xpath(Constants.calculationRuleCreate_endDate_xpath)).clear();
         Actions act = new Actions(edriver);
         act.click(datepicker).sendKeys(date).sendKeys(Keys.TAB).perform();
     }
@@ -87,8 +88,8 @@ public class PageCalculationRuleSteps extends CommonFunctions {
         }
     }
 
-    @Then("^the calculation rule should be created$")
-    public void the_calculation_rule_should_be_created(DataTable table)throws Exception
+    @Then("^the calculation rule should be (created|updated)$")
+    public void the_calculation_rule_should_be_createdOrupdated(String status,DataTable table)throws Exception
     {
         List<List<String>> rule=table.raw();
         /*
@@ -183,11 +184,9 @@ public class PageCalculationRuleSteps extends CommonFunctions {
     }
 
     @Then("^the list should display the records matching the filter criteria$")
-    public void the_list_should_display_the_records_matching_the_filter_criteria(DataTable table) throws Throwable {
-
-        List<List<String>> rows = table.raw();
-        String type = rows.get(0).get(0);
-        String key = rows.get(0).get(1);
+    public void the_list_should_display_the_records_matching_the_filter_criteria(List<List<String>> table) throws Throwable {
+        String type = table.get(0).get(0);
+        String key = table.get(0).get(1);
         List<WebElement> rowList = null;
 
         if(type.equalsIgnoreCase("Name"))
@@ -289,17 +288,60 @@ public class PageCalculationRuleSteps extends CommonFunctions {
     @When("^the user deactivates the existing plan$")
     public void the_user_deactivates_the_existing_plan() throws Throwable {
         WebElement header = edriver.findElement(By.xpath(Constants.calculationRuleList_hdrStatusColumn_xpath));
-        // Descending order
-        header.click();
         // Ascending order
         header.click();
+
+        ruleName = edriver.findElement(By.xpath(Constants.calculationRuleList_nameColumn_xpath)).getText();
+
         WebElement inactive = edriver.findElement(By.xpath(Constants.calculationRuleList_actionInactive_xpath));
         inactive.click();
+
     }
 
     @Then("^the calculation rules should display the status as inactive$")
     public void the_calculation_rules_should_display_the_status_as_inactive() throws Throwable {
+        the_user_enters_as("Name", ruleName);
+        List<List<String>> list=new ArrayList<>();
+        List<String> sublist=new ArrayList<>();
+        sublist.add("Name");
+        sublist.add(ruleName);
+        list.add(sublist);
+        the_list_should_display_the_records_matching_the_filter_criteria(list);
+    }
 
+    @When("^the user clicks on the (view|edit) button of a plan$")
+    public void the_user_clicks_on_the_view_button_of_a_plan(String act) throws Throwable {
+        WebElement temp = null;
+        if(act.equals("view"))
+        {
+            temp = edriver.findElement(By.xpath(Constants.calculationRuleList_actionView_xpath));
+        }else if(act.equals("edit"))
+        {
+            temp = edriver.findElement(By.xpath(Constants.calculationRuleList_actionEdit_xpath));
+        }
+        temp.click();
+    }
+
+    @Then("^the user shall be able to (view|edit) the calculation rule details$")
+    public void the_user_shall_be_able_to_view_the_calculation_rule_details(String act,DataTable table) throws Throwable {
+        List<List<String >> row=table.raw();
+        assert !edriver.findElement(By.id(Constants.calculationRuleCreate_name_id)).isEnabled();
+        assert !edriver.findElement(By.xpath(Constants.calculationRuleCreate_type_xpath)).isEnabled();
+        assert !edriver.findElement(By.name(Constants.calculationRuleCreate_description_name)).isEnabled();
+
+        if(act.equals("view")) {
+            assert !edriver.findElement(By.id(Constants.calculationRuleCreate_daysBeforeEvent_id)).isEnabled();
+            assert !edriver.findElement(By.id(Constants.calculationRuleCreate_daysAfterEvent_id)).isEnabled();
+            assert !edriver.findElement(By.id(Constants.calculationRuleCreate_includeEventDay_id)).isEnabled();}
+        else if(act.equals("edit"))
+        {
+            set_the_end_date_as(row.get(0).get(0));
+        }
+    }
+
+    @Then("^the application displays an error message as \"(.*)\"$")
+    public void the_application_displays_an_error_message_as(String errMsg) throws Throwable {
+        assert !edriver.findElement(By.xpath("//*[normalize-space()='"+errMsg+"']")).isDisplayed();
     }
 
 }

@@ -1,4 +1,4 @@
-rootProject.name = 'wfs'
+rootProject.name = 'price_testsuite'
 
 include 'utilities'
 include 'mapper'

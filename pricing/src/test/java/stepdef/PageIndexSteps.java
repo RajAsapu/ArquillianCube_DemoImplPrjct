@@ -136,7 +136,7 @@ public class PageIndexSteps extends CommonFunctions {
 
 	@When("^name as ([^\"]*)$")
 	public void name_as(String name) throws Throwable {
-		setName(name);
+		setNameFromAutoFill(Constants.indexList_name_xpath,name);
 	}
 
 	@Then("^the codes shall be auto populated$")

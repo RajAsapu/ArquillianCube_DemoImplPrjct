@@ -130,5 +130,51 @@ public class Constants {
 	public static String calculationRuleList_actionView_xpath = "//*/tr[*]/td[7]/span/div/button[1]";
 	public static String calculationRuleList_actionInactive_xpath = "//*/tr[*]/td[7]/span/div/button[2]";
 	public static String calculationRuleList_actionEdit_xpath = "//*/tr[*]/td[7]/span/div/button[3]";
-
+	/*
+	 * Formula - List page identifiers
+	 */
+	public static String formulaList_filter_xpath = "//*/button[normalize-space()='Filter']";
+	public static String formulaList_nameFilter_xpath = "//*/p-datatable/div/div/table/thead/tr/th[1]/input";
+	public static String formulaList_descrpFilter_xpath = "//*/p-datatable/div/div/table/thead/tr/th[2]/input";
+	public static String formulaList_typeFilter_xpath = "//*/p-datatable/div/div/table/thead/tr/th[3]/input";
+	public static String formulaList_exprsFilter_xpath = "//*/p-datatable/div/div/table/thead/tr/th[4]/input";
+	public static String formulaList_startDateFilter_xpath = "//*/p-datatable/div/div/table/thead/tr/th[5]/input";
+	public static String formulaList_endDateFilter_xpath = "//*/p-datatable/div/div/table/thead/tr/th[6]/input";
+	public static String formulaList_roundPrecsFilter_xpath = "//*/p-datatable/div/div/table/thead/tr/th[8]/input";
+	/*
+	 * List page Column names
+	 */
+	public static String formulaList_nameColumn_xpath = "//*/p-datatable/div/div/table/tbody/*/td[1]/span[2]";
+	public static String formulaList_descrpColumn_xpath = "//*/p-datatable/div/div/table/tbody/*/td[2]";
+	public static String formulaList_typeColumn_xpath = "//*/p-datatable/div/div/table/tbody/*/td[3]";
+	public static String formulaList_expressionColumn_xpath = "//*/p-datatable/div/div/table/tbody/*/td[4]";
+	public static String formulaList_startDateColumn_xpath = "//*/p-datatable/div/div/table/tbody/*/td[5]";
+	public static String formulaList_endDateColumn_xpath = "//*/p-datatable/div/div/table/tbody/*/td[6]";
+	public static String formulaList_roundingPrecisionColumn_xpath = "//*/p-datatable/div/div/table/tbody/*/td[8]";
+	/*
+	 * Formula - Create page
+	 */
+	public static String formulaCreate_name_xpath = "//*/input[@ng-reflect-name='name']";
+	public static String formulaCreate_description_xpath = "//*/input[@ng-reflect-name='description']";
+	public static String formulaCreate_typeSelect_xpath = "//*/p-dropdown/div/div[1]/select";
+	public static String formulaCreate_typeList_xpath = "//*/p-dropdown/div/div[4]/div/ul/li[*]";
+	public static String formulaCreate_expression_xpath = "//*/input[@ng-reflect-name='expression']";
+	public static String formulaCreate_validateExpre_xpath = "//*/button[normalize-space()='Validate Expression']";
+	public static String formulaCreate_startDatePicker_xpath = "//*/button[@ng-reflect-icon='fa-calendar']";
+	public static String formulaCreate_endDatePicker_xpath = "//*/div[2]/p-calendar/span/button";
+	public static String formulaCreate_roundingMode_xpath = "//*/div[3]/div[3]/div/p-dropdown/div";
+	public static String formulaCreate_roundingModeList_xpath = "//*/p-dropdown/div/div[4]/div/ul/li[*]";
+	public static String formulaCreate_roundingPrecision_xpath = "//*/form/div[3]/div[4]/input";
+	public static String formulaCreate_addParameter_xpath = "//*/button[normalize-space()='Add Parameter']";
+	public static String formulaCreate_nameParameter_xpath = "//*/div/form/div[1]/input";
+	public static String formulaCreate_typeParameter_xpath = "//*/form/div[2]/p-dropdown/div";
+	public static String formulaCreate_indexTypeParameter_xpath = "//*/formula-params/form/div/form/div[3]/div/div[1]/p-dropdown/div";
+	public static String formulaCreate_indexPointParameter_xpath = "//*/formula-params/form/div/form/div[3]/div/div[2]/p-dropdown/div";
+	public static String formulaCreate_indexNameParameter_xpath = "//*/div/div[3]/p-autocomplete/span/input";
+	public static String formulaCreate_calculationPeriodParamater_xpath = "//*/div/div[4]/p-autocomplete/span/input";
+	public static String formulaCreate_create_xpath = "//*/button[normalize-space()='Create']";
+	public static String formulaCreate_cancel_xpath = "//*/form/div/button[2]";
+	public static String formulaCreate_errorMessageValidate_xpath = "//*[normalize-space()='formula parameters do not match expression']";
 }
+
+

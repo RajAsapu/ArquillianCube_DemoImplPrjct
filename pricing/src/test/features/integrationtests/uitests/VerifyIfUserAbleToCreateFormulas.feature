@@ -77,3 +77,23 @@ Feature: Formula Create page
     And   expression as "None"
     And   validate the expression and click on Create
     Then  the application displays an error message as "formula parameters do not match expression"
+
+  Scenario Outline: To verify that the application displays an error when an invalid start date is entered.
+    Given the user has navigated to the "Create" page under the "Formula"
+    When  the user creates a formula with "TestThree"
+    And   set the start date for formula as "<startDate>"
+    Then  the application displays an error message as "Must be in YYYY-MM-DD format."
+    Examples:
+      | startDate |
+      | 3289923   |
+      | 01-03-2017|
+
+  Scenario Outline: To verify that the application displays an error when an invalid end date is entered.
+    Given the user has navigated to the "Create" page under the "Formula"
+    When  the user creates a formula with "TestThree"
+    And   set the end date for formula as "<endDate>"
+    Then  the application displays an error message as "Must be in YYYY-MM-DD format."
+    Examples:
+    | endDate   |
+    | 3289923   |
+    | 01-03-2017|

@@ -5,6 +5,7 @@ import cucumber.api.DataTable;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoSuchElementException;
@@ -15,6 +16,9 @@ import setup.CommonFunctions;
 import setup.Constants;
 import setup.DriverBean;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 public class PageForumlaSteps {
@@ -118,6 +122,16 @@ public class PageForumlaSteps {
 
     @When("^set the start date for formula as \"([^\"]*)\"$")
     public void set_the_start_date_for_formula_as(String startDate) throws Throwable {
+
+        LocalDate da = LocalDate.now();
+        if (startDate.equalsIgnoreCase("today")) {
+            startDate = LocalDate.now().toString();
+        }else if(startDate.equalsIgnoreCase("tomorrow")){
+            startDate = LocalDate.now().plusDays(1).toString();
+        }else if(startDate.equalsIgnoreCase("yesterday")){
+            startDate = LocalDate.now().minusDays(1).toString();
+        }
+
         WebElement datepicker = edriver.findElement(By.xpath(Constants.formulaCreate_startDatePicker_xpath));
 
         Actions act = new Actions(edriver);
@@ -127,6 +141,15 @@ public class PageForumlaSteps {
 
     @When("^set the end date for formula as \"([^\"]*)\"$")
     public void set_the_end_date_for_formula_as(String endDate) throws Throwable {
+
+        LocalDate da = LocalDate.now();
+        if (endDate.equalsIgnoreCase("today")) {
+            endDate = LocalDate.now().toString();
+        }else if(endDate.equalsIgnoreCase("tomorrow")){
+            endDate = LocalDate.now().plusDays(1).toString();
+        }else if(endDate.equalsIgnoreCase("yesterday")){
+            endDate = LocalDate.now().minusDays(1).toString();
+        }
         WebElement datepicker = edriver.findElement(By.xpath(Constants.formulaCreate_endDatePicker_xpath));
 
         Actions act = new Actions(edriver);

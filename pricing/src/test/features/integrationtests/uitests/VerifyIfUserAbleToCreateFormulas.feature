@@ -23,9 +23,9 @@ Feature: Formula Create page
     And   validate the expression and click on Create
     Then  the application displays an error message as "<errorMessage>"
     Examples:
-      |name    |description  | type   | expression|  startDate   |  endDate    | roundingMode | roundingPrecision|paramType| indexType | indexPoint | indexName        | calculationPeriod | errorMessage                                |
-      |TestOne | for testing | COST   | Test      |  2017-03-27  |  2017-03-26 | Round Up     | 3                | Index   | Argus     | Mid        | NY RBOB Prem Brg | Testing           | End date cannot be before start date        |
-      |TestOne | for testing | COST   | Test      |  2017-03-24  |  2017-03-26 | Round Up     | 3                | Index   | Argus     | Mid        | NY RBOB Prem Brg | Testing           | End date cannot be before system start date |
+      |name    |description  | type   | expression|  startDate   |  endDate   | roundingMode | roundingPrecision|paramType| indexType | indexPoint | indexName        | calculationPeriod | errorMessage                                |
+      |TestOne | for testing | COST   | Test      |  TOMORROW    |  TODAY     | Round Up     | 3                | Index   | Argus     | Mid        | NY RBOB Prem Brg | Testing           | End date cannot be before start date        |
+      |TestOne | for testing | COST   | Test      |  2017-03-24  |  YESTERDAY | Round Up     | 3                | Index   | Argus     | Mid        | NY RBOB Prem Brg | Testing           | End date cannot be before system start date |
 
   Scenario Outline: To verify that the user is able to create a formula when end date is equal to start date
     Given the user has navigated to the "Create" page under the "Formula"
@@ -44,7 +44,7 @@ Feature: Formula Create page
     Then  the formula should be created
     Examples:
       |name      |description  | type   | expression|  startDate   |  endDate    | roundingMode | roundingPrecision|paramType| indexType | indexPoint | indexName        | calculationPeriod |
-      |TestThree | for testing | COST   | Test      |  2017-03-27  |  2017-03-27 | Round Up     | 3                | Index   | Argus     | Mid        | NY RBOB Prem Brg | Testing           |
+      |TestThree | for testing | COST   | Test      |  TODAY       |  TODAY      | Round Up     | 3                | Index   | Argus     | Mid        | NY RBOB Prem Brg | Testing           |
 
   Scenario Outline: To verify that the user is able to create a formula with out end date and description
     Given the user has navigated to the "Create" page under the "Formula"
@@ -64,3 +64,16 @@ Feature: Formula Create page
     Examples:
       |name      |description  | type   | expression|  startDate   |  endDate    | roundingMode | roundingPrecision|paramType| indexType | indexPoint | indexName        | calculationPeriod |
       |TestFour  |             | COST   | Test      |  2017-03-27  |             | Round Up     | 3                | Index   | Argus     | Mid        | NY RBOB Prem Brg | Testing           |
+
+  Scenario: To verify that the application displays an error when validate expression is used with out value.
+    Given the user has navigated to the "Create" page under the "Formula"
+    When  the user creates a formula with "TestThree"
+    And   validate the expression and click on Create
+    Then  the application displays an error message as "Invalid formula"
+
+  Scenario: To verify that the application displays an error when validate expression is used with invalid value.
+    Given the user has navigated to the "Create" page under the "Formula"
+    When  the user creates a formula with "TestThree"
+    And   expression as "None"
+    And   validate the expression and click on Create
+    Then  the application displays an error message as "formula parameters do not match expression"

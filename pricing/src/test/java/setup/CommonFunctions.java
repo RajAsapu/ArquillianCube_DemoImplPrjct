@@ -300,7 +300,6 @@ public class CommonFunctions {
 		return list.size()>0?list.get(0).getText():null;
 	}
 	/*
- 	 * User is expected to be on the right page
  	 * Generic Methods
  	 */
 	public void setValue(String filter,String value)
@@ -367,25 +366,9 @@ public class CommonFunctions {
 	}
 
 	public void setNameFromAutoFill(String identifier,String key) throws Exception{
-		/*
-		 * Fix : Assuming one element with the autofill present in the page
-		 */
-
-//		String field =null,autoFillPath =null;
-//		if(edriver.getCurrentUrl().contains("index/create")) {
-//			field = Constants.indexList_name_xpath;
-//			autoFillPath = Constants.indexCreate_name_autofill_path;
-//		}else if(edriver.getCurrentUrl().contains("index/list")){
-//			field = Constants.indexList_name_xpath;
-//			autoFillPath = Constants.indexList_name_autofill_xpath;
-//		}else if(edriver.getCurrentUrl().contains("formula/create")){
-//
-//		}
 		edriver.findElement(By.xpath(identifier)).sendKeys(key.substring(0, key.length() - 1));
 		Thread.sleep(2000);
 		edriver.findElement(By.xpath("//li[normalize-space()='"+key+"']")).click();
-//		List<WebElement> autofillList = edriver.findElements(By.xpath("//*[normalize-space()='"+key+"']"));
-//		autofillList.listIterator().next().click();
 	}
 
 public enum page {

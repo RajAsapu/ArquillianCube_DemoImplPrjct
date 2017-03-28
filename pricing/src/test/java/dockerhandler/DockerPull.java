@@ -3,16 +3,19 @@ package dockerhandler;
 import org.junit.Test;
 import java.io.File;
 import java.io.InputStream;
+import java.util.Enumeration;
 import java.util.Properties;
 
 public class DockerPull{
 
 	private String[] gitrepos=new String[4] ;
 	private String rootRepoDir = "./Repos/";
+	private Enumeration<?> nameList;
 	File resourceFile;
-	String resourceFilePath;
+	String propName;
 	InputStream in;
 	Properties props;
+	int temp=0;
 	/*
 	 * To do : Handle exceptions
 	 */
@@ -22,28 +25,23 @@ public class DockerPull{
 		/*
 		 * Load properties file
 		 */
-		props=new Properties();
-		in=getClass().getClassLoader().getResourceAsStream("repos.properties");
+		props = new Properties();
+		in = getClass().getClassLoader().getResourceAsStream("repos.properties");
+		props.load(in);
+		nameList = props.propertyNames();
 
-		if(in!=null)
+		while(nameList.hasMoreElements())
 		{
-			props.load(in);
+			if((propName = nameList.nextElement().toString()).contains("price"))
+			{
+				gitrepos[temp++]= props.getProperty(propName);
+			}
 		}
-		else
-		{
-			throw new Exception("Property file not found:repos.properties");
-		}
-		gitrepos[0]=props.getProperty("priceUi_gitRepo");
-		gitrepos[1]=props.getProperty("priceEngine_gitRepo");
-		gitrepos[2]=props.getProperty("priceConfigServices_gitRepo");
-		gitrepos[3]=props.getProperty("priceDataMock_gitRepo");
 
 		File rootDir = new File(rootRepoDir);
-
 		if (rootDir.exists()) {
 			ExecuteCommands.exec("rm -r " + rootRepoDir);
 		}
-
 		rootDir.mkdir();
 		/*
 		 * pull repositories

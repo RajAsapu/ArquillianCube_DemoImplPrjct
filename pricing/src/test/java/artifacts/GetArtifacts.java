@@ -2,9 +2,6 @@ package artifacts;
 
 import io.restassured.response.Response;
 import org.apache.commons.io.FileUtils;
-import org.junit.Test;
-import org.openqa.selenium.io.Zip;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -22,7 +19,6 @@ public class GetArtifacts {
     Response response;
     List<String> artifactUrl;
 
-    @Test
     public void getArtifactsService()throws IOException
     {
         props=new Properties();
@@ -51,7 +47,6 @@ public class GetArtifacts {
             }
         }
     }
-    @Test
     public void getArtifactsUi()throws IOException
     {
         props=new Properties();

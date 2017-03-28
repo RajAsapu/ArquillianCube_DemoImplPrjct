@@ -10,11 +10,24 @@
         <property name="clean">true</property>
         <property name="dockerContainersFile">src/test/resources/docker-compose.yml</property>
         <property name="definitionFormat">COMPOSE</property>
+        <property name="cleanBuildImage">true</property>
+        <property name="connectionMode">STARTORCONNECT</property>
         <property name="autoStartContainers">regexp:aq(.*)</property>
         <property name="cubeSpecificProperties">
             aqpriceui:
                 await:
-                    strategy: polling
+                    strategy: native
+
+            aqpricedatamock:
+                await:
+                    strategy: native
+
+            aqpriceengine:
+                await:
+                    strategy: native
+            aqpricedb:
+                await:
+                    strategy: native
         </property>
     </extension>
 </arquillian>

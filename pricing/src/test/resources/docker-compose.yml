@@ -1,3 +1,28 @@
 aqpriceui:
-  buildImage: ./Repos/price-configuration-ui.git
-  exposedPorts: [80->4200/tcp]
+  build: ./Repos/price-configuration-ui.git
+  publishAllPorts: true
+  attachStdin: true
+  attachSterr: true
+  dns: [localhost]
+  ports: ["4200:80"]
+aqpricedatamock:
+  build: ./Repos/price-data-mock.git
+  publishAllPorts: true
+  attachStdin: true
+  attachSterr: true
+  dns: [localhost]
+  ports: ["5555:5555"]
+aqpriceengine:
+  build: ./Repos/price-engine.git
+  publishAllPorts: true
+  attachStdin: true
+  attachSterr: true
+  dns: [localhost]
+  ports: ["6666:6666"]
+aqpricedb:
+  build: ./Repos/price-configuration-service.git/src/it/
+  publishAllPorts: true
+  attachStdin: true
+  attachSterr: true
+  dns: [localhost]
+  ports: ["9042:9042","8943:8943"]

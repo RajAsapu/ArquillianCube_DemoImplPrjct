@@ -141,9 +141,18 @@ public class Constants {
 	public static String formulaList_startDateFilter_xpath = "//*/p-datatable/div/div/table/thead/tr/th[5]/input";
 	public static String formulaList_endDateFilter_xpath = "//*/p-datatable/div/div/table/thead/tr/th[6]/input";
 	public static String formulaList_roundPrecsFilter_xpath = "//*/p-datatable/div/div/table/thead/tr/th[8]/input";
-	/*
-	 * List page Column names
-	 */
+	    /*
+		 * Actions
+		 */
+	public static String formulaList_viewAction_xpath = "//button[@title='View']";
+	public static String formulaList_copyAction_xpath = "//button[@title='Copy']";
+	public static String formulaList_editAction_xpath = "//button[@title='Edit']";
+	public static String formulaList_deactivateAction_xpath = "//button[@title='Deactivate']";
+	public static String formulaList_updateAction_xpath = "//button[normalize-space()='Update']";
+	public static String formulaList_cancelAction_xpath = "//button[normalize-space()='Cancel']";
+		/*
+		 * List page Column names
+		 */
 	public static String formulaList_nameColumn_xpath = "//*/p-datatable/div/div/table/tbody/*/td[1]/span[2]";
 	public static String formulaList_descrpColumn_xpath = "//*/p-datatable/div/div/table/tbody/*/td[2]";
 	public static String formulaList_typeColumn_xpath = "//*/p-datatable/div/div/table/tbody/*/td[3]";
@@ -162,6 +171,7 @@ public class Constants {
 	public static String formulaCreate_validateExpre_xpath = "//*/button[normalize-space()='Validate Expression']";
 	public static String formulaCreate_startDatePicker_xpath = "//*/button[@ng-reflect-icon='fa-calendar']";
 	public static String formulaCreate_endDatePicker_xpath = "//*/div[2]/p-calendar/span/button";
+	public static String formulaCreate_endDate_xpath = "//input[not(contains(@ng-reflect-disabled,'true')) and @placeholder='yyyy-mm-dd']";
 	public static String formulaCreate_roundingMode_xpath = "//*/div[3]/div[3]/div/p-dropdown/div";
 	public static String formulaCreate_roundingModeList_xpath = "//*/p-dropdown/div/div[4]/div/ul/li[*]";
 	public static String formulaCreate_roundingPrecision_xpath = "//*/form/div[3]/div[4]/input";

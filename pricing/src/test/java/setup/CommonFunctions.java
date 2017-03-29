@@ -371,6 +371,11 @@ public class CommonFunctions {
 		edriver.findElement(By.xpath("//li[normalize-space()='"+key+"']")).click();
 	}
 
+	public void clearText(String identifier)
+	{
+		edriver.findElement(By.xpath(identifier)).clear();
+	}
+
 public enum page {
 		List, Create
 	}

@@ -1,10 +1,12 @@
 package stepdef;
 
 import com.google.common.base.Verify;
+import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const;
 import cucumber.api.DataTable;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import org.eclipse.persistence.internal.helper.Helper;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -18,6 +20,8 @@ import setup.DriverBean;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 
@@ -139,19 +143,25 @@ public class PageForumlaSteps {
         act.sendKeys(Keys.TAB).perform();
     }
 
-    @When("^set the end date for formula as \"([^\"]*)\"$")
-    public void set_the_end_date_for_formula_as(String endDate) throws Throwable {
+    @When("^(set|update) the end date for formula as \"([^\"]*)\"$")
+    public void set_the_end_date_for_formula_as(String action,String endDate) throws Throwable {
+        LocalDate today = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        if(action.equals("update")) {
+            endDate = fn.getValue(Constants.formulaCreate_endDate_xpath);
+            today = LocalDate.parse(endDate,formatter);
+            endDate = today.plusDays(1).toString();
+        }
 
-        LocalDate da = LocalDate.now();
         if (endDate.equalsIgnoreCase("today")) {
-            endDate = LocalDate.now().toString();
+            endDate = today.toString();
         }else if(endDate.equalsIgnoreCase("tomorrow")){
-            endDate = LocalDate.now().plusDays(1).toString();
+            endDate = today.plusDays(1).toString();
         }else if(endDate.equalsIgnoreCase("yesterday")){
-            endDate = LocalDate.now().minusDays(1).toString();
+            endDate = today.minusDays(1).toString();
         }
         WebElement datepicker = edriver.findElement(By.xpath(Constants.formulaCreate_endDatePicker_xpath));
-
+        fn.clearText(Constants.formulaCreate_endDate_xpath);
         Actions act = new Actions(edriver);
         act.click(datepicker).sendKeys(endDate).perform();
         act.sendKeys(Keys.TAB).perform();
@@ -191,10 +201,22 @@ public class PageForumlaSteps {
         fn.clickButton(Constants.formulaCreate_create_xpath);
     }
 
-    @Then("^the formula should be created$")
-    public void the_formula_should_be_created() throws Throwable {
+    @Then("^the formula should be (created|updated)$")
+    public void the_formula_should_be_createdUpdated(String action) throws Throwable {
         Verify.verify(edriver.getCurrentUrl().contains("formula/list"),"Formula is not Created !!");
     }
 
+    @When("^the user clicks on \"([^\"]*)\" button$")
+    public void the_user_clicks_on_button(String button) throws Throwable {
+       if(button.equalsIgnoreCase("Edit")) {
+           fn.clickButton(Constants.formulaList_editAction_xpath);
+       }else if(button.equalsIgnoreCase("Update")){
+           fn.clickButton(Constants.formulaList_updateAction_xpath);
+       }else if(button.equalsIgnoreCase("View")){
+           fn.clickButton(Constants.formulaList_viewAction_xpath);
+       }else if(button.equalsIgnoreCase("Copy")){
+           fn.clickButton(Constants.formulaList_copyAction_xpath);
+       }
+    }
 
 }

@@ -97,3 +97,20 @@ Feature: Formula Create page
     | endDate   |
     | 3289923   |
     | 01-03-2017|
+
+  Scenario Outline: To verify if the user is able to create the formula with only required fields.
+    Given the user has navigated to the "Create" page under the "Formula"
+    When  the user creates a formula with "<name>"
+    And   set type as "<type>"
+    And   expression as "<expression>"
+    And   set the start date for formula as "<startDate>"
+    And   set the rounding mode as "<roundingMode>"
+    And   set the rounding precision to "<roundingPrecision>"
+    And   click on add parameter
+    And   enter the details for the paramters
+      |<expression>|<paramType>|<indexType>|<indexPoint>|<indexName>|<calculationPeriod>|
+    And   validate the expression and click on Create
+    Then  the formula should be created
+    Examples:
+      |name    | type   | expression|  startDate   | roundingMode   | roundingPrecision|paramType| indexType | indexPoint | indexName        | calculationPeriod |
+      |TestNine | COST   | Test      |  2017-03-27  | Round Half Even| 3               | Index   | Argus     | Mid        | NY RBOB Prem Brg | Testing           |

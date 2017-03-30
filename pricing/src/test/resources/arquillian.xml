@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<arquillian xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns="http://jboss.org/schema/arquillian"
+            xsi:schemaLocation="http://jboss.org/schema/arquillian
+  http://jboss.org/schema/arquillian/arquillian_1_0.xsd">
+
+    <extension qualifier="docker">
+        <property name="serverVersion">1.12.3</property>
+        <!--<property name="serverUri">http://localhost:2375</property>--> <!-- Linux: unix:///var/run/docker.sock -->
+        <property name="clean">true</property>
+        <property name="dockerContainersFile">src/test/resources/docker-compose.yml</property>
+        <property name="definitionFormat">COMPOSE</property>
+        <property name="cleanBuildImage">true</property>
+        <property name="connectionMode">STARTORCONNECT</property>
+        <property name="autoStartContainers">regexp:aq(.*)</property>
+        <property name="cubeSpecificProperties">
+            aqpriceui:
+                await:
+                    strategy: native
+
+            aqpricedatamock:
+                await:
+                    strategy: native
+
+            aqpriceengine:
+                await:
+                    strategy: native
+            aqpricedb:
+                await:
+                    strategy: native
+        </property>
+    </extension>
+</arquillian>

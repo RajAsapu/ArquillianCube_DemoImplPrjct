@@ -46,21 +46,21 @@ public class PageCommonSteps extends BaseClass {
 			props.setProperty("pricingui.ipaddress", "localhost");
 			props.setProperty("pricingui.hostname", "4200");
 
-			map = dock.getIPandHostPort(HandleDocker.RContainer.price_service);
-			props.setProperty("pricingservice.ipaddress", map.get("IPAddress"));
-			props.setProperty("pricingservice.hostname", map.get("HostPort"));
-
-			map = dock.getIPandHostPort(HandleDocker.RContainer.price_db);
-			props.setProperty("pricingdb.ipaddress", map.get("IPAddress"));
-			props.setProperty("pricingdb.hostname", map.get("HostPort"));
-
-			map = dock.getIPandHostPort(HandleDocker.RContainer.price_datamock);
-			props.setProperty("pricingdatamock.ipaddress", map.get("IPAddress"));
-			props.setProperty("pricingdatamock.hostname", map.get("HostPort"));
-
-			map = dock.getIPandHostPort(HandleDocker.RContainer.price_engine);
-			props.setProperty("pricingengine.ipaddress", map.get("IPAddress"));
-			props.setProperty("pricingengine.hostname", map.get("HostPort"));
+//			map = dock.getIPandHostPort(HandleDocker.RContainer.price_service);
+//			props.setProperty("pricingservice.ipaddress", map.get("IPAddress"));
+//			props.setProperty("pricingservice.hostname", map.get("HostPort"));
+//
+//			map = dock.getIPandHostPort(HandleDocker.RContainer.price_db);
+//			props.setProperty("pricingdb.ipaddress", map.get("IPAddress"));
+//			props.setProperty("pricingdb.hostname", map.get("HostPort"));
+//
+//			map = dock.getIPandHostPort(HandleDocker.RContainer.price_datamock);
+//			props.setProperty("pricingdatamock.ipaddress", map.get("IPAddress"));
+//			props.setProperty("pricingdatamock.hostname", map.get("HostPort"));
+//
+//			map = dock.getIPandHostPort(HandleDocker.RContainer.price_engine);
+//			props.setProperty("pricingengine.ipaddress", map.get("IPAddress"));
+//			props.setProperty("pricingengine.hostname", map.get("HostPort"));
 
 			props.store(out,"*IP and HostPort of active containers*");
 			logger.info("Updated pricing properties");

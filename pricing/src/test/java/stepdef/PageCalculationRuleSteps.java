@@ -1,5 +1,6 @@
 package stepdef;
 
+import com.google.common.base.Verify;
 import cucumber.api.DataTable;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
@@ -350,7 +351,7 @@ public class PageCalculationRuleSteps extends CommonFunctions {
 
     @Then("^the application displays an error message as \"(.*)\"$")
     public void the_application_displays_an_error_message_as(String errMsg) throws Throwable {
-        assert !edriver.findElement(By.xpath("//*[normalize-space()='"+errMsg+"']")).isDisplayed();
+       Verify.verify(edriver.findElement(By.xpath("//*[normalize-space()='"+errMsg+"']")).isDisplayed(),"Error Message is not displayed!!");
     }
 
 }

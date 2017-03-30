@@ -1,10 +1,13 @@
 package setup;
 
+import java.lang.reflect.Field;
 import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 import org.openqa.selenium.support.ui.Select;
 
@@ -88,18 +91,6 @@ public class CommonFunctions {
 		WebElement options = edriver.findElement(By.xpath(Constants.indexList_rateBasis_xpath));
 		Select s = new Select(options);
 		s.selectByVisibleText(rate);
-	}
-
-	public void setName(String key) {
-		/*
-		 * Need to implement code to select the text from auto fill
-		 */
-		edriver.findElement(By.xpath(Constants.indexList_name_xpath)).sendKeys(key.substring(0, key.length() - 1));
-		List<WebElement> autofillList = edriver.findElements(By.xpath(Constants.indexList_name_autofill_xpath));
-		if (autofillList.size() == 0) {
-			autofillList = edriver.findElements(By.xpath(Constants.indexCreate_name_autofill_path));
-		}
-		autofillList.listIterator().next().click();
 	}
 
 	public void selectCurrency(String key) {
@@ -296,6 +287,93 @@ public class CommonFunctions {
 		WebElement noOfMonths=edriver.findElement(By.xpath(Constants.calculationRuleCreate_monthruletype_xpath));
 		Select choose=new Select(noOfMonths);
 		choose.selectByVisibleText(key);
+	}
+
+	/*
+	 * User is expected to be on the right page
+	 */
+	public String getFirstElement(String identifier)
+	{	List<WebElement> list=null;
+
+		list= edriver.findElements(By.xpath(identifier));
+
+		return list.size()>0?list.get(0).getText():null;
+	}
+	/*
+ 	 * Generic Methods
+ 	 */
+	public void setValue(String filter,String value)
+	{
+		edriver.findElement(By.xpath(filter)).sendKeys(value);
+	}
+
+	public String getValue(String filter) {
+		String value = null;
+		value = edriver.findElement(By.xpath(filter)).getAttribute("ng-reflect-value");
+		return value == null ? edriver.findElement(By.xpath(filter)).getText():value;
+	}
+
+	public void checkIfTheRowsMatchFilters(String identifier,String value) throws Exception
+	{
+		List<WebElement> list = null;
+		list = edriver.findElements(By.xpath(identifier));
+		for(WebElement e:list)
+		{
+			if(!e.getText().toLowerCase().contains(value.toLowerCase()))
+			{
+				throw new Exception("Filter doesnt match: Actual:"+e.getText()+" Expected:"+value);
+			}
+		}
+	}
+
+	public void selectFromDropDown(String identifier,String value)
+	{
+		WebElement dropdown = edriver.findElement(By.xpath(identifier));
+		try {
+			Select choose = new Select(dropdown);
+			choose.selectByValue(value);
+			if(!dropdown.getText().equalsIgnoreCase(value)){
+				WebElement element=edriver.findElement(By.xpath("//span[normalize-space()='"+value+"']"));
+				element.click();
+			}
+		}catch (org.openqa.selenium.support.ui.UnexpectedTagNameException|org.openqa.selenium.NoSuchElementException exp)
+		{
+			dropdown.click();
+			WebElement element=edriver.findElement(By.xpath("//span[normalize-space()='"+value+"']"));
+			element.click();
+		}
+	}
+
+	public void selectDate(String identifier,String value)
+	{
+		WebElement datePicker = edriver.findElement(By.xpath(identifier));
+		Actions act = new Actions(edriver);
+		act.click(datePicker).sendKeys(value).perform();
+		act.sendKeys(Keys.TAB).perform();
+	}
+
+	public void enterText(String identifier,String value)
+	{
+		WebElement field = edriver.findElement(By.xpath(identifier));
+		field.sendKeys(value);
+	}
+
+	public void clickButton(String identifier)throws Exception
+	{
+		WebElement button = edriver.findElement(By.xpath(identifier));
+		button.click();
+		Thread.sleep(2000);
+	}
+
+	public void setNameFromAutoFill(String identifier,String key) throws Exception{
+		edriver.findElement(By.xpath(identifier)).sendKeys(key.substring(0, key.length() - 1));
+		Thread.sleep(2000);
+		edriver.findElement(By.xpath("//li[normalize-space()='"+key+"']")).click();
+	}
+
+	public void clearText(String identifier)
+	{
+		edriver.findElement(By.xpath(identifier)).clear();
 	}
 
 public enum page {

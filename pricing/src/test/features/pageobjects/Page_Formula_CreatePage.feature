@@ -17,11 +17,10 @@ Feature: To verify if the user is able to create formula.
     And   set the end date for formula as "<endDate>"
     And   set the rounding mode as "<roundingMode>"
     And   set the rounding precision to "<roundingPrecision>"
-    And   click on add parameter
     And   enter the details for the paramters
-    |<expression>|<paramType>|<indexType>|<indexPoint>|<indexName>|<calculationPeriod>|
+      | <expression> | <paramType> | <indexType> | <indexPoint> | <indexName> | <calculationPeriod> |
     And   validate the expression and click on Create
     Then  the formula should be created
     Examples:
-      |name    |description  | type   | expression|  startDate   |  endDate    | roundingMode | roundingPrecision|paramType| indexType | indexPoint | indexName        | calculationPeriod |
-      |TestOne | for testing | COST   | Test      |  2017-03-27  |  2017-04-27 | Round Up     | 3                | Index   | Argus     | Mid        | NY RBOB Prem Brg | Testing           |
+      | name    | description | type | expression | startDate  | endDate    | roundingMode | roundingPrecision | paramType | indexType | indexPoint | indexName        | calculationPeriod |
+      | TestOne | for testing | COST | Test       | 2017-03-27 | 2017-04-27 | Round Up     | 3                 | Index     | Argus     | Mid        | NY RBOB Prem Brg | Testing           |

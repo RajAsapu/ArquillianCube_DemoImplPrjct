@@ -14,6 +14,7 @@ import org.openqa.selenium.support.events.EventFiringWebDriver;
 import setup.CommonFunctions;
 import setup.Constants;
 import setup.DriverBean;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -25,8 +26,7 @@ public class PageCalculationRuleSteps extends CommonFunctions {
     public PageCommonSteps steps;
     public String ruleName;
 
-    public PageCalculationRuleSteps()
-    {
+    public PageCalculationRuleSteps() {
         edriver = DriverBean.getDriver();
         steps = new PageCommonSteps();
     }
@@ -64,7 +64,7 @@ public class PageCalculationRuleSteps extends CommonFunctions {
 
     @When("^select the day rule type as \"([^\"]*)\"$")
     public void select_the_day_rule_type_as(String rule) throws Throwable {
-       selectDayRuleType(rule);
+        selectDayRuleType(rule);
     }
 
     @When("^enter days before event as \"([^\"]*)\"$")
@@ -79,26 +79,21 @@ public class PageCalculationRuleSteps extends CommonFunctions {
 
     @When("^(include|do not include) event day$")
     public void include_event_day(String cond) throws Throwable {
-        if(cond.equals("include"))
-        {
+        if (cond.equals("include")) {
             includeEvent(true);
-        }
-        else if(cond.equals("do not include"))
-        {
+        } else if (cond.equals("do not include")) {
             includeEvent(false);
         }
     }
 
     @Then("^the calculation rule should be (created|updated)$")
-    public void the_calculation_rule_should_be_createdOrupdated(String status,DataTable table)throws Exception
-    {
-        List<List<String>> rule=table.raw();
+    public void the_calculation_rule_should_be_createdOrupdated(String status, DataTable table) throws Exception {
+        List<List<String>> rule = table.raw();
         /*
          * implemenet validation of the row
          */
         Thread.sleep(5000);
-        if(!edriver.getCurrentUrl().contains("/calc-rule/list"))
-        {
+        if (!edriver.getCurrentUrl().contains("/calc-rule/list")) {
             throw new Exception("Calculation Rule is not created");
         }
     }
@@ -130,12 +125,9 @@ public class PageCalculationRuleSteps extends CommonFunctions {
 
     @When("^overlap (is|is not) allowed$")
     public void overlap_is_allowed(String cond) throws Throwable {
-        if(cond.equals("is"))
-        {
+        if (cond.equals("is")) {
             overLapAllowed(true);
-        }
-        else if(cond.equals("is not"))
-        {
+        } else if (cond.equals("is not")) {
             overLapAllowed(false);
         }
     }
@@ -147,7 +139,7 @@ public class PageCalculationRuleSteps extends CommonFunctions {
 
     @And("^number of months for effective period as \"([^\"]*)\"$")
     public void number_of_months_for_effective_period_as(String months) throws Throwable {
-       setNoOfMonthsEffPeriod(months);
+        setNoOfMonthsEffPeriod(months);
     }
 
     @And("^effective start day of month as \"([^\"]*)\"$")
@@ -162,23 +154,18 @@ public class PageCalculationRuleSteps extends CommonFunctions {
 
     @And("^set calculation start day of month as \"([^\"]*)\"$")
     public void set_calculation_start_day_of_month_as(String day) throws Throwable {
-       setCalStartDayOfMonth(day);
+        setCalStartDayOfMonth(day);
     }
 
     @When("^the user enters \"([^\"]*)\" as \"([^\"]*)\"$")
     public void the_user_enters_as(String filter, String key) throws Throwable {
         WebElement filterType = null;
-        if(filter.equalsIgnoreCase("Name"))
-        {
-            filterType=edriver.findElement(By.xpath(Constants.calculationRuleList_searchByName_xpath));
-        }
-        else if(filter.equalsIgnoreCase("Type"))
-        {
-            filterType=edriver.findElement(By.xpath(Constants.calculationRuleList_searchByType_xpath));
-        }
-        else if(filter.equalsIgnoreCase("Description"))
-        {
-            filterType=edriver.findElement(By.xpath(Constants.calculationRuleList_searchByDescrp_xpath));
+        if (filter.equalsIgnoreCase("Name")) {
+            filterType = edriver.findElement(By.xpath(Constants.calculationRuleList_searchByName_xpath));
+        } else if (filter.equalsIgnoreCase("Type")) {
+            filterType = edriver.findElement(By.xpath(Constants.calculationRuleList_searchByType_xpath));
+        } else if (filter.equalsIgnoreCase("Description")) {
+            filterType = edriver.findElement(By.xpath(Constants.calculationRuleList_searchByDescrp_xpath));
         }
         filterType.sendKeys(key);
         Thread.sleep(3000);
@@ -190,54 +177,38 @@ public class PageCalculationRuleSteps extends CommonFunctions {
         String key = table.get(0).get(1);
         List<WebElement> rowList = null;
 
-        if(type.equalsIgnoreCase("Name"))
-        {
-            rowList=edriver.findElements(By.xpath(Constants.calculationRuleList_nameColumn_xpath));
-        }
-        else if(type.equalsIgnoreCase("Type"))
-        {
-            rowList=edriver.findElements(By.xpath(Constants.calculationRuleList_typeColumn_xpath));
-        }
-        else if(type.equalsIgnoreCase("Description"))
-        {
-            rowList=edriver.findElements(By.xpath(Constants.calculationRuleList_descpColumn_xpath));
+        if (type.equalsIgnoreCase("Name")) {
+            rowList = edriver.findElements(By.xpath(Constants.calculationRuleList_nameColumn_xpath));
+        } else if (type.equalsIgnoreCase("Type")) {
+            rowList = edriver.findElements(By.xpath(Constants.calculationRuleList_typeColumn_xpath));
+        } else if (type.equalsIgnoreCase("Description")) {
+            rowList = edriver.findElements(By.xpath(Constants.calculationRuleList_descpColumn_xpath));
         }
 
-        for(WebElement temp:rowList)
-        {
-            if(!temp.getText().equals(key))
-            {
-                throw new Exception("Filter:"+type+" doesnt match results, Expected:"+key+" Actual:"+temp.getText());
+        for (WebElement temp : rowList) {
+            if (!temp.getText().equals(key)) {
+                throw new Exception("Filter:" + type + " doesnt match results, Expected:" + key + " Actual:" + temp.getText());
             }
         }
 
     }
 
     @And("^the user clicks on the add new rule button$")
-    public void the_user_clicks_on_the_add_new_rule_button()
-    {
+    public void the_user_clicks_on_the_add_new_rule_button() {
         WebElement newRule = edriver.findElement(By.linkText(Constants.calculationRuleList_addNewRule_linkText));
         newRule.click();
     }
 
     @And("^the user clicks on \"([^\"]*)\"$")
-    public void the_user_clicks_on(String hdr) throws Throwable
-    {
+    public void the_user_clicks_on(String hdr) throws Throwable {
         WebElement header = null;
-        if(hdr.equals("Status"))
-        {
+        if (hdr.equals("Status")) {
             header = edriver.findElement(By.xpath(Constants.calculationRuleList_hdrStatusColumn_xpath));
-        }
-        else if(hdr.equals("Name"))
-        {
+        } else if (hdr.equals("Name")) {
             header = edriver.findElement(By.xpath(Constants.calculationRuleList_hdrNameColumn_xpath));
-        }
-        else if(hdr.equals("Type"))
-        {
+        } else if (hdr.equals("Type")) {
             header = edriver.findElement(By.xpath(Constants.calculationRuleList_hdrTypeColumn_xpath));
-        }
-        else if(hdr.equals("Description"))
-        {
+        } else if (hdr.equals("Description")) {
             header = edriver.findElement(By.xpath(Constants.calculationRuleList_hdrDescrpColumn_xpath));
         }
         header.click();
@@ -245,51 +216,37 @@ public class PageCalculationRuleSteps extends CommonFunctions {
     }
 
     @Then("^the calculation rules shall be displayed in (ascending order|descending order)$")
-    public void the_calculation_rules_shall_be_displayed_in_sorted_order(String order,DataTable table) throws Throwable {
+    public void the_calculation_rules_shall_be_displayed_in_sorted_order(String order, DataTable table) throws Throwable {
         List<List<String>> rows = table.raw();
         String header = rows.get(0).get(0);
         List<WebElement> columnList = null;
-        List<String> colList =new ArrayList<>();
-        List<String> compareList=new ArrayList<>();
-        if(header.equals("Status"))
-        {
+        List<String> colList = new ArrayList<>();
+        List<String> compareList = new ArrayList<>();
+        if (header.equals("Status")) {
             columnList = edriver.findElements(By.xpath(Constants.calculationRuleList_statusColumn_xpath));
-        }
-        else if(header.equals("Name"))
-        {
+        } else if (header.equals("Name")) {
             columnList = edriver.findElements(By.xpath(Constants.calculationRuleList_nameColumn_xpath));
-        }
-        else if(header.equals("Type"))
-        {
+        } else if (header.equals("Type")) {
             columnList = edriver.findElements(By.xpath(Constants.calculationRuleList_typeColumn_xpath));
-        }
-        else if(header.equals("Description"))
-        {
+        } else if (header.equals("Description")) {
             columnList = edriver.findElements(By.xpath(Constants.calculationRuleList_descpColumn_xpath));
         }
-        for(WebElement temp:columnList)
-        {
-            if(temp.getText()!=null && !temp.getText().equals(""))
-            {
+        for (WebElement temp : columnList) {
+            if (temp.getText() != null && !temp.getText().equals("")) {
                 colList.add(temp.getText().toLowerCase());
                 compareList.add(temp.getText().toLowerCase());
             }
         }
-        if(order.contains("asc"))
-        {
+        if (order.contains("asc")) {
             Collections.sort(colList);
-            if(!colList.equals(compareList))
-            {
-                throw new Exception("Column:"+header+" is not sorted in ascending order");
+            if (!colList.equals(compareList)) {
+                throw new Exception("Column:" + header + " is not sorted in ascending order");
             }
-        }
-        else
-        {
+        } else {
             Collections.sort(colList);
             Collections.reverse(colList);
-            if(!colList.equals(compareList))
-            {
-                throw new Exception("Column:"+header+" is not sorted in descending order");
+            if (!colList.equals(compareList)) {
+                throw new Exception("Column:" + header + " is not sorted in descending order");
             }
         }
     }
@@ -310,8 +267,8 @@ public class PageCalculationRuleSteps extends CommonFunctions {
     @Then("^the calculation rules should display the status as inactive$")
     public void the_calculation_rules_should_display_the_status_as_inactive() throws Throwable {
         the_user_enters_as("Name", ruleName);
-        List<List<String>> list=new ArrayList<>();
-        List<String> sublist=new ArrayList<>();
+        List<List<String>> list = new ArrayList<>();
+        List<String> sublist = new ArrayList<>();
         sublist.add("Name");
         sublist.add(ruleName);
         list.add(sublist);
@@ -321,37 +278,34 @@ public class PageCalculationRuleSteps extends CommonFunctions {
     @When("^the user clicks on the (view|edit) button of a plan$")
     public void the_user_clicks_on_the_view_button_of_a_plan(String act) throws Throwable {
         WebElement temp = null;
-        if(act.equals("view"))
-        {
+        if (act.equals("view")) {
             temp = edriver.findElement(By.xpath(Constants.calculationRuleList_actionView_xpath));
-        }else if(act.equals("edit"))
-        {
+        } else if (act.equals("edit")) {
             temp = edriver.findElement(By.xpath(Constants.calculationRuleList_actionEdit_xpath));
         }
         temp.click();
     }
 
     @Then("^the user shall be able to (view|edit) the calculation rule details$")
-    public void the_user_shall_be_able_to_view_the_calculation_rule_details(String act,DataTable table) throws Throwable {
+    public void the_user_shall_be_able_to_view_the_calculation_rule_details(String act, DataTable table) throws Throwable {
 
         assert !edriver.findElement(By.id(Constants.calculationRuleCreate_name_id)).isEnabled();
         assert !edriver.findElement(By.xpath(Constants.calculationRuleCreate_type_xpath)).isEnabled();
         assert !edriver.findElement(By.name(Constants.calculationRuleCreate_description_name)).isEnabled();
 
-        if(act.equals("view")) {
+        if (act.equals("view")) {
             assert !edriver.findElement(By.id(Constants.calculationRuleCreate_daysBeforeEvent_id)).isEnabled();
             assert !edriver.findElement(By.id(Constants.calculationRuleCreate_daysAfterEvent_id)).isEnabled();
-            assert !edriver.findElement(By.id(Constants.calculationRuleCreate_includeEventDay_id)).isEnabled();}
-        else if(act.equals("edit"))
-        {
-            List<List<String >> row=table.raw();
+            assert !edriver.findElement(By.id(Constants.calculationRuleCreate_includeEventDay_id)).isEnabled();
+        } else if (act.equals("edit")) {
+            List<List<String>> row = table.raw();
             set_the_end_date_as(row.get(0).get(0));
         }
     }
 
     @Then("^the application displays an error message as \"(.*)\"$")
     public void the_application_displays_an_error_message_as(String errMsg) throws Throwable {
-       Verify.verify(edriver.findElement(By.xpath("//*[normalize-space()='"+errMsg+"']")).isDisplayed(),"Error Message is not displayed!!");
+        Verify.verify(edriver.findElement(By.xpath("//*[normalize-space()='" + errMsg + "']")).isDisplayed(), "Error Message is not displayed!!");
     }
 
 }

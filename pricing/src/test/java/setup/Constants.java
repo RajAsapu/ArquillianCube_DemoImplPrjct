@@ -37,6 +37,7 @@ public class Constants {
     public static String indexList_nameColumn_xpath = "//*/p-datatable/div/div[2]/table/tbody/tr[*]/td[5]";
     public static String indexList_currencyColumn_xpath = "//*/p-datatable/div/div[2]/table/tbody/tr[*]/td[10]";
     public static String indexList_uomColumn_xpath = "//*/p-datatable/div/div[2]/table/tbody/tr[*]/td[11]";
+    public static String indexList_addNewIndex_xpath = "//*/a[normalize-space()='Add New Index']";
     /*
      * Index : Create page identifiers
      */

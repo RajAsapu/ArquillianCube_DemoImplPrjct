@@ -18,10 +18,17 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-public class PageIndexSteps extends CommonFunctions {
+public class PageIndexSteps {
     final static Logger logger = Logger.getLogger(PageIndexSteps.class.getName());
-    private static EventFiringWebDriver edriver = DriverBean.getDriver();
-    public PageCommonSteps steps = new PageCommonSteps();
+    private static EventFiringWebDriver edriver;
+    public PageCommonSteps steps;
+    private CommonFunctions fn;
+
+    public PageIndexSteps(){
+        edriver = DriverBean.getDriver();
+        steps = new PageCommonSteps();
+        fn = new CommonFunctions();
+    }
 
 
     @When("^the user enters the start date as ([^\"]*) and status as ([^\"]*)$")
@@ -33,8 +40,8 @@ public class PageIndexSteps extends CommonFunctions {
         act.click(datepicker).sendKeys(date).perform();
         act.sendKeys(Keys.TAB).perform();
 
-        selectStatusIndex(status);
-        selectType(type.manual);
+        fn.selectStatusIndex(status);
+        fn.selectType(CommonFunctions.type.manual);
     }
 
     @Then("^the user shall be able to view the list of indexes with start date from \"([^\"]*)\" and status as \"([^\"]*)\"$")
@@ -69,8 +76,8 @@ public class PageIndexSteps extends CommonFunctions {
         act.click(datepicker).sendKeys(date).perform();
         act.sendKeys(Keys.TAB).perform();
 
-        selectStatusIndex(status);
-        selectType(type.manual);
+        fn.selectStatusIndex(status);
+        fn.selectType(CommonFunctions.type.manual);
     }
 
     @Then("^the user shall be able to view the list of indexes with end date from \"([^\"]*)\" and status as \"([^\"]*)\"$")
@@ -108,9 +115,9 @@ public class PageIndexSteps extends CommonFunctions {
     @When("^the user enters the type as ([^\"]*)$")
     public void the_user_enters_the_type_as(String type) throws Throwable {
         if (type.equals("MANUAL"))
-            selectType(CommonFunctions.type.manual);
+            fn.selectType(CommonFunctions.type.manual);
         else if (type.equals("AUTOMATIC"))
-            selectType(CommonFunctions.type.automatic);
+            fn.selectType(CommonFunctions.type.automatic);
         else
             logger.error("Invalid type");
     }
@@ -130,12 +137,12 @@ public class PageIndexSteps extends CommonFunctions {
 
     @When("^the user enters rate basis as ([^\"]*)$")
     public void the_user_enters_rate_basis_as(String rateBase) throws Throwable {
-        selectRateBasis(rateBase);
+        fn.selectRateBasis(rateBase);
     }
 
     @When("^name as ([^\"]*)$")
     public void name_as(String name) throws Throwable {
-        setNameFromAutoFill(Constants.indexList_name_xpath, name);
+        fn.setNameFromAutoFill(Constants.indexList_name_xpath, name);
     }
 
     @Then("^the codes shall be auto populated$")
@@ -150,12 +157,12 @@ public class PageIndexSteps extends CommonFunctions {
 
     @When("^currency as ([^\"]*)$")
     public void currency_as(String curr) throws Throwable {
-        selectCurrency(curr);
+        fn.selectCurrency(curr);
     }
 
     @When("^unit of measurement as ([^\"]*)$")
     public void unit_of_measurement_as(String uom) throws Throwable {
-        selectUOM(uom);
+        fn.selectUOM(uom);
     }
 
     @Then("^the user shall be able to view the list of indexes matching the search criteria as \"([^\"]*)\" on list page$")
@@ -250,11 +257,19 @@ public class PageIndexSteps extends CommonFunctions {
             throws Throwable {
         Thread.sleep(5000);
         Verify.verify(edriver.getCurrentUrl().contains("/index/list"));
-        selectRateBasis(rate);
-        selectStatusIndex("Active");
+        fn.selectRateBasis(rate);
+        fn.selectStatusIndex("Active");
         steps.clicks_on_the_search_button();
         /*
          * Need to implement code to check the created index !!
 		 */
     }
+
+    @And("^click on add Index$")
+    public void click_on_index()throws Exception
+    {
+        fn.clickButton(Constants.indexList_addNewIndex_xpath);
+    }
+
+
 }

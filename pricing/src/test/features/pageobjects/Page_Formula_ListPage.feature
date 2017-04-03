@@ -12,13 +12,13 @@ Feature: To verify if the user is able to access list page under formula.
     And   click on filter
     When  the user filters the list using "<filterType>"
     Then  the list should display the results applying the filters
-    |<filterType>|
+      | <filterType> |
     Examples:
-    | filterType         |
-    | name               |
-    | description        |
-    | type               |
-    | expression         |
-    | startdate          |
-    | enddate            |
-    | rounding precision |
+      | filterType         |
+      | name               |
+      | description        |
+      | type               |
+      | expression         |
+      | startdate          |
+      | enddate            |
+      | rounding precision |

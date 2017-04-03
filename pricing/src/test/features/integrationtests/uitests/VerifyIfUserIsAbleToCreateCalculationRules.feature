@@ -15,5 +15,5 @@ Feature: Calculation Rule - Create page
     And    set the end date as "<endDate>"
     Then   the application displays an error message as "<errorMessage>"
     Examples:
-    | name    | startDate  | endDate    | errorMessage                          |
-    | Testing | 2017-03-31 | 2017-03-11 | End date cannot be before start date  |
+      | name    | startDate  | endDate    | errorMessage                         |
+      | Testing | 2017-03-31 | 2017-03-11 | End date cannot be before start date |

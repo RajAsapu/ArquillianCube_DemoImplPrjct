@@ -11,25 +11,25 @@ Feature: List calculation rule.
     Given the user has navigated to the "List" page under the "Calculation_Rule"
     When  the user enters "<filter>" as "<nameFilter>"
     Then  the list should display the records matching the filter criteria
-    |<filter>|<nameFilter>|
+      | <filter> | <nameFilter> |
     Examples:
-    | filter | nameFilter  |
-    | Name   | TestRule1   |
+      | filter | nameFilter |
+      | Name   | TestRule1  |
 
   Scenario Outline: To verify if the user is able to search the list by type.
     Given the user has navigated to the "List" page under the "Calculation_Rule"
     When  the user enters "<filter>" as "<typeFilter>"
     Then  the list should display the records matching the filter criteria
-      |<filter>|<typeFilter>|
+      | <filter> | <typeFilter> |
     Examples:
-      | filter | typeFilter  |
-      | Type   | DAY         |
+      | filter | typeFilter |
+      | Type   | DAY        |
 
   Scenario Outline: To verify if the user is able to search the list by descrption.
     Given the user has navigated to the "List" page under the "Calculation_Rule"
     When  the user enters "<filter>" as "<descrpFilter>"
     Then  the list should display the records matching the filter criteria
-      |<filter>|<descrpFilter>|
+      | <filter> | <descrpFilter> |
     Examples:
-      | filter        |  descrpFilter |
-      | Description   |  for testing  |
+      | filter      | descrpFilter |
+      | Description | for testing  |

@@ -54,3 +54,16 @@ Feature: List Page
     And   clicks on the search button
     And   the user clicked on inactive action
     Then  the status of the index should change to inactive
+
+  Scenario Outline: To verify that the user is unable to edit low,mid,high and close prices for the active indexes with rate basis other than unit.
+    Given the user has navigated to the "List" page under the "Index"
+    When  the user enters the start date as 2016-12-10 and status as Active
+    And  the user enters rate basis as <rateBasis>
+    And   clicks on the search button
+    And   the user clicked on edit action
+    Then  the user is not allowed to update low,mid,high and close prices for active index
+
+    Examples:
+    | rateBasis         |
+    | Price Point Scale |
+    | Price Break Scale |

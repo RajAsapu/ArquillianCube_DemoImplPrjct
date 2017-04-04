@@ -57,6 +57,9 @@ public class Constants {
     public static String indexCreate_comment_xpath = "//*[@id='txtDesc']";
     public static String indexCreate_submit_xpath = "//*/button[normalize-space()='Submit']";
     public static String indexCreate_priceBreak_xpath = "//*/input[@type='number']";
+    public static String indexCreate_fromScale_xpath = "//input[@formcontrolname='from']";
+    public static String indexCreate_toScale_xpath = "//input[@formcontrolname='to']";
+    public static String indexCreate_rateScale_xpath = "//input[@formcontrolname='rate']";
 
     /*
      * Currency Exchange List Page Identifiers Filters on search

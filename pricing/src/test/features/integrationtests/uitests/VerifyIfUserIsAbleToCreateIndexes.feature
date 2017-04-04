@@ -64,7 +64,6 @@ Feature: To verify if the user is able to access create page under index.
       | 10.5     | 15.8     | 30.2      | 18.8       | Flat      | UNL 89 NY BARGE     | 2017-03-10 | AFN      |     | Created for new clients |
       | 10.5     | 15.8     | 30.2      |            | Flat      | UNL 89 NY BARGE     | 2017-03-10 | AFN      | 110 | Created for new clients |
 
-  # Index created in this scenario is used for the next test.
   Scenario Outline: To verify that the user is able to create the index with only required fields
     Given the user has navigated to the "Create" page under the "Index"
     When  the user enters rate basis as <rateBasis>
@@ -80,4 +79,15 @@ Feature: To verify if the user is able to access create page under index.
     Examples:
       | lowPrice | midPrice | highPrice | closePrice | rateBasis | name                 | startDate  | currency | uom | comments                |
       |          |          |           | 18.8       |           | UNLEADED US GULF PIPE| 2017-04-01 | BOB      | TOT | Created for new clients |
+
+  Scenario Outline: To verify that the user is unable to enter low,mid,high and close prices for the new index with rate basis other than unit.
+    Given the user has navigated to the "Create" page under the "Index"
+    When  the user enters rate basis as <rateBasis>
+    Then  the user is not allowed to enter low,mid,high and close prices for new index
+    And   scale rates are editable
+
+    Examples:
+      | rateBasis         |
+      | Price Point Scale |
+      | Price Break Scale |
 

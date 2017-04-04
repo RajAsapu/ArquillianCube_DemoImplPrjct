@@ -307,17 +307,17 @@ public class PageForumlaSteps {
 
     @And("^the user shall be able to view all the formula details$")
     public void the_user_shall_be_able_to_view_all_the_formuladetails() {
-        fn.checkOnlyView(Constants.formulaCreate_name_xpath);
-        fn.checkOnlyView(Constants.formulaCreate_description_xpath);
-        fn.checkOnlyView(Constants.formulaCreate_typeSelect_xpath);
-        fn.checkOnlyView(Constants.formulaCreate_expression_xpath);
-        fn.checkOnlyView(Constants.formulaCreate_startDatePicker_xpath);
-        fn.checkOnlyView(Constants.formulaCreate_endDatePicker_xpath);
-        fn.checkOnlyView(Constants.formulaCreate_endDate_xpath);
-        fn.checkOnlyView(Constants.formulaCreate_roundingMode_xpath);
-        fn.checkOnlyView(Constants.formulaCreate_roundingPrecision_xpath);
-        fn.checkOnlyView(Constants.formulaCreate_nameParameter_xpath);
-        fn.checkOnlyView(Constants.formulaCreate_typeParameter_xpath);
+        fn.viewableOnly(Constants.formulaCreate_name_xpath);
+        fn.viewableOnly(Constants.formulaCreate_description_xpath);
+        fn.viewableOnly(Constants.formulaCreate_typeSelect_xpath);
+        fn.viewableOnly(Constants.formulaCreate_expression_xpath);
+        fn.viewableOnly(Constants.formulaCreate_startDatePicker_xpath);
+        fn.viewableOnly(Constants.formulaCreate_endDatePicker_xpath);
+        fn.viewableOnly(Constants.formulaCreate_endDate_xpath);
+        fn.viewableOnly(Constants.formulaCreate_roundingMode_xpath);
+        fn.viewableOnly(Constants.formulaCreate_roundingPrecision_xpath);
+        fn.viewableOnly(Constants.formulaCreate_nameParameter_xpath);
+        fn.viewableOnly(Constants.formulaCreate_typeParameter_xpath);
     }
 
     @Then("^the formula rules shall be displayed in (ascending order|descending order)$")

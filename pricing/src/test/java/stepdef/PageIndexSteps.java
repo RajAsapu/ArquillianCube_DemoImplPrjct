@@ -1,7 +1,6 @@
 package stepdef;
 
 import com.google.common.base.Verify;
-import cucumber.api.DataTable;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -331,16 +330,16 @@ public class PageIndexSteps {
     @Then("^the user shall be able to edit only end date$")
     public void the_user_shall_be_able_to_edit_only_end_date()throws Throwable
     {
-        fn.checkOnlyView(Constants.indexList_name_xpath);
-        fn.checkOnlyView(Constants.indexList_rateBasis_xpath);
-        fn.checkOnlyView(Constants.indexCreate_startDate_xpath);
-        fn.checkOnlyView(Constants.indexCreate_lowprice_xpath);
-        fn.checkOnlyView(Constants.indexCreate_midprice_xpath);
-        fn.checkOnlyView(Constants.indexCreate_highprice_xpath);
-        fn.checkOnlyView(Constants.indexCreate_closeprice_xpath);
-        fn.checkOnlyView(Constants.indexCreate_currency_xpath);
-        fn.checkOnlyView(Constants.indexCreate_uom_xpath);
-        fn.checkOnlyView(Constants.indexCreate_priceBreak_xpath);
+        fn.viewableOnly(Constants.indexList_name_xpath);
+        fn.viewableOnly(Constants.indexList_rateBasis_xpath);
+        fn.viewableOnly(Constants.indexCreate_startDate_xpath);
+        fn.viewableOnly(Constants.indexCreate_lowprice_xpath);
+        fn.viewableOnly(Constants.indexCreate_midprice_xpath);
+        fn.viewableOnly(Constants.indexCreate_highprice_xpath);
+        fn.viewableOnly(Constants.indexCreate_closeprice_xpath);
+        fn.viewableOnly(Constants.indexCreate_currency_xpath);
+        fn.viewableOnly(Constants.indexCreate_uom_xpath);
+        fn.viewableOnly(Constants.indexCreate_priceBreak_xpath);
     }
 
     @Then("^the status of the index should change to inactive$")
@@ -348,6 +347,22 @@ public class PageIndexSteps {
     {
         String status = fn.getFirstElementFromList(Constants.indexList_StatusColumn_xpath);
         Verify.verify(status.equalsIgnoreCase("inactive"),"Index is not deactivated !!");
+    }
+
+    @Then("^the user is not allowed to (update|enter) low,mid,high and close prices for (active|new) index$")
+    public void the_user_is_not_allowed_to_update_lowMidHighAndClose_prices_for_active_index(String act, String type){
+        fn.viewableOnly(Constants.indexCreate_lowprice_xpath);
+        fn.viewableOnly(Constants.indexCreate_midprice_xpath);
+        fn.viewableOnly(Constants.indexCreate_highprice_xpath);
+        fn.viewableOnly(Constants.indexCreate_closeprice_xpath);
+    }
+
+    @And("^scale rates are editable$")
+    public void scale_rates_are_editable()
+    {
+        fn.editable(Constants.indexCreate_fromScale_xpath);
+        fn.editable(Constants.indexCreate_toScale_xpath);
+        fn.editable(Constants.indexCreate_rateScale_xpath);
     }
 
 

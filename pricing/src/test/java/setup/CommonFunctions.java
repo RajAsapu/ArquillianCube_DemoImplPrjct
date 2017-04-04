@@ -329,7 +329,7 @@ public class CommonFunctions {
 
         try {
             Select choose = new Select(dropdown);
-            choose.selectByValue(value[0].toUpperCase());
+            choose.selectByValue(value[0]);
             String typeText = getLastWebElementFromList("//*/*[normalize-space()='" + value[0] + "']").getText();
             if (!typeText.equalsIgnoreCase(value[0])) {
                 WebElement element = getLastWebElementFromList("//span[normalize-space()='" + value[0] + "']");
@@ -337,7 +337,7 @@ public class CommonFunctions {
             }
         } catch (UnexpectedTagNameException | NoSuchElementException | ElementNotVisibleException|NullPointerException exp) {
             dropdown.click();
-            WebElement element = getLastWebElementFromList("//*/span[normalize-space()='" + value[0] + "']");
+            WebElement element = getLastWebElementFromList("//*[normalize-space()='" + value[0] + "']");
             element.click();
         }
     }
@@ -409,12 +409,23 @@ public class CommonFunctions {
         js.executeScript("scroll(0,400)");
     }
 
-    public void checkOnlyView(String identifier) {
+    public void viewableOnly(String identifier) {
         List<WebElement> list = edriver.findElements(By.xpath(identifier));
         for (WebElement temp : list) {
             assert temp.isDisplayed();
             assert !temp.isEnabled();
             assert !temp.isSelected();
+        }
+        if(list.size()==0){
+            Assert.fail("No elements found matching:"+identifier);
+        }
+    }
+
+    public void editable(String identifier) {
+        List<WebElement> list = edriver.findElements(By.xpath(identifier));
+        for (WebElement temp : list) {
+            assert temp.isDisplayed();
+            assert temp.isEnabled();
         }
         if(list.size()==0){
             Assert.fail("No elements found matching:"+identifier);

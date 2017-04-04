@@ -371,6 +371,7 @@ public class CommonFunctions {
     }
 
     public void clickButton(String identifier) throws Exception {
+        Thread.sleep(3000);
         List<WebElement> list = edriver.findElements(By.xpath(identifier));
         boolean flag=false;
         for(WebElement temp:list)

@@ -47,3 +47,10 @@ Feature: List Page
     Given the user has navigated to the "List" page under the "Index"
     When  the user clicked on edit action
     Then  the user shall be able to edit only end date
+
+  Scenario: To verify that the user is able to inactivate the active index.
+    Given the user has navigated to the "List" page under the "Index"
+    When  the user enters the start date as 2016-12-10 and status as Active
+    And   clicks on the search button
+    And   the user clicked on inactive action
+    Then  the status of the index should change to inactive

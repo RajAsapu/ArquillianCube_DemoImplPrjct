@@ -308,10 +308,13 @@ public class PageIndexSteps {
         switch(action.toLowerCase())
         {
             case "edit": fn.clickButton(Constants.indexList_editAction_xpath);
-                         break;
+                            break;
             case "addnewindex": fn.clickButton(Constants.indexList_addNewIndex_xpath);
-                                break;
+                            break;
             case "submit" : fn.clickButton(Constants.indexCreate_submit_xpath);
+                            break;
+            case "inactive" : fn.clickButton(Constants.indexList_deactivateAction_xpath);
+                            break;
         }
     }
 
@@ -338,6 +341,13 @@ public class PageIndexSteps {
         fn.checkOnlyView(Constants.indexCreate_currency_xpath);
         fn.checkOnlyView(Constants.indexCreate_uom_xpath);
         fn.checkOnlyView(Constants.indexCreate_priceBreak_xpath);
+    }
+
+    @Then("^the status of the index should change to inactive$")
+    public void the_status_of_the_index_should_change_to_inactive()
+    {
+        String status = fn.getFirstElementFromList(Constants.indexList_StatusColumn_xpath);
+        Verify.verify(status.equalsIgnoreCase("inactive"),"Index is not deactivated !!");
     }
 
 

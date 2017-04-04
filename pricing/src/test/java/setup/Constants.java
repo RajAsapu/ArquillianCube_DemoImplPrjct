@@ -38,20 +38,25 @@ public class Constants {
     public static String indexList_currencyColumn_xpath = "//*/p-datatable/div/div[2]/table/tbody/tr[*]/td[10]";
     public static String indexList_uomColumn_xpath = "//*/p-datatable/div/div[2]/table/tbody/tr[*]/td[11]";
     public static String indexList_addNewIndex_xpath = "//*/a[normalize-space()='Add New Index']";
+    public static String indexList_deactivateAction_xpath = "//*[@title='Deactivate']";
+    public static String indexList_copyAction_xpath = "//*[@title='Copy']";
+    public static String indexList_editAction_xpath = "//*[@title='Edit']";
     /*
      * Index : Create page identifiers
      */
     public static String indexCreate_name_autofill_path = "//*/div/div/div/form/p-fieldset/fieldset/div/div/div[1]/div/p-autocomplete/span/div/ul/li";
-    public static String indexCreate_lowprice_id = "txtLow";
-    public static String indexCreate_midprice_id = "txtMid";
-    public static String indexCreate_highprice_id = "txtHigh";
+    public static String indexCreate_lowprice_xpath = "//*[@id='txtLow']";
+    public static String indexCreate_midprice_xpath = "//*[@id='txtMid']";
+    public static String indexCreate_highprice_xpath = "//*[@id='txtHigh']";
     public static String indexCreate_closeprice_xpath = ".//input[@type='number']";
     public static String indexCreate_startDatePicker_xpath = "//*/div/div/div[3]/div/p-calendar/span/button";
+    public static String indexCreate_startDate_xpath=".//*[@class=\"ui-calendar\"]/input";
     public static String indexCreate_endDatePicker_xpath = "//*/div/div/div[4]/div/p-calendar/span/button";
     public static String indexCreate_currency_xpath = "//*/p-fieldset/fieldset/div/div/div[9]/div/select";
     public static String indexCreate_uom_xpath = "//*/p-fieldset/fieldset/div/div/div[10]/div/select";
     public static String indexCreate_comment_xpath = "//*[@id='txtDesc']";
     public static String indexCreate_submit_xpath = "//*/button[normalize-space()='Submit']";
+    public static String indexCreate_priceBreak_xpath = "//*/input[@type='number']";
 
     /*
      * Currency Exchange List Page Identifiers Filters on search

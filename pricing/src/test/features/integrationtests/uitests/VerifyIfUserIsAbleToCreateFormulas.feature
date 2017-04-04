@@ -168,7 +168,7 @@ Feature: Formula Create page
     Then  the formula should not be created
     Examples:
       | name       | type | expression | startDate  | roundingMode    | roundingPrecision | paramType | indexType | indexPoint | indexName        | calculationPeriod |
-      | TestPast12 | COST | Test       | 2017-03-01 | Round Half Even | 3                 | Index     | Argus     | Mid        | NY RBOB Prem Brg | Testing           |
+      | TestPast13 | COST | Test       | 2017-03-01 | Round Half Even | 3                 | Index     | Argus     | Mid        | NY RBOB Prem Brg | Testing           |
 
   Scenario Outline: To verify that the user is able to create formula with end date as today.l
     Given the user has navigated to the "Create" page under the "Formula"

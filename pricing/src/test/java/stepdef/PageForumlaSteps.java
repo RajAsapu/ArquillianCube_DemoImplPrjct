@@ -149,7 +149,6 @@ public class PageForumlaSteps {
             int days = Integer.parseInt(startDate.split("\\+")[1]);
             startDate = LocalDate.now().plusDays(days).toString();
         }
-        System.out.println("**" + startDate);
         WebElement datepicker = edriver.findElement(By.xpath(Constants.formulaCreate_startDatePicker_xpath));
 
         Actions act = new Actions(edriver);

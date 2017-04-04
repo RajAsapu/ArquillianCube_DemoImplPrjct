@@ -1,6 +1,7 @@
 package stepdef;
 
 import com.google.common.base.Verify;
+import cucumber.api.DataTable;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -15,6 +16,8 @@ import setup.Constants;
 import setup.DriverBean;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 
@@ -137,7 +140,7 @@ public class PageIndexSteps {
 
     @When("^the user enters rate basis as ([^\"]*)$")
     public void the_user_enters_rate_basis_as(String rateBase) throws Throwable {
-        fn.selectRateBasis(rateBase);
+        fn.selectFromDropDown(Constants.indexList_rateBasis_xpath,rateBase);
     }
 
     @When("^name as ([^\"]*)$")
@@ -233,30 +236,64 @@ public class PageIndexSteps {
      */
     @When("^([^\"]*),([^\"]*),([^\"]*) and ([^\"]*) are entered$")
     public void and_are_entered(String low, String mid, String high, String close) throws Throwable {
-        edriver.findElement(By.id(Constants.indexCreate_lowprice_id)).sendKeys(low.trim());
-        edriver.findElement(By.id(Constants.indexCreate_midprice_id)).sendKeys(mid.trim());
-        edriver.findElement(By.id(Constants.indexCreate_highprice_id)).sendKeys(high.trim());
+        edriver.findElement(By.xpath(Constants.indexCreate_lowprice_xpath)).sendKeys(low.trim());
+        edriver.findElement(By.xpath(Constants.indexCreate_midprice_xpath)).sendKeys(mid.trim());
+        edriver.findElement(By.xpath(Constants.indexCreate_highprice_xpath)).sendKeys(high.trim());
         edriver.findElement(By.xpath(Constants.indexCreate_closeprice_xpath)).sendKeys(close.trim());
     }
 
     @And("^start date as ([^\"]*) and end date as ([^\"]*)")
     public void enterStartDateAndEndDate(String startDate, String endDate) throws Throwable {
         WebElement datepicker = edriver.findElement(By.xpath(Constants.indexCreate_startDatePicker_xpath));
+        LocalDate today = LocalDate.now();
+        if(startDate.equalsIgnoreCase("displayed")){
+            startDate = fn.getValue(Constants.indexCreate_startDate_xpath);
+        }
 
+        if(endDate.contains("startdate-")){
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            today = LocalDate.parse(startDate, formatter);
+            int days = Integer.parseInt(endDate.split("-")[1]);
+            endDate = today.minusDays(1).toString();
+        }
+
+        LocalDate da = LocalDate.now();
+        if (startDate.equalsIgnoreCase("today")) {
+            startDate = LocalDate.now().toString();
+        } else if (startDate.equalsIgnoreCase("tomorrow")) {
+            startDate = LocalDate.now().plusDays(1).toString();
+        } else if (startDate.equalsIgnoreCase("yesterday")) {
+            startDate = LocalDate.now().minusDays(1).toString();
+        } else if (startDate.contains("[a-z+0-9]*")) {
+            int days = Integer.parseInt(startDate.split("\\+")[1]);
+            startDate = LocalDate.now().plusDays(days).toString();
+        }
+
+        if (endDate.equalsIgnoreCase("today")) {
+            endDate = today.toString();
+        } else if (endDate.equalsIgnoreCase("tomorrow")) {
+            endDate = today.plusDays(1).toString();
+        } else if (endDate.equalsIgnoreCase("yesterday")) {
+            endDate = today.minusDays(1).toString();
+        } else if (endDate.matches("\\+") && !endDate.equals("")) {
+            int days = Integer.parseInt(endDate.split("\\+")[1]);
+            endDate = LocalDate.now().plusDays(days).toString();
+        }
+        if(endDate!=null && startDate!=null){
         Actions act = new Actions(edriver);
         act.click(datepicker).sendKeys(startDate).perform();
         act.sendKeys(Keys.TAB).perform();
-
+        Thread.sleep(1000);
         datepicker = edriver.findElement(By.xpath(Constants.indexCreate_endDatePicker_xpath));
         act.click(datepicker).sendKeys(endDate).perform();
-        act.sendKeys(Keys.TAB).perform();
+        act.sendKeys(Keys.TAB).perform();}
     }
 
     @Then("^the user shall be able to view the created index in the list on filtering with ([^\"]*)$")
     public void the_user_shall_be_able_to_view_the_created_index_in_the_list_on_filtering_with(String rate)
             throws Throwable {
         Thread.sleep(5000);
-        Verify.verify(edriver.getCurrentUrl().contains("/index/list"));
+        Verify.verify(edriver.getCurrentUrl().contains("/index/list"),"Index is not created");
         fn.selectRateBasis(rate);
         fn.selectStatusIndex("Active");
         steps.clicks_on_the_search_button();
@@ -265,10 +302,42 @@ public class PageIndexSteps {
 		 */
     }
 
-    @And("^click on add Index$")
-    public void click_on_index()throws Exception
+    @And("^the user clicked on ([^\"]*) action$")
+    public void click_on_button(String action)throws Exception
     {
-        fn.clickButton(Constants.indexList_addNewIndex_xpath);
+        switch(action.toLowerCase())
+        {
+            case "edit": fn.clickButton(Constants.indexList_editAction_xpath);
+                         break;
+            case "addnewindex": fn.clickButton(Constants.indexList_addNewIndex_xpath);
+                                break;
+            case "submit" : fn.clickButton(Constants.indexCreate_submit_xpath);
+        }
+    }
+
+    @Then("^the index (should|should not) be (created|updated)$")
+    public void the_index_should_be_createdOrUpdated(String action,String action1)
+    {
+        if(action.equalsIgnoreCase("should")){
+            Verify.verify(edriver.getCurrentUrl().contains("/index/list"),"Index is not created or updated !!");
+        } else{
+            Verify.verify(!edriver.getCurrentUrl().contains("/index/list"),"Index is created or updated !!");
+        }
+    }
+
+    @Then("^the user shall be able to edit only end date$")
+    public void the_user_shall_be_able_to_edit_only_end_date()throws Throwable
+    {
+        fn.checkOnlyView(Constants.indexList_name_xpath);
+        fn.checkOnlyView(Constants.indexList_rateBasis_xpath);
+        fn.checkOnlyView(Constants.indexCreate_startDate_xpath);
+        fn.checkOnlyView(Constants.indexCreate_lowprice_xpath);
+        fn.checkOnlyView(Constants.indexCreate_midprice_xpath);
+        fn.checkOnlyView(Constants.indexCreate_highprice_xpath);
+        fn.checkOnlyView(Constants.indexCreate_closeprice_xpath);
+        fn.checkOnlyView(Constants.indexCreate_currency_xpath);
+        fn.checkOnlyView(Constants.indexCreate_uom_xpath);
+        fn.checkOnlyView(Constants.indexCreate_priceBreak_xpath);
     }
 
 

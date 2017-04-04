@@ -308,4 +308,12 @@ public class PageCalculationRuleSteps extends CommonFunctions {
         Verify.verify(edriver.findElement(By.xpath("//*[normalize-space()='" + errMsg + "']")).isDisplayed(), "Error Message is not displayed!!");
     }
 
+    @Then("^the application accepts the input$")
+    public void the_application_accepts_the_input()
+    {
+        Verify.verify(!edriver.findElement(By.xpath("//*[normalize-space()='End date cannot be before start date']")).isDisplayed(), "Error Message is displayed!!");
+        /*
+         Need to be implemented once the error messages are implemeneted in the application
+         */
+    }
 }

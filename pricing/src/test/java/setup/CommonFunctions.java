@@ -1,6 +1,8 @@
 package setup;
 
+import com.google.common.base.Verify;
 import org.apache.log4j.Logger;
+import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
@@ -87,6 +89,7 @@ public class CommonFunctions {
     }
 
     public void selectRateBasis(String rate) {
+
         WebElement options = edriver.findElement(By.xpath(Constants.indexList_rateBasis_xpath));
         Select s = new Select(options);
         s.selectByVisibleText(rate);
@@ -327,14 +330,14 @@ public class CommonFunctions {
         try {
             Select choose = new Select(dropdown);
             choose.selectByValue(value[0]);
-            String typeText = getLastWebElementFromList("//label[normalize-space()='" + value[0] + "']").getText();
+            String typeText = getLastWebElementFromList("//*/*[normalize-space()='" + value[0] + "']").getText();
             if (!typeText.equalsIgnoreCase(value[0])) {
                 WebElement element = getLastWebElementFromList("//span[normalize-space()='" + value[0] + "']");
                 element.click();
             }
-        } catch (UnexpectedTagNameException | NoSuchElementException | ElementNotVisibleException exp) {
+        } catch (UnexpectedTagNameException | NoSuchElementException | ElementNotVisibleException|NullPointerException exp) {
             dropdown.click();
-            WebElement element = getLastWebElementFromList("//span[normalize-space()='" + value[0] + "']");
+            WebElement element = getLastWebElementFromList("//*[normalize-space()='" + value[0] + "']");
             element.click();
         }
     }
@@ -368,8 +371,22 @@ public class CommonFunctions {
     }
 
     public void clickButton(String identifier) throws Exception {
-        WebElement button = edriver.findElement(By.xpath(identifier));
-        button.click();
+        Thread.sleep(3000);
+        List<WebElement> list = edriver.findElements(By.xpath(identifier));
+        boolean flag=false;
+        for(WebElement temp:list)
+        {
+            if(temp.isEnabled())
+            {
+                temp.click();
+                flag=true;
+                break;
+            }
+        }
+        if(!flag)
+        {
+            Assert.fail("Button is disabled !!");
+        }
         Thread.sleep(2000);
     }
 
@@ -378,8 +395,8 @@ public class CommonFunctions {
         Thread.sleep(3000);
         try {
             getLastWebElementFromList("//li/span[normalize-space()='" + key + "']").click();
-        } catch (ElementNotVisibleException exp) {
-            edriver.findElement(By.xpath("//span[normalize-space()='" + key + "']")).click();
+        } catch (ElementNotVisibleException|NullPointerException exp) {
+            clickButton("//span[normalize-space()='" + key + "']");
         }
     }
 
@@ -392,12 +409,26 @@ public class CommonFunctions {
         js.executeScript("scroll(0,400)");
     }
 
-    public void checkOnlyView(String identifier) {
+    public void viewableOnly(String identifier) {
         List<WebElement> list = edriver.findElements(By.xpath(identifier));
         for (WebElement temp : list) {
             assert temp.isDisplayed();
             assert !temp.isEnabled();
             assert !temp.isSelected();
+        }
+        if(list.size()==0){
+            Assert.fail("No elements found matching:"+identifier);
+        }
+    }
+
+    public void editable(String identifier) {
+        List<WebElement> list = edriver.findElements(By.xpath(identifier));
+        for (WebElement temp : list) {
+            assert temp.isDisplayed();
+            assert temp.isEnabled();
+        }
+        if(list.size()==0){
+            Assert.fail("No elements found matching:"+identifier);
         }
     }
 

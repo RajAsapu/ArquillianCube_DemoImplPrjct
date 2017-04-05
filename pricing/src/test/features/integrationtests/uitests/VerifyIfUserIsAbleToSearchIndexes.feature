@@ -75,7 +75,7 @@ Feature: List Page
     And   the user enters the type as MANUAL
     And   clicks on the search button
     And   the user clicked on edit action
-    And   start date as displayed and end date as displayed-1
+    And   start date as displayed and end date as today+1
     And   the user clicked on submit action
     Then  the index should be updated
 

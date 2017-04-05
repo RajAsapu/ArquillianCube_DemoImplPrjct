@@ -50,13 +50,15 @@ public class Constants {
     public static String indexCreate_highprice_xpath = "//*[@id='txtHigh']";
     public static String indexCreate_closeprice_xpath = ".//input[@type='number']";
     public static String indexCreate_startDatePicker_xpath = "//*/div/div/div[3]/div/p-calendar/span/button";
-    public static String indexCreate_startDate_xpath=".//*[@class=\"ui-calendar\"]/input";
+    public static String indexCreate_startDate_xpath=".//*[@ng-reflect-name=\"startDate\"]/span/input";
     public static String indexCreate_endDatePicker_xpath = "//*/div/div/div[4]/div/p-calendar/span/button";
+    public static String indexCreate_endDate_xpath = ".//*[@ng-reflect-name=\"endDate\"]/span/input";
     public static String indexCreate_currency_xpath = "//*/p-fieldset/fieldset/div/div/div[9]/div/select";
     public static String indexCreate_uom_xpath = "//*/p-fieldset/fieldset/div/div/div[10]/div/select";
     public static String indexCreate_comment_xpath = "//*[@id='txtDesc']";
     public static String indexCreate_submit_xpath = "//*/button[normalize-space()='Submit']";
     public static String indexCreate_priceBreak_xpath = "//*/input[@type='number']";
+    public static String indexCreate_addScale_xpath = "//*/button[normalize-space()='Add Scale']";
     public static String indexCreate_fromScale_xpath = "//input[@formcontrolname='from']";
     public static String indexCreate_toScale_xpath = "//input[@formcontrolname='to']";
     public static String indexCreate_rateScale_xpath = "//input[@formcontrolname='rate']";

@@ -91,3 +91,47 @@ Feature: To verify if the user is able to access create page under index.
       | Price Point Scale |
       | Price Break Scale |
 
+  Scenario Outline: To verify that the scale rates for 'Price Point Scale' starts with 0 and ends with null or a value for an index.
+    Given the user has navigated to the "Create" page under the "Index"
+    When  the user enters rate basis as Price Point Scale
+    And   name as JetLosAngeles_Argus
+    And   start date as 2017-04-01 and end date as null
+    And   currency as BOB
+    And   unit of measurement as TOT
+    And   comment as for testing
+    And   add the scale rates
+      | <scaleFrom> | <scaleTo> | <scaleRate> |
+      | 100         | 500       | 1           |
+      | 500         | 1000      | 0.9         |
+    And   clicks on the submit button
+    Then  the index <result> be created
+
+    Examples:
+      | scaleFrom | scaleTo | scaleRate | result     |
+      |   -1      | -100    | 2         | should not |
+      |   -1      |  null   | 2         | should not |
+      |    0      | -100    | -1        | should not |
+      |    1      |  100    | 1         | should not |
+      |    0      |  100    | 2         | should     |
+  Scenario Outline: To verify that the scale rates for 'Price Break Scale' starts with 0 and ends with null or a value for an index.
+    Given the user has navigated to the "Create" page under the "Index"
+    When  the user enters rate basis as Price Break Scale
+    And   name as JetGrp3Qgrade_Argus
+    And   start date as 2017-04-01 and end date as null
+    And   currency as BOB
+    And   unit of measurement as TOT
+    And   comment as for testing
+    And   add the scale rates
+      | <scaleFrom> | <scaleTo> | <scaleRate> |
+      | 100         | 500       | 1           |
+      | 500         | 1000      | 0.9         |
+    And   clicks on the submit button
+    Then  the index <result> be created
+
+    Examples:
+      | scaleFrom | scaleTo | scaleRate | result     |
+      |   -1      | -100    | 2         | should not |
+      |   -1      |  null   | 2         | should not |
+      |    0      | -100    | -1        | should not |
+      |    1      |  100    | 1         | should not |
+      |    0      |  100    | 2         | should     |

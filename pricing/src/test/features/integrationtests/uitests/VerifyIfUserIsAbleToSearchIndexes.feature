@@ -100,7 +100,7 @@ Feature: List Page
   | Price Point Scale | GasGrp3_91Prem_Argus  |
   | Price Break Scale | CBOB Chicago Pipe     |
 
-  Scenario Outline: To verify that the user is able to create an index copying the existing active indexes
+  Scenario Outline: To verify that the user is able to create an index copying the existing active index
     Given the user has navigated to the "Create" page under the "Index"
     When  the user enters rate basis as Flat
     And   <lowPrice> ,<midPrice> ,<highPrice> and <closePrice> are entered

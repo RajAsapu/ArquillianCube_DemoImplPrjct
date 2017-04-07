@@ -11,7 +11,7 @@ import org.openqa.selenium.support.ui.UnexpectedTagNameException;
 
 import java.util.List;
 
-public class CommonFunctions {
+public class CommonFunctions  extends DateOperations{
 
     final static Logger logger = Logger.getLogger(CommonFunctions.class.getName());
     private static EventFiringWebDriver edriver;
@@ -351,17 +351,20 @@ public class CommonFunctions {
 
     public void enterText(String identifier, String... value) {
         List<WebElement> field = edriver.findElements(By.xpath(identifier));
-        clearText(identifier);
+
         int i = 0;
         if (value.length > 1) {
+            /* To enter text for an element at a specific position */
             if (value[1].matches("[0-9]*")) {
                 for (WebElement temp : field) {
                     if (i++ == Integer.parseInt(value[1])) {
+                        temp.clear();
                         temp.sendKeys(value[0]);
                     }
                 }
 
             } else if (value[1].equals("last")) {
+                getLastWebElementFromList(identifier).clear();
                 getLastWebElementFromList(identifier).sendKeys(value[0]);
             }
 
@@ -391,12 +394,13 @@ public class CommonFunctions {
     }
 
     public void setNameFromAutoFill(String identifier, String key) throws Exception {
+        getLastWebElementFromList(identifier).clear();
         getLastWebElementFromList(identifier).sendKeys(key.substring(0, key.length() - 1));
         Thread.sleep(3000);
         try {
-            getLastWebElementFromList("//li/span[normalize-space()='" + key + "']").click();
+            getLastWebElementFromList("//li/span[normalize-space()='" + key.toUpperCase() + "']").click();
         } catch (ElementNotVisibleException|NullPointerException exp) {
-            clickButton("//span[normalize-space()='" + key + "']");
+            getLastWebElementFromList("//*[normalize-space()='" + key.toUpperCase() + "']").click();
         }
     }
 

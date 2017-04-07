@@ -67,3 +67,51 @@ Feature: List Page
     | rateBasis         |
     | Price Point Scale |
     | Price Break Scale |
+
+
+  Scenario: To verify that the user is able to edit the manual indexes.
+    Given the user has navigated to the "List" page under the "Index"
+    When  the user enters the start date as 2016-12-10 and status as Active
+    And   the user enters the type as MANUAL
+    And   clicks on the search button
+    And   the user clicked on edit action
+    And   start date as displayed and end date as today+1
+    And   the user clicked on submit action
+    Then  the index should be updated
+
+  Scenario Outline: To verify that the user is able to create an index copying the existing active index.
+    Given the user has navigated to the "List" page under the "Index"
+    When  the user clicked on copy action
+    When  the user enters rate basis as <rateBasis>
+    And   name as <name>
+    And   start date as 2017-04-01 and end date as null
+    And   currency as BOB
+    And   unit of measurement as TOT
+    And   comment as for testing
+    And   add the scale rates
+      | 0           | 100       | 2           |
+      | 100         | 500       | 1           |
+      | 500         | 1000      | 0.9         |
+    And   clicks on the submit button
+    Then  the index should be created
+
+    Examples:
+  | rateBasis         |  name                 |
+  | Price Point Scale | GasGrp3_91Prem_Argus  |
+  | Price Break Scale | CBOB Chicago Pipe     |
+
+  Scenario Outline: To verify that the user is able to create an index copying the existing active index
+    Given the user has navigated to the "Create" page under the "Index"
+    When  the user enters rate basis as Flat
+    And   <lowPrice> ,<midPrice> ,<highPrice> and <closePrice> are entered
+    And   name as Off Road LSD FOB Chicago Pipe
+    And   start date as <startDate> and end date as null
+    And   currency as <currency>
+    And   unit of measurement as <uom>
+    And   comment as <comments>
+    And   clicks on the submit button
+    Then  the index should be created
+
+    Examples:
+      | lowPrice | midPrice | highPrice | closePrice | startDate  | currency | uom | comments                |
+      | 15       | 18       | 20        | 18.8       | 2017-04-01 | BOB      | TOT | Created for new clients |

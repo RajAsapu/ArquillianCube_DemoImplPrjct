@@ -137,52 +137,12 @@ public class PageForumlaSteps {
 
     @When("^set the start date for formula as \"([^\"]*)\"$")
     public void set_the_start_date_for_formula_as(String startDate) throws Throwable {
-
-        LocalDate da = LocalDate.now();
-        if (startDate.equalsIgnoreCase("today")) {
-            startDate = LocalDate.now().toString();
-        } else if (startDate.equalsIgnoreCase("tomorrow")) {
-            startDate = LocalDate.now().plusDays(1).toString();
-        } else if (startDate.equalsIgnoreCase("yesterday")) {
-            startDate = LocalDate.now().minusDays(1).toString();
-        } else if (startDate.matches("[a-z+0-9]*")) {
-            int days = Integer.parseInt(startDate.split("\\+")[1]);
-            startDate = LocalDate.now().plusDays(days).toString();
-        }
-        WebElement datepicker = edriver.findElement(By.xpath(Constants.formulaCreate_startDatePicker_xpath));
-
-        Actions act = new Actions(edriver);
-        act.click(datepicker).sendKeys(startDate).perform();
-        act.sendKeys(Keys.TAB).perform();
+        fn.setDate(startDate,Constants.formulaCreate_startDatePicker_xpath,null);
     }
 
     @When("^(set|update) the end date for formula as \"([^\"]*)\"$")
     public void set_the_end_date_for_formula_as(String action, String endDate) throws Throwable {
-        LocalDate today = LocalDate.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        if (action.equals("update")) {
-            endDate = fn.getValue(Constants.formulaCreate_endDate_xpath);
-            today = LocalDate.parse(endDate, formatter);
-            endDate = today.plusDays(1).toString();
-        }
-
-        if (endDate.equalsIgnoreCase("today")) {
-            endDate = today.toString();
-        } else if (endDate.equalsIgnoreCase("tomorrow")) {
-            endDate = today.plusDays(1).toString();
-        } else if (endDate.equalsIgnoreCase("yesterday")) {
-            endDate = today.minusDays(1).toString();
-        } else if (endDate.matches("^[a-z+0-9]*$") && !endDate.equals("")) {
-            int days = Integer.parseInt(endDate.split("\\+")[1]);
-            endDate = LocalDate.now().plusDays(days).toString();
-        }
-        if (endDate != null) {
-            WebElement datepicker = edriver.findElement(By.xpath(Constants.formulaCreate_endDatePicker_xpath));
-            fn.clearText(Constants.formulaCreate_endDate_xpath);
-            Actions act = new Actions(edriver);
-            act.click(datepicker).sendKeys(endDate).perform();
-            act.sendKeys(Keys.TAB).perform();
-        }
+       fn.setDate(endDate,Constants.formulaCreate_endDatePicker_xpath,Constants.formulaCreate_endDate_xpath);
     }
 
     @When("^set the rounding mode as \"([^\"]*)\"$")

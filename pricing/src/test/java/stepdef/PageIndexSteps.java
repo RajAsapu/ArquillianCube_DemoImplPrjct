@@ -1,6 +1,7 @@
 package stepdef;
 
 import com.google.common.base.Verify;
+import cucumber.api.DataTable;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -243,49 +244,8 @@ public class PageIndexSteps {
 
     @And("^start date as ([^\"]*) and end date as ([^\"]*)")
     public void enterStartDateAndEndDate(String startDate, String endDate) throws Throwable {
-        WebElement datepicker = edriver.findElement(By.xpath(Constants.indexCreate_startDatePicker_xpath));
-        LocalDate today = LocalDate.now();
-        if(startDate.equalsIgnoreCase("displayed")){
-            startDate = fn.getValue(Constants.indexCreate_startDate_xpath);
-        }
-
-        if(endDate.contains("startdate-")){
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            today = LocalDate.parse(startDate, formatter);
-            int days = Integer.parseInt(endDate.split("-")[1]);
-            endDate = today.minusDays(1).toString();
-        }
-
-        LocalDate da = LocalDate.now();
-        if (startDate.equalsIgnoreCase("today")) {
-            startDate = LocalDate.now().toString();
-        } else if (startDate.equalsIgnoreCase("tomorrow")) {
-            startDate = LocalDate.now().plusDays(1).toString();
-        } else if (startDate.equalsIgnoreCase("yesterday")) {
-            startDate = LocalDate.now().minusDays(1).toString();
-        } else if (startDate.contains("[a-z+0-9]*")) {
-            int days = Integer.parseInt(startDate.split("\\+")[1]);
-            startDate = LocalDate.now().plusDays(days).toString();
-        }
-
-        if (endDate.equalsIgnoreCase("today")) {
-            endDate = today.toString();
-        } else if (endDate.equalsIgnoreCase("tomorrow")) {
-            endDate = today.plusDays(1).toString();
-        } else if (endDate.equalsIgnoreCase("yesterday")) {
-            endDate = today.minusDays(1).toString();
-        } else if (endDate.matches("\\+") && !endDate.equals("")) {
-            int days = Integer.parseInt(endDate.split("\\+")[1]);
-            endDate = LocalDate.now().plusDays(days).toString();
-        }
-        if(endDate!=null && startDate!=null){
-        Actions act = new Actions(edriver);
-        act.click(datepicker).sendKeys(startDate).perform();
-        act.sendKeys(Keys.TAB).perform();
-        Thread.sleep(1000);
-        datepicker = edriver.findElement(By.xpath(Constants.indexCreate_endDatePicker_xpath));
-        act.click(datepicker).sendKeys(endDate).perform();
-        act.sendKeys(Keys.TAB).perform();}
+        fn.setDate(startDate,Constants.indexCreate_startDatePicker_xpath,Constants.indexCreate_startDate_xpath);
+        fn.setDate(endDate,Constants.indexCreate_endDatePicker_xpath,Constants.indexCreate_endDate_xpath);
     }
 
     @Then("^the user shall be able to view the created index in the list on filtering with ([^\"]*)$")
@@ -313,6 +273,8 @@ public class PageIndexSteps {
             case "submit" : fn.clickButton(Constants.indexCreate_submit_xpath);
                             break;
             case "inactive" : fn.clickButton(Constants.indexList_deactivateAction_xpath);
+                            break;
+            case "copy" : fn.clickButton(Constants.indexList_copyAction_xpath);
                             break;
         }
     }
@@ -363,6 +325,22 @@ public class PageIndexSteps {
         fn.editable(Constants.indexCreate_fromScale_xpath);
         fn.editable(Constants.indexCreate_toScale_xpath);
         fn.editable(Constants.indexCreate_rateScale_xpath);
+    }
+
+    @And("^add the scale rates$")
+    public void add_the_scale_rates(DataTable table)throws Exception
+    {
+        List<List<String>> list = table.raw();
+        int i = 0;
+        for(List<String> row:list){
+            if(i++>0){
+                fn.clickButton(Constants.indexCreate_addScale_xpath);
+            }
+            fn.enterText(Constants.indexCreate_fromScale_xpath,row.get(0),"last");
+            fn.enterText(Constants.indexCreate_toScale_xpath,row.get(1),"last");
+            fn.enterText(Constants.indexCreate_rateScale_xpath,row.get(2),"last");
+
+        }
     }
 
 

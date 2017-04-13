@@ -1,28 +1,47 @@
 aqpriceui:
-  build: ./Repos/price-configuration-ui.git
+  image: ui:${UI_BUILD}
   publishAllPorts: true
   attachStdin: true
   attachSterr: true
   dns: [localhost]
   ports: ["4200:80"]
 aqpricedatamock:
-  build: ./Repos/price-data-mock.git
+  image: datamock:latest
+  exposedPorts: [5555/tcp]
   publishAllPorts: true
   attachStdin: true
   attachSterr: true
   dns: [localhost]
+  environment: [server.port=5555]
   ports: ["5555:5555"]
 aqpriceengine:
-  build: ./Repos/price-engine.git
+  image: engine:latest
   publishAllPorts: true
   attachStdin: true
   attachSterr: true
   dns: [localhost]
-  ports: ["6666:6666"]
+  environment: [server.port=6666]
+  ports: ["8081:6666"]
 aqpricedb:
-  build: ./Repos/price-configuration-service.git/src/it/
+  image: db2.0:latest
   publishAllPorts: true
   attachStdin: true
   attachSterr: true
+  dependsOn: aqpriceui,aqpricedatamock,aqpriceengine
   dns: [localhost]
   ports: ["9042:9042","8943:8943"]
+aqpriceservice:
+  image: service:latest
+  publishAllPorts: true
+  attachStdin: true
+  attachSterr: true
+  dependsOn: aqpricedb,aqpriceui,aqpricedatamock,aqpriceengine
+  dns: [localhost]
+  links:
+      - aqpricedb:db
+  environment: [cassandra.contactpoints=db]
+  ports: ["8080:8080"]
+  manual: true
+  restartPolicy:
+      name: failure
+      maximumRetryCount: 5

@@ -15,19 +15,25 @@
         <property name="autoStartContainers">regexp:aq(.*)</property>
         <property name="cubeSpecificProperties">
             aqpriceui:
-            await:
-            strategy: native
-
+                await:
+                    strategy: sleeping
+                    sleepTime: 60 s
             aqpricedatamock:
-            await:
-            strategy: native
-
+                await:
+                    strategy: sleeping
+                    sleepTime: 60 s
             aqpriceengine:
-            await:
-            strategy: native
+                await:
+                    strategy: sleeping
+                    sleepTime: 60 s
             aqpricedb:
-            await:
-            strategy: native
+                await:
+                    strategy: sleeping
+                    sleepTime: 60 s
+            aqpriceservice:
+                await:
+                    strategy: sleeping
+                    sleepTime: 60 s
         </property>
     </extension>
 </arquillian>

@@ -9,31 +9,70 @@
         <!--<property name="serverUri">http://localhost:2375</property>--> <!-- Linux: unix:///var/run/docker.sock -->
         <property name="clean">true</property>
         <property name="dockerContainersFile">src/test/resources/docker-compose.yml</property>
-        <property name="definitionFormat">COMPOSE</property>
+        <property name="definitionFormat">CUBE</property>
         <property name="cleanBuildImage">true</property>
         <property name="connectionMode">STARTORCONNECT</property>
-        <property name="autoStartContainers">regexp:aq(.*)</property>
+        <property name="autoStartContainers">ui,datamock,engine</property>
         <property name="cubeSpecificProperties">
-            aqpriceui:
-                await:
-                    strategy: sleeping
-                    sleepTime: 60 s
-            aqpricedatamock:
-                await:
-                    strategy: sleeping
-                    sleepTime: 60 s
-            aqpriceengine:
-                await:
-                    strategy: sleeping
-                    sleepTime: 60 s
-            aqpricedb:
-                await:
-                    strategy: sleeping
-                    sleepTime: 60 s
-            aqpriceservice:
-                await:
-                    strategy: sleeping
-                    sleepTime: 60 s
+        database:
+            await:
+                strategy: native
+        service:
+            await:
+                strategy: native
+        ui:
+            await:
+                strategy: native
+
+        datamock:
+            await:
+                strategy: native
+
+        engine:
+            await:
+                strategy: native
+
         </property>
+        <!--<property name="cubeSpecificProperties">-->
+            <!--database:-->
+                <!--await:-->
+                    <!--strategy: log-->
+                    <!--match: 'DSE startup complete'-->
+                    <!--sleepPollingTime: 5 s-->
+                    <!--iterations: 20-->
+                    <!--timeout: 1800-->
+
+            <!--service:-->
+                <!--await:-->
+                    <!--strategy: http-->
+                    <!--match: 'startup'-->
+                    <!--responseCode: 200-->
+                    <!--url: http://localhost:8080/swagger-ui.html-->
+                    <!--sleepPollingTime: 5 s-->
+                    <!--iterations: 20-->
+                    <!--timeout: 1800-->
+            <!--ui:-->
+                <!--await:-->
+                    <!--strategy: polling-->
+                    <!--sleepPollingTime: 5 s-->
+                    <!--iterations: 5-->
+                    <!--timeout: 1800-->
+
+            <!--datamock:-->
+                <!--await:-->
+                    <!--strategy: log-->
+                    <!--match: 'Successfully connected'-->
+                    <!--sleepPollingTime: 5 s-->
+                    <!--iterations: 20-->
+                    <!--timeout: 1800-->
+
+            <!--engine:-->
+                <!--await:-->
+                    <!--strategy: log-->
+                    <!--match: 'Initializing Spring FrameworkServlet'-->
+                    <!--sleepPollingTime: 5 s-->
+                    <!--iterations: 20-->
+                    <!--timeout: 1800-->
+        <!--</property>-->
     </extension>
 </arquillian>

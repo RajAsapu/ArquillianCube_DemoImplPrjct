@@ -1,12 +1,9 @@
 package setup;
 
-import org.arquillian.cube.CubeIp;
-import org.arquillian.cube.HostIp;
-import org.arquillian.cube.HostPort;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
+import java.util.Map;
 import java.util.Properties;
 
 public class UpdateProperties {
@@ -16,18 +13,18 @@ public class UpdateProperties {
     String resourceFilePath;
     OutputStream out;
 
-    public void setProperty(String ipproperty,String ip,String portproperty,String port) {
+    public void setProperty(Map<String,String> map) {
 
+        try{
         resourceFile = new File(".//");
         resourceFilePath = resourceFile.getAbsolutePath().replace(".", "/src/test/resources/pricing.properties");
         resourceFile = new File(resourceFilePath);
-
-        try {
-            out = new FileOutputStream(resourceFile);
-            props.setProperty(ipproperty, ip);
-            props.setProperty(portproperty, port);
-
-            props.store(out, ipproperty+" updated");
+        out = new FileOutputStream(resourceFile);
+        for(Map.Entry<String,String> entry:map.entrySet())
+        {
+            props.setProperty(entry.getKey(), entry.getValue());
+        }
+            props.store(out, "Container Properties");
         } catch (Exception exp) {
             exp.printStackTrace();
         }

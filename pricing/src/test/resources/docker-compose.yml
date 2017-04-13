@@ -1,46 +1,55 @@
-aqpriceui:
-  image: ui:${UI_BUILD}
+ui:
+  image: 'ui:latest'
+  containerName: "pricing_ui"
   publishAllPorts: true
   attachStdin: true
   attachSterr: true
-  dns: [localhost]
-  ports: ["4200:80"]
-aqpricedatamock:
-  image: datamock:latest
-  exposedPorts: [5555/tcp]
+  dnsSearch: [127.0.0.1]
+  portBindings: [4200->80/tcp]
+datamock:
+  image: 'datamock:latest'
+  containerName: "pricing_datamock"
+  attachStdin: true
+  attachSterr: true
+  networkMode: host
+  privileged: true
+  dnsSearch: [127.0.0.1]
+  env:
+    - server.port=5555
+    - "spring.datasource.url=jdbc:oracle:thin:@devdb.wfs.com:1535:dev"
+    - spring.datasource.driverClassName=oracle.jdbc.OracleDriver
+    - spring.datasource.username=apps
+    - spring.datasource.password=apps
+  portBindings: [5555->5555/tcp]
+engine:
+  image: 'engine:latest'
+  containerName: "pricing_engine"
   publishAllPorts: true
   attachStdin: true
   attachSterr: true
-  dns: [localhost]
-  environment: [server.port=5555]
-  ports: ["5555:5555"]
-aqpriceengine:
-  image: engine:latest
+  dnsSearch: [127.0.0.1]
+  env: [server.port=6666]
+  portBindings: [8081->6666/tcp]
+database:
+  image: 'db2.0:latest'
+  containerName: "pricing_db"
   publishAllPorts: true
   attachStdin: true
   attachSterr: true
-  dns: [localhost]
-  environment: [server.port=6666]
-  ports: ["8081:6666"]
-aqpricedb:
-  image: db2.0:latest
+  dnsSearch: [127.0.0.1]
+  portBindings: [9042->9042/tcp,8943->8943/tcp]
+service:
+  image: 'service:latest'
+  containerName: "pricing_service"
   publishAllPorts: true
   attachStdin: true
   attachSterr: true
-  dependsOn: aqpriceui,aqpricedatamock,aqpriceengine
-  dns: [localhost]
-  ports: ["9042:9042","8943:8943"]
-aqpriceservice:
-  image: service:latest
-  publishAllPorts: true
-  attachStdin: true
-  attachSterr: true
-  dependsOn: aqpricedb,aqpriceui,aqpricedatamock,aqpriceengine
-  dns: [localhost]
+  dependsOn: [pricing_db]
+  dnsSearch: [127.0.0.1]
   links:
       - aqpricedb:db
-  environment: [cassandra.contactpoints=db]
-  ports: ["8080:8080"]
+  env: [cassandra.contactpoints=db]
+  portBindings: [8080->8080/tcp]
   manual: true
   restartPolicy:
       name: failure

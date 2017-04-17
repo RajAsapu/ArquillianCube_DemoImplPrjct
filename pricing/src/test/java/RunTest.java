@@ -1,57 +1,41 @@
 import cucumber.api.CucumberOptions;
+import cucumber.api.java.Before;
 import cucumber.runtime.arquillian.CukeSpace;
-import org.arquillian.cube.CubeIp;
-import org.arquillian.cube.HostIp;
-import org.arquillian.cube.HostPort;
+import org.arquillian.cube.*;
 import org.jboss.arquillian.container.test.api.RunAsClient;
-import org.junit.Test;
 import org.junit.runner.RunWith;
 import setup.UpdateProperties;
-
+import java.util.HashMap;
 import java.util.Map;
 
 @RunWith(CukeSpace.class)
 @CucumberOptions(
-        features = "src/test/resources/features/pageobjects/Page_Index_CreatePage.feature",
+        features = {"src/test/resources/features/pageobjects/Page_Index_CreatePage.feature"},
         glue = {"classpath:stepdef", "classpath:setup"},
         format = {"pretty", "html:target/integration-cucumber", "json:target/integration-cucumber.json"},
         tags = {"~@Intg"})
 @RunAsClient
 public class RunTest {
 
-    private UpdateProperties props;
-    private Map<String,String> map;
+    private  UpdateProperties props =new UpdateProperties();
+    private  Map<String,String> map = new HashMap<String,String>();
 
-    @CubeIp(containerName = "pricing_datamock")
-    private String ipPriceDataMock;
+    @HostPort(containerName = "ui", value = 80)
+    private static int uiPort;
 
-    @CubeIp(containerName = "pricing_engine")
-    private String ipPriceEngine;
+    @HostPort(containerName = "datamock", value = 5555)
+    private static int datamockPort;
 
-    @CubeIp(containerName = "pricing_ui")
-    private String ipPriceUi;
+    @HostPort(containerName = "engine", value = 6666)
+    private static int enginePort;
 
-    @HostPort(containerName = "pricing_datamock")
-    private String portPriceDataMock;
-
-    @HostPort(containerName = "pricing_engine")
-    private String portPriceEngine;
-
-    @HostPort(containerName = "pricing_ui")
-    private String portPriceUi;
-
-    @Test
-    public void priceprops() {
-
-        map.put("Ui_ip",ipPriceUi);
-        map.put("Ui_port",portPriceUi);
-
-        map.put("Engine_ip",ipPriceEngine);
-        map.put("Engine_port",portPriceEngine);
-
-        map.put("Datamock_ip",ipPriceDataMock);
-        map.put("Datamock_port",portPriceDataMock);
-
+    @Before
+    public void updatePricingProperties()throws Exception
+    {
+        map.put("pricing.ui","localhost:"+String.valueOf(uiPort));
+        map.put("pricing.datamock","localhost:"+String.valueOf(datamockPort));
+        map.put("pricing.engine","localhost:"+String.valueOf(enginePort));
         props.setProperty(map);
+        props.updateHostConfig();
     }
 }

@@ -16,21 +16,26 @@
         <property name="cubeSpecificProperties">
         database:
             await:
-                strategy: native
+                strategy: sleeping
+                sleepTime: 60 s
         service:
             await:
-                strategy: native
+                strategy: sleeping
+                sleepTime: 60 s
         ui:
             await:
-                strategy: native
+                strategy: sleeping
+                sleepTime: 60 s
 
         datamock:
             await:
-                strategy: native
+                strategy: sleeping
+                sleepTime: 60 s
 
         engine:
             await:
-                strategy: native
+                strategy: sleeping
+                sleepTime: 60 s
 
         </property>
         <!--<property name="cubeSpecificProperties">-->

@@ -1,0 +1,5 @@
+{
+  "priceConfigServiceUrl" : "https://epe-priceconfig-s.dev.aws.wfscorp.com/",
+  "priceEngineServiceUrl" : null,
+  "masterDataServiceUrl" : null
+}

@@ -1,19 +1,21 @@
 ui:
   image: 'ui:latest'
   containerName: "pricing_ui"
+  exposedPorts: [4200/tcp]
   publishAllPorts: true
   attachStdin: true
   attachSterr: true
-  dnsSearch: [127.0.0.1]
+  dnsSearch: [localhost]
   portBindings: [4200->80/tcp]
 datamock:
   image: 'datamock:latest'
   containerName: "pricing_datamock"
+  exposedPorts: [5555/tcp]
   attachStdin: true
   attachSterr: true
   networkMode: host
   privileged: true
-  dnsSearch: [127.0.0.1]
+  dnsSearch: [losthost]
   env:
     - server.port=5555
     - "spring.datasource.url=jdbc:oracle:thin:@devdb.wfs.com:1535:dev"
@@ -24,15 +26,17 @@ datamock:
 engine:
   image: 'engine:latest'
   containerName: "pricing_engine"
+  exposedPorts: [6666/tcp]
   publishAllPorts: true
   attachStdin: true
   attachSterr: true
-  dnsSearch: [127.0.0.1]
+  dnsSearch: [localhost]
   env: [server.port=6666]
   portBindings: [8081->6666/tcp]
 database:
   image: 'db2.0:latest'
   containerName: "pricing_db"
+  exposedPorts: [9042/tcp]
   publishAllPorts: true
   attachStdin: true
   attachSterr: true
@@ -41,11 +45,12 @@ database:
 service:
   image: 'service:latest'
   containerName: "pricing_service"
+  exposedPorts: [8080/tcp]
   publishAllPorts: true
   attachStdin: true
   attachSterr: true
   dependsOn: [pricing_db]
-  dnsSearch: [127.0.0.1]
+  dnsSearch: [localhost]
   links:
       - aqpricedb:db
   env: [cassandra.contactpoints=db]

@@ -5,12 +5,16 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.When;
 import dockerhandler.HandleDocker;
 import org.apache.log4j.Logger;
+import org.arquillian.cube.DockerUrl;
+import org.jboss.arquillian.test.api.ArquillianResource;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 import setup.BaseClass;
 import setup.CommonFunctions;
 import setup.Constants;
 import setup.DriverBean;
+
+import java.net.URL;
 import java.util.Map;
 import java.util.Properties;
 
@@ -25,6 +29,9 @@ public class PageCommonSteps extends BaseClass {
     HandleDocker dock = new HandleDocker();
     Map<String, String> map;
 
+    @DockerUrl(containerName = "ui" ,exposedPort = 4200)
+    @ArquillianResource
+    URL ui_url;
 
     @Given("^the docker containers are running$")
     public void the_docker_containers_are_running() {
@@ -46,8 +53,7 @@ public class PageCommonSteps extends BaseClass {
      */
     @Given("^the user has logged into the pricing application$")
     public void the_user_has_logged_into_the_pricing_application() {
-        edriver = initBrowser(
-                "http://localhost:4200");
+        edriver = initBrowser(ui_url.toString());
         DriverBean.setDriver(edriver);
         fn = new CommonFunctions();
         fn.login();

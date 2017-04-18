@@ -6,12 +6,6 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.github.dockerjava.api.DockerClient;
 import com.github.dockerjava.api.command.InspectContainerResponse;
 import com.github.dockerjava.core.DockerClientBuilder;
-import org.arquillian.cube.impl.client.container.remote.ContainerCubeIDProvider;
-import org.arquillian.cube.impl.util.ContainerUtil;
-import org.jruby.RubyProcess;
-import org.junit.Test;
-
-import javax.management.ObjectName;
 import java.io.*;
 import java.util.Map;
 import java.util.Properties;
@@ -45,24 +39,35 @@ public class UpdateProperties {
             exp.printStackTrace();
         }
     }
+
+    public String getProperty(String propertyName) {
+         /*
+         * Loading the properties file
+         */
+        try{
+            read=new FileReader(resourceFile);
+            props.load(read);
+            return props.getProperty(propertyName);
+        }
+        catch (Exception exp){
+            exp.printStackTrace();
+        }
+        return null;
+    }
+
     public void updateHostConfig()throws Exception
     {
         JsonNode root;
         String resultUpdate;
         FileWriter fwrite;
-        /*
-         * Loading the properties file
-         */
-        read=new FileReader(resourceFile);
-        props.load(read);
         ObjectMapper mapper = new ObjectMapper();
         /*
          * Updating the hostConfig file
          */
         hostConfigPath = new File("src/test/resources/hostConfig.json");
         root = mapper.readTree(hostConfigPath);
-        ((ObjectNode)root).put("priceEngineServiceUrl",props.getProperty("pricing.engine"));
-        ((ObjectNode)root).put("masterDataServiceUrl",props.getProperty("pricing.datamock"));
+        ((ObjectNode)root).put("priceEngineServiceUrl",getProperty("pricing.engine"));
+        ((ObjectNode)root).put("masterDataServiceUrl",getProperty("pricing.datamock"));
         resultUpdate = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(root);
         fwrite=new FileWriter(hostConfigPath);
         fwrite.write(resultUpdate);

@@ -40,14 +40,12 @@ subprojects{
 }
 
 dependencies {
-//    compile project(':utilities')
+    compile project(':utilities')
     compile 'org.codehaus.groovy:groovy-all:2.3.11'
     testCompile group: 'junit', name: 'junit', version: '4.12'
     //Cucumber dependencies
     compile group: 'info.cukes', name: 'cucumber-java', version: '1.2.5'
-    compile group: 'info.cukes', name: 'cucumber-junit', version: '1.2.5'
-    compile group: 'info.cukes', name: 'cucumber-core', version: '1.2.5'
-//    compile group: 'com.github.cukespace', name: 'cukespace-core', version: '1.6.1'
+    compile group: 'com.github.cukespace', name: 'cukespace-core', version: '1.6.3'
     compile group: 'org.seleniumhq.selenium', name: 'selenium-server', version: '3.0.1'
     compile group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '3.0.1'
     compile group: 'org.seleniumhq.selenium', name: 'selenium-chrome-driver', version: '3.0.1'
@@ -60,6 +58,8 @@ dependencies {
     testCompile group: 'com.github.docker-java', name: 'docker-java', version: '3.0.6'
     testCompile group: 'io.rest-assured', name: 'rest-assured', version: '3.0.0'
     testCompile group: 'com.jayway.jsonpath', name: 'json-path', version: '2.2.0'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.8.7'
+
     //Arquillian dependencies
     compile group: 'org.jboss.arquillian.junit', name: 'arquillian-junit-standalone', version: '1.1.12.Final'
     compile group: 'org.arquillian.cube', name: 'arquillian-cube-docker', version: '1.0.0.Alpha17'

@@ -4,8 +4,7 @@ Feature: To verify if the user is able to access list page under index.
   Acceptance Criteria: User shall be able to access features in the list page under index.
 
   Background:
-    Given the docker containers are running
-    And   the user has logged into the pricing application
+    Given  the user has logged into the pricing application
 
   Scenario: To verify if the user is able to search on the list page with start date as filter.
     Given the user has navigated to the "List" page under the "Index"
@@ -21,7 +20,7 @@ Feature: To verify if the user is able to access list page under index.
 
   Scenario: To verify if the user is able to search on the list page with type as filter.
     Given the user has navigated to the "List" page under the "Index"
-    When  the user enters the type as MANUAL
+    When  the user enters the type as Manual
     And   clicks on the search button
     Then  the user shall be able to view the list of indexes with type as "MANUAL"
 

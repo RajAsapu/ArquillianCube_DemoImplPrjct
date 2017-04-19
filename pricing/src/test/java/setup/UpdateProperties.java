@@ -55,6 +55,22 @@ public class UpdateProperties {
         return null;
     }
 
+    public String getEnv()
+    {
+        try{
+            resourceFilePath = resourceFile.getAbsolutePath().replace(".", "src/test/resources/application.properties");
+            resourceFile = new File(resourceFilePath);
+            read=new FileReader(resourceFile);
+            props.load(read);
+            return props.getProperty("env");
+        }
+        catch (Exception exp)
+        {
+            exp.printStackTrace();
+        }
+        return null;
+    }
+
     public void updateHostConfig()throws Exception
     {
         JsonNode root;

@@ -12,7 +12,7 @@
         <property name="definitionFormat">CUBE</property>
         <property name="cleanBuildImage">true</property>
         <property name="connectionMode">STARTORCONNECT</property>
-        <property name="autoStartContainers">ui,datamock,engine</property>
+        <property name="autoStartContainers">custom:setup.AutoStartContainersOrder</property>
         <property name="cubeSpecificProperties">
         database:
             await:

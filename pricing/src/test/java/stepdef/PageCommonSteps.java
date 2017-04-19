@@ -4,17 +4,11 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.When;
 import dockerhandler.HandleDocker;
+import functions.PageCommonMethods;
 import org.apache.log4j.Logger;
-import org.arquillian.cube.DockerUrl;
-import org.jboss.arquillian.test.api.ArquillianResource;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
-import setup.BaseClass;
-import setup.CommonFunctions;
-import setup.Constants;
-import setup.DriverBean;
-
-import java.net.URL;
+import setup.*;
 import java.util.Map;
 import java.util.Properties;
 
@@ -25,23 +19,10 @@ public class PageCommonSteps extends BaseClass {
      * Global variables
      */
     public Properties props = new Properties();
-    CommonFunctions fn;
+    PageCommonMethods pageCommonMethods;
     HandleDocker dock = new HandleDocker();
     Map<String, String> map;
-
-    @DockerUrl(containerName = "ui" ,exposedPort = 4200)
-    @ArquillianResource
-    URL ui_url;
-
-    @Given("^the docker containers are running$")
-    public void the_docker_containers_are_running() {
-        new HandleDocker().runDocker(HandleDocker.env.test);
-    }
-
-    @Given("^the docker mock containers are running$")
-    public void the_docker_mock_containers_are_running() {
-        new HandleDocker().runDocker(HandleDocker.env.mock);
-    }
+    UpdateProperties updateProperties = new UpdateProperties();
 
     @And("^wait for sometime$")
     public void wait_for_sometime() throws Exception {
@@ -53,10 +34,17 @@ public class PageCommonSteps extends BaseClass {
      */
     @Given("^the user has logged into the pricing application$")
     public void the_user_has_logged_into_the_pricing_application() {
-        edriver = initBrowser(ui_url.toString());
+
+        if (updateProperties.getEnv().equalsIgnoreCase("Docker")) {
+            edriver = initBrowser(updateProperties.getProperty("pricing.ui"));
+        } else if (updateProperties.getEnv().equalsIgnoreCase("Test")){
+            edriver = initBrowser("https://epe-priceconfig-ui.test.aws.wfscorp.com");
+        } else if(updateProperties.getEnv().equalsIgnoreCase("Dev")){
+            edriver = initBrowser("https://epe-priceconfig-ui.dev.aws.wfscorp.com");
+        }
         DriverBean.setDriver(edriver);
-        fn = new CommonFunctions();
-        fn.login();
+        pageCommonMethods = new PageCommonMethods();
+        pageCommonMethods.login();
     }
 
     /*
@@ -81,8 +69,8 @@ public class PageCommonSteps extends BaseClass {
      * (calculation,workbook,index,currency exchange or formula)
      */
     @Given("^the user has navigated to the \"([^\"]*)\" page under the \"([^\"]*)\"$")
-    public void the_user_has_navigated_to_the_page_under_the(CommonFunctions.page page, CommonFunctions.module module)
+    public void the_user_has_navigated_to_the_page_under_the(PageCommonMethods.page page, PageCommonMethods.module module)
             throws Exception {
-        fn.moveTo(module, page);
+        pageCommonMethods.moveTo(page, module);
     }
 }

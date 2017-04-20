@@ -15,7 +15,7 @@ import java.util.Map;
 @CucumberOptions(
         strict=true,
         features={"src/test/resources/features/pageobjects/Page_Index_CreatePage.feature"},
-//        glue = {"classpath:stepdef", "classpath:setup"},
+        glue = {"classpath:stepdef", "classpath:setup"},
         tags = {"@PageObjects"}
         )
 public class RunTest {

@@ -4,8 +4,7 @@ Feature: Formula Create page
   Acceptance Criteria: User shall be able to create a formula with  valid details.
 
   Background:
-    Given the docker containers are running
-    And   the user has logged into the pricing application
+    Given the user has logged into the pricing application
 
   Scenario Outline: To verify that the end date is greater than or equal to start date on formula create page.
     Given the user has navigated to the "Create" page under the "Formula"
@@ -70,8 +69,6 @@ Feature: Formula Create page
 
   Scenario Outline: To verify that the application displays an error when invalid expression is used with parameters.
     Given the user has navigated to the "Create" page under the "Formula"
-    And   click on add parameter
-    And   click on add parameter
     When  expression as "<expression>"
     And   validate the expression and click on Create
     Then  the application displays an error message as "Invalid formula"

@@ -156,7 +156,10 @@ public class GenericWebElementMethods {
      * Method to clear the text
      */
     protected void clearText(String identifier) {
-        edriver.findElement(By.xpath(identifier)).clear();
+        List<WebElement> list = edriver.findElements(By.xpath(identifier));
+        if(list.size()>0){
+            list.get(0).clear();
+        }
     }
 
     /*
@@ -191,5 +194,11 @@ public class GenericWebElementMethods {
         if(list.size()==0){
             Assert.fail("No elements found matching:"+identifier);
         }
+    }
+    /*
+     * Method to get the size of web element list
+     */
+    public int getSizeOfList(String identifier){
+        return edriver.findElements(By.xpath(identifier)).size();
     }
 }

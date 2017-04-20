@@ -4,8 +4,7 @@ Feature: To verify if the user is able to create formula.
   Acceptance Criteria: User shall be able to create a formula.
 
   Background:
-    Given the docker containers are running
-    And   the user has logged into the pricing application
+    Given   the user has logged into the pricing application
 
   Scenario Outline: To verify if the user is able to access the list page.
     Given the user has navigated to the "Create" page under the "Formula"

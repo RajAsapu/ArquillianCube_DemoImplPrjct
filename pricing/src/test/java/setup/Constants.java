@@ -84,6 +84,7 @@ public class Constants {
     public static String currencyExchangeList_rateTypeColumn_xpath = "//*/p-datatable/div/div[2]/table/tbody/tr[*]/td[5]";
     public static String currencyExchangeList_rateColumn_xpath = "//*/p-datatable/div/div[2]/table/tbody/tr[*]/td[6]";
     public static String currencyExchangeList_startDatePicker_xpath = "//*/p-fieldset/fieldset/div/div/div[1]/div[2]/div/p-calendar/span/button";
+    public static String currencyExchangeList_endDatePicker_xpath = "//p-calendar[@formcontrolname='toDate']/span/input";
     /*
      * Currency Exchange Create Page Identifiers
      */

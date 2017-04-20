@@ -4,8 +4,7 @@ Feature: To verify if the user is able to access list page under curreny exchang
   Acceptance Criteria: User shall be able to access features in the currency exchange under index.
 
   Background:
-    Given the docker containers are running
-    And   the user has logged into the pricing application
+    Given the user has logged into the pricing application
 
   Scenario Outline: To verify if the user is able to search on the list page with start date as filter.
     Given the user has navigated to the "List" page under the "Currency_Exchange"

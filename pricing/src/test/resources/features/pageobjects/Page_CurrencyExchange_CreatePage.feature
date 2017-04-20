@@ -4,8 +4,7 @@ Feature: To verify if the user is able to create currency exchange rate info und
   Acceptance Criteria: User shall be able to create a currency exchange info under currency exchange.
 
   Background:
-    Given the docker containers are running
-    And   the user has logged into the pricing application
+    Given the user has logged into the pricing application
 
   Scenario Outline: To verify if the user is able to search on the list page with start date as filter.
     Given the user has navigated to the "Create" page under the "Currency_Exchange"

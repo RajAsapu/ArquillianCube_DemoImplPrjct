@@ -78,10 +78,9 @@ public class UpdateProperties {
         FileWriter fwrite;
         ObjectMapper mapper = new ObjectMapper();
         /*
-         * Updating the hostConfig file
+         * Creating the hostConfig file
          */
-        hostConfigPath = new File("src/test/resources/hostConfig.json");
-        root = mapper.readTree(hostConfigPath);
+        root = mapper.readTree(new File("src/test/resources/hostConfig.json"));
         ((ObjectNode)root).put("priceEngineServiceUrl",getProperty("pricing.engine"));
         ((ObjectNode)root).put("masterDataServiceUrl",getProperty("pricing.datamock"));
         resultUpdate = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(root);

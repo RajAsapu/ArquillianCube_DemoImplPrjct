@@ -3,8 +3,7 @@ Feature: To verify if the user is able to access create page under index.
   Acceptance Criteria: User shall be able to access features in the Create page under index.
 
  Background:
-   Given the docker containers are running
-   And   the user has logged into the pricing application
+   Given  the user has logged into the pricing application
 
   @Intg
   Scenario Outline: To verify if the user is able to create an index from add index in list page.

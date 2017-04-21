@@ -3,8 +3,7 @@ Feature: List Page
   Acceptance Criteria: User shall be able to access features in the search in List page.
 
   Background:
-    Given the docker containers are running
-    And   the user has logged into the pricing application
+    Given  the user has logged into the pricing application
 
   Scenario Outline: To verify if the user is able to search on the list page with rate basis and currency as filters.
     Given   the user has navigated to the "List" page under the "Index"

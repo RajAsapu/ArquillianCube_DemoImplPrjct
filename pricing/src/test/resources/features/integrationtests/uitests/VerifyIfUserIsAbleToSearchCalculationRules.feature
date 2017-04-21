@@ -3,8 +3,7 @@ Feature: Calculation Rule - List page
   Acceptance Criteria: User shall be able to access features in the List page under calculation period.
 
   Background:
-    Given  the docker containers are running
-    And    the user has logged into the pricing application
+    Given  the user has logged into the pricing application
 
   @Intg
   Scenario Outline: To verify if the user is able to create a new rule from the list page.

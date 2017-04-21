@@ -3,8 +3,7 @@ Feature: Calculation Rule - Create page
   Acceptance Criteria: User shall be able to create a calculation rule under calculation period.
 
   Background:
-    Given  the docker containers are running
-    And    the user has logged into the pricing application
+    Given  the user has logged into the pricing application
 
   @Intg
   Scenario Outline: To verify if the user is able to view an error when end date is earlier than start date.

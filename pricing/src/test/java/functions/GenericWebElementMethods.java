@@ -9,6 +9,7 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.UnexpectedTagNameException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import setup.Constants;
 import setup.DriverBean;
 import java.util.List;
 /*
@@ -49,8 +50,8 @@ public class GenericWebElementMethods {
     /*
      *  Method to enter text into a field using sendKeys
      */
-    protected void sendKeysToWE(String filter, String value) {
-        edriver.findElement(By.xpath(filter)).sendKeys(value);
+    protected void sendKeysToWE(String identifier, String value) {
+        edriver.findElement(By.xpath(identifier)).sendKeys(value);
     }
     /*
      * Method to get the value of the web element
@@ -63,12 +64,12 @@ public class GenericWebElementMethods {
     /*
      * Check if the data in the rows is matching the value which is used as filter
      */
-    protected void checkDataInRowsMatchesFilter(String identifier, String value) throws Exception {
+    protected void checkDataInRowsMatchesFilter(String identifier, String value)  {
         List<WebElement> list = null;
         list = edriver.findElements(By.xpath(identifier));
         for (WebElement e : list) {
             if (!e.getText().toLowerCase().contains(value.toLowerCase())) {
-                throw new Exception("Filter doesn't match: Actual:" + e.getText() + " Expected:" + value);
+                Assert.fail("Filter doesn't match: Actual:" + e.getText() + " Expected:" + value);
             }
         }
     }
@@ -131,7 +132,7 @@ public class GenericWebElementMethods {
     /*
      * Method to click button
      */
-    protected void clickButton(String identifier) throws Exception {
+    protected void clickButton(String identifier)  {
         WebElement button = edriver.findElement(By.xpath(identifier));
         if (button.isEnabled()) {
             button.click();
@@ -193,6 +194,16 @@ public class GenericWebElementMethods {
         }
         if(list.size()==0){
             Assert.fail("No elements found matching:"+identifier);
+        }
+    }
+    /*
+     * method to select the check box
+     */
+    protected void selectCheckbox(boolean check,String identifier)
+    {
+        WebElement checkbox = getElementFromListWithPosition(identifier,0);
+        if ((check && !checkbox.isSelected()) || (!check && checkbox.isSelected())) {
+            checkbox.click();
         }
     }
     /*

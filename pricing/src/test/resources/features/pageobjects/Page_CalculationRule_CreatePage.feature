@@ -4,8 +4,7 @@ Feature: Create calculation rule.
   Acceptance Criteria: User shall be able to create a calculation rule.
 
   Background:
-    Given the docker containers are running
-    And   the user has logged into the pricing application
+    Given  the user has logged into the pricing application
 
   Scenario Outline: To verify if the user is able to create a calculation rule with type as Day.
     Given the user has navigated to the "Create" page under the "Calculation_Rule"

@@ -4,8 +4,7 @@ Feature: List calculation rule.
   Acceptance Criteria: User shall be able to search from the list of calculation rule.
 
   Background:
-    Given the docker containers are running
-    And   the user has logged into the pricing application
+    Given the user has logged into the pricing application
 
   Scenario Outline: To verify if the user is able to search the list by name.
     Given the user has navigated to the "List" page under the "Calculation_Rule"

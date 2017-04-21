@@ -1,5 +1,7 @@
 package functions;
 
+import com.google.common.base.Verify;
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
@@ -49,5 +51,24 @@ public class PageCommonMethods {
         edriver.findElement(By.id(Constants.login_username_id)).sendKeys(Constants.username);
         edriver.findElement(By.id(Constants.login_password_id)).sendKeys(Constants.password);
         edriver.findElement(By.id(Constants.login_submit_id)).click();
+    }
+    /*
+     * Method to verify if the error message is displayed or not
+     * isDisplayed : true - Message should be displayed
+     *               false - Message should not be displayed
+     */
+    public void verifyIfErrorMessageIsDisplayed(String message,boolean isDisplayed)
+    {
+        try {
+            if (isDisplayed) {
+                Verify.verify(edriver.findElement(By.xpath("//*[normalize-space()='" + message + "']")).isDisplayed(), "Error Message is not displayed!!");
+            } else {
+                Verify.verify(!edriver.findElement(By.xpath("//*[normalize-space()='" + message + "']")).isDisplayed(), "Error Message is displayed!!");
+            }
+        }
+        catch (NullPointerException exp)
+        {
+            Assert.fail("Error message is not displayed");
+        }
     }
 }

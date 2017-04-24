@@ -9,6 +9,7 @@ import functions.ListCurrencyExchangeMethods;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 import setup.DriverBean;
+
 import java.util.List;
 
 public class PageCurrencyExchangeSteps {
@@ -83,7 +84,7 @@ public class PageCurrencyExchangeSteps {
 
     @When("^sets the currency type as \"([^\"]*)\"")
     public void sets_the_currency_type_as(String type) throws Throwable {
-       createCurrencyExchangeMethods.setType(type);
+        createCurrencyExchangeMethods.setType(type);
     }
 
     @When("^sets the currencyFrom field in create page to \"([^\"]*)\"")
@@ -98,7 +99,7 @@ public class PageCurrencyExchangeSteps {
 
     @When("^converstion rate to \"([^\"]*)\"$")
     public void converstion_rate_to(String rate) throws Throwable {
-       createCurrencyExchangeMethods.setConverstionRate(rate);
+        createCurrencyExchangeMethods.setConverstionRate(rate);
     }
 
     @Then("^the currency exchange info should be created$")

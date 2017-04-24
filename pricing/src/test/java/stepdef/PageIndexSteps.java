@@ -13,6 +13,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 import setup.Constants;
 import setup.DriverBean;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -25,7 +26,7 @@ public class PageIndexSteps {
     private ListIndexMethods listIndexMethods;
     private CreateIndexMethods createIndexMethods;
 
-    public PageIndexSteps(){
+    public PageIndexSteps() {
         edriver = DriverBean.getDriver();
         pageCommonSteps = new PageCommonSteps();
         listIndexMethods = new ListIndexMethods();
@@ -66,6 +67,7 @@ public class PageIndexSteps {
         listIndexMethods.setEndDate(endDate);
         listIndexMethods.setStatus(status);
     }
+
     /*
      * Need to move to the page class
      */
@@ -120,8 +122,8 @@ public class PageIndexSteps {
     }
 
     @When("^the user enters rate basis as ([^\"]*)$")
-    public void the_user_enters_rate_basis_as(String rateBasis)throws Exception {
-           createIndexMethods.setRateBasis(rateBasis);
+    public void the_user_enters_rate_basis_as(String rateBasis) throws Exception {
+        createIndexMethods.setRateBasis(rateBasis);
     }
 
     @When("^name as ([^\"]*)$")
@@ -148,6 +150,7 @@ public class PageIndexSteps {
     public void unit_of_measurement_as(String uom) throws Throwable {
         createIndexMethods.setUom(uom);
     }
+
     /*
      * Move the below method to the class file
      */
@@ -184,39 +187,35 @@ public class PageIndexSteps {
     public void the_user_shall_be_able_to_view_the_created_index_in_the_list_on_filtering_with(String rate)
             throws Throwable {
         Thread.sleep(5000);
-        Verify.verify(edriver.getCurrentUrl().contains("/index/list"),"Index is not created");
+        Verify.verify(edriver.getCurrentUrl().contains("/index/list"), "Index is not created");
     }
 
     @And("^the user clicked on ([^\"]*) action$")
-    public void click_on_button(String action)throws Exception
-    {
+    public void click_on_button(String action) throws Exception {
         listIndexMethods.clickOnAction(action);
     }
 
     @Then("^the index (should|should not) be (created|updated)$")
-    public void the_index_should_be_createdOrUpdated(String action,String action1)
-    {
-        if(action.equalsIgnoreCase("should")){
-            Verify.verify(edriver.getCurrentUrl().contains("/index/list"),"Index is not created or updated !!");
-        } else{
-            Verify.verify(!edriver.getCurrentUrl().contains("/index/list"),"Index is created or updated !!");
+    public void the_index_should_be_createdOrUpdated(String action, String action1) {
+        if (action.equalsIgnoreCase("should")) {
+            Verify.verify(edriver.getCurrentUrl().contains("/index/list"), "Index is not created or updated !!");
+        } else {
+            Verify.verify(!edriver.getCurrentUrl().contains("/index/list"), "Index is created or updated !!");
         }
     }
 
     @Then("^the user shall be able to edit only end date$")
-    public void the_user_shall_be_able_to_edit_only_end_date()throws Throwable
-    {
+    public void the_user_shall_be_able_to_edit_only_end_date() throws Throwable {
         listIndexMethods.verifyUserIsAbleToEditOnlyEndDate();
     }
 
     @Then("^the status of the index should change to inactive$")
-    public void the_status_of_the_index_should_change_to_inactive()
-    {
+    public void the_status_of_the_index_should_change_to_inactive() {
         listIndexMethods.verifyIfTheStatusOfIndexChangedToInactive();
     }
 
     @Then("^the user is not allowed to (update|enter) low,mid,high and close prices for (active|new) index$")
-    public void the_user_is_not_allowed_to_update_lowMidHighAndClose_prices_for_active_index(String act, String type){
+    public void the_user_is_not_allowed_to_update_lowMidHighAndClose_prices_for_active_index(String act, String type) {
         listIndexMethods.verifyUserIsUnableToEditPrices();
     }
 
@@ -226,15 +225,14 @@ public class PageIndexSteps {
     }
 
     @And("^add the scale rates$")
-    public void add_the_scale_rates(DataTable table)throws Exception
-    {
+    public void add_the_scale_rates(DataTable table) throws Exception {
         List<List<String>> list = table.raw();
         int i = 0;
-        for(List<String> row:list){
-            if(i++>0){
+        for (List<String> row : list) {
+            if (i++ > 0) {
                 listIndexMethods.addScaleParamater();
             }
-            listIndexMethods.setScaleParameters(row.get(0),row.get(1),row.get(2));
+            listIndexMethods.setScaleParameters(row.get(0), row.get(1), row.get(2));
         }
     }
 

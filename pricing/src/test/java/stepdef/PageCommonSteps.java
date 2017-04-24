@@ -8,7 +8,11 @@ import functions.PageCommonMethods;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
-import setup.*;
+import setup.BaseClass;
+import setup.Constants;
+import setup.DriverBean;
+import setup.UpdateProperties;
+
 import java.util.Map;
 import java.util.Properties;
 
@@ -37,9 +41,9 @@ public class PageCommonSteps extends BaseClass {
 
         if (updateProperties.getEnv().equalsIgnoreCase("Docker")) {
             edriver = initBrowser(updateProperties.getProperty("pricing.ui"));
-        } else if (updateProperties.getEnv().equalsIgnoreCase("Test")){
+        } else if (updateProperties.getEnv().equalsIgnoreCase("Test")) {
             edriver = initBrowser("https://epe-priceconfig-ui.test.aws.wfscorp.com");
-        } else if(updateProperties.getEnv().equalsIgnoreCase("Dev")){
+        } else if (updateProperties.getEnv().equalsIgnoreCase("Dev")) {
             edriver = initBrowser("https://epe-priceconfig-ui.dev.aws.wfscorp.com");
         }
         DriverBean.setDriver(edriver);

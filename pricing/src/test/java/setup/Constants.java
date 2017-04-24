@@ -23,7 +23,7 @@ public class Constants {
     public static String indexList_startdatepicker_xpath = "//*/app-root/calc-rule-list/div/div/div/div[2]/form/p-fieldset/fieldset/div/div/div[1]/div[1]/div/p-calendar/span/button";
     public static String indexList_StartDateColumn_xpath = "//*/p-datatable/div/div[2]/table/tbody/tr[*]/td[2]";
     public static String indexList_enddatepicker_xapth = "//*/app-root/calc-rule-list/div/div/div/div[2]/form/p-fieldset/fieldset/div/div/div[1]/div[2]/div/p-calendar/span/button";
-    public static String indexList_endDate_xpath= ".//p-calendar[@formcontrolname='endDate']/span/input";
+    public static String indexList_endDate_xpath = ".//p-calendar[@formcontrolname='endDate']/span/input";
     public static String indexList_EndDateColumn_xpath = "//*/p-datatable/div/div[2]/table/tbody/tr[1]/td[3]";
     public static String indexList_search_xpath = "//*/p-fieldset/fieldset/div/div/div[2]/div[*]/button";
     public static String indexList_StatusColumn_xpath = "//*/p-datatable/div/div[2]/table/tbody/tr[*]/td[1]";
@@ -51,7 +51,7 @@ public class Constants {
     public static String indexCreate_highprice_xpath = "//*[@id='txtHigh']";
     public static String indexCreate_closeprice_xpath = ".//input[@type='number']";
     public static String indexCreate_startDatePicker_xpath = "//*/div/div/div[3]/div/p-calendar/span/button";
-    public static String indexCreate_startDate_xpath=".//*[@ng-reflect-name=\"startDate\"]/span/input";
+    public static String indexCreate_startDate_xpath = ".//*[@ng-reflect-name=\"startDate\"]/span/input";
     public static String indexCreate_endDatePicker_xpath = "//*/div/div/div[4]/div/p-calendar/span/button";
     public static String indexCreate_endDate_xpath = ".//*[@ng-reflect-name=\"endDate\"]/span/input";
     public static String indexCreate_currency_xpath = "//*/p-fieldset/fieldset/div/div/div[9]/div/select";

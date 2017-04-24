@@ -14,42 +14,47 @@ public class CreateFormulaMethods extends GenericWebElementMethods {
 
     private static EventFiringWebDriver edriver;
 
-    public CreateFormulaMethods()
-    {
+    public CreateFormulaMethods() {
         edriver = DriverBean.getDriver();
     }
 
-    public void clickOnAddParameter()throws Exception
-    {
+    public void clickOnAddParameter() throws Exception {
         clickButton(Constants.formulaCreate_addParameter_xpath);
     }
 
-    public void setName(String name)
-    {
+    public void setName(String name) {
         sendKeysToWeAtPosition(Constants.formulaCreate_name_xpath, name);
     }
-    public void setDescription(String description){
+
+    public void setDescription(String description) {
         sendKeysToWeAtPosition(Constants.formulaCreate_description_xpath, description);
     }
-    public void setType(String type)throws Exception{
+
+    public void setType(String type) throws Exception {
         selectFromDropDown(Constants.formulaCreate_typeSelect_xpath, type);
     }
-    public void setStartDate(String startDate){
-        selectDate(startDate,Constants.formulaCreate_startDatePicker_xpath,null);
+
+    public void setStartDate(String startDate) {
+        selectDate(startDate, Constants.formulaCreate_startDatePicker_xpath, null);
     }
-    public void setEndDate(String endDate){
-        selectDate(endDate,Constants.formulaCreate_endDatePicker_xpath,Constants.formulaCreate_endDate_xpath);
+
+    public void setEndDate(String endDate) {
+        selectDate(endDate, Constants.formulaCreate_endDatePicker_xpath, Constants.formulaCreate_endDate_xpath);
     }
-    public void setRoundingMode(String roundingMode)throws Exception{
+
+    public void setRoundingMode(String roundingMode) throws Exception {
         selectFromDropDown(Constants.formulaCreate_roundingMode_xpath, roundingMode);
     }
-    public void setRoundingPrecision(String roundingPrecision){
+
+    public void setRoundingPrecision(String roundingPrecision) {
         sendKeysToWeAtPosition(Constants.formulaCreate_roundingPrecision_xpath, roundingPrecision);
     }
-    public void setExpression(String expression){
+
+    public void setExpression(String expression) {
         sendKeysToWeAtPosition(Constants.formulaCreate_expression_xpath, expression);
     }
-    public void createFormula()throws Exception{
+
+    public void createFormula() throws Exception {
         try {
             Verify.verify(edriver.findElement(By.xpath(Constants.formulaCreate_errorMessageValidate_xpath)).isDisplayed(), "Invalid Expression!!");
         } catch (NoSuchElementException exp) {
@@ -58,9 +63,8 @@ public class CreateFormulaMethods extends GenericWebElementMethods {
         clickButton(Constants.formulaCreate_create_xpath);
     }
 
-    public void addParameters(List<List<String>> parameters)throws Exception
-    {
-        int i=0;
+    public void addParameters(List<List<String>> parameters) throws Exception {
+        int i = 0;
         scrollDown();
         while (i < parameters.size()) {
             String type = parameters.get(i).get(1);
@@ -82,14 +86,15 @@ public class CreateFormulaMethods extends GenericWebElementMethods {
         }
     }
 
-    public void verifyIfFormulaCreatedOrNot(String perfom, String action){
+    public void verifyIfFormulaCreatedOrNot(String perfom, String action) {
         if (!perfom.contains("not")) {
             Verify.verify(edriver.getCurrentUrl().contains("formula/list"), "Formula is not Created !!");
         } else {
             Verify.verify(edriver.getCurrentUrl().contains("formula/create"), "ERROR : Formula is Created !!");
         }
     }
-    public void verifyIfUserIsAbleToViewAllDetails()throws Exception{
+
+    public void verifyIfUserIsAbleToViewAllDetails() throws Exception {
         viewableOnly(Constants.formulaCreate_name_xpath);
         viewableOnly(Constants.formulaCreate_description_xpath);
         viewableOnly(Constants.formulaCreate_typeSelect_xpath);

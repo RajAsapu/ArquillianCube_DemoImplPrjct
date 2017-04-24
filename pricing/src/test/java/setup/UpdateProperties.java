@@ -6,7 +6,11 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.github.dockerjava.api.DockerClient;
 import com.github.dockerjava.api.command.InspectContainerResponse;
 import com.github.dockerjava.core.DockerClientBuilder;
-import java.io.*;
+
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.util.Map;
 import java.util.Properties;
 
@@ -16,9 +20,9 @@ public class UpdateProperties {
     File resourceFile;
     String resourceFilePath;
     PrintWriter out;
-    private DockerClient dockerClient;
     FileReader read;
     File hostConfigPath;
+    private DockerClient dockerClient;
 
     public UpdateProperties() {
         resourceFile = new File(".//");
@@ -26,14 +30,13 @@ public class UpdateProperties {
         resourceFile = new File(resourceFilePath);
     }
 
-    public void setProperty(Map<String,String> map) {
-        try{
+    public void setProperty(Map<String, String> map) {
+        try {
             out = new PrintWriter(resourceFile);
             out.println("#Pricing Application - Container Properties#");
-        for(Map.Entry<String,String> entry:map.entrySet())
-        {
-            out.println(entry.getKey()+"=http://"+entry.getValue()+"/");
-        }
+            for (Map.Entry<String, String> entry : map.entrySet()) {
+                out.println(entry.getKey() + "=http://" + entry.getValue() + "/");
+            }
             out.close();
         } catch (Exception exp) {
             exp.printStackTrace();
@@ -44,35 +47,30 @@ public class UpdateProperties {
          /*
          * Loading the properties file
          */
-        try{
-            read=new FileReader(resourceFile);
+        try {
+            read = new FileReader(resourceFile);
             props.load(read);
             return props.getProperty(propertyName);
-        }
-        catch (Exception exp){
+        } catch (Exception exp) {
             exp.printStackTrace();
         }
         return null;
     }
 
-    public String getEnv()
-    {
-        try{
+    public String getEnv() {
+        try {
             resourceFilePath = resourceFile.getAbsolutePath().replace(".", "src/test/resources/application.properties");
             resourceFile = new File(resourceFilePath);
-            read=new FileReader(resourceFile);
+            read = new FileReader(resourceFile);
             props.load(read);
             return props.getProperty("env");
-        }
-        catch (Exception exp)
-        {
+        } catch (Exception exp) {
             exp.printStackTrace();
         }
         return null;
     }
 
-    public void updateHostConfig()throws Exception
-    {
+    public void updateHostConfig() throws Exception {
         JsonNode root;
         String resultUpdate;
         FileWriter fwrite;
@@ -81,10 +79,10 @@ public class UpdateProperties {
          * Creating the hostConfig file
          */
         root = mapper.readTree(new File("src/test/resources/hostConfig.json"));
-        ((ObjectNode)root).put("priceEngineServiceUrl",getProperty("pricing.engine"));
-        ((ObjectNode)root).put("masterDataServiceUrl",getProperty("pricing.datamock"));
+        ((ObjectNode) root).put("priceEngineServiceUrl", getProperty("pricing.engine"));
+        ((ObjectNode) root).put("masterDataServiceUrl", getProperty("pricing.datamock"));
         resultUpdate = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(root);
-        fwrite=new FileWriter(hostConfigPath);
+        fwrite = new FileWriter(hostConfigPath);
         fwrite.write(resultUpdate);
         fwrite.close();
         /*
@@ -95,8 +93,7 @@ public class UpdateProperties {
         System.out.println("Copying");
     }
 
-    public String getContainerIdUsingName(String containerName)
-    {
+    public String getContainerIdUsingName(String containerName) {
         InspectContainerResponse containerInfo = dockerClient.inspectContainerCmd(containerName).exec();
         return containerInfo.getId();
     }

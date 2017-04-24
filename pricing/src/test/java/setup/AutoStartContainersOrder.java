@@ -7,6 +7,7 @@ import org.arquillian.cube.spi.AutoStartParser;
 import org.arquillian.cube.spi.Node;
 import org.jboss.arquillian.core.api.Instance;
 import org.jboss.arquillian.core.api.annotation.Inject;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;

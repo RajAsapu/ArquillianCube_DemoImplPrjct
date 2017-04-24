@@ -18,11 +18,19 @@ public class PageCommonSteps extends BaseClass {
     /*
      * Global variables
      */
-    public Properties props = new Properties();
+    public Properties props;
     PageCommonMethods pageCommonMethods;
     HandleDocker dock = new HandleDocker();
     Map<String, String> map;
-    UpdateProperties updateProperties = new UpdateProperties();
+    UpdateProperties updateProperties;
+    String environment = null;
+
+    public PageCommonSteps()
+    {
+        props = new Properties();
+        updateProperties = new UpdateProperties();
+        environment = updateProperties.getEnv();
+    }
 
     @And("^wait for sometime$")
     public void wait_for_sometime() throws Exception {
@@ -35,11 +43,11 @@ public class PageCommonSteps extends BaseClass {
     @Given("^the user has logged into the pricing application$")
     public void the_user_has_logged_into_the_pricing_application() {
 
-        if (updateProperties.getEnv().equalsIgnoreCase("Docker")) {
+        if (environment.equalsIgnoreCase("Docker")) {
             edriver = initBrowser(updateProperties.getProperty("pricing.ui"));
-        } else if (updateProperties.getEnv().equalsIgnoreCase("Test")){
+        } else if (environment.equalsIgnoreCase("Test")){
             edriver = initBrowser("https://epe-priceconfig-ui.test.aws.wfscorp.com");
-        } else if(updateProperties.getEnv().equalsIgnoreCase("Dev")){
+        } else if(environment.equalsIgnoreCase("Dev")){
             edriver = initBrowser("https://epe-priceconfig-ui.dev.aws.wfscorp.com");
         }
         DriverBean.setDriver(edriver);

@@ -14,7 +14,7 @@ import java.util.Map;
 @RunAsClient
 @CucumberOptions(
         strict=true,
-        features={"src/test/resources/features/pageobjects/PageIndexCreatePage.feature"},
+        features={"src/test/resources/features/pageobjects/PageWorkBookCreatePage.feature"},
         glue = {"classpath:stepdef", "classpath:setup"} ,
         tags = {"@PageObjects"}
         )

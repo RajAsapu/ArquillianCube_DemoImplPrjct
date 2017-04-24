@@ -21,13 +21,12 @@ public class UpdateProperties {
     File hostConfigPath;
 
     public UpdateProperties() {
-        resourceFile = new File(".//");
-        resourceFilePath = resourceFile.getAbsolutePath().replace(".", "src/test/resources/pricing.properties");
-        resourceFile = new File(resourceFilePath);
+
     }
 
     public void setProperty(Map<String,String> map) {
         try{
+            resourceFile = new File("../pricing/src/test/resources/pricing.properties");
             out = new PrintWriter(resourceFile);
             out.println("#Pricing Application - Container Properties#");
         for(Map.Entry<String,String> entry:map.entrySet())
@@ -45,6 +44,7 @@ public class UpdateProperties {
          * Loading the properties file
          */
         try{
+            resourceFile = new File("../pricing/src/test/resources/pricing.properties");
             read=new FileReader(resourceFile);
             props.load(read);
             return props.getProperty(propertyName);
@@ -57,9 +57,9 @@ public class UpdateProperties {
 
     public String getEnv()
     {
+        props=new Properties();
         try{
-            resourceFilePath = resourceFile.getAbsolutePath().replace(".", "src/test/resources/application.properties");
-            resourceFile = new File(resourceFilePath);
+            resourceFile = new File("../pricing/src/test/resources/application.properties");
             read=new FileReader(resourceFile);
             props.load(read);
             return props.getProperty("env");
@@ -71,8 +71,7 @@ public class UpdateProperties {
         return null;
     }
 
-    public void updateHostConfig()throws Exception
-    {
+    public void updateHostConfig()throws Exception {
         JsonNode root;
         String resultUpdate;
         FileWriter fwrite;
@@ -80,20 +79,28 @@ public class UpdateProperties {
         /*
          * Updating the hostConfig file
          */
-        hostConfigPath = new File("src/test/resources/hostConfig.json");
-        root = mapper.readTree(hostConfigPath);
-        ((ObjectNode)root).put("priceEngineServiceUrl",getProperty("pricing.engine"));
-        ((ObjectNode)root).put("masterDataServiceUrl",getProperty("pricing.datamock"));
-        resultUpdate = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(root);
-        fwrite=new FileWriter(hostConfigPath);
-        fwrite.write(resultUpdate);
-        fwrite.close();
+        if (getEnv().equals("Docker")) {
+            hostConfigPath = new File("src/test/resources/hostConfig.json");
+            if(!hostConfigPath.exists())
+            {
+                hostConfigPath.createNewFile();
+            }
+            root = mapper.readTree(hostConfigPath);
+            ((ObjectNode) root).put("priceEngineServiceUrl", getProperty("pricing.engine"));
+            ((ObjectNode) root).put("masterDataServiceUrl", getProperty("pricing.datamock"));
+            ((ObjectNode) root).put("priceConfigServiceUrl", "https://epe-priceconfig-s.dev.aws.wfscorp.com/");
+            resultUpdate = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(root);
+            fwrite = new FileWriter(hostConfigPath);
+            fwrite.write(resultUpdate);
+            fwrite.close();
         /*
          * Copying the hostConfig.json file to the Container
          */
-        dockerClient = DockerClientBuilder.getInstance().build();
-        dockerClient.copyArchiveToContainerCmd(getContainerIdUsingName("ui")).withRemotePath("/usr/share/nginx/html/config").withHostResource(hostConfigPath.getAbsolutePath()).withNoOverwriteDirNonDir(false).exec();
-        System.out.println("Copying");
+            dockerClient = DockerClientBuilder.getInstance().build();
+            dockerClient.copyArchiveToContainerCmd(getContainerIdUsingName("ui")).withRemotePath("/usr/share/nginx/html/config").withHostResource(hostConfigPath.getAbsolutePath()).withNoOverwriteDirNonDir(false).exec();
+            System.out.println("hostConfig file is updated in the ui container");
+            System.out.println(resultUpdate);
+        }
     }
 
     public String getContainerIdUsingName(String containerName)

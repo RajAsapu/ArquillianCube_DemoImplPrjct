@@ -9,7 +9,6 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.UnexpectedTagNameException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import setup.Constants;
 import setup.DriverBean;
 import java.util.List;
 /*
@@ -19,6 +18,7 @@ public class GenericWebElementMethods {
 
     private static Logger log =null;
     private static EventFiringWebDriver edriver;
+    private JavascriptExecutor js = ((JavascriptExecutor) edriver);
 
     /*
      * Constructor to intialize the dependent classes
@@ -76,7 +76,7 @@ public class GenericWebElementMethods {
     /*
      * Method to select the values from the drop down
      */
-    protected void selectFromDropDown(String identifier, String... value) throws Exception {
+    protected void selectFromDropDown(String identifier, String... value)  {
         WebElement dropdown = null;
         if (value.length == 1) {
             dropdown = edriver.findElement(By.xpath(identifier));
@@ -167,8 +167,15 @@ public class GenericWebElementMethods {
      * Method to scroll down
      */
     protected void scrollDown() {
-        JavascriptExecutor js = ((JavascriptExecutor) edriver);
         js.executeScript("scroll(0,400)");
+    }
+    /*
+     * Method to scroll inside an element
+     */
+    protected void scrollIntoView(String identifier)
+    {
+        WebElement list = edriver.findElement(By.xpath(identifier));
+        js.executeScript("arguments[0].scrollIntoview(true);",list);
     }
     /*
      * Method to validate that the element is viewable Only

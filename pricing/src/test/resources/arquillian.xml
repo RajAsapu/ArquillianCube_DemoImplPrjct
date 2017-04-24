@@ -11,48 +11,73 @@
         <property name="dockerContainersFile">src/test/resources/docker-compose.yml</property>
         <property name="definitionFormat">CUBE</property>
         <property name="cleanBuildImage">true</property>
-        <property name="connectionMode">STARTORCONNECT</property>
+        <property name="connectionMode">STARTORCONNECTANDLEAVE</property>
         <property name="autoStartContainers">custom:setup.AutoStartContainersOrder</property>
         <property name="cubeSpecificProperties">
-            database:
-                await:
-                    strategy: log
-                    match: 'DSE startup complete'
-                    sleepPollingTime: 5 s
-                    iterations: 20
-                    timeout: 1800
+        database:
+            await:
+                strategy: sleeping
+                sleepTime: 60 s
+        service:
+            await:
+                strategy: sleeping
+                sleepTime: 60 s
+        ui:
+            await:
+                strategy: sleeping
+                sleepTime: 60 s
 
-            service:
-                await:
-                    strategy: http
-                    match: 'startup'
-                    responseCode: 200
-                    url: http://localhost:8080/swagger-ui.html
-                    sleepPollingTime: 5 s
-                    iterations: 20
-                    timeout: 1800
-            ui:
-                await:
-                    strategy: polling
-                    sleepPollingTime: 5 s
-                    iterations: 5
-                    timeout: 1800
+        datamock:
+            await:
+                strategy: sleeping
+                sleepTime: 60 s
 
-            datamock:
-                await:
-                    strategy: log
-                    match: 'Successfully connected'
-                    sleepPollingTime: 5 s
-                    iterations: 20
-                    timeout: 1800
+        engine:
+            await:
+                strategy: sleeping
+                sleepTime: 60 s
 
-            engine:
-                await:
-                    strategy: log
-                    match: 'Initializing Spring FrameworkServlet'
-                    sleepPollingTime: 5 s
-                    iterations: 20
-                    timeout: 1800
         </property>
+        <!--<property name="cubeSpecificProperties">-->
+            <!--database:-->
+                <!--await:-->
+                    <!--strategy: log-->
+                    <!--match: 'DSE startup complete'-->
+                    <!--sleepPollingTime: 5 s-->
+                    <!--iterations: 20-->
+                    <!--timeout: 1800-->
+
+            <!--service:-->
+                <!--await:-->
+                    <!--strategy: http-->
+                    <!--match: 'startup'-->
+                    <!--responseCode: 200-->
+                    <!--url: http://localhost:8080/swagger-ui.html-->
+                    <!--sleepPollingTime: 5 s-->
+                    <!--iterations: 20-->
+                    <!--timeout: 1800-->
+            <!--ui:-->
+                <!--await:-->
+                    <!--strategy: polling-->
+                    <!--sleepPollingTime: 5 s-->
+                    <!--iterations: 5-->
+                    <!--timeout: 1800-->
+
+            <!--datamock:-->
+                <!--await:-->
+                    <!--strategy: log-->
+                    <!--match: 'Successfully connected'-->
+                    <!--sleepPollingTime: 5 s-->
+                    <!--iterations: 20-->
+                    <!--timeout: 1800-->
+
+            <!--engine:-->
+                <!--await:-->
+                    <!--strategy: log-->
+                    <!--match: 'Initializing Spring FrameworkServlet'-->
+                    <!--sleepPollingTime: 5 s-->
+                    <!--iterations: 20-->
+                    <!--timeout: 1800-->
+        <!--</property>-->
     </extension>
 </arquillian>

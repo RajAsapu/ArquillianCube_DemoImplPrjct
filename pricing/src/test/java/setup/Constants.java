@@ -7,7 +7,7 @@ public class Constants {
     /*
      * Default user id and password
 	 */
-    public static String username = "cxl_admin1";
+    public static String username = "mkhanal";
     public static String password = "Welcome01";
     /*
      * Login page identifiers
@@ -213,6 +213,21 @@ public class Constants {
     public static String formulaCreate_supplier_xpath = "//formula-params/form/div[*]/form/div[3]/div/div[2]/p-autocomplete/span/input";
     public static String formulaCreate_location_xpath = "//formula-params/form/div[*]/form/div[3]/div/div[3]/p-autocomplete/span/input";
     public static String formulaCreate_product_xpath = "//formula-params/form/div[*]/form/div[3]/div/div[4]/p-autocomplete/span/input";
+    /*
+     * Workbook - Create page
+     */
+    public static String workbookCreate_name_xpath = ".//*[@id='txtName']";
+    public static String workbookCreate_description_xpath = ".//*[@id='txtDesc']";
+    public static String workbookCreate_formulaType_xpath = ".//select[@formcontrolname='formulaType']";
+    public static String workbookCreate_segmentType_xpath = ".//select[@formcontrolname='segmentType']";
+    public static String workbookCreate_defaultValueYes_xpath = ".//*[@id='chboxDefaultVal']/div/div[2]/span";
+    public static String workbookCreate_defaultValueNo_xpath = ".//*[@id='chboxDefaultVal']/div/div[1]/span";
+    public static String workbookCreate_addSingleAttribute = "//button[@icon='fa-angle-right']";
+    public static String workbookCreate_addMultipleAttributes = "//button[@icon='fa-angle-double-right']";
+    public static String workbookCreate_removeSingleAttributes = "//button[@icon='fa-angle-left']";
+    public static String workbookCreate_removeMultipleAttributes = "//button[@icon='fa-angle-double-left']";
+    public static String workbookCreate_attribute_xpath = "//li[@class='ui-picklist-item']/div";
+    public static String workbookCreate_attributeListView_xpath = "//p-picklist/div/div[2]/ul";
 }
 
 

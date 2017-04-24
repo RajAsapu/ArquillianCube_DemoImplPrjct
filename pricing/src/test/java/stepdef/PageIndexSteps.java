@@ -5,46 +5,39 @@ import cucumber.api.DataTable;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import functions.CreateIndexMethods;
+import functions.ListIndexMethods;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
-import setup.CommonFunctions;
 import setup.Constants;
 import setup.DriverBean;
 
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 
 public class PageIndexSteps {
+
     final static Logger logger = Logger.getLogger(PageIndexSteps.class.getName());
     private static EventFiringWebDriver edriver;
-    public PageCommonSteps steps;
-    private CommonFunctions fn;
+    public PageCommonSteps pageCommonSteps;
+    private ListIndexMethods listIndexMethods;
+    private CreateIndexMethods createIndexMethods;
 
-    public PageIndexSteps(){
+    public PageIndexSteps() {
         edriver = DriverBean.getDriver();
-        steps = new PageCommonSteps();
-        fn = new CommonFunctions();
+        pageCommonSteps = new PageCommonSteps();
+        listIndexMethods = new ListIndexMethods();
+        createIndexMethods = new CreateIndexMethods();
     }
 
 
     @When("^the user enters the start date as ([^\"]*) and status as ([^\"]*)$")
     public void the_user_enters_the_start_date_as_and_status_as(String date, String status) throws Exception {
-
-        WebElement datepicker = edriver.findElement(By.xpath(Constants.indexList_startdatepicker_xpath));
-
-        Actions act = new Actions(edriver);
-        act.click(datepicker).sendKeys(date).perform();
-        act.sendKeys(Keys.TAB).perform();
-
-        fn.selectStatusIndex(status);
-        fn.selectType(CommonFunctions.type.manual);
+        listIndexMethods.setStartDate(date);
+        listIndexMethods.setStatus(status);
     }
 
     @Then("^the user shall be able to view the list of indexes with start date from \"([^\"]*)\" and status as \"([^\"]*)\"$")
@@ -67,22 +60,17 @@ public class PageIndexSteps {
             if (tempDate.compareTo(dateSelected) != 1)
                 assert false;
         }
-
-        edriver.quit();
     }
 
     @When("^the user enters the end date as \"([^\"]*)\" and status as \"([^\"]*)\"$")
-    public void the_user_enters_the_end_date_as_and_status_as(String date, String status) throws Throwable {
-        WebElement datepicker = edriver.findElement(By.xpath(Constants.indexList_enddatepicker_xapth));
-
-        Actions act = new Actions(edriver);
-        act.click(datepicker).sendKeys(date).perform();
-        act.sendKeys(Keys.TAB).perform();
-
-        fn.selectStatusIndex(status);
-        fn.selectType(CommonFunctions.type.manual);
+    public void the_user_enters_the_end_date_as_and_status_as(String endDate, String status) throws Throwable {
+        listIndexMethods.setEndDate(endDate);
+        listIndexMethods.setStatus(status);
     }
 
+    /*
+     * Need to move to the page class
+     */
     @Then("^the user shall be able to view the list of indexes with end date from \"([^\"]*)\" and status as \"([^\"]*)\"$")
     public void the_user_shall_be_able_to_view_the_list_of_indexes_with_end_date_from_and_status_as(String arg1,
                                                                                                     String arg2) throws Throwable {
@@ -117,12 +105,7 @@ public class PageIndexSteps {
 
     @When("^the user enters the type as ([^\"]*)$")
     public void the_user_enters_the_type_as(String type) throws Throwable {
-        if (type.equals("MANUAL"))
-            fn.selectType(CommonFunctions.type.manual);
-        else if (type.equals("AUTOMATIC"))
-            fn.selectType(CommonFunctions.type.automatic);
-        else
-            logger.error("Invalid type");
+        listIndexMethods.setType(type);
     }
 
     @Then("^the user shall be able to view the list of indexes with type as \"([^\"]*)\"$")
@@ -139,13 +122,13 @@ public class PageIndexSteps {
     }
 
     @When("^the user enters rate basis as ([^\"]*)$")
-    public void the_user_enters_rate_basis_as(String rateBase) throws Throwable {
-        fn.selectFromDropDown(Constants.indexList_rateBasis_xpath,rateBase);
+    public void the_user_enters_rate_basis_as(String rateBasis) throws Exception {
+        createIndexMethods.setRateBasis(rateBasis);
     }
 
     @When("^name as ([^\"]*)$")
     public void name_as(String name) throws Throwable {
-        fn.setNameFromAutoFill(Constants.indexList_name_xpath, name);
+        createIndexMethods.setName(name);
     }
 
     @Then("^the codes shall be auto populated$")
@@ -155,191 +138,101 @@ public class PageIndexSteps {
 
     @And("^comment as ([^\"]*)$")
     public void comment_as(String comment) throws Throwable {
-        edriver.findElement(By.xpath(Constants.indexCreate_comment_xpath)).sendKeys(comment);
+        createIndexMethods.setComments(comment);
     }
 
     @When("^currency as ([^\"]*)$")
-    public void currency_as(String curr) throws Throwable {
-        fn.selectCurrency(curr);
+    public void currency_as(String currency) throws Throwable {
+        createIndexMethods.setCurrency(currency);
     }
 
     @When("^unit of measurement as ([^\"]*)$")
     public void unit_of_measurement_as(String uom) throws Throwable {
-        fn.selectUOM(uom);
+        createIndexMethods.setUom(uom);
     }
 
+    /*
+     * Move the below method to the class file
+     */
     @Then("^the user shall be able to view the list of indexes matching the search criteria as \"([^\"]*)\" on list page$")
     public void the_user_shall_be_able_to_view_the_list_of_indexes_matching_the_above_search_criteria(String args)
             throws Throwable {
         Thread.sleep(3000);
         String[] params = args.split(",");
-        checkRateBasis_IndexTabe(params[3]);
-        checkName_IndexTabe(params[4]);
-        checkCurrency_IndexTabe(params[5]);
-        checkUom_IndexTabe(params[6]);
-    }
+        listIndexMethods.verifySearchResults(params[3], ListIndexMethods.Column.rateBasis);
+        listIndexMethods.verifySearchResults(params[4], ListIndexMethods.Column.name);
+        listIndexMethods.verifySearchResults(params[5], ListIndexMethods.Column.currency);
+        listIndexMethods.verifySearchResults(params[6], ListIndexMethods.Column.uom);
 
-    /*
-     * Check if the index list has expected Rate basis type
-     */
-    public void checkRateBasis_IndexTabe(String rate) throws Exception {
-        List<WebElement> rateList = edriver.findElements(By.xpath(Constants.indexList_ratebasisColumn_xpath));
-
-        for (WebElement temp : rateList) {
-            if (!temp.getText().equalsIgnoreCase(rate)) {
-                throw new Exception("Rate Basis doesn't match, Expected :" + rate + " Actual:" + temp.getText());
-            }
-        }
-    }
-
-    /*
-     * Check if the index list has expected name
-     */
-    public void checkName_IndexTabe(String name) throws Exception {
-        List<WebElement> nameList = edriver.findElements(By.xpath(Constants.indexList_nameColumn_xpath));
-
-        for (WebElement temp : nameList) {
-            if (!temp.getText().equals(name.toUpperCase())) {
-                throw new Exception("Name doesn't match, Expected :" + name + " Actual:" + temp.getText());
-            }
-        }
-    }
-
-    /*
-     * Check if the index list has expected currency
-     */
-    public void checkCurrency_IndexTabe(String currency) throws Exception {
-        List<WebElement> currList = edriver.findElements(By.xpath(Constants.indexList_currencyColumn_xpath));
-
-        for (WebElement temp : currList) {
-            if (!temp.getText().equals(currency)) {
-                throw new Exception("Currency doesn't match, Expected :" + currency + " Actual:" + temp.getText());
-            }
-        }
-    }
-
-    /*
-     * Check if the index list has expected currency
-     */
-    public void checkUom_IndexTabe(String uom) throws Exception {
-        List<WebElement> uomList = edriver.findElements(By.xpath(Constants.indexList_uomColumn_xpath));
-
-        for (WebElement temp : uomList) {
-            if (!temp.getText().equals(uom)) {
-                throw new Exception("UOM doesn't match, Expected :" + uom + " Actual:" + temp.getText());
-            }
-        }
     }
 
     /*
      * Method to insert high,medium,low and close prices
      */
     @When("^([^\"]*),([^\"]*),([^\"]*) and ([^\"]*) are entered$")
-    public void and_are_entered(String low, String mid, String high, String close) throws Throwable {
-        edriver.findElement(By.xpath(Constants.indexCreate_lowprice_xpath)).sendKeys(low.trim());
-        edriver.findElement(By.xpath(Constants.indexCreate_midprice_xpath)).sendKeys(mid.trim());
-        edriver.findElement(By.xpath(Constants.indexCreate_highprice_xpath)).sendKeys(high.trim());
-        edriver.findElement(By.xpath(Constants.indexCreate_closeprice_xpath)).sendKeys(close.trim());
+    public void and_are_entered(String lowPrice, String midPrice, String highPrice, String closePrice) throws Throwable {
+        createIndexMethods.setLowPrice(lowPrice);
+        createIndexMethods.setMidPrice(midPrice);
+        createIndexMethods.setHighPrice(highPrice);
+        createIndexMethods.setClosePrice(closePrice);
     }
 
     @And("^start date as ([^\"]*) and end date as ([^\"]*)")
     public void enterStartDateAndEndDate(String startDate, String endDate) throws Throwable {
-        fn.setDate(startDate,Constants.indexCreate_startDatePicker_xpath,Constants.indexCreate_startDate_xpath);
-        fn.setDate(endDate,Constants.indexCreate_endDatePicker_xpath,Constants.indexCreate_endDate_xpath);
+        createIndexMethods.setStartDate(startDate);
+        createIndexMethods.setEndDate(endDate);
     }
 
     @Then("^the user shall be able to view the created index in the list on filtering with ([^\"]*)$")
     public void the_user_shall_be_able_to_view_the_created_index_in_the_list_on_filtering_with(String rate)
             throws Throwable {
         Thread.sleep(5000);
-        Verify.verify(edriver.getCurrentUrl().contains("/index/list"),"Index is not created");
-        fn.selectRateBasis(rate);
-        fn.selectStatusIndex("Active");
-        steps.clicks_on_the_search_button();
-        /*
-         * Need to implement code to check the created index !!
-		 */
+        Verify.verify(edriver.getCurrentUrl().contains("/index/list"), "Index is not created");
     }
 
     @And("^the user clicked on ([^\"]*) action$")
-    public void click_on_button(String action)throws Exception
-    {
-        switch(action.toLowerCase())
-        {
-            case "edit": fn.clickButton(Constants.indexList_editAction_xpath);
-                            break;
-            case "addnewindex": fn.clickButton(Constants.indexList_addNewIndex_xpath);
-                            break;
-            case "submit" : fn.clickButton(Constants.indexCreate_submit_xpath);
-                            break;
-            case "inactive" : fn.clickButton(Constants.indexList_deactivateAction_xpath);
-                            break;
-            case "copy" : fn.clickButton(Constants.indexList_copyAction_xpath);
-                            break;
-        }
+    public void click_on_button(String action) throws Exception {
+        listIndexMethods.clickOnAction(action);
     }
 
     @Then("^the index (should|should not) be (created|updated)$")
-    public void the_index_should_be_createdOrUpdated(String action,String action1)
-    {
-        if(action.equalsIgnoreCase("should")){
-            Verify.verify(edriver.getCurrentUrl().contains("/index/list"),"Index is not created or updated !!");
-        } else{
-            Verify.verify(!edriver.getCurrentUrl().contains("/index/list"),"Index is created or updated !!");
+    public void the_index_should_be_createdOrUpdated(String action, String action1) {
+        if (action.equalsIgnoreCase("should")) {
+            Verify.verify(edriver.getCurrentUrl().contains("/index/list"), "Index is not created or updated !!");
+        } else {
+            Verify.verify(!edriver.getCurrentUrl().contains("/index/list"), "Index is created or updated !!");
         }
     }
 
     @Then("^the user shall be able to edit only end date$")
-    public void the_user_shall_be_able_to_edit_only_end_date()throws Throwable
-    {
-        fn.viewableOnly(Constants.indexList_name_xpath);
-        fn.viewableOnly(Constants.indexList_rateBasis_xpath);
-        fn.viewableOnly(Constants.indexCreate_startDate_xpath);
-        fn.viewableOnly(Constants.indexCreate_lowprice_xpath);
-        fn.viewableOnly(Constants.indexCreate_midprice_xpath);
-        fn.viewableOnly(Constants.indexCreate_highprice_xpath);
-        fn.viewableOnly(Constants.indexCreate_closeprice_xpath);
-        fn.viewableOnly(Constants.indexCreate_currency_xpath);
-        fn.viewableOnly(Constants.indexCreate_uom_xpath);
-        fn.viewableOnly(Constants.indexCreate_priceBreak_xpath);
+    public void the_user_shall_be_able_to_edit_only_end_date() throws Throwable {
+        listIndexMethods.verifyUserIsAbleToEditOnlyEndDate();
     }
 
     @Then("^the status of the index should change to inactive$")
-    public void the_status_of_the_index_should_change_to_inactive()
-    {
-        String status = fn.getFirstElementFromList(Constants.indexList_StatusColumn_xpath);
-        Verify.verify(status.equalsIgnoreCase("inactive"),"Index is not deactivated !!");
+    public void the_status_of_the_index_should_change_to_inactive() {
+        listIndexMethods.verifyIfTheStatusOfIndexChangedToInactive();
     }
 
     @Then("^the user is not allowed to (update|enter) low,mid,high and close prices for (active|new) index$")
-    public void the_user_is_not_allowed_to_update_lowMidHighAndClose_prices_for_active_index(String act, String type){
-        fn.viewableOnly(Constants.indexCreate_lowprice_xpath);
-        fn.viewableOnly(Constants.indexCreate_midprice_xpath);
-        fn.viewableOnly(Constants.indexCreate_highprice_xpath);
-        fn.viewableOnly(Constants.indexCreate_closeprice_xpath);
+    public void the_user_is_not_allowed_to_update_lowMidHighAndClose_prices_for_active_index(String act, String type) {
+        listIndexMethods.verifyUserIsUnableToEditPrices();
     }
 
     @And("^scale rates are editable$")
-    public void scale_rates_are_editable()
-    {
-        fn.editable(Constants.indexCreate_fromScale_xpath);
-        fn.editable(Constants.indexCreate_toScale_xpath);
-        fn.editable(Constants.indexCreate_rateScale_xpath);
+    public void scale_rates_are_editable() {
+        listIndexMethods.verifyScaleratesAreEditable();
     }
 
     @And("^add the scale rates$")
-    public void add_the_scale_rates(DataTable table)throws Exception
-    {
+    public void add_the_scale_rates(DataTable table) throws Exception {
         List<List<String>> list = table.raw();
         int i = 0;
-        for(List<String> row:list){
-            if(i++>0){
-                fn.clickButton(Constants.indexCreate_addScale_xpath);
+        for (List<String> row : list) {
+            if (i++ > 0) {
+                listIndexMethods.addScaleParamater();
             }
-            fn.enterText(Constants.indexCreate_fromScale_xpath,row.get(0),"last");
-            fn.enterText(Constants.indexCreate_toScale_xpath,row.get(1),"last");
-            fn.enterText(Constants.indexCreate_rateScale_xpath,row.get(2),"last");
-
+            listIndexMethods.setScaleParameters(row.get(0), row.get(1), row.get(2));
         }
     }
 

@@ -8,12 +8,8 @@ public class Hooks {
     HandleDocker handle = new HandleDocker();
 
     @Before
-    public void restartDocker() {
-        /*
-         * Configure arquillian to restart the docker deamon before running the
-		 * tests
-		 */
-        handle.stopDocker();
+    public void init() throws Exception {
+
     }
 
     @After
@@ -22,3 +18,4 @@ public class Hooks {
         DriverBean.edriver = null;
     }
 }
+

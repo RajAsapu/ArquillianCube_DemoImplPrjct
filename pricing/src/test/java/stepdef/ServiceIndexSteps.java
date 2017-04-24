@@ -9,7 +9,6 @@ import io.restassured.response.Response;
 import io.restassured.response.ResponseBody;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
-import setup.CommonFunctions;
 import setup.DriverBean;
 
 import java.util.List;
@@ -19,7 +18,6 @@ public class ServiceIndexSteps extends AbstractApiDefinitions {
     final static Logger logger = Logger.getLogger(PageIndexSteps.class.getName());
     private static EventFiringWebDriver edriver = DriverBean.getDriver();
     public PageCommonSteps steps = new PageCommonSteps();
-    private CommonFunctions fn = new CommonFunctions();
     private Response response;
     private ResponseBody body;
 

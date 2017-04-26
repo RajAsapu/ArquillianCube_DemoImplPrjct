@@ -4,16 +4,12 @@ import cucumber.api.DataTable;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import functions.formula.CreateFormulaMethods;
-import functions.formula.ListFormulaMethods;
-import functions.PageCommonMethods;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 import setup.Constants;
 import setup.DriverBean;
 import setup.PageFactory;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;

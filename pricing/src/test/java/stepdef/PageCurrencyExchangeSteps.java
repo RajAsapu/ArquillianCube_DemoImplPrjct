@@ -4,11 +4,7 @@ import cucumber.api.DataTable;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import functions.currencyexchange.CreateCurrencyExchangeMethods;
-import functions.currencyexchange.ListCurrencyExchangeMethods;
 import org.apache.log4j.Logger;
-import org.openqa.selenium.support.events.EventFiringWebDriver;
-import setup.DriverBean;
 import setup.PageFactory;
 
 import java.util.List;

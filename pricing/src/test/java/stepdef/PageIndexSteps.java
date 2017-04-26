@@ -5,7 +5,6 @@ import cucumber.api.DataTable;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import functions.index.CreateIndexMethods;
 import functions.index.ListIndexMethods;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
@@ -14,7 +13,6 @@ import org.openqa.selenium.support.events.EventFiringWebDriver;
 import setup.Constants;
 import setup.DriverBean;
 import setup.PageFactory;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;

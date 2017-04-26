@@ -4,9 +4,6 @@ import cucumber.api.DataTable;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import functions.calculationrule.CreateCalculationRuleMethods;
-import functions.calculationrule.ListCalculationRuleMethods;
-import functions.PageCommonMethods;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -14,7 +11,6 @@ import org.openqa.selenium.support.events.EventFiringWebDriver;
 import setup.Constants;
 import setup.DriverBean;
 import setup.PageFactory;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;

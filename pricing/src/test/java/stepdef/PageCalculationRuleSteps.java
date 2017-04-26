@@ -1,18 +1,15 @@
 package stepdef;
 
-import com.google.common.base.Verify;
 import cucumber.api.DataTable;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import functions.CreateCalculationRuleMethods;
-import functions.ListCalculationRuleMethods;
+import functions.calculationrule.CreateCalculationRuleMethods;
+import functions.calculationrule.ListCalculationRuleMethods;
 import functions.PageCommonMethods;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 import setup.Constants;
 import setup.DriverBean;

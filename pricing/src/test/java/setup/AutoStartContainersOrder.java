@@ -15,7 +15,7 @@ import java.util.TreeSet;
 public class AutoStartContainersOrder implements AutoStartParser {
 
     /*
-     * Implement code to handle multiple environments - Test Dev or Docker
+     * Implement code to handle multiple environments - Test, Dev or Docker
      */
 
     @Inject

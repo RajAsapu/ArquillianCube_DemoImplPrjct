@@ -2,6 +2,8 @@ package runner;
 
 import cucumber.api.CucumberOptions;
 import cucumber.api.java.Before;
+import cucumber.api.junit.Cucumber;
+import cucumber.runtime.arquillian.ArquillianCucumber;
 import cucumber.runtime.arquillian.CukeSpace;
 import org.arquillian.cube.HostPort;
 import org.jboss.arquillian.container.test.api.RunAsClient;
@@ -10,13 +12,12 @@ import setup.UpdateProperties;
 import java.util.HashMap;
 import java.util.Map;
 
-@RunWith(CukeSpace.class)
+@RunWith(ArquillianCucumber.class)
 @RunAsClient
 @CucumberOptions(
-        strict=true,
         features={"src/test/resources/features/pageobjects/PageWorkBookCreatePage.feature"},
-        glue = {"classpath:stepdef", "classpath:setup"} ,
-        tags = {"@PageObjects"}
+        glue = {"classpath:"} ,
+        tags = {}
         )
 public class RunTest {
 

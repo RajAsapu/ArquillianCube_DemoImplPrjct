@@ -65,7 +65,7 @@ public class Constants {
     public static String indexCreate_rateScale_xpath = "//input[@formcontrolname='rate']";
 
     /*
-     * Currency Exchange List Page Identifiers Filters on search
+     * Currency Exchange List IPage Identifiers Filters on search
      */
     public static String currencyExchangeList_type_xpath = "//*/select[@ng-reflect-name='type']";
     public static String currencyExchangeList_status_xpath = "//*/select[@ng-reflect-name='status']";
@@ -74,7 +74,7 @@ public class Constants {
     public static String currencyExchangeList_currTo_xpath = "//*/select[@ng-reflect-name='currencyTo']";
     public static String currencyExchangeList_submit_xpath = "//*/button[text()='Submit']";
     /*
-     * Currency Exchange List Page Identifiers Currency Exchange table column
+     * Currency Exchange List IPage Identifiers Currency Exchange table column
      * identifiers
      */
     public static String currencyExchangeList_statusColumn_xpath = "//*/p-datatable/div/div[2]/table/tbody/tr[*]/td[1]";
@@ -86,7 +86,7 @@ public class Constants {
     public static String currencyExchangeList_startDatePicker_xpath = "//*/p-fieldset/fieldset/div/div/div[1]/div[2]/div/p-calendar/span/button";
     public static String currencyExchangeList_endDatePicker_xpath = "//p-calendar[@formcontrolname='toDate']/span/input";
     /*
-     * Currency Exchange Create Page Identifiers
+     * Currency Exchange Create IPage Identifiers
      */
     public static String currencyExchangeCreate_datePicker_xpath = "//*/button[@ng-reflect-icon='fa-calendar']";
     public static String currencyExchangeCreate_type_xpath = "//*/select[@ng-reflect-name='type']";
@@ -221,6 +221,7 @@ public class Constants {
     public static String workbookCreate_formulaType_xpath = ".//select[@formcontrolname='formulaType']";
     public static String workbookCreate_segmentType_xpath = ".//select[@formcontrolname='segmentType']";
     public static String workbookCreate_defaultValueYes_xpath = ".//*[@id='chboxDefaultVal']/div/div[2]/span";
+    public static String workbookCreate_defaultValue_xpath = ".//*[@id='numbDefaultVal']";
     public static String workbookCreate_defaultValueNo_xpath = ".//*[@id='chboxDefaultVal']/div/div[1]/span";
     public static String workbookCreate_addSingleAttribute = "//button[@icon='fa-angle-right']";
     public static String workbookCreate_addMultipleAttributes = "//button[@icon='fa-angle-double-right']";

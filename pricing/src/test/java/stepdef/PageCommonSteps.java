@@ -3,7 +3,6 @@ package stepdef;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.When;
-import dockerhandler.HandleDocker;
 import functions.PageCommonMethods;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
@@ -20,7 +19,6 @@ public class PageCommonSteps extends BaseClass {
      */
     public Properties props;
     PageCommonMethods pageCommonMethods;
-    HandleDocker dock = new HandleDocker();
     Map<String, String> map;
     UpdateProperties updateProperties;
     String environment = null;

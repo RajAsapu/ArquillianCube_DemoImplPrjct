@@ -10,23 +10,26 @@ import org.openqa.selenium.support.ui.UnexpectedTagNameException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import setup.DriverBean;
+
 import java.util.List;
 /*
  * Class has the methods to perform operations on the web elements
  */
 public class GenericWebElementMethods {
 
-    private static Logger log =null;
-    private static EventFiringWebDriver edriver;
+    private EventFiringWebDriver edriver;
+    private static Logger log = LoggerFactory.getLogger(GenericWebElementMethods.class);
     private JavascriptExecutor js = ((JavascriptExecutor) edriver);
 
-    /*
-     * Constructor to intialize the dependent classes
-     */
-    protected GenericWebElementMethods()
+    public GenericWebElementMethods()
     {
-        log = LoggerFactory.getLogger(GenericWebElementMethods.class);
-        edriver = DriverBean.getDriver();
+        this.edriver = DriverBean.getDriver();
+    }
+    /*
+     * Getter method for Event Firing WebDriver
+     */
+    public EventFiringWebDriver getEdriver() {
+        return edriver;
     }
     /*
      * Method to return the first web element from the list
@@ -134,7 +137,7 @@ public class GenericWebElementMethods {
      */
     protected void clickButton(String identifier)  {
         WebElement button = edriver.findElement(By.xpath(identifier));
-        if (button.isEnabled()) {
+        if (button.isEnabled() && button.isDisplayed()) {
             button.click();
         } else {
             Assert.fail("Button is disabled !!");
@@ -143,10 +146,9 @@ public class GenericWebElementMethods {
     /*
      * Method to set value from the auto fill list
      */
-    protected void setNameFromAutoFill(String identifier, String key) throws Exception {
+    protected void setNameFromAutoFill(String identifier, String key) {
         getElementFromListWithPosition(identifier,-1).clear();
         getElementFromListWithPosition(identifier,-1).sendKeys(key.substring(0, key.length() - 1));
-        Thread.sleep(3000);
         try {
             getElementFromListWithPosition("//li/span[normalize-space()='" + key.toUpperCase() + "']",-1).click();
         } catch (ElementNotVisibleException|NullPointerException exp) {

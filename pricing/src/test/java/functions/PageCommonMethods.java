@@ -9,11 +9,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import setup.Constants;
 import setup.DriverBean;
+import stepdef.PageCommonSteps;
 
-public class PageCommonMethods {
+public class PageCommonMethods{
 
     private static Logger log =null;
-    private static EventFiringWebDriver edriver;
+    public static EventFiringWebDriver edriver;
 
     public enum module {
         Calculation_Rule, Workbook, Index, Currency_Exchange, Formula

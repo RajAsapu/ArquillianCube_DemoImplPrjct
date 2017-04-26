@@ -11,7 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-public class ListCurrencyExchangeMethods extends GenericWebElementMethods implements IListCurrencyExchange {
+public class ListCurrencyExchangeMethods extends GenericWebElementMethods {
 
     private EventFiringWebDriver edriver;
 

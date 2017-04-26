@@ -5,7 +5,7 @@ import org.openqa.selenium.support.events.EventFiringWebDriver;
 import setup.Constants;
 import setup.DriverBean;
 
-public class CreateIndexMethods extends GenericWebElementMethods implements ICreateIndex {
+public class CreateIndexMethods extends GenericWebElementMethods{
 
         private EventFiringWebDriver edriver;
 

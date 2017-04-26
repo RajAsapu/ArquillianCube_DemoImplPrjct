@@ -13,7 +13,7 @@ import setup.DriverBean;
 import javax.swing.*;
 import java.util.List;
 
-public class CreateWorkBookMethods extends GenericWebElementMethods implements ICreateWorkBook{
+public class CreateWorkBookMethods extends GenericWebElementMethods{
     private EventFiringWebDriver edriver;
 
     public CreateWorkBookMethods(){ edriver = getEdriver();

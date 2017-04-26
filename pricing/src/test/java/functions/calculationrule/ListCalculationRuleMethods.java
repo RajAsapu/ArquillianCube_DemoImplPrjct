@@ -5,7 +5,7 @@ import org.openqa.selenium.support.events.EventFiringWebDriver;
 import setup.Constants;
 import setup.DriverBean;
 
-public class ListCalculationRuleMethods extends GenericWebElementMethods implements IListCalculationRule {
+public class ListCalculationRuleMethods extends GenericWebElementMethods {
 
     private EventFiringWebDriver edriver;
 

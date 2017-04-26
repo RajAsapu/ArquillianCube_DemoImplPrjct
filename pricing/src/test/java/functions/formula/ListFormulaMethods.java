@@ -6,8 +6,7 @@ import org.openqa.selenium.support.events.EventFiringWebDriver;
 import setup.Constants;
 import setup.DriverBean;
 
-public class ListFormulaMethods extends GenericWebElementMethods implements IListFormula {
-
+public class ListFormulaMethods extends GenericWebElementMethods {
     private EventFiringWebDriver edriver;
 
     public ListFormulaMethods()

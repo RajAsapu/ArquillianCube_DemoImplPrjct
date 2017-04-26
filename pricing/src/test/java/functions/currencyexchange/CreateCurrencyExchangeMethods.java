@@ -5,7 +5,7 @@ import org.openqa.selenium.support.events.EventFiringWebDriver;
 import setup.Constants;
 import setup.DriverBean;
 
-public class CreateCurrencyExchangeMethods extends GenericWebElementMethods implements ICreateCurrencyExchange {
+public class CreateCurrencyExchangeMethods extends GenericWebElementMethods {
 
     private EventFiringWebDriver edriver;
 

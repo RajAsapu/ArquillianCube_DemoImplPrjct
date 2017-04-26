@@ -11,7 +11,7 @@ import setup.DriverBean;
 
 import java.util.List;
 
-public class CreateFormulaMethods extends GenericWebElementMethods implements ICreateFormula {
+public class CreateFormulaMethods extends GenericWebElementMethods {
 
     private EventFiringWebDriver edriver;
 

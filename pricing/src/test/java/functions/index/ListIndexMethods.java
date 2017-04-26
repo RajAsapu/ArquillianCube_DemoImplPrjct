@@ -12,7 +12,7 @@ import setup.DriverBean;
 
 import java.util.List;
 
-public class ListIndexMethods extends GenericWebElementMethods implements IListIndex {
+public class ListIndexMethods extends GenericWebElementMethods{
 
     private EventFiringWebDriver edriver;
 

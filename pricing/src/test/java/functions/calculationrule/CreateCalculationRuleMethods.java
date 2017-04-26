@@ -9,7 +9,7 @@ import setup.Constants;
 import setup.DriverBean;
 import java.util.List;
 
-public class CreateCalculationRuleMethods extends GenericWebElementMethods implements ICreateCalculationRule {
+public class CreateCalculationRuleMethods extends GenericWebElementMethods {
 
     private EventFiringWebDriver edriver;
 

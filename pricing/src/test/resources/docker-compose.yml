@@ -8,7 +8,7 @@ ui:
   dnsSearch: [localhost]
   portBindings: [4200->80/tcp]
 datamock:
-  image: 'datamock:latest'
+  image: 'epe-data-mock:latest'
   containerName: "pricing_datamock"
   exposedPorts: [5555/tcp]
   attachStdin: true
@@ -24,7 +24,7 @@ datamock:
     - spring.datasource.password=apps
   portBindings: [5555->5555/tcp]
 engine:
-  image: 'engine:latest'
+  image: 'epe-price-engine:latest'
   containerName: "pricing_engine"
   exposedPorts: [6666/tcp]
   publishAllPorts: true
@@ -43,7 +43,7 @@ database:
   dnsSearch: [127.0.0.1]
   portBindings: [9042->9042/tcp,8943->8943/tcp]
 service:
-  image: 'service:latest'
+  image: 'epe-config:latest'
   containerName: "pricing_service"
   exposedPorts: [8080/tcp]
   publishAllPorts: true

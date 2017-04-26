@@ -12,27 +12,26 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 import setup.Constants;
 import setup.DriverBean;
+import setup.PageFactory;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class PageForumlaSteps {
     private static EventFiringWebDriver edriver;
-    private PageCommonMethods pageCommonMethods;
-    private String temp;
-    private ListFormulaMethods listFormulaMethods;
-    private CreateFormulaMethods createFormulaMethods;
+    private PageFactory pageFactory;
+    private String temp =null;
 
     public PageForumlaSteps() {
-        pageCommonMethods = new PageCommonMethods();
         edriver = DriverBean.getDriver();
-        listFormulaMethods = new ListFormulaMethods();
+        pageFactory = new PageFactory();
     }
 
     @When("^the user filters the list using \"([^\"]*)\"$")
     public void the_user_filters_the_list_using(String filter) throws Throwable {
         Thread.sleep(3000);
-        temp = listFormulaMethods.applyFilter(filter.toLowerCase());
+        temp = pageFactory.getListFormulaMethods().applyFilter(filter.toLowerCase());
     }
 
     @Then("^the list should display the results applying the filters$")
@@ -40,76 +39,76 @@ public class PageForumlaSteps {
         List<List<String>> row = table.raw();
         String filter = row.get(0).get(0);
         Thread.sleep(3000);
-        listFormulaMethods.verifyIfFilterIsApplied(filter);
+        pageFactory.getListFormulaMethods().verifyIfFilterIsApplied(filter);
     }
     /*
      * Create Formula with name
      */
     @When("^the user creates a formula with \"([^\"]*)\"$")
     public void the_user_creates_a_formula_with(String name) throws Throwable {
-       createFormulaMethods.setName(name);
+       pageFactory.getCreateFormulaMethods().setName(name);
     }
 
     @When("^description as \"([^\"]*)\"$")
     public void description_as(String description) throws Throwable {
-        createFormulaMethods.setDescription(description);
+        pageFactory.getCreateFormulaMethods().setDescription(description);
     }
 
     @When("^set type as \"([^\"]*)\"$")
     public void set_type_as(String type) throws Throwable {
-        createFormulaMethods.setDescription(type);
+        pageFactory.getCreateFormulaMethods().setDescription(type);
     }
 
     @When("^expression as \"([^\"]*)\"$")
     public void expression_as(String expression) throws Throwable {
-        createFormulaMethods.setExpression(expression);
+        pageFactory.getCreateFormulaMethods().setExpression(expression);
     }
 
     @When("^set the start date for formula as \"([^\"]*)\"$")
     public void set_the_start_date_for_formula_as(String startDate) throws Throwable {
-        createFormulaMethods.setStartDate(startDate);
+        pageFactory.getCreateFormulaMethods().setStartDate(startDate);
     }
 
     @When("^(set|update) the end date for formula as \"([^\"]*)\"$")
     public void set_the_end_date_for_formula_as(String action, String endDate) throws Throwable {
-        createFormulaMethods.setStartDate(endDate);
+        pageFactory.getCreateFormulaMethods().setStartDate(endDate);
     }
 
     @When("^set the rounding mode as \"([^\"]*)\"$")
     public void set_the_rounding_mode_as(String mode) throws Throwable {
-        createFormulaMethods.setRoundingMode(mode);
+        pageFactory.getCreateFormulaMethods().setRoundingMode(mode);
     }
 
     @When("^set the rounding precision to \"([^\"]*)\"$")
     public void set_the_rounding_precision_to(String precisionTo) throws Throwable {
-        createFormulaMethods.setRoundingPrecision(precisionTo);
+        pageFactory.getCreateFormulaMethods().setRoundingPrecision(precisionTo);
     }
 
     @When("^enter the details for the paramters$")
     public void enter_the_details_for_the_paramters(DataTable arg1) throws Throwable {
         List<List<String>> params = arg1.raw();
-       createFormulaMethods.addParameters(params);
+       pageFactory.getCreateFormulaMethods().addParameters(params);
     }
 
     @When("^validate the expression and click on Create$")
     public void validate_the_expression_and_click_on_Create() throws Throwable {
-        createFormulaMethods.createFormula();
+        pageFactory.getCreateFormulaMethods().createFormula();
     }
 
     @Then("^the formula (should|should not) be (created|updated)$")
     public void the_formula_should_be_createdUpdated(String perform, String action) throws Throwable {
-        createFormulaMethods.verifyIfFormulaCreatedOrNot(perform,action);
+        pageFactory.getCreateFormulaMethods().verifyIfFormulaCreatedOrNot(perform,action);
     }
 
     @When("^the user clicks on \"([^\"]*)\" button$")
     public void the_user_clicks_on_button(String button) throws Throwable {
         Thread.sleep(3000);
-        listFormulaMethods.clickOnButton(button);
+        pageFactory.getListFormulaMethods().clickOnButton(button);
     }
 
     @Then("^the inactive formulas shouldn't have option to edit$")
     public void the_inactive_formulas_shouldn_t_have_option_to_edit() throws Throwable {
-        listFormulaMethods.verifyIfInactiveElementHasEdit();
+        pageFactory.getListFormulaMethods().verifyIfInactiveElementHasEdit();
     }
 
     @When("^the user searches the (inactive|active) record$")
@@ -128,12 +127,12 @@ public class PageForumlaSteps {
     }
     @Then("^the formula should be displayed as inactive$")
     public void the_formula_should_be_displayed_as_inactive() throws Exception {
-        listFormulaMethods.verifyIfFormulaIsInactivated();
+        pageFactory.getListFormulaMethods().verifyIfFormulaIsInactivated();
     }
 
     @And("^the user shall be able to view all the formula details$")
     public void the_user_shall_be_able_to_view_all_the_formuladetails()throws Exception {
-        createFormulaMethods.verifyIfUserIsAbleToViewAllDetails();
+        pageFactory.getCreateFormulaMethods().verifyIfUserIsAbleToViewAllDetails();
     }
     /*
      * Move to the List Formula Methods Class

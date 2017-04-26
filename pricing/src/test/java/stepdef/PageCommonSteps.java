@@ -8,8 +8,6 @@ import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 import setup.*;
-import java.util.Map;
-import java.util.Properties;
 
 public class PageCommonSteps extends BaseClass {
     final static Logger logger = Logger.getLogger(PageCommonSteps.class.getName());
@@ -17,17 +15,15 @@ public class PageCommonSteps extends BaseClass {
     /*
      * Global variables
      */
-    public Properties props;
-    PageCommonMethods pageCommonMethods;
-    Map<String, String> map;
-    UpdateProperties updateProperties;
-    String environment = null;
+    private PageFactory pageFactory = null;
+    private UpdateProperties updateProperties;
+    private String environment = null;
 
     public PageCommonSteps()
     {
-        props = new Properties();
         updateProperties = new UpdateProperties();
         environment = updateProperties.getEnv();
+        pageFactory = new PageFactory();
     }
 
     @And("^wait for sometime$")
@@ -49,8 +45,7 @@ public class PageCommonSteps extends BaseClass {
             edriver = initBrowser("https://epe-priceconfig-ui.dev.aws.wfscorp.com");
         }
         DriverBean.setDriver(edriver);
-        pageCommonMethods = new PageCommonMethods();
-        pageCommonMethods.login();
+        pageFactory.getPageCommonMethods().login();
     }
 
     /*
@@ -77,6 +72,6 @@ public class PageCommonSteps extends BaseClass {
     @Given("^the user has navigated to the \"([^\"]*)\" page under the \"([^\"]*)\"$")
     public void the_user_has_navigated_to_the_page_under_the(PageCommonMethods.page page, PageCommonMethods.module module)
             throws Exception {
-        pageCommonMethods.moveTo(page, module);
+        pageFactory.getPageCommonMethods().moveTo(page, module);
     }
 }

@@ -1,5 +1,6 @@
 package setup;
 
+import functions.PageCommonMethods;
 import functions.calculationrule.CreateCalculationRuleMethods;
 import functions.calculationrule.ListCalculationRuleMethods;
 import functions.currencyexchange.CreateCurrencyExchangeMethods;
@@ -14,10 +15,6 @@ import org.openqa.selenium.support.events.EventFiringWebDriver;
 
 public class PageFactory {
 
-    private EventFiringWebDriver edriver;
-    public enum page {CreateCalculation,ListCalculation,ListWorkBook,CreateWorkBook,ListIndex,CreateIndex,ListCurrencyExchange,
-        CreateCurrencyExchange,ListFormula,CreateFormula};
-
     private ListCalculationRuleMethods listCalculationRuleMethods = null;
     private CreateCalculationRuleMethods createCalculationRuleMethods = null;
     private ListWorkBookMethods listWorkBookMethods = null;
@@ -28,6 +25,16 @@ public class PageFactory {
     private CreateCurrencyExchangeMethods createCurrencyExchangeMethods = null;
     private ListFormulaMethods listFormulaMethods = null;
     private CreateFormulaMethods createFormulaMethods = null;
+
+    public PageCommonMethods getPageCommonMethods() {
+        if(pageCommonMethods==null)
+        {
+            pageCommonMethods = new PageCommonMethods();
+        }
+        return pageCommonMethods;
+    }
+
+    private PageCommonMethods pageCommonMethods = null;
 
     public ListCalculationRuleMethods getListCalculationRuleMethods() {
         if(listCalculationRuleMethods==null)

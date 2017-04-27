@@ -7,7 +7,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 import setup.Constants;
-import setup.DriverBean;
 
 import java.util.List;
 
@@ -56,7 +55,7 @@ public class CreateFormulaMethods extends GenericWebElementMethods {
         } catch (NoSuchElementException exp) {
             System.out.println("Expression is Verified !");
         }
-        clickButton(Constants.formulaCreate_create_xpath);
+        clickButton(Constants.formulaCreate_submit_xpath);
     }
 
     public void addParameters(List<List<String>> parameters)

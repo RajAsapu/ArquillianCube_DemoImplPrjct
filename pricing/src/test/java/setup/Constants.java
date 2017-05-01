@@ -58,11 +58,13 @@ public class Constants {
     public static String indexCreate_uom_xpath = ".//*[@id='content']/app-index/div/div/div/div/div/div/form/div[5]/div/select";
     public static String indexCreate_comment_xpath = ".//*[@id='txtDesc']";
     public static String indexCreate_submit_xpath = "//*/button[normalize-space()='Submit']";
+    public static String indexCreate_search_xpath = "//button[@ng-reflect-label='Search']";
     public static String indexCreate_priceBreak_xpath = "//*/input[@type='number']";
     public static String indexCreate_addScale_xpath = "//*/button[normalize-space()='Add Scale']";
     public static String indexCreate_fromScale_xpath = "//input[@formcontrolname='from']";
     public static String indexCreate_toScale_xpath = "//input[@formcontrolname='to']";
     public static String indexCreate_rateScale_xpath = "//input[@formcontrolname='rate']";
+    public static String indexCreate_rateBasis_xpath = ".//*[@id='content']/app-index/div/div/div/div/div/div/form/div[6]/div/select";
 
     /*
      * Currency Exchange List IPage Identifiers Filters on search
@@ -93,6 +95,7 @@ public class Constants {
     public static String currencyExchangeCreate_fromCurrency_xpath = ".//*[@id='content']/app-currency-exchange/div/div/div/div/form/div[1]/div[3]/div/p-dropdown/div/label";
     public static String currencyExchangeCreate_toCurrency_xpath = ".//*[@id='content']/app-currency-exchange/div/div/div/div/form/div[1]/div[4]/div/p-dropdown/div/label";
     public static String currencyExchangeCreate_conversionRate_xpath = "//*/input[@type='number']";
+    public static String currencyExchangeCreate_startDate_xpath = "//*[@id='content']/app-currency-exchange/div/div/div/div/form/div[1]/div[1]/div/p-calendar/span/input";
     /*
      * Calculation period create page identifiers
      * Type: Day
@@ -195,6 +198,7 @@ public class Constants {
     public static String formulaCreate_expression_xpath = "//*/input[@ng-reflect-name='expression']";
     public static String formulaCreate_validateExpre_xpath = "//*/button[normalize-space()='Validate Expression']";
     public static String formulaCreate_startDatePicker_xpath = "//*/button[@ng-reflect-icon='fa-calendar']";
+    public static String formulaCreate_startDate_xpath = ".//*[@id='content']/app-update-formula/div/div/div/div/form/form/div/div[1]/div[5]/div[2]/p-calendar/span/input";
     public static String formulaCreate_endDatePicker_xpath = ".//*[@id='content']/app-update-formula/div/div/div/div/form/form/div/div[1]/div[6]/div[2]/p-calendar/span/button";
     public static String formulaCreate_endDate_xpath = ".//*[@id='content']/app-update-formula/div/div/div/div/form/form/div/div[1]/div[6]/div[2]/p-calendar/span/input";
     public static String formulaCreate_roundingMode_xpath = ".//*[@id='content']/app-update-formula/div/div/div/div/form/form/div/div[1]/div[7]/div[2]/p-dropdown/div/label";
@@ -230,6 +234,21 @@ public class Constants {
     public static String workbookCreate_removeMultipleAttributes = "//button[@icon='fa-angle-double-left']";
     public static String workbookCreate_attribute_xpath = "//li[@class='ui-picklist-item']/div";
     public static String workbookCreate_attributeListView_xpath = "//p-picklist/div/div[2]/ul";
+    /*
+     * Workbook - List page
+     */
+    public static String workbookList_addNewWorkbookConfig_xpath = "//*[@label='Add New Workbook Configuration']";
+    public static String workbookList_nameFilter_xpath = "//*[@id='content']/ng-component/div/div/div/div/div/div/p-datatable/div/div[2]/table/thead/tr/th[1]/input";
+    public static String workbookList_descrpFilter_xpath = "//*[@id='content']/ng-component/div/div/div/div/div/div/p-datatable/div/div[2]/table/thead/tr/th[2]/input";
+    public static String workbookList_formulaTypeFilter_xpath = "//*[@id='content']/ng-component/div/div/div/div/div/div/p-datatable/div/div[2]/table/thead/tr/th[3]/input";
+    public static String workbookList_segmentFilter_xpath = "//*[@id='content']/ng-component/div/div/div/div/div/div/p-datatable/div/div[2]/table/thead/tr/th[4]/input";
+    public static String workbookList_definition_xpath = ".//*[@label='Definition']";
+    public static String workbookList_data_xpath = ".//*[@label='Data']";
+    public static String workbookList_nextPage_xpath = "//*[@id='content']/ng-component/div/div/div/div/div/div/p-datatable/div/p-paginator/div/a[3]";
+    public static String workbookList_nameColumn_xpath = "//*[@id='content']/ng-component/div/div/div/div/div/div/p-datatable/div/div[2]/table/tbody/tr[*]/td[1]";
+    public static String workbookList_descrptionColumn_xpath = "//*[@id='content']/ng-component/div/div/div/div/div/div/p-datatable/div/div[2]/table/tbody/tr[*]/td[2]";
+    public static String workbookList_formulaTypeColumn_xpath = "//*[@id='content']/ng-component/div/div/div/div/div/div/p-datatable/div/div[2]/table/tbody/tr[*]/td[3]";
+    public static String workbookList_segmentColumn_xpath = "//*[@id='content']/ng-component/div/div/div/div/div/div/p-datatable/div/div[2]/table/tbody/tr[*]/td[4]";
 }
 
 

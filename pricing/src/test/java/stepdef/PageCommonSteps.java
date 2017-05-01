@@ -5,7 +5,10 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.When;
 import functions.PageCommonMethods;
 import org.apache.log4j.Logger;
+import org.junit.Assert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 import setup.*;
 
@@ -53,7 +56,13 @@ public class PageCommonSteps extends BaseClass {
      */
     @When("^clicks on the search button$")
     public void clicks_on_the_search_button() {
-        edriver.findElement(By.xpath(Constants.indexList_search_xpath)).click();
+        WebElement search=edriver.findElement(By.xpath(Constants.indexCreate_search_xpath));
+        if(!search.isEnabled())
+        {
+            Assert.fail("Search Button is not enabled");
+        }
+        Actions actions=new Actions(edriver);
+        actions.click(search).perform();
     }
 
     /*

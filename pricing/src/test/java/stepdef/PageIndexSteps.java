@@ -8,6 +8,7 @@ import cucumber.api.java.en.When;
 import functions.index.ListIndexMethods;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 import setup.Constants;
@@ -48,7 +49,7 @@ public class PageIndexSteps {
         }
         Thread.sleep(4000);
         List<WebElement> startdateList = edriver.findElements(By.xpath(Constants.indexList_StartDateColumn_xpath));
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd");
+        SimpleDateFormat formatter = new SimpleDateFormat("DD-MMM-YYYY");
         Date dateSelected = formatter.parse(arg1);
         for (WebElement temp : startdateList) {
             Date tempDate = formatter.parse(temp.getText());
@@ -68,16 +69,24 @@ public class PageIndexSteps {
     @Then("^the user shall be able to view the list of indexes with end date from \"([^\"]*)\" and status as \"([^\"]*)\"$")
     public void the_user_shall_be_able_to_view_the_list_of_indexes_with_end_date_from_and_status_as(String arg1,
                                                                                                     String arg2) throws Throwable {
-        List<WebElement> statusList = edriver.findElements(By.xpath(Constants.indexList_StatusColumn_xpath));
+        List<WebElement> statusList;
+        while(true) {
+            try {
+                statusList = edriver.findElements(By.xpath(Constants.indexList_StatusColumn_xpath));
 
-        for (WebElement temp : statusList) {
-            if (!temp.getText().equals(arg2)) {
-                assert false;
+                for (WebElement temp : statusList) {
+                    if (!temp.getText().equals(arg2)) {
+                        assert false;
+                    }
+                }
+                break;
+            } catch (StaleElementReferenceException exp) {
+                continue;
             }
         }
 
         List<WebElement> startdateList = edriver.findElements(By.xpath(Constants.indexList_EndDateColumn_xpath));
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd");
+        SimpleDateFormat formatter = new SimpleDateFormat("DD-MMM-YYYY");
         Date dateSelected = formatter.parse(arg1);
         for (WebElement temp : startdateList) {
             Date tempDate = null;
@@ -85,7 +94,7 @@ public class PageIndexSteps {
                 tempDate = formatter.parse(temp.getText());
             } catch (java.text.ParseException exp) {
                 if (exp.getMessage().contains("Unparseable date: \"\"")) {
-                    throw new Exception("End date is empty !!");
+                     continue;
                 } else {
                     exp.printStackTrace();
                 }
@@ -104,20 +113,34 @@ public class PageIndexSteps {
 
     @Then("^the user shall be able to view the list of indexes with type as \"([^\"]*)\"$")
     public void the_user_shall_be_able_to_view_the_list_of_indexes_with_type_as(String type) throws Throwable {
+        while (true) {
+            try {
+                List<WebElement> typeList = edriver.findElements(By.xpath(Constants.indexList_typeColumn_xpath));
 
-        List<WebElement> typeList = edriver.findElements(By.xpath(Constants.indexList_typeColumn_xpath));
-
-        for (WebElement temp : typeList) {
-            if (!temp.getText().equals(type)) {
-                throw new Exception("Type doesn't match (Expected:+" + type + ",Actual:" + temp.getText() + ") !!");
+                for (WebElement temp : typeList) {
+                    if (!temp.getText().equals(type)) {
+                        throw new Exception("Type doesn't match (Expected:+" + type + ",Actual:" + temp.getText() + ") !!");
+                    }
+                }
+                break;
+            } catch (StaleElementReferenceException exp) {
+                continue;
+            } catch (Exception exp)
+            {
+                exp.printStackTrace();
+                break;
             }
         }
-
     }
 
     @When("^the user enters rate basis as ([^\"]*)$")
     public void the_user_enters_rate_basis_as(String rateBasis)throws Exception {
            pageFactory.getCreateIndexMethods().setRateBasis(rateBasis);
+    }
+
+    @When("^the user enters rate basis in search as ([^\"]*)$")
+    public void the_user_enters_rate_basis_in_search_as(String rateBasis)throws Exception {
+        pageFactory.getListIndexMethods().setRateBasis(rateBasis);
     }
 
     @When("^name as ([^\"]*)$")
@@ -140,10 +163,21 @@ public class PageIndexSteps {
         pageFactory.getCreateIndexMethods().setCurrency(currency);
     }
 
+    @When("^currency in search ([^\"]*)$")
+    public void currency_in_search(String currency) throws Throwable {
+        pageFactory.getListIndexMethods().setCurrency(currency);
+    }
+
     @When("^unit of measurement as ([^\"]*)$")
     public void unit_of_measurement_as(String uom) throws Throwable {
         pageFactory.getCreateIndexMethods().setUom(uom);
     }
+
+    @When("^unit of measurement in search as ([^\"]*)$")
+    public void unit_of_measurement_in_search(String uom) throws Throwable {
+        pageFactory.getListIndexMethods().setUom(uom);
+    }
+
     /*
      * Move the below method to the class file
      */

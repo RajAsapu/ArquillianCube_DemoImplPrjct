@@ -27,15 +27,15 @@ public class CreateIndexMethods extends GenericWebElementMethods{
         }
         public void setCurrency(String currency)
         {
-            selectFromDropDown(Constants.indexCreate_currency_xpath,currency);
+            selectFromDropDown_SelectTag(Constants.indexCreate_currency_xpath,currency);
         }
         public void setUom(String uom)
         {
-            selectFromDropDown(Constants.indexCreate_uom_xpath,uom);
+            selectFromDropDown_SelectTag(Constants.indexCreate_uom_xpath,uom);
         }
         public void setRateBasis(String rateBasis)
         {
-            selectFromDropDown(Constants.indexList_rateBasis_xpath,rateBasis);
+            selectFromDropDown_SelectTag(Constants.indexCreate_rateBasis_xpath,rateBasis);
         }
         public void setLowPrice(String lowPrice)
         {

@@ -8,15 +8,15 @@ Feature: To verify if the user is able to access list page under index.
 
   Scenario: To verify if the user is able to search on the list page with start date as filter.
     Given the user has navigated to the "List" page under the "Index"
-    When  the user enters the start date as 2016-12-10 and status as Active
+    When  the user enters the start date as 12-Dec-2016 and status as Active
     And   clicks on the search button
-    Then  the user shall be able to view the list of indexes with start date from "2016-12-10" and status as "Active"
+    Then  the user shall be able to view the list of indexes with start date from "12-Dec-2016" and status as "Active"
 
   Scenario: To verify if the user is able to search on the list page with end date as filter.
     Given the user has navigated to the "List" page under the "Index"
-    When  the user enters the end date as "2016-12-10" and status as "Inactive"
+    When  the user enters the end date as "12-Dec-2016" and status as "Inactive"
     And   clicks on the search button
-    Then  the user shall be able to view the list of indexes with end date from "2016-12-10" and status as "Inactive"
+    Then  the user shall be able to view the list of indexes with end date from "12-Dec-2016" and status as "Inactive"
 
   Scenario: To verify if the user is able to search on the list page with type as filter.
     Given the user has navigated to the "List" page under the "Index"
@@ -26,12 +26,12 @@ Feature: To verify if the user is able to access list page under index.
 
   Scenario: To verify if the user is able to search on the list page with rate basis and currency as filters.
     Given the user has navigated to the "List" page under the "Index"
-    When  the user enters rate basis as Flat
-    And   name as NY RBOB Prem Brg
-    And   currency as USD
-    And   unit of measurement as USG
+    When  the user enters rate basis in search as Unit
+    And   name as Unl 89 NY Barge
+    And   currency in search USD
+    And   unit of measurement in search as USG
     And   clicks on the search button
-    Then  the user shall be able to view the list of indexes matching the search criteria as "<null>,<null>,<null>,<Flat>,<NY RBOB Prem Brg>,<USD>,<USG>" on list page
+    Then  the user shall be able to view the list of indexes matching the search criteria as "null,null,null,Unit,UNL 89 NY BARGE,USD,USG" on list page
 
 
 

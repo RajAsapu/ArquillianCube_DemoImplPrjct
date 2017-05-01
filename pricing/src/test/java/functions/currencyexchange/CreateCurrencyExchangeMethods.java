@@ -16,18 +16,21 @@ public class CreateCurrencyExchangeMethods extends GenericWebElementMethods {
 
     public void setDate(String date)
     {
-        selectDate(date, Constants.currencyExchangeCreate_datePicker_xpath,null);
+       // selectDate(date, Constants.currencyExchangeCreate_datePicker_xpath,Constants.currencyExchangeCreate_startDate_xpath);
+        clearText(Constants.currencyExchangeCreate_startDate_xpath);
+        sendKeysToWE(Constants.currencyExchangeCreate_startDate_xpath,date);
+        clickOnTab();
     }
     public void setType(String type)
     {
-        selectFromDropDown(Constants.currencyExchangeCreate_type_xpath,type);
+        selectFromDropDown_LabelTag(Constants.currencyExchangeCreate_type_xpath,type,0);
     }
     public void setFromCurrency(String fromCurrency)
     {
-        selectFromDropDown(Constants.currencyExchangeCreate_fromCurrency_xpath,fromCurrency);
+        selectFromDropDown_LabelTag(Constants.currencyExchangeCreate_fromCurrency_xpath,fromCurrency,0);
     }
     public void setToCurrency(String toCurrency) {
-        selectFromDropDown(Constants.currencyExchangeCreate_toCurrency_xpath,toCurrency);
+        selectFromDropDown_LabelTag(Constants.currencyExchangeCreate_toCurrency_xpath,toCurrency,0);
     }
     public void setConverstionRate(String rate)
     {

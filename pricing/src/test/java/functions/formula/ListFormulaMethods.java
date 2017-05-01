@@ -130,7 +130,7 @@ public class ListFormulaMethods extends GenericWebElementMethods {
         /*
          * Check if it is de activated
          */
-        sendKeysToWeAtPosition(Constants.formulaList_nameFilter_xpath, name);
+        sendKeysToWE(Constants.formulaList_nameFilter_xpath, name);
         Verify.verify(getElementFromListWithPosition(Constants.formulaList_statusColumn_xpath,0).getText().equalsIgnoreCase("Inactive"), "Formula:" + name + " is still active !!");
     }
 }

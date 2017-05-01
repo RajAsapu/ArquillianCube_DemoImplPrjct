@@ -3,6 +3,7 @@ package functions.currencyexchange;
 import functions.GenericWebElementMethods;
 import org.junit.Assert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 import setup.Constants;
@@ -22,7 +23,7 @@ public class ListCurrencyExchangeMethods extends GenericWebElementMethods {
 
     public void setSearchType(String searchType)
     {
-        selectFromDropDown(Constants.currencyExchangeList_type_xpath,searchType);
+        selectFromDropDown_SelectTag(Constants.currencyExchangeList_type_xpath,searchType);
     }
     public void setStartDate(String startDate)
     {
@@ -34,19 +35,19 @@ public class ListCurrencyExchangeMethods extends GenericWebElementMethods {
     }
     public void setStatus(String status)
     {
-        selectFromDropDown(Constants.currencyExchangeList_status_xpath,status);
+        selectFromDropDown_SelectTag(Constants.currencyExchangeList_status_xpath,status);
     }
     public void setConverstionType(String converstionType)
     {
-        selectFromDropDown(Constants.currencyExchangeList_convType_xpath,converstionType);
+        selectFromDropDown_SelectTag(Constants.currencyExchangeList_convType_xpath,converstionType);
     }
     public void setCurrencyFrom(String currencyFrom)
     {
-        selectFromDropDown(Constants.currencyExchangeList_currForm_xpath,currencyFrom);
+        selectFromDropDown_SelectTag(Constants.currencyExchangeList_currForm_xpath,currencyFrom);
     }
     public void setCurrencyTo(String currencyTo)
     {
-        selectFromDropDown(Constants.currencyExchangeList_currTo_xpath,currencyTo);
+        selectFromDropDown_SelectTag(Constants.currencyExchangeList_currTo_xpath,currencyTo);
     }
     public void clickOnSearch()
     {
@@ -60,13 +61,25 @@ public class ListCurrencyExchangeMethods extends GenericWebElementMethods {
     }
     public void verifyIfStatusMatchingTheFilter(String status) {
         List<WebElement> statusList;
-        //Thread.sleep(3000);
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         statusList = edriver.findElements(By.xpath(Constants.currencyExchangeList_statusColumn_xpath));
         if (statusList.size() != 0 && !statusList.listIterator().next().getText().equals("No records found")) {
-            statusList = edriver.findElements(By.xpath(Constants.currencyExchangeList_statusColumn_xpath));
-            for (WebElement temp : statusList) {
-                if (!temp.getText().equalsIgnoreCase(status)) {
-                    Assert.fail("Status Column doesn't match, Expected :" + status + " Actual:" + temp.getText());
+            while(true) {
+                try {
+                    statusList = edriver.findElements(By.xpath(Constants.currencyExchangeList_statusColumn_xpath));
+                    for (WebElement temp : statusList) {
+                        if (!temp.getText().equalsIgnoreCase(status)) {
+                            Assert.fail("Status Column doesn't match, Expected :" + status + " Actual:" + temp.getText());
+                        }
+                    }
+                    break;
+                }catch (StaleElementReferenceException exp)
+                {
+                    continue;
                 }
             }
         }
@@ -135,7 +148,7 @@ public class ListCurrencyExchangeMethods extends GenericWebElementMethods {
         List<WebElement> statusList;
         statusList = edriver.findElements(By.xpath(Constants.currencyExchangeList_dateColumn_xpath));
         try {
-            SimpleDateFormat format = new SimpleDateFormat("yyyy-mm-dd");
+            SimpleDateFormat format = new SimpleDateFormat("DD-MMM-YYYY");
             Date filter = format.parse(fromDate);
 
             if (statusList.size() != 0 && !statusList.listIterator().next().getText().equals("No records found")) {

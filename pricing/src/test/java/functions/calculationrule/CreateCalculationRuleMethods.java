@@ -28,11 +28,11 @@ public class CreateCalculationRuleMethods extends GenericWebElementMethods {
     }
     public void setEndDate(String endDate)
     {
-        selectDate(endDate,Constants.calculationRuleCreate_endDatePicker_xpath,Constants.calculationRuleCreate_endDate_xpath);
+        setDate(endDate,Constants.calculationRuleCreate_endDatePicker_xpath,Constants.calculationRuleCreate_endDate_xpath);
     }
     public void setType(String type)
     {
-        selectFromDropDown(Constants.calculationRuleCreate_type_xpath,type.toUpperCase());
+        selectFromDropDown_LabelTag(Constants.calculationRuleCreate_type_xpath,type.toUpperCase(),0);
     }
     public void setDescription(String description)
     {
@@ -40,7 +40,7 @@ public class CreateCalculationRuleMethods extends GenericWebElementMethods {
     }
     public void setDayRuleType(String dayRuleType)
     {
-        selectFromDropDown(Constants.calculationRuleCreate_dayrule_xpath,dayRuleType);
+        selectFromDropDown_SelectTag(Constants.calculationRuleCreate_dayrule_xpath,dayRuleType);
     }
     public void setDaysBeforeEvent(String daysBeforeEvent)
     {
@@ -64,14 +64,15 @@ public class CreateCalculationRuleMethods extends GenericWebElementMethods {
     }
     public void setEffectiveStartDay(String efStartDay)
     {
-        selectFromDropDown(Constants.calculationRuleCreate_efStartDayOfWeek_xpath,efStartDay.toUpperCase());
+        selectFromDropDown_LabelTag(Constants.calculationRuleCreate_efStartDayOfWeek_xpath,efStartDay.toUpperCase(),0);
     }
     public void setEffTotalNoOfWeeks(String effTotalNoOfWeeks)
     {
         sendKeysToWE(Constants.calculationRuleCreate_efTotalNoOfWeeks_xpath,effTotalNoOfWeeks);
     }
     public void setCalculationStartDay(String startDay){
-        selectFromDropDown(Constants.calculationRuleCreate_cpStartDayOfWeek_xpath,startDay);
+        //setDate("insert",);
+        //selectFromDropDown(Constants.calculationRuleCreate_cpStartDayOfWeek_xpath,startDay);
     }
     public void setCalTotalNoOfWeeks(String totalNoOfWeeks) {
         sendKeysToWE(Constants.calculationRuleCreate_cpTotalNoOfWeeks_xpath,totalNoOfWeeks);
@@ -81,7 +82,7 @@ public class CreateCalculationRuleMethods extends GenericWebElementMethods {
     }
     public void setMonthRuleType(String monthRuleType)
     {
-        selectFromDropDown(Constants.calculationRuleCreate_monthruletype_xpath,monthRuleType);
+        selectFromDropDown_SelectTag(Constants.calculationRuleCreate_monthruletype_xpath,monthRuleType);
     }
     public void setNoOfMonthsEffPeriof(String noOfMonthsEffPeriof)
     {

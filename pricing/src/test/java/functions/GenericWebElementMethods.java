@@ -1,6 +1,9 @@
 package functions;
 
 import com.google.common.base.Verify;
+import cucumber.deps.com.thoughtworks.xstream.mapper.Mapper;
+import io.netty.util.internal.StringUtil;
+import org.apache.maven.shared.utils.StringUtils;
 import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
@@ -9,21 +12,29 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.UnexpectedTagNameException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import setup.DateOperations;
 import setup.DriverBean;
 
 import java.util.List;
 /*
  * Class has the methods to perform operations on the web elements
  */
-public class GenericWebElementMethods {
+public class GenericWebElementMethods extends PageCommonMethods {
 
     private EventFiringWebDriver edriver;
     private static Logger log = LoggerFactory.getLogger(GenericWebElementMethods.class);
-    private JavascriptExecutor js = ((JavascriptExecutor) edriver);
-
+    private DateOperations dateOperations;
+    private JavascriptExecutor js;
+    private Actions actions = null;
+    /*
+     * Constructor
+     */
     public GenericWebElementMethods()
     {
         this.edriver = DriverBean.getDriver();
+        dateOperations = new DateOperations();
+        actions = new Actions(edriver);
+        js = ((JavascriptExecutor) edriver);
     }
     /*
      * Getter method for Event Firing WebDriver
@@ -57,6 +68,13 @@ public class GenericWebElementMethods {
         edriver.findElement(By.xpath(identifier)).sendKeys(value);
     }
     /*
+     * Method to click on Tab
+     */
+    protected void clickOnTab()
+    {
+        actions.sendKeys(Keys.TAB).perform();
+    }
+    /*
      * Method to get the value of the web element
      */
     protected String getValue(String filter) {
@@ -68,6 +86,11 @@ public class GenericWebElementMethods {
      * Check if the data in the rows is matching the value which is used as filter
      */
     protected void checkDataInRowsMatchesFilter(String identifier, String value)  {
+        try {
+            Thread.sleep(4000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         List<WebElement> list = null;
         list = edriver.findElements(By.xpath(identifier));
         for (WebElement e : list) {
@@ -75,62 +98,64 @@ public class GenericWebElementMethods {
                 Assert.fail("Filter doesn't match: Actual:" + e.getText() + " Expected:" + value);
             }
         }
+        if(value!=null)
+        {
+            Verify.verify(list.size()>0,"No Records are populated with the filter:"+value);
+        }
+    }
+    /*
+     * Method to select the values from the drop down having select tag
+     */
+    protected void selectFromDropDown_SelectTag(String identifier,String value)
+    {
+        try {
+            WebElement dropdown = getElementFromListWithPosition(identifier, 0);
+            Select choose = new Select(dropdown);
+            choose.selectByVisibleText(value);
+        }
+        catch (Exception exp){
+            exp.printStackTrace();
+        }
     }
     /*
      * Method to select the values from the drop down
      */
-    protected void selectFromDropDown(String identifier, String... value)  {
-        WebElement dropdown = null;
-        if (value.length == 1) {
-            dropdown = edriver.findElement(By.xpath(identifier));
-        } else if (value[1].equalsIgnoreCase("last")) {
-            dropdown = getElementFromListWithPosition(identifier,-1);
-        }
-
+    protected void selectFromDropDown_LabelTag(String identifier, String value , int position)  {
+            WebElement autoFill=null;
+            WebElement dropdown = getElementFromListWithPosition(identifier, 0);
+            actions.click(dropdown).perform();
         try {
-            Select choose = new Select(dropdown);
-            choose.selectByVisibleText(value[0]);
-        } catch (UnexpectedTagNameException | NoSuchElementException | ElementNotVisibleException |NullPointerException exp) {
-            dropdown.click();
-            WebElement element = getElementFromListWithPosition("//*[normalize-space()='" + value[0] + "']",-1);
-            element.click();
+            Thread.sleep(4000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
+        scrollIntoView("//*[normalize-space()='" + value + "']");
+        if(getSizeOfList("//*[normalize-space()='" + value + "']")>0) {
+                autoFill = getElementFromListWithPosition("//*[normalize-space()='" + value + "']",-1);
+            }else if(getSizeOfList("//*[normalize-space()='" + value.toUpperCase() + "']")>0){
+                autoFill = getElementFromListWithPosition("//*[normalize-space()='" + value.toUpperCase() + "']",-1);
+            }else if(getSizeOfList("//*[normalize-space()='" + value.replaceAll(" ","") + "']")>0){
+                autoFill = getElementFromListWithPosition("//*[normalize-space()='" + value.replaceAll(" ","") + "']",-1);
+            }else{
+                Assert.fail("Auto Fill options are not displayed");
+            }
+            actions.click(autoFill).perform();
     }
     /*
      * Method to select the date
      */
     protected void selectDate(String date,String datePickerId, String dateField) {
         clearText(dateField);
-        WebElement datePicker = edriver.findElement(By.xpath(datePickerId));
-        Actions act = new Actions(edriver);
-        act.click(datePicker).sendKeys(date).perform();
-        act.sendKeys(Keys.TAB).perform();
+        WebElement datePicker = getElementFromListWithPosition(datePickerId,-1);
+        actions.click(datePicker).sendKeys(date).perform();
+        actions.sendKeys(Keys.TAB).perform();
     }
     /*
      * Method to send keys to a text field at a specific position
      */
-    protected void sendKeysToWeAtPosition(String identifier, String... value) {
-        List<WebElement> field = edriver.findElements(By.xpath(identifier));
-
-        int i = 0;
-        if (value.length > 1) {
-            /* To enter text for an element at a specific position */
-            if (value[1].matches("[0-9]*")) {
-                for (WebElement temp : field) {
-                    if (i++ == Integer.parseInt(value[1])) {
-                        temp.clear();
-                        temp.sendKeys(value[0]);
-                    }
-                }
-
-            } else if (value[1].equals("last")) {
-                getElementFromListWithPosition(identifier,-1).clear();
-                getElementFromListWithPosition(identifier,-1).sendKeys(value[0]);
-            }
-
-        } else {
-            field.get(0).sendKeys(value[0]);
-        }
+    protected void sendKeysToWeAtPosition(String identifier, String value,int position) {
+        WebElement element=getElementFromListWithPosition(identifier,position);
+        element.sendKeys(value);
     }
     /*
      * Method to click button
@@ -146,22 +171,40 @@ public class GenericWebElementMethods {
     /*
      * Method to set value from the auto fill list
      */
-    protected void setNameFromAutoFill(String identifier, String key) {
+    protected void setNameFromAutoFill(String identifier, String value) {
+        WebElement autoFill = null;
         getElementFromListWithPosition(identifier,-1).clear();
-        getElementFromListWithPosition(identifier,-1).sendKeys(key.substring(0, key.length() - 1));
+        getElementFromListWithPosition(identifier,-1).sendKeys(value.substring(0, value.length() - 1));
         try {
-            getElementFromListWithPosition("//li/span[normalize-space()='" + key.toUpperCase() + "']",-1).click();
-        } catch (ElementNotVisibleException|NullPointerException exp) {
-            getElementFromListWithPosition("//*[normalize-space()='" + key.toUpperCase() + "']",-1).click();
+            Thread.sleep(4000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
+
+        if(getSizeOfList("//*[normalize-space()='" + value + "']")>0){
+            autoFill = getElementFromListWithPosition("//*[normalize-space()='" + value + "']",-1);
+        } else if(getSizeOfList("//*[normalize-space()='" + value.toUpperCase() + "']")>0) {
+            autoFill = getElementFromListWithPosition("//*[normalize-space()='" + value.toUpperCase() + "']",-1);
+        }else if(getSizeOfList("//*[normalize-space()='" + value.replaceAll(" ","") + "']")>0){
+            autoFill = getElementFromListWithPosition("//*[normalize-space()='" + value.replaceAll(" ","") + "']",-1);
+        }else if(getSizeOfList("//*[normalize-space()='" + StringUtils.capitalise(value) + "']")>0){
+            autoFill = getElementFromListWithPosition("//*[normalize-space()='" + StringUtils.capitalise(value) + "']",-1);
+        }
+        else{
+            Assert.fail("Auto Fill options are not displayed");
+        }
+        actions.click(autoFill).perform();
     }
     /*
      * Method to clear the text
      */
     protected void clearText(String identifier) {
-        List<WebElement> list = edriver.findElements(By.xpath(identifier));
-        if(list.size()>0){
-            list.get(0).clear();
+        if(identifier!=null)
+        {
+            List<WebElement> list = edriver.findElements(By.xpath(identifier));
+            if(list.size()>0){
+                list.get(0).clear();
+            }
         }
     }
 
@@ -169,7 +212,7 @@ public class GenericWebElementMethods {
      * Method to scroll down
      */
     protected void scrollDown() {
-        js.executeScript("scroll(0,400)");
+//        js.executeScript("scroll(0,400)");
     }
     /*
      * Method to scroll inside an element
@@ -177,7 +220,13 @@ public class GenericWebElementMethods {
     protected void scrollIntoView(String identifier)
     {
         WebElement list = edriver.findElement(By.xpath(identifier));
-        js.executeScript("arguments[0].scrollIntoview(true);",list);
+        actions.moveToElement(list).perform();
+       // js.executeScript("arguments[0].scrollIntoview(true);",list);
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
     /*
      * Method to validate that the element is viewable Only
@@ -218,7 +267,23 @@ public class GenericWebElementMethods {
     /*
      * Method to get the size of web element list
      */
-    public int getSizeOfList(String identifier){
+    protected int getSizeOfList(String identifier){
         return edriver.findElements(By.xpath(identifier)).size();
+    }
+    /*
+     * Date Operations : Set date
+     */
+    protected void setDate(String operation,String datePicker , String dateField)
+    {
+        dateOperations.setDate(operation,datePicker,dateField);
+    }
+    protected String getDate(String identifier)
+    {
+        return dateOperations.getDate(identifier);
+    }
+
+    protected void verifyTextOnWeIsEqualToValue(String identifier,String value)
+    {
+        Verify.verify(getValue(identifier).equals(value),"Actual:"+getValue(identifier)+" Expected:"+value);
     }
 }

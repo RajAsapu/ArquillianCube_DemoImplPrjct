@@ -52,7 +52,7 @@ public class PageForumlaSteps {
 
     @When("^set type as \"([^\"]*)\"$")
     public void set_type_as(String type) throws Throwable {
-        pageFactory.getCreateFormulaMethods().setDescription(type);
+        pageFactory.getCreateFormulaMethods().setType(type);
     }
 
     @When("^expression as \"([^\"]*)\"$")

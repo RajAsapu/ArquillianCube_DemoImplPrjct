@@ -22,7 +22,7 @@ Feature: Create calculation rule.
       | <name> | <startDate> | <endDate> | <type> | <description> | <ruleType> | <daysBeforeEvent> | <daysAfterEvent> |
     Examples:
       | name       | startDate  | endDate    | type | description | ruleType | daysBeforeEvent | daysAfterEvent |
-      | TestRule96 | 2017-01-23 | 2017-03-30 | Day  | for testing | Day Wrap | 2               | 2              |
+      | TestRule96 | 23-JAN-2017 | today | Day  | for testing | Day Wrap | 2               | 2              |
 
   Scenario Outline: To verify if the user is able to create a calculation rule with type as Week.
     Given the user has navigated to the "Create" page under the "Calculation_Rule"
@@ -42,7 +42,7 @@ Feature: Create calculation rule.
       | <name> | <startDate> | <endDate> | <type> | <description> | <ep_StartDate> | <ep_NoOfWeeks> | <cp_StartDate> | <ep_NoOfWeeks> | <offset> |
     Examples:
       | name       | startDate  | endDate    | type | description | ep_StartDate | ep_NoOfWeeks | cp_StartDate | ep_NoOfWeeks | offset |
-      | TestRule94 | 2017-01-23 | 2017-03-30 | Week | for testing | Monday       | 2            | Tuesday      | 2            | 1      |
+      | TestRule94 | 23-JAN-2017  | today | Week | for testing | Monday       | 2            | Tuesday      | 2            | 1      |
 
   Scenario Outline: To verify if the user is able to create a calculation rule with type as Month.
     Given the user has navigated to the "Create" page under the "Calculation_Rule"
@@ -62,4 +62,4 @@ Feature: Create calculation rule.
       | <name> | <startDate> | <endDate> | <type> | <description> | <mn_RuleType> | <ep_NoOfMonths> | <ep_startDayMn> | <noOfMonthsCalc> | <cp_startDayMn> | <offset> |
     Examples:
       | name       | startDate  | endDate    | type  | description | mn_RuleType   | ep_NoOfMonths | ep_startDayMn | noOfMonthsCalc | cp_startDayMn | offset |
-      | TestRule93 | 2017-01-23 | 2017-03-30 | Month | for testing | Single Period | 2             | 5             | 2              | 7             | 2      |
+      | TestRule93 | 23-JAN-2017  | today | Month | for testing | Single Period | 2             | 5             | 2              | 7             | 2      |

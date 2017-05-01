@@ -8,10 +8,10 @@ Feature: To verify if the user is able to access create page under index.
 
   Scenario Outline: To verify if the user is able to create an index.
     Given the user has navigated to the "Create" page under the "Index"
-    When  the user enters rate basis as Price Point Scale
+    When  the user enters rate basis as Unit
     And   <lowPrice> ,<midPrice> ,<highPrice> and <closePrice> are entered
-    And   name as NY RBOB Prem Brg
-    And   start date as 2016-12-10 and end date as 2017-03-10
+    And   name as PREMCBOBNYCARGO
+    And   start date as 12-Dec-2016 and end date as 26-May-2017
     And   currency as USD
     And   unit of measurement as USG
     And   comment as Created for new clients

@@ -22,4 +22,4 @@ Feature: To verify if the user is able to create formula.
     Then  the formula should be created
     Examples:
       | name    | description | type | expression | startDate  | endDate    | roundingMode | roundingPrecision | paramType | indexType | indexPoint | indexName        | calculationPeriod |
-      | TestOne | for testing | COST | Test       | 2017-03-27 | 2017-04-27 | Round Up     | 3                 | Index     | Argus     | Mid        | NY RBOB Prem Brg | Testing           |
+      | WillisTower2 | for testing | COST | Test       | 12-Dec-2016 | 12-May-2017 | Round Up     | 3                 | Index     | Argus     | Mid        | NY RBOB Prem Brg | TestCalcRule           |

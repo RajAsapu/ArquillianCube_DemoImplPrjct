@@ -5,8 +5,10 @@ import functions.GenericWebElementMethods;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.UnexpectedTagNameException;
 import setup.Constants;
 import setup.DriverBean;
 
@@ -31,11 +33,19 @@ public class ListIndexMethods extends GenericWebElementMethods{
     }
     public void setStatus(String status){
         WebElement options = edriver.findElement(By.xpath(Constants.indexList_status_xpath));
-        Select s = new Select(options);
-        s.selectByVisibleText(status);
+        try {
+            Select s = new Select(options);
+            s.selectByVisibleText(status);
+        }catch (UnexpectedTagNameException unexpectedTagNameException)
+        {
+            Actions actions=new Actions(edriver);
+            actions.click(options).perform();
+            WebElement element = getElementFromListWithPosition("//*[normalize-space()='" + status + "']",-1);
+            element.click();
+        }
     }
     public void setType(String type){
-        selectFromDropDown(Constants.indexList_type_xpath,type);
+        selectFromDropDown_LabelTag(Constants.indexList_type_xpath,type,0);
     }
     public void addScaleParamater()
     {
@@ -43,9 +53,21 @@ public class ListIndexMethods extends GenericWebElementMethods{
     }
     public void setScaleParameters(String from,String to,String rate)
     {
-        sendKeysToWeAtPosition(Constants.indexCreate_fromScale_xpath,from,"last");
-        sendKeysToWeAtPosition(Constants.indexCreate_toScale_xpath,to,"last");
-        sendKeysToWeAtPosition(Constants.indexCreate_rateScale_xpath,rate,"last");
+        sendKeysToWeAtPosition(Constants.indexCreate_fromScale_xpath,from,-1);
+        sendKeysToWeAtPosition(Constants.indexCreate_toScale_xpath,to,-1);
+        sendKeysToWeAtPosition(Constants.indexCreate_rateScale_xpath,rate,-1);
+    }
+    public void setRateBasis(String rateBasis)
+    {
+        selectFromDropDown_LabelTag(Constants.indexList_rateBasis_xpath,rateBasis,0);
+    }
+    public void setCurrency(String currency)
+    {
+        selectFromDropDown_SelectTag(Constants.indexList_currency_xpath,currency);
+    }
+    public void setUom(String uom)
+    {
+        selectFromDropDown_SelectTag(Constants.indexList_uom_xpath,uom);
     }
     /*
      * Methods to read from the results from search

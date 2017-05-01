@@ -5,7 +5,9 @@ import com.google.common.base.Verify;
 import functions.GenericWebElementMethods;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import setup.Constants;
 
 import java.util.List;
@@ -26,28 +28,28 @@ public class CreateFormulaMethods extends GenericWebElementMethods {
 
     public void setName(String name)
     {
-        sendKeysToWeAtPosition(Constants.formulaCreate_name_xpath, name);
+        sendKeysToWE(Constants.formulaCreate_name_xpath, name);
     }
     public void setDescription(String description){
-        sendKeysToWeAtPosition(Constants.formulaCreate_description_xpath, description);
+        sendKeysToWE(Constants.formulaCreate_description_xpath, description);
     }
     public void setType(String type){
-        selectFromDropDown(Constants.formulaCreate_typeSelect_xpath, type);
+        selectFromDropDown_LabelTag(Constants.formulaCreate_typeSelect_xpath, type,0);
     }
     public void setStartDate(String startDate){
-        selectDate(startDate,Constants.formulaCreate_startDatePicker_xpath,null);
+        selectDate(startDate,Constants.formulaCreate_startDatePicker_xpath,Constants.formulaCreate_startDate_xpath);
     }
     public void setEndDate(String endDate){
         selectDate(endDate,Constants.formulaCreate_endDatePicker_xpath,Constants.formulaCreate_endDate_xpath);
     }
     public void setRoundingMode(String roundingMode){
-        selectFromDropDown(Constants.formulaCreate_roundingMode_xpath, roundingMode);
+        selectFromDropDown_LabelTag(Constants.formulaCreate_roundingMode_xpath, roundingMode,0);
     }
     public void setRoundingPrecision(String roundingPrecision){
-        sendKeysToWeAtPosition(Constants.formulaCreate_roundingPrecision_xpath, roundingPrecision);
+        sendKeysToWE(Constants.formulaCreate_roundingPrecision_xpath, roundingPrecision);
     }
     public void setExpression(String expression){
-        sendKeysToWeAtPosition(Constants.formulaCreate_expression_xpath, expression);
+        sendKeysToWE(Constants.formulaCreate_expression_xpath, expression);
     }
     public void createFormula(){
         try {
@@ -64,12 +66,15 @@ public class CreateFormulaMethods extends GenericWebElementMethods {
         scrollDown();
         while (i < parameters.size()) {
             String type = parameters.get(i).get(1);
-            clickOnAddParameter();
-            sendKeysToWeAtPosition(Constants.formulaCreate_nameParameter_xpath, parameters.get(i).get(0), "last");
-            selectFromDropDown(Constants.formulaCreate_typeParameter_xpath, parameters.get(i).get(1), "last");
+            if(i>0)
+            {
+                clickOnAddParameter();
+            }
+            sendKeysToWeAtPosition(Constants.formulaCreate_nameParameter_xpath, parameters.get(i).get(0),-1);
+            selectFromDropDown_LabelTag(Constants.formulaCreate_typeParameter_xpath, parameters.get(i).get(1),-1);
             if (type.equalsIgnoreCase("Index")) {
-                selectFromDropDown(Constants.formulaCreate_indexTypeParameter_xpath, parameters.get(i).get(2), "last");
-                selectFromDropDown(Constants.formulaCreate_indexPointParameter_xpath, parameters.get(i).get(3), "last");
+                selectFromDropDown_LabelTag(Constants.formulaCreate_indexTypeParameter_xpath, parameters.get(i).get(2), -1);
+                selectFromDropDown_LabelTag(Constants.formulaCreate_indexPointParameter_xpath, parameters.get(i).get(3), -1);
                 setNameFromAutoFill(Constants.formulaCreate_indexNameParameter_xpath, parameters.get(i).get(4));
                 setNameFromAutoFill(Constants.formulaCreate_calculationPeriodParamater_xpath, parameters.get(i).get(5));
             } else if (type.equalsIgnoreCase("Workbook")) {
@@ -84,6 +89,11 @@ public class CreateFormulaMethods extends GenericWebElementMethods {
 
     public void verifyIfFormulaCreatedOrNot(String perfom, String action){
         if (!perfom.contains("not")) {
+            try {
+                Thread.sleep(4000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             Verify.verify(edriver.getCurrentUrl().contains("formula/list"), "Formula is not Created !!");
         } else {
             Verify.verify(edriver.getCurrentUrl().contains("formula/create"), "ERROR : Formula is Created !!");

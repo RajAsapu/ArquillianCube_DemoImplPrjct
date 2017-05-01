@@ -5,6 +5,7 @@ import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import setup.Constants;
@@ -15,6 +16,15 @@ public class PageCommonMethods{
 
     private static Logger log =null;
     public static EventFiringWebDriver edriver;
+    private WebDriverWait webDriverWait;
+
+    public void waitFor(long timeInSeconds) {
+        try {
+            webDriverWait.wait(timeInSeconds);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 
     public enum module {
         Calculation_Rule, Workbook, Index, Currency_Exchange, Formula

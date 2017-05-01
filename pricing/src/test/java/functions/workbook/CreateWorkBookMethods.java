@@ -1,6 +1,7 @@
 package functions.workbook;
 
 
+import com.google.common.base.Verify;
 import functions.GenericWebElementMethods;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -29,11 +30,11 @@ public class CreateWorkBookMethods extends GenericWebElementMethods{
     }
     public void setFormulaType(String formulaType)
     {
-        selectFromDropDown(Constants.workbookCreate_formulaType_xpath,formulaType);
+        selectFromDropDown_SelectTag(Constants.workbookCreate_formulaType_xpath,formulaType);
     }
     public void setSegmentType(String segmentType)
     {
-        selectFromDropDown(Constants.workbookCreate_segmentType_xpath,segmentType);
+        selectFromDropDown_SelectTag(Constants.workbookCreate_segmentType_xpath,segmentType);
     }
     public void hasDefaultValue(boolean hasDefaultValue)
     {
@@ -100,6 +101,13 @@ public class CreateWorkBookMethods extends GenericWebElementMethods{
             }
         }
         addMultipleAttribte();
+    }
+
+    public void verifyIfWorkbookConfigurationIsCreated()throws Exception
+    {
+        String currentUrl = edriver.getCurrentUrl();
+        Thread.sleep(4000);
+        Verify.verify(currentUrl.contains("workbook/list"),"Workbook Configuration is not created");
     }
 
 }

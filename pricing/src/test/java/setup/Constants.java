@@ -249,7 +249,21 @@ public class Constants {
     public static String workbookList_descrptionColumn_xpath = "//*[@id='content']/ng-component/div/div/div/div/div/div/p-datatable/div/div[2]/table/tbody/tr[*]/td[2]";
     public static String workbookList_formulaTypeColumn_xpath = "//*[@id='content']/ng-component/div/div/div/div/div/div/p-datatable/div/div[2]/table/tbody/tr[*]/td[3]";
     public static String workbookList_segmentColumn_xpath = "//*[@id='content']/ng-component/div/div/div/div/div/div/p-datatable/div/div[2]/table/tbody/tr[*]/td[4]";
-
+    /*
+     * Workbook - Data page
+     */
+    public static String workbookData_priceBasisColumn_xpath = ".//*[@id='content']/workbook-data/div/div/div/div/p-datatable/div/div[1]/table/tbody/tr[*]/td[1]";
+    public static String workbookData_currencyColumn_xpath = ".//*[@id='content']/workbook-data/div/div/div/div/p-datatable/div/div[1]/table/tbody/tr[*]/td[2]";
+    public static String workbookData_uomColumn_xpath = ".//*[@id='content']/workbook-data/div/div/div/div/p-datatable/div/div[1]/table/tbody/tr[*]/td[3]";
+    public static String workbookData_startDateColumn_xpath = ".//*[@id='content']/workbook-data/div/div/div/div/p-datatable/div/div[1]/table/tbody/tr[*]/td[4]";
+    public static String workbookData_fifthColumn_xpath = ".//*[@id='content']/workbook-data/div/div/div/div/p-datatable/div/div[1]/table/tbody/tr[*]/td[5]";
+    public static String workbookData_sixthColumn_xpath = ".//*[@id='content']/workbook-data/div/div/div/div/p-datatable/div/div[1]/table/tbody/tr[*]/td[6]";
+    public static String workbookData_seventhColumn_xpath = "";
+    public static String workbookData_statusColumn_xpath = "";
+    public static String workbookData_amountColumn_xpath = "";
+    public static String workbookData_scaleRatesColumn_xpath = "";
+    public static String workbookData_editAction_xpath = "";
+    public static String workbookData_inactivateAction_xpath = "";
 }
 
 

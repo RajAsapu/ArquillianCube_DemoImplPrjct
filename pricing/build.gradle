@@ -1,6 +1,6 @@
 group 'com'
 version '1.0-SNAPSHOT'
-defaultTasks 'init','run'
+defaultTasks 'init', 'run'
 
 apply plugin: 'groovy'
 apply plugin: 'java'
@@ -13,23 +13,23 @@ repositories {
 
 task init {
     doFirst {
-                println 'Started !!'
-            }
-        }
+        println 'Started !!'
+    }
+}
 
 task run(dependsOn: "init") {
-    doFirst{
+    doFirst {
         println 'RUnning the tasks !!'
     }
 }
 
-task report{
+task report {
     doLast {
         println 'Report path should be printed'
     }
 }
 
-subprojects{
+subprojects {
     apply plugin: 'maven'
     repositories {
         mavenCentral()
@@ -64,7 +64,6 @@ dependencies {
     compile group: 'org.jboss.arquillian.junit', name: 'arquillian-junit-standalone', version: '1.1.12.Final'
     compile group: 'org.arquillian.cube', name: 'arquillian-cube-docker', version: '1.0.0.Alpha17'
     compile group: 'org.jboss.arquillian.container', name: 'arquillian-container-test-api', version: '1.1.12.Final'
-
 
 
 }

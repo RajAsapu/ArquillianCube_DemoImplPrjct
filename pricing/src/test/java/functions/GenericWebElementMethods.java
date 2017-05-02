@@ -79,8 +79,14 @@ public class GenericWebElementMethods extends PageCommonMethods {
      */
     protected String getValue(String filter) {
         String value = null;
-        value = edriver.findElement(By.xpath(filter)).getAttribute("ng-reflect-value");
-        return value == null ? edriver.findElement(By.xpath(filter)).getText() : value;
+        WebElement webElement = null;
+        webElement = edriver.findElement(By.xpath(filter));
+        value =webElement.getAttribute("ng-reflect-value");
+        if(value==null)
+        {
+            value = webElement.getAttribute("value");
+        }
+        return value == null ? webElement.getText() : value;
     }
     /*
      * Check if the data in the rows is matching the value which is used as filter
@@ -285,5 +291,10 @@ public class GenericWebElementMethods extends PageCommonMethods {
     protected void verifyTextOnWeIsEqualToValue(String identifier,String value)
     {
         Verify.verify(getValue(identifier).equals(value),"Actual:"+getValue(identifier)+" Expected:"+value);
+    }
+
+    protected void verifyIfTextIsDisplayed(String text)
+    {
+        Verify.verify(getSizeOfList("//*[normalize-space()='"+text+"']")>0,"Text:"+text+" is not displayed");
     }
 }

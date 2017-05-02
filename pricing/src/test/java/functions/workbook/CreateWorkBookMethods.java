@@ -2,6 +2,7 @@ package functions.workbook;
 
 
 import com.google.common.base.Verify;
+import cucumber.api.DataTable;
 import functions.GenericWebElementMethods;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -103,11 +104,35 @@ public class CreateWorkBookMethods extends GenericWebElementMethods{
         addMultipleAttribte();
     }
 
-    public void verifyIfWorkbookConfigurationIsCreated()throws Exception
+    public void verifyIfWorkbookConfigurationIsCreated(boolean condition)throws Exception
     {
         String currentUrl = edriver.getCurrentUrl();
         Thread.sleep(4000);
-        Verify.verify(currentUrl.contains("workbook/list"),"Workbook Configuration is not created");
+        if(condition)
+        {
+            Verify.verify(currentUrl.contains("workbook/list"),"Workbook Configuration is not created");
+        }else{
+            Verify.verify(!currentUrl.contains("workbook/list"),"Workbook Configuration is created");
+        }
+    }
+
+    public void verifyIfTextIsDisplayed(String text)
+    {
+        super.verifyIfTextIsDisplayed(text);
+    }
+
+    public void verifyIfWorkbookConfigurationIsDisplayed(DataTable table)
+    {
+        List<List<String>> list = table.raw();
+
+        verifyTextOnWeIsEqualToValue(Constants.workbookCreate_name_xpath,list.get(0).get(0));
+        verifyTextOnWeIsEqualToValue(Constants.workbookCreate_description_xpath,list.get(0).get(1));
+        verifyTextOnWeIsEqualToValue(Constants.workbookCreate_formulaType_xpath,list.get(0).get(2));
+        verifyTextOnWeIsEqualToValue(Constants.workbookCreate_segmentType_xpath,list.get(0).get(3));
+        verifyTextOnWeIsEqualToValue(Constants.workbookCreate_defaultValue_xpath,list.get(0).get(4));
+        verifyIfTextIsDisplayed(list.get(0).get(5));
+        verifyIfTextIsDisplayed(list.get(0).get(6));
+        verifyIfTextIsDisplayed(list.get(0).get(7));
     }
 
 }

@@ -8,6 +8,7 @@ import org.openqa.selenium.support.events.EventFiringWebDriver;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 public class DateOperations {
     private EventFiringWebDriver edriver;
@@ -16,17 +17,24 @@ public class DateOperations {
     {
         edriver = DriverBean.getDriver();
     }
-
-    public void setDate(String operation,String datePicker,String dateField)throws Exception
+    /*
+     * Method to set the date
+     * operation : today,tomorrow,displayed , today -10 , today +1
+     * dataPicker : datePicker identifier in xpath
+     * dateField : To clear the text , identifier in xpath
+     */
+    public void setDate(String operation,String datePicker,String dateField)
     {
         int days=0;
         String date = operation,displayedDate;
         LocalDate today = LocalDate.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("DD-MMM-YYYY");
         WebElement datepicker = edriver.findElement(By.xpath(datePicker));
         Actions act = new Actions(edriver);
-
-        edriver.findElement(By.xpath(dateField)).clear();
+        if(dateField!=null)
+        {
+            edriver.findElement(By.xpath(dateField)).clear();
+        }
         if(operation.contains("today")) {
             date = today.toString();
         }else if(operation.contains("tomorrow")){

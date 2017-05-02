@@ -9,6 +9,7 @@ import com.github.dockerjava.core.DockerClientBuilder;
 import java.io.*;
 import java.util.Map;
 import java.util.Properties;
+import java.util.ResourceBundle;
 
 public class UpdateProperties {
 
@@ -26,7 +27,7 @@ public class UpdateProperties {
 
     public void setProperty(Map<String,String> map) {
         try{
-            resourceFile = new File("../pricing/src/test/resources/pricing.properties");
+            resourceFile = new File("pricing.properties");
             out = new PrintWriter(resourceFile);
             out.println("#Pricing Application - Container Properties#");
         for(Map.Entry<String,String> entry:map.entrySet())
@@ -40,35 +41,14 @@ public class UpdateProperties {
     }
 
     public String getProperty(String propertyName) {
-         /*
-         * Loading the properties file
-         */
-        try{
-            resourceFile = new File("../pricing/src/test/resources/pricing.properties");
-            read=new FileReader(resourceFile);
-            props.load(read);
-            return props.getProperty(propertyName);
-        }
-        catch (Exception exp){
-            exp.printStackTrace();
-        }
-        return null;
+            ResourceBundle resourceBundle = ResourceBundle.getBundle("pricing");
+            return resourceBundle.getString(propertyName);
     }
 
     public String getEnv()
     {
-        props=new Properties();
-        try{
-            resourceFile = new File("../pricing/src/test/resources/application.properties");
-            read=new FileReader(resourceFile);
-            props.load(read);
-            return props.getProperty("env");
-        }
-        catch (Exception exp)
-        {
-            exp.printStackTrace();
-        }
-        return null;
+        ResourceBundle resourceBundle = ResourceBundle.getBundle("application");
+        return resourceBundle.getString("env");
     }
 
     public void updateHostConfig()throws Exception {

@@ -9,7 +9,7 @@ Feature: Workbook List Page
   Scenario Outline: To verify if the user is able to create a workbook configuration by clicking on the add new workbook configuration button.
     Given the user has navigated to the "List" page under the "Workbook"
     When  click on add new workbook configuration
-    When  name is set to "<name>"
+    And   name is set to "<name>"
     And   description is set to "<description>"
     And   formula type is set to "<formulaType>"
     And   segment type is set to "<segmentType>"

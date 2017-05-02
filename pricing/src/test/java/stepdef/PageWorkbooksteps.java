@@ -4,7 +4,9 @@ import cucumber.api.DataTable;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import cucumber.runtime.table.TableConverter;
 import functions.*;
+import gherkin.formatter.model.DataTableRow;
 import org.apache.log4j.Logger;
 import setup.Constants;
 import setup.PageFactory;
@@ -75,10 +77,17 @@ public class PageWorkbooksteps extends PageCommonMethods {
         pageFactory.getCreateWorkBookMethods().addMultipleAttribte();
     }
 
-    @Then("^the workbook configuration should be created$")
-    public void the_workbook_configuration_should_be_created()throws Exception
+    @Then("^the workbook configuration (should|should not) be created$")
+    public void the_workbook_configuration_should_be_created(String cond)throws Exception
     {
-        pageFactory.getCreateWorkBookMethods().verifyIfWorkbookConfigurationIsCreated();
+        if(cond.contains("not"))
+        {
+            pageFactory.getCreateWorkBookMethods().verifyIfWorkbookConfigurationIsCreated(false);
+        }
+        else
+        {
+            pageFactory.getCreateWorkBookMethods().verifyIfWorkbookConfigurationIsCreated(true);
+        }
     }
 
     @And("^click on add new workbook configuration$")
@@ -108,11 +117,21 @@ public class PageWorkbooksteps extends PageCommonMethods {
             case "segment" : pageFactory.getListWorkBookMethods().checkIfRecordExistsUsingSegmentFilter(temp);
                 break;
         }
+    }
 
-        if(temp!=null)
-        {
+    @And("^clicked on data$")
+    public void clicked_on_data()throws Exception
+    {
+        // Clicked on data of the first workbook configuration displayed in the list
+        pageFactory.getListWorkBookMethods().clickOnData(0);
+    }
 
-        }
-
+    @And("^the definition should be displayed with the below details$")
+    public void the_definition_should_be_displayed_with_below_details(DataTable dataTable)
+    {
+        List<List<String>> rows = dataTable.transpose().raw();
+        pageFactory.getListWorkBookMethods().checkIfRecordExistsUsingNameFilter(rows.get(0).get(0));
+        pageFactory.getListWorkBookMethods().clickOnDefinition(0);
+        pageFactory.getCreateWorkBookMethods().verifyIfWorkbookConfigurationIsDisplayed(dataTable);
     }
 }

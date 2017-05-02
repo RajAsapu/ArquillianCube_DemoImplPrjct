@@ -57,6 +57,15 @@ public class ListWorkBookMethods extends GenericWebElementMethods {
                 break;
         }
         return temp;
-
     }
+    public void clickOnData(int position)
+    {
+        getElementFromListWithPosition(Constants.workbookList_data_xpath,position).click();
+    }
+
+    public void clickOnDefinition(int position)
+    {
+        getElementFromListWithPosition(Constants.workbookList_definition_xpath,position).click();
+    }
+
 }

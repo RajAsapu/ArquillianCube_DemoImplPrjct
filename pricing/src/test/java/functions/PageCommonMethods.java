@@ -3,6 +3,7 @@ package functions;
 import com.google.common.base.Verify;
 import org.junit.Assert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -77,9 +78,9 @@ public class PageCommonMethods{
                 Verify.verify(!edriver.findElement(By.xpath("//*[normalize-space()='" + message + "']")).isDisplayed(), "Error Message is displayed!!");
             }
         }
-        catch (NullPointerException exp)
+        catch (NullPointerException|NoSuchElementException exp)
         {
-            Assert.fail("Error message is not displayed");
+            Assert.fail("Error message is not displayed, Expected error message:"+message);
         }
     }
 }

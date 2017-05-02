@@ -15,9 +15,9 @@ import java.util.Map;
 @RunWith(ArquillianCucumber.class)
 @RunAsClient
 @CucumberOptions(
-        features={"src/test/resources/features/pageobjects/PageWorkBookCreatePage.feature"},
+        features={"src/test/resources/features/pageobjects/"},
         glue = {"classpath:"} ,
-        tags = {}
+        tags = {"@PageObjects"}
         )
 public class RunTest {
 

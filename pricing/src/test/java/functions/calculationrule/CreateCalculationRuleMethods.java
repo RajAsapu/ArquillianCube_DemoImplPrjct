@@ -71,8 +71,7 @@ public class CreateCalculationRuleMethods extends GenericWebElementMethods {
         sendKeysToWE(Constants.calculationRuleCreate_efTotalNoOfWeeks_xpath,effTotalNoOfWeeks);
     }
     public void setCalculationStartDay(String startDay){
-        //setDate("insert",);
-        //selectFromDropDown(Constants.calculationRuleCreate_cpStartDayOfWeek_xpath,startDay);
+        selectDate(startDay,Constants.calculationRuleCreate_cpStartDayOfWeek_xpath,null);
     }
     public void setCalTotalNoOfWeeks(String totalNoOfWeeks) {
         sendKeysToWE(Constants.calculationRuleCreate_cpTotalNoOfWeeks_xpath,totalNoOfWeeks);

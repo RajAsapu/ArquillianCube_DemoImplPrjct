@@ -16,7 +16,6 @@ public class CreateCurrencyExchangeMethods extends GenericWebElementMethods {
 
     public void setDate(String date)
     {
-       // selectDate(date, Constants.currencyExchangeCreate_datePicker_xpath,Constants.currencyExchangeCreate_startDate_xpath);
         clearText(Constants.currencyExchangeCreate_startDate_xpath);
         sendKeysToWE(Constants.currencyExchangeCreate_startDate_xpath,date);
         clickOnTab();

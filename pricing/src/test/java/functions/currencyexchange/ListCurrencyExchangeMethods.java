@@ -87,7 +87,6 @@ public class ListCurrencyExchangeMethods extends GenericWebElementMethods {
 
     public void verifyIfRateTypeMatchingTheFilter(String rateType){
         List<WebElement> typeList;
-        //Thread.sleep(3000);
         typeList = edriver.findElements(By.xpath(Constants.currencyExchangeList_rateTypeColumn_xpath));
         if (typeList.size() != 0 && !typeList.listIterator().next().getText().equals("No records found")) {
             typeList = edriver.findElements(By.xpath(Constants.currencyExchangeList_rateTypeColumn_xpath));
@@ -102,7 +101,6 @@ public class ListCurrencyExchangeMethods extends GenericWebElementMethods {
 
     public void verifyIfRateMatchingTheFilter()  {
         List<WebElement> typeList;
-        //Thread.sleep(3000);
         typeList = edriver.findElements(By.xpath(Constants.currencyExchangeList_rateColumn_xpath));
         if (typeList.size() != 0 && !typeList.listIterator().next().getText().equals("No records found")) {
             typeList = edriver.findElements(By.xpath(Constants.currencyExchangeList_rateColumn_xpath));
@@ -116,7 +114,6 @@ public class ListCurrencyExchangeMethods extends GenericWebElementMethods {
 
     public void verifyIfCurrenyFromIsMatchingTheFilter(String currencyFrom)  {
         List<WebElement> fromList;
-        //Thread.sleep(3000);
         fromList = edriver.findElements(By.xpath(Constants.currencyExchangeList_fromColumn_xpath));
         if (fromList.size() != 0 && !fromList.listIterator().next().getText().equals("No records found")) {
             fromList = edriver.findElements(By.xpath(Constants.currencyExchangeList_fromColumn_xpath));
@@ -131,7 +128,6 @@ public class ListCurrencyExchangeMethods extends GenericWebElementMethods {
 
     public void verifyIfCurrenyToIsMatchingTheFilter(String currencyTo) {
         List<WebElement> fromList;
-        //Thread.sleep(3000);
         fromList = edriver.findElements(By.xpath(Constants.currencyExchangeList_toColumn_xpath));
         if (fromList.size() != 0 && !fromList.listIterator().next().getText().equals("No records found")) {
             fromList = edriver.findElements(By.xpath(Constants.currencyExchangeList_toColumn_xpath));

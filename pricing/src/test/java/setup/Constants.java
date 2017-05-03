@@ -256,14 +256,24 @@ public class Constants {
     public static String workbookData_currencyColumn_xpath = ".//*[@id='content']/workbook-data/div/div/div/div/p-datatable/div/div[1]/table/tbody/tr[*]/td[2]";
     public static String workbookData_uomColumn_xpath = ".//*[@id='content']/workbook-data/div/div/div/div/p-datatable/div/div[1]/table/tbody/tr[*]/td[3]";
     public static String workbookData_startDateColumn_xpath = ".//*[@id='content']/workbook-data/div/div/div/div/p-datatable/div/div[1]/table/tbody/tr[*]/td[4]";
-    public static String workbookData_fifthColumn_xpath = ".//*[@id='content']/workbook-data/div/div/div/div/p-datatable/div/div[1]/table/tbody/tr[*]/td[5]";
-    public static String workbookData_sixthColumn_xpath = ".//*[@id='content']/workbook-data/div/div/div/div/p-datatable/div/div[1]/table/tbody/tr[*]/td[6]";
-    public static String workbookData_seventhColumn_xpath = "";
-    public static String workbookData_statusColumn_xpath = "";
-    public static String workbookData_amountColumn_xpath = "";
-    public static String workbookData_scaleRatesColumn_xpath = "";
-    public static String workbookData_editAction_xpath = "";
-    public static String workbookData_inactivateAction_xpath = "";
+    public static String workbookData_endDateColumn_xpath = ".//*[@id='content']/workbook-data/div/div/div/div/p-datatable/div/div[1]/table/tbody/tr[*]/td[5]";
+    public static String workbookData_demoColumn_xpath = ".//*[@id='content']/workbook-data/div/div/div/div/p-datatable/div/div[1]/table/tbody/tr[*]/td[6]";
+    public static String workbookData_statusColumn_xpath = ".//*[@id='content']/workbook-data/div/div/div/div/p-datatable/div/div[1]/table/tbody/tr[*]/td[8]";
+    public static String workbookData_amountColumn_xpath = ".//*[@id='content']/workbook-data/div/div/div/div/p-datatable/div/div[1]/table/tbody/tr[*]/td[9]";
+    public static String workbookData_scaleRatesColumn_xpath = ".//*[@id='content']/workbook-data/div/div/div/div/p-datatable/div/div[1]/table/tbody/tr[*]/td[10]";
+    public static String workbookData_editAction_xpath = ".//*[@id='content']/workbook-data/div/div/div/div/p-datatable/div/div[1]/table/tbody/tr[*]/td[11]/span/button[2]";
+    public static String workbookData_inactivateAction_xpath = ".//*[@id='content']/workbook-data/div/div/div/div/p-datatable/div/div[1]/table/tbody/tr[*]/td[11]/span/button[1]";
+    public static String workbookData_addNewData_xpath = ".//*[@id='content']/workbook-data/div/div/div/div/authorize/div/button[1]";
+    public static String workbookData_upload_xpath = ".//*[@id='content']/workbook-data/div/div/div/div/authorize/div/button[2]";
+    public static String workbookData_search_xpath = ".//*[@id='content']/workbook-data/div/div/div/div/authorize/div/button[3]";
+    /*
+     * Add new data
+     */
+    public static String workbookData_addNewDataEndDate_xpath = "//div[2]/div[2]/div/p-calendar/span/input";
+    public static String workbookData_addNewDataStartDate_xpath = "//div[2]/div[1]/div/p-calendar/span/input";
+
+
+
 }
 
 

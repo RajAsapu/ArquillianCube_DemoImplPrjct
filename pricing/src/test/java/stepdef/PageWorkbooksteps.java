@@ -119,11 +119,19 @@ public class PageWorkbooksteps extends PageCommonMethods {
         }
     }
 
-    @And("^clicked on data$")
-    public void clicked_on_data()throws Exception
+    @And("^clicked on \"([^\"]*)\"")
+    public void clicked_on_(String button)throws Exception
     {
-        // Clicked on data of the first workbook configuration displayed in the list
-        pageFactory.getListWorkBookMethods().clickOnData(0);
+        switch (button.toLowerCase())
+        {
+            case "data" : pageFactory.getListWorkBookMethods().clickOnData(0);
+                break;
+            case "definition" : pageFactory.getListWorkBookMethods().clickOnDefinition(0);
+                break;
+            case "add new data" : pageFactory.getWorkBookDataMethods().clickOnAddNewData();
+                break;
+            case "update" : pageFactory.getWorkBookDataMethods().clickOnUpdate();
+        }
     }
 
     @And("^the definition should be displayed with the below details$")

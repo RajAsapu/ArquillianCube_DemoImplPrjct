@@ -11,6 +11,7 @@ import functions.index.CreateIndexMethods;
 import functions.index.ListIndexMethods;
 import functions.workbook.CreateWorkBookMethods;
 import functions.workbook.ListWorkBookMethods;
+import functions.workbook.WorkBookDataMethods;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 
 public class PageFactory {
@@ -25,6 +26,7 @@ public class PageFactory {
     private CreateCurrencyExchangeMethods createCurrencyExchangeMethods = null;
     private ListFormulaMethods listFormulaMethods = null;
     private CreateFormulaMethods createFormulaMethods = null;
+    private WorkBookDataMethods workBookDataMethods = null;
 
     public PageCommonMethods getPageCommonMethods() {
         if(pageCommonMethods==null)
@@ -32,6 +34,14 @@ public class PageFactory {
             pageCommonMethods = new PageCommonMethods();
         }
         return pageCommonMethods;
+    }
+
+    public WorkBookDataMethods getWorkBookDataMethods() {
+        if(workBookDataMethods==null)
+        {
+            workBookDataMethods = new WorkBookDataMethods();
+        }
+        return workBookDataMethods;
     }
 
     private PageCommonMethods pageCommonMethods = null;

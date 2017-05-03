@@ -11,13 +11,20 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import setup.Constants;
 import setup.DriverBean;
-import stepdef.PageCommonSteps;
 
-public class PageCommonMethods{
+public class PageCommonMethods {
 
-    private static Logger log =null;
     public static EventFiringWebDriver edriver;
+    private static Logger log = null;
     private WebDriverWait webDriverWait;
+
+    /*
+  * Constructor to intialize the dependent classes
+  */
+    public PageCommonMethods() {
+        log = LoggerFactory.getLogger(PageCommonMethods.class);
+        edriver = DriverBean.getDriver();
+    }
 
     public void waitFor(long timeInSeconds) {
         try {
@@ -27,20 +34,6 @@ public class PageCommonMethods{
         }
     }
 
-    public enum module {
-        Calculation_Rule, Workbook, Index, Currency_Exchange, Formula
-    }
-    public enum page {
-        List, Create
-    }
-    /*
-  * Constructor to intialize the dependent classes
-  */
-    public PageCommonMethods()
-    {
-        log = LoggerFactory.getLogger(PageCommonMethods.class);
-        edriver = DriverBean.getDriver();
-    }
     /*
      * Method to navigate to a page under a module (eg : List under Index)
      *  Calculation Rule
@@ -49,38 +42,45 @@ public class PageCommonMethods{
      *  Currency Exchange
      *  Formula
      */
-    public void moveTo(page p, module m) throws Exception{
-        Actions act=new Actions(edriver);
+    public void moveTo(page p, module m) throws Exception {
+        Actions act = new Actions(edriver);
         act.moveToElement(edriver.findElement(By.linkText(m.toString().replace("_", " ")))).clickAndHold().perform();
         Thread.sleep(1000);
         act.click(edriver.findElement(By.linkText(p.toString()))).perform();
-        log.info("Navigated to "+p.toString()+" page under "+m.toString());
+        log.info("Navigated to " + p.toString() + " page under " + m.toString());
     }
+
     /*
      * Method to login to the application
      */
     public void login() {
-            edriver.findElement(By.id(Constants.login_username_id)).sendKeys(Constants.username);
-            edriver.findElement(By.id(Constants.login_password_id)).sendKeys(Constants.password);
-            edriver.findElement(By.id(Constants.login_submit_id)).click();
+        edriver.findElement(By.id(Constants.login_username_id)).sendKeys(Constants.username);
+        edriver.findElement(By.id(Constants.login_password_id)).sendKeys(Constants.password);
+        edriver.findElement(By.id(Constants.login_submit_id)).click();
     }
+
     /*
      * Method to verify if the error message is displayed or not
      * isDisplayed : true - Message should be displayed
      *               false - Message should not be displayed
      */
-    public void verifyIfErrorMessageIsDisplayed(String message,boolean isDisplayed)
-    {
+    public void verifyIfErrorMessageIsDisplayed(String message, boolean isDisplayed) {
         try {
             if (isDisplayed) {
                 Verify.verify(edriver.findElement(By.xpath("//*[normalize-space()='" + message + "']")).isDisplayed(), "Error Message is not displayed!!");
             } else {
                 Verify.verify(!edriver.findElement(By.xpath("//*[normalize-space()='" + message + "']")).isDisplayed(), "Error Message is displayed!!");
             }
+        } catch (NullPointerException | NoSuchElementException exp) {
+            Assert.fail("Error message is not displayed, Expected error message:" + message);
         }
-        catch (NullPointerException|NoSuchElementException exp)
-        {
-            Assert.fail("Error message is not displayed, Expected error message:"+message);
-        }
+    }
+
+    public enum module {
+        Calculation_Rule, Workbook, Index, Currency_Exchange, Formula
+    }
+
+    public enum page {
+        List, Create
     }
 }

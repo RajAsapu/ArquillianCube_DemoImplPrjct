@@ -7,7 +7,7 @@ import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 import setup.Constants;
-import setup.DriverBean;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -16,49 +16,48 @@ public class ListCurrencyExchangeMethods extends GenericWebElementMethods {
 
     private EventFiringWebDriver edriver;
 
-    public ListCurrencyExchangeMethods()
-    {
+    public ListCurrencyExchangeMethods() {
         edriver = getEdriver();
     }
 
-    public void setSearchType(String searchType)
-    {
-        selectFromDropDown_SelectTag(Constants.currencyExchangeList_type_xpath,searchType);
+    public void setSearchType(String searchType) {
+        selectFromDropDown_SelectTag(Constants.currencyExchangeList_type_xpath, searchType);
     }
-    public void setStartDate(String startDate)
-    {
-        selectDate(startDate,Constants.currencyExchangeList_startDatePicker_xpath,null);
+
+    public void setStartDate(String startDate) {
+        selectDate(startDate, Constants.currencyExchangeList_startDatePicker_xpath, null);
     }
-    public void setEndDate(String endDate)
-    {
-        selectDate(endDate,Constants.currencyExchangeList_endDatePicker_xpath,null);
+
+    public void setEndDate(String endDate) {
+        selectDate(endDate, Constants.currencyExchangeList_endDatePicker_xpath, null);
     }
-    public void setStatus(String status)
-    {
-        selectFromDropDown_SelectTag(Constants.currencyExchangeList_status_xpath,status);
+
+    public void setStatus(String status) {
+        selectFromDropDown_SelectTag(Constants.currencyExchangeList_status_xpath, status);
     }
-    public void setConverstionType(String converstionType)
-    {
-        selectFromDropDown_SelectTag(Constants.currencyExchangeList_convType_xpath,converstionType);
+
+    public void setConverstionType(String converstionType) {
+        selectFromDropDown_SelectTag(Constants.currencyExchangeList_convType_xpath, converstionType);
     }
-    public void setCurrencyFrom(String currencyFrom)
-    {
-        selectFromDropDown_SelectTag(Constants.currencyExchangeList_currForm_xpath,currencyFrom);
+
+    public void setCurrencyFrom(String currencyFrom) {
+        selectFromDropDown_SelectTag(Constants.currencyExchangeList_currForm_xpath, currencyFrom);
     }
-    public void setCurrencyTo(String currencyTo)
-    {
-        selectFromDropDown_SelectTag(Constants.currencyExchangeList_currTo_xpath,currencyTo);
+
+    public void setCurrencyTo(String currencyTo) {
+        selectFromDropDown_SelectTag(Constants.currencyExchangeList_currTo_xpath, currencyTo);
     }
-    public void clickOnSearch()
-    {
+
+    public void clickOnSearch() {
 
     }
-    public void verifyIfThePageIsListPage()
-    {
+
+    public void verifyIfThePageIsListPage() {
         if (!edriver.getCurrentUrl().contains("/currency-exchange/list")) {
             Assert.fail("Currency Exchange info is not created");
         }
     }
+
     public void verifyIfStatusMatchingTheFilter(String status) {
         List<WebElement> statusList;
         try {
@@ -68,7 +67,7 @@ public class ListCurrencyExchangeMethods extends GenericWebElementMethods {
         }
         statusList = edriver.findElements(By.xpath(Constants.currencyExchangeList_statusColumn_xpath));
         if (statusList.size() != 0 && !statusList.listIterator().next().getText().equals("No records found")) {
-            while(true) {
+            while (true) {
                 try {
                     statusList = edriver.findElements(By.xpath(Constants.currencyExchangeList_statusColumn_xpath));
                     for (WebElement temp : statusList) {
@@ -77,15 +76,14 @@ public class ListCurrencyExchangeMethods extends GenericWebElementMethods {
                         }
                     }
                     break;
-                }catch (StaleElementReferenceException exp)
-                {
+                } catch (StaleElementReferenceException exp) {
                     continue;
                 }
             }
         }
     }
 
-    public void verifyIfRateTypeMatchingTheFilter(String rateType){
+    public void verifyIfRateTypeMatchingTheFilter(String rateType) {
         List<WebElement> typeList;
         typeList = edriver.findElements(By.xpath(Constants.currencyExchangeList_rateTypeColumn_xpath));
         if (typeList.size() != 0 && !typeList.listIterator().next().getText().equals("No records found")) {
@@ -99,7 +97,7 @@ public class ListCurrencyExchangeMethods extends GenericWebElementMethods {
         }
     }
 
-    public void verifyIfRateMatchingTheFilter()  {
+    public void verifyIfRateMatchingTheFilter() {
         List<WebElement> typeList;
         typeList = edriver.findElements(By.xpath(Constants.currencyExchangeList_rateColumn_xpath));
         if (typeList.size() != 0 && !typeList.listIterator().next().getText().equals("No records found")) {
@@ -112,7 +110,7 @@ public class ListCurrencyExchangeMethods extends GenericWebElementMethods {
         }
     }
 
-    public void verifyIfCurrenyFromIsMatchingTheFilter(String currencyFrom)  {
+    public void verifyIfCurrenyFromIsMatchingTheFilter(String currencyFrom) {
         List<WebElement> fromList;
         fromList = edriver.findElements(By.xpath(Constants.currencyExchangeList_fromColumn_xpath));
         if (fromList.size() != 0 && !fromList.listIterator().next().getText().equals("No records found")) {
@@ -156,9 +154,7 @@ public class ListCurrencyExchangeMethods extends GenericWebElementMethods {
                     }
                 }
             }
-        }
-        catch (Exception exp)
-        {
+        } catch (Exception exp) {
             exp.printStackTrace();
         }
     }

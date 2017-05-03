@@ -6,22 +6,20 @@ import setup.PageFactory;
 
 public class PageWorkbookDataSteps {
     final static Logger logger = Logger.getLogger(PageWorkbooksteps.class.getName());
-    private PageFactory pageFactory;
     String temp;
+    private PageFactory pageFactory;
 
-    public PageWorkbookDataSteps()
-    {
+    public PageWorkbookDataSteps() {
         pageFactory = new PageFactory();
     }
 
     @And("^set the start date for data as \"([^\"]*)\"$")
-    public void set_the_start_date_for_data_as(String startDate)
-    {
+    public void set_the_start_date_for_data_as(String startDate) {
         pageFactory.getWorkBookDataMethods().setStartDate(startDate);
     }
+
     @And("^set the end date for data as \"([^\"]*)\"$")
-    public void set_the_end_date_for_data_as(String endDate)
-    {
+    public void set_the_end_date_for_data_as(String endDate) {
         pageFactory.getWorkBookDataMethods().setEndDate(endDate);
     }
 

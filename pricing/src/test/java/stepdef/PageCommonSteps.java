@@ -22,8 +22,7 @@ public class PageCommonSteps extends BaseClass {
     private UpdateProperties updateProperties;
     private String environment = null;
 
-    public PageCommonSteps()
-    {
+    public PageCommonSteps() {
         updateProperties = new UpdateProperties();
         environment = updateProperties.getEnv();
         pageFactory = new PageFactory();
@@ -42,9 +41,9 @@ public class PageCommonSteps extends BaseClass {
 
         if (environment.equalsIgnoreCase("Docker")) {
             edriver = initBrowser(updateProperties.getProperty("pricing.ui"));
-        } else if (environment.equalsIgnoreCase("Test")){
+        } else if (environment.equalsIgnoreCase("Test")) {
             edriver = initBrowser("https://epe-priceconfig-ui.test.aws.wfscorp.com");
-        } else if(environment.equalsIgnoreCase("Dev")){
+        } else if (environment.equalsIgnoreCase("Dev")) {
             edriver = initBrowser("https://epe-priceconfig-ui.dev.aws.wfscorp.com");
         }
         DriverBean.setDriver(edriver);
@@ -56,12 +55,11 @@ public class PageCommonSteps extends BaseClass {
      */
     @When("^clicks on the search button$")
     public void clicks_on_the_search_button() {
-        WebElement search=edriver.findElement(By.xpath(Constants.indexCreate_search_xpath));
-        if(!search.isEnabled())
-        {
+        WebElement search = edriver.findElement(By.xpath(Constants.indexCreate_search_xpath));
+        if (!search.isEnabled()) {
             Assert.fail("Search Button is not enabled");
         }
-        Actions actions=new Actions(edriver);
+        Actions actions = new Actions(edriver);
         actions.click(search).perform();
     }
 

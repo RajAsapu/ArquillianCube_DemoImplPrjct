@@ -18,41 +18,41 @@
         <property name="autoStartContainers">custom:setup.AutoStartContainersOrder</property>
         <property name="cubeSpecificProperties">
             jdatabase:
-                await:
-                    strategy: log
-                    match: 'DSE startup complete'
-                    sleepPollingTime: 5 s
-                    iterations: 20
-                    timeout: 1800
+            await:
+            strategy: log
+            match: 'DSE startup complete'
+            sleepPollingTime: 5 s
+            iterations: 20
+            timeout: 1800
             jservice:
-                await:
-                    strategy: http
-                    match: 'startup'
-                    responseCode: 200
-                    url: http://localhost:8080/swagger-ui.html
-                    sleepPollingTime: 5 s
-                    iterations: 20
-                    timeout: 1800
+            await:
+            strategy: http
+            match: 'startup'
+            responseCode: 200
+            url: http://localhost:8080/swagger-ui.html
+            sleepPollingTime: 5 s
+            iterations: 20
+            timeout: 1800
             jui:
-                await:
-                    strategy: polling
-                    sleepPollingTime: 5 s
-                    iterations: 5
-                    timeout: 1800
+            await:
+            strategy: polling
+            sleepPollingTime: 5 s
+            iterations: 5
+            timeout: 1800
             jdatamock:
-                await:
-                    strategy: log
-                    match: 'Successfully connected'
-                    sleepPollingTime: 5 s
-                    iterations: 20
-                    timeout: 1800
+            await:
+            strategy: log
+            match: 'Successfully connected'
+            sleepPollingTime: 5 s
+            iterations: 20
+            timeout: 1800
             jengine:
-                await:
-                    strategy: log
-                    match: 'Initializing Spring FrameworkServlet'
-                    sleepPollingTime: 5 s
-                    iterations: 20
-                    timeout: 1800
+            await:
+            strategy: log
+            match: 'Initializing Spring FrameworkServlet'
+            sleepPollingTime: 5 s
+            iterations: 20
+            timeout: 1800
         </property>
     </extension>
 </arquillian>

@@ -30,10 +30,8 @@ public class AutoStartContainersOrder implements AutoStartParser {
         final Map<String, Node> nodes = new HashMap<>();
         final Set<String> containersNames = new TreeSet<>(dockerContainersContent.getContainers().keySet());
         String environment = updateProperties.getEnv();
-        if(environment.equals("Docker"))
-        {
-            for (String name : containersNames)
-            {
+        if (environment.equals("Docker")) {
+            for (String name : containersNames) {
                 nodes.put(new StringBuilder(name).reverse().toString(), Node.from(name));
             }
         }

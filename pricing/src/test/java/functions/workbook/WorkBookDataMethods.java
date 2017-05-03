@@ -7,38 +7,36 @@ import setup.Constants;
 /**
  * Created by root on 5/1/17.
  */
-public class WorkBookDataMethods extends GenericWebElementMethods{
+public class WorkBookDataMethods extends GenericWebElementMethods {
     private EventFiringWebDriver edriver;
 
-    public WorkBookDataMethods()
-    {
+    public WorkBookDataMethods() {
         edriver = getEdriver();
     }
 
-    public void clickOnAddNewData()
-    {
+    public void clickOnAddNewData() {
         clickButton(Constants.workbookData_addNewData_xpath);
     }
-    public void clickOnSearch()
-    {
+
+    public void clickOnSearch() {
         clickButton(Constants.workbookData_search_xpath);
     }
-    public void clickOnUpload()
-    {
+
+    public void clickOnUpload() {
         clickButton(Constants.workbookData_upload_xpath);
     }
-    public void setStartDate(String startDate)
-    {
-        sendKeysToWE(Constants.workbookData_addNewDataStartDate_xpath,startDate);
+
+    public void setStartDate(String startDate) {
+        sendKeysToWE(Constants.workbookData_addNewDataStartDate_xpath, startDate);
         clickOnTab();
     }
-    public void setEndDate(String endDate)
-    {
-        sendKeysToWE(Constants.workbookData_addNewDataEndDate_xpath,endDate);
+
+    public void setEndDate(String endDate) {
+        sendKeysToWE(Constants.workbookData_addNewDataEndDate_xpath, endDate);
         clickOnTab();
     }
-    public void clickOnUpdate()
-    {
+
+    public void clickOnUpdate() {
         clickButton(Constants.workbookData_editAction_xpath);
     }
 

@@ -16,23 +16,23 @@ Feature: Workbook List Page
     And   has a default value
     And   set the default value to "<defaultValue>"
     And   select below attributes
-      |Supplier|
-      |Supplier Site|
+      | Supplier      |
+      | Supplier Site |
     And   clicks on the submit button
     Then  the workbook configuration should be created
 
-  Examples:
-  | name     |  description | formulaType   |  segmentType  |  defaultValue     |
-  | Test01     |  for testing | PRICE         |  LAND         |  20             |
+    Examples:
+      | name   | description | formulaType | segmentType | defaultValue |
+      | Test01 | for testing | PRICE       | LAND        | 20           |
 
   Scenario Outline: To verify if the user is able to filter the work book configuration list using name,description,formulaType and segment.
     Given the user has navigated to the "List" page under the "Workbook"
     When  the user filters workbook configuration list using "<filter>"
     Then  the list workbook configuration list should be filtered with the "<filter>"
     Examples:
-    | filter       |
-    | name         |
-    | description  |
-    | formulaType  |
-    | segment      |
+      | filter      |
+      | name        |
+      | description |
+      | formulaType |
+      | segment     |
 

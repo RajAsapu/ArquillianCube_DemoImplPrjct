@@ -10,6 +10,7 @@ import org.openqa.selenium.support.events.EventFiringWebDriver;
 import setup.Constants;
 import setup.DriverBean;
 import setup.PageFactory;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -17,7 +18,7 @@ import java.util.List;
 public class PageForumlaSteps {
     private static EventFiringWebDriver edriver;
     private PageFactory pageFactory;
-    private String temp =null;
+    private String temp = null;
 
     public PageForumlaSteps() {
         edriver = DriverBean.getDriver();
@@ -37,12 +38,13 @@ public class PageForumlaSteps {
         Thread.sleep(3000);
         pageFactory.getListFormulaMethods().verifyIfFilterIsApplied(filter);
     }
+
     /*
      * Create Formula with name
      */
     @When("^the user creates a formula with \"([^\"]*)\"$")
     public void the_user_creates_a_formula_with(String name) throws Throwable {
-       pageFactory.getCreateFormulaMethods().setName(name);
+        pageFactory.getCreateFormulaMethods().setName(name);
     }
 
     @When("^description as \"([^\"]*)\"$")
@@ -83,7 +85,7 @@ public class PageForumlaSteps {
     @When("^enter the details for the paramters$")
     public void enter_the_details_for_the_paramters(DataTable arg1) throws Throwable {
         List<List<String>> params = arg1.raw();
-       pageFactory.getCreateFormulaMethods().addParameters(params);
+        pageFactory.getCreateFormulaMethods().addParameters(params);
     }
 
     @When("^validate the expression and click on Create$")
@@ -93,7 +95,7 @@ public class PageForumlaSteps {
 
     @Then("^the formula (should|should not) be (created|updated)$")
     public void the_formula_should_be_createdUpdated(String perform, String action) throws Throwable {
-        pageFactory.getCreateFormulaMethods().verifyIfFormulaCreatedOrNot(perform,action);
+        pageFactory.getCreateFormulaMethods().verifyIfFormulaCreatedOrNot(perform, action);
     }
 
     @When("^the user clicks on \"([^\"]*)\" button$")
@@ -121,15 +123,17 @@ public class PageForumlaSteps {
     @And("^the user inactivates the formula$")
     public void the_user_inactivates_the_formula() { // Used for readability
     }
+
     @Then("^the formula should be displayed as inactive$")
     public void the_formula_should_be_displayed_as_inactive() throws Exception {
         pageFactory.getListFormulaMethods().verifyIfFormulaIsInactivated();
     }
 
     @And("^the user shall be able to view all the formula details$")
-    public void the_user_shall_be_able_to_view_all_the_formuladetails()throws Exception {
+    public void the_user_shall_be_able_to_view_all_the_formuladetails() throws Exception {
         pageFactory.getCreateFormulaMethods().verifyIfUserIsAbleToViewAllDetails();
     }
+
     /*
      * Move to the List Formula Methods Class
      */

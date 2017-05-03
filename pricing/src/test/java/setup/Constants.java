@@ -23,7 +23,7 @@ public class Constants {
     public static String indexList_startdatepicker_xpath = ".//*[@id='content']/calc-rule-list/div/div/div/p-panel/div/div[2]/div/form/div/div[1]/div[1]/div/p-calendar/span/button";
     public static String indexList_StartDateColumn_xpath = "//*/p-datatable/div/div[2]/table/tbody/tr[*]/td[2]";
     public static String indexList_enddatepicker_xapth = ".//*[@id='content']/calc-rule-list/div/div/div/p-panel/div/div[2]/div/form/div/div[1]/div[2]/div/p-calendar/span/button";
-    public static String indexList_endDate_xpath= ".//*[@id='content']/calc-rule-list/div/div/div/p-panel/div/div[2]/div/form/div/div[1]/div[2]/div/p-calendar/span/input";
+    public static String indexList_endDate_xpath = ".//*[@id='content']/calc-rule-list/div/div/div/p-panel/div/div[2]/div/form/div/div[1]/div[2]/div/p-calendar/span/input";
     public static String indexList_EndDateColumn_xpath = "//*/p-datatable/div/div[2]/table/tbody/tr[*]/td[3]";
     public static String indexList_search_xpath = "//button[@label='Search']";
     public static String indexList_StatusColumn_xpath = "//*/p-datatable/div/div[2]/table/tbody/tr[*]/td[1]";
@@ -51,7 +51,7 @@ public class Constants {
     public static String indexCreate_highprice_xpath = "//*[@id='txtHigh']";
     public static String indexCreate_closeprice_xpath = ".//input[@type='number']";
     public static String indexCreate_startDatePicker_xpath = ".//*[@id='content']/app-index/div/div/div/div/div/div/form/div[2]/div/p-calendar/span/button";
-    public static String indexCreate_startDate_xpath=".//*[@id='content']/app-index/div/div/div/div/div/div/form/div[2]/div/p-calendar/span/input";
+    public static String indexCreate_startDate_xpath = ".//*[@id='content']/app-index/div/div/div/div/div/div/form/div[2]/div/p-calendar/span/input";
     public static String indexCreate_endDatePicker_xpath = ".//*[@id='content']/app-index/div/div/div/div/div/div/form/div[3]/div/p-calendar/span/button";
     public static String indexCreate_endDate_xpath = ".//*[@id='content']/app-index/div/div/div/div/div/div/form/div[3]/div/p-calendar/span/input";
     public static String indexCreate_currency_xpath = ".//*[@id='content']/app-index/div/div/div/div/div/div/form/div[4]/div/select";
@@ -271,7 +271,6 @@ public class Constants {
      */
     public static String workbookData_addNewDataEndDate_xpath = "//div[2]/div[2]/div/p-calendar/span/input";
     public static String workbookData_addNewDataStartDate_xpath = "//div[2]/div[1]/div/p-calendar/span/input";
-
 
 
 }

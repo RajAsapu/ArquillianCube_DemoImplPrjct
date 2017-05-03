@@ -6,7 +6,6 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.github.dockerjava.api.DockerClient;
 import com.github.dockerjava.api.command.InspectContainerResponse;
 import com.github.dockerjava.core.DockerClientBuilder;
-import com.google.common.io.Files;
 
 import java.io.*;
 import java.net.URL;
@@ -20,25 +19,24 @@ public class UpdateProperties {
     File resourceFile;
     String resourceFilePath;
     PrintWriter out;
-    private DockerClient dockerClient;
     FileReader read;
     File hostConfigFile;
     InputStream inputStream;
+    private DockerClient dockerClient;
 
     public UpdateProperties() {
 
     }
 
-    public void setProperty(Map<String,String> map) {
-        try{
+    public void setProperty(Map<String, String> map) {
+        try {
 //            resourceFile = new File("pricing.properties");
             URL pricingPath = UpdateProperties.class.getClassLoader().getResource("pricing.properties");
             out = new PrintWriter(pricingPath.getPath());
             out.println("#Pricing Application - Container Properties#");
-        for(Map.Entry<String,String> entry:map.entrySet())
-        {
-            out.println(entry.getKey()+"=http://"+entry.getValue()+"/");
-        }
+            for (Map.Entry<String, String> entry : map.entrySet()) {
+                out.println(entry.getKey() + "=http://" + entry.getValue() + "/");
+            }
             out.close();
         } catch (Exception exp) {
             exp.printStackTrace();
@@ -46,17 +44,16 @@ public class UpdateProperties {
     }
 
     public String getProperty(String propertyName) {
-            ResourceBundle resourceBundle = ResourceBundle.getBundle("pricing");
-            return resourceBundle.getString(propertyName);
+        ResourceBundle resourceBundle = ResourceBundle.getBundle("pricing");
+        return resourceBundle.getString(propertyName);
     }
 
-    public String getEnv()
-    {
+    public String getEnv() {
         ResourceBundle resourceBundle = ResourceBundle.getBundle("application");
         return resourceBundle.getString("env");
     }
 
-    public void updateHostConfig()throws Exception {
+    public void updateHostConfig() throws Exception {
         JsonNode root;
         String resultUpdate;
         FileWriter fwrite;
@@ -66,8 +63,7 @@ public class UpdateProperties {
          */
         if (getEnv().equals("Docker")) {
             hostConfigFile = new File("./hostConfig.json");
-            if(!hostConfigFile.exists())
-            {
+            if (!hostConfigFile.exists()) {
                 hostConfigFile.createNewFile();
                 fwrite = new FileWriter(hostConfigFile);
                 fwrite.write("{ }");
@@ -91,8 +87,7 @@ public class UpdateProperties {
         }
     }
 
-    public String getContainerIdUsingName(String containerName)
-    {
+    public String getContainerIdUsingName(String containerName) {
         InspectContainerResponse containerInfo = dockerClient.inspectContainerCmd(containerName).exec();
         return containerInfo.getId();
     }

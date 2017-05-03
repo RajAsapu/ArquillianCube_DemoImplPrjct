@@ -11,16 +11,17 @@ import org.openqa.selenium.support.events.EventFiringWebDriver;
 import setup.Constants;
 import setup.DriverBean;
 import setup.PageFactory;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class PageCalculationRuleSteps  {
+public class PageCalculationRuleSteps {
 
     final static Logger logger = Logger.getLogger(PageIndexSteps.class.getName());
     private static EventFiringWebDriver edriver;
-    private PageFactory pageFactory;
     public String ruleName;
+    private PageFactory pageFactory;
 
     public PageCalculationRuleSteps() {
         edriver = DriverBean.getDriver();
@@ -143,16 +144,11 @@ public class PageCalculationRuleSteps  {
 
     @When("^the user enters \"([^\"]*)\" as \"([^\"]*)\"$")
     public void the_user_enters_as(String filter, String key) throws Throwable {
-        if (filter.equalsIgnoreCase("Name"))
-        {
-           pageFactory.getListCalculationRuleMethods().setFilterName(key);
-        }
-        else if (filter.equalsIgnoreCase("Type"))
-        {
+        if (filter.equalsIgnoreCase("Name")) {
+            pageFactory.getListCalculationRuleMethods().setFilterName(key);
+        } else if (filter.equalsIgnoreCase("Type")) {
             pageFactory.getListCalculationRuleMethods().setTypeName(key);
-        }
-        else if (filter.equalsIgnoreCase("Description"))
-        {
+        } else if (filter.equalsIgnoreCase("Description")) {
             pageFactory.getListCalculationRuleMethods().setDescriptionName(key);
         }
     }
@@ -162,7 +158,7 @@ public class PageCalculationRuleSteps  {
         String filter = table.get(0).get(0);
         String value = table.get(0).get(1);
 
-        pageFactory.getListCalculationRuleMethods().verifyDataInRowsMatchTheSearhFilter(filter,value);
+        pageFactory.getListCalculationRuleMethods().verifyDataInRowsMatchTheSearhFilter(filter, value);
     }
 
     @And("^the user clicks on the add new rule button$")
@@ -174,6 +170,7 @@ public class PageCalculationRuleSteps  {
     public void the_user_clicks_on(String button) throws Throwable {
         pageFactory.getListCalculationRuleMethods().clickOnAction(button);
     }
+
     /*
      * Move to the class implimentation file
      */
@@ -233,28 +230,25 @@ public class PageCalculationRuleSteps  {
 
     @When("^the user clicks on the (view|edit) button of a plan$")
     public void the_user_clicks_on_the_view_button_of_a_plan(String act) throws Throwable {
-        if (act.equals("view"))
-        {
+        if (act.equals("view")) {
             pageFactory.getListCalculationRuleMethods().clickOnAction("view");
-        } else if (act.equals("edit"))
-        {
+        } else if (act.equals("edit")) {
             pageFactory.getListCalculationRuleMethods().clickOnAction("edit");
         }
     }
 
     @Then("^the user shall be able to (view|edit) the calculation rule details$")
     public void the_user_shall_be_able_to_view_the_calculation_rule_details(String act, DataTable table) throws Throwable {
-            pageFactory.getCreateCalculationRuleMethods().verifyIfUserIsAbleToViewOrEditDetails(act,table);
+        pageFactory.getCreateCalculationRuleMethods().verifyIfUserIsAbleToViewOrEditDetails(act, table);
     }
 
     @Then("^the application displays an error message as \"(.*)\"$")
     public void the_application_displays_an_error_message_as(String errMsg) throws Throwable {
-        pageFactory.getPageCommonMethods().verifyIfErrorMessageIsDisplayed(errMsg,true);
+        pageFactory.getPageCommonMethods().verifyIfErrorMessageIsDisplayed(errMsg, true);
     }
 
     @Then("^the application accepts the input$")
-    public void the_application_accepts_the_input()
-    {
-        pageFactory.getPageCommonMethods().verifyIfErrorMessageIsDisplayed("End date cannot be before start date",false);
+    public void the_application_accepts_the_input() {
+        pageFactory.getPageCommonMethods().verifyIfErrorMessageIsDisplayed("End date cannot be before start date", false);
     }
 }

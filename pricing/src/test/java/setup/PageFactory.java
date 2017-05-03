@@ -12,7 +12,6 @@ import functions.index.ListIndexMethods;
 import functions.workbook.CreateWorkBookMethods;
 import functions.workbook.ListWorkBookMethods;
 import functions.workbook.WorkBookDataMethods;
-import org.openqa.selenium.support.events.EventFiringWebDriver;
 
 public class PageFactory {
 
@@ -27,28 +26,24 @@ public class PageFactory {
     private ListFormulaMethods listFormulaMethods = null;
     private CreateFormulaMethods createFormulaMethods = null;
     private WorkBookDataMethods workBookDataMethods = null;
+    private PageCommonMethods pageCommonMethods = null;
 
     public PageCommonMethods getPageCommonMethods() {
-        if(pageCommonMethods==null)
-        {
+        if (pageCommonMethods == null) {
             pageCommonMethods = new PageCommonMethods();
         }
         return pageCommonMethods;
     }
 
     public WorkBookDataMethods getWorkBookDataMethods() {
-        if(workBookDataMethods==null)
-        {
+        if (workBookDataMethods == null) {
             workBookDataMethods = new WorkBookDataMethods();
         }
         return workBookDataMethods;
     }
 
-    private PageCommonMethods pageCommonMethods = null;
-
     public ListCalculationRuleMethods getListCalculationRuleMethods() {
-        if(listCalculationRuleMethods==null)
-        {
+        if (listCalculationRuleMethods == null) {
             listCalculationRuleMethods = new ListCalculationRuleMethods();
         }
         return listCalculationRuleMethods;
@@ -56,8 +51,7 @@ public class PageFactory {
 
 
     public CreateCalculationRuleMethods getCreateCalculationRuleMethods() {
-        if(createCalculationRuleMethods==null)
-        {
+        if (createCalculationRuleMethods == null) {
             createCalculationRuleMethods = new CreateCalculationRuleMethods();
         }
         return createCalculationRuleMethods;
@@ -65,16 +59,14 @@ public class PageFactory {
 
 
     public ListWorkBookMethods getListWorkBookMethods() {
-        if(listWorkBookMethods==null)
-        {
+        if (listWorkBookMethods == null) {
             listWorkBookMethods = new ListWorkBookMethods();
         }
         return listWorkBookMethods;
     }
 
     public CreateWorkBookMethods getCreateWorkBookMethods() {
-        if(createWorkBookMethods==null)
-        {
+        if (createWorkBookMethods == null) {
             createWorkBookMethods = new CreateWorkBookMethods();
         }
         return createWorkBookMethods;
@@ -82,48 +74,42 @@ public class PageFactory {
 
 
     public ListIndexMethods getListIndexMethods() {
-        if(listIndexMethods==null)
-        {
+        if (listIndexMethods == null) {
             listIndexMethods = new ListIndexMethods();
         }
         return listIndexMethods;
     }
 
     public CreateIndexMethods getCreateIndexMethods() {
-        if(createIndexMethods==null)
-        {
+        if (createIndexMethods == null) {
             createIndexMethods = new CreateIndexMethods();
         }
         return createIndexMethods;
     }
 
     public ListCurrencyExchangeMethods getListCurrencyExchangeMethods() {
-        if(listCurrencyExchangeMethods==null)
-        {
+        if (listCurrencyExchangeMethods == null) {
             listCurrencyExchangeMethods = new ListCurrencyExchangeMethods();
         }
         return listCurrencyExchangeMethods;
     }
 
     public CreateCurrencyExchangeMethods getCreateCurrencyExchangeMethods() {
-        if(createCurrencyExchangeMethods==null)
-        {
+        if (createCurrencyExchangeMethods == null) {
             createCurrencyExchangeMethods = new CreateCurrencyExchangeMethods();
         }
         return createCurrencyExchangeMethods;
     }
 
     public ListFormulaMethods getListFormulaMethods() {
-        if(listFormulaMethods==null)
-        {
+        if (listFormulaMethods == null) {
             listFormulaMethods = new ListFormulaMethods();
         }
         return listFormulaMethods;
     }
 
     public CreateFormulaMethods getCreateFormulaMethods() {
-        if(createFormulaMethods==null)
-        {
+        if (createFormulaMethods == null) {
             createFormulaMethods = new CreateFormulaMethods();
         }
         return createFormulaMethods;

@@ -9,14 +9,13 @@
         <property name="serverUri">http://localhost:2375</property>
         <property name="dockerRegistry">http://jfrog.aws.wfscorp.com/artifactory/docker/docker-dev-local/</property>
         <!--<property name="username">rasapu</property>-->
-        <!--<property name="password">Sekhar@123</property>-->
+        <!--<property name="password"></property>-->
         <property name="clean">true</property>
         <property name="dockerContainersFile">src/test/resources/docker-compose.yml</property>
         <property name="definitionFormat">CUBE</property>
         <property name="cleanBuildImage">true</property>
         <property name="connectionMode">STARTORCONNECTANDLEAVE</property>
-        <!--<property name="autoStartContainers">custom:setup.AutoStartContainersOrder</property>-->
-        <property name="autoStartContainers">jui</property>
+        <property name="autoStartContainers">custom:setup.AutoStartContainersOrder</property>
         <property name="cubeSpecificProperties">
             jdatabase:
                 await:

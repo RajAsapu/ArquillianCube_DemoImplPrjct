@@ -5,14 +5,15 @@ import cucumber.api.DataTable;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import functions.CreateIndexMethods;
-import functions.ListIndexMethods;
+import functions.index.ListIndexMethods;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 import setup.Constants;
 import setup.DriverBean;
+import setup.PageFactory;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -21,23 +22,19 @@ import java.util.List;
 public class PageIndexSteps {
 
     final static Logger logger = Logger.getLogger(PageIndexSteps.class.getName());
-    private static EventFiringWebDriver edriver;
-    public PageCommonSteps pageCommonSteps;
-    private ListIndexMethods listIndexMethods;
-    private CreateIndexMethods createIndexMethods;
+    private EventFiringWebDriver edriver;
+    private PageFactory pageFactory;
 
     public PageIndexSteps() {
         edriver = DriverBean.getDriver();
-        pageCommonSteps = new PageCommonSteps();
-        listIndexMethods = new ListIndexMethods();
-        createIndexMethods = new CreateIndexMethods();
+        pageFactory = new PageFactory();
     }
 
 
     @When("^the user enters the start date as ([^\"]*) and status as ([^\"]*)$")
-    public void the_user_enters_the_start_date_as_and_status_as(String date, String status) throws Exception {
-        listIndexMethods.setStartDate(date);
-        listIndexMethods.setStatus(status);
+    public void the_user_enters_the_start_date_as_and_status_as(String date, String status) {
+        pageFactory.getListIndexMethods().setStartDate(date);
+        pageFactory.getListIndexMethods().setStatus(status);
     }
 
     @Then("^the user shall be able to view the list of indexes with start date from \"([^\"]*)\" and status as \"([^\"]*)\"$")
@@ -53,7 +50,7 @@ public class PageIndexSteps {
         }
         Thread.sleep(4000);
         List<WebElement> startdateList = edriver.findElements(By.xpath(Constants.indexList_StartDateColumn_xpath));
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd");
+        SimpleDateFormat formatter = new SimpleDateFormat("DD-MMM-YYYY");
         Date dateSelected = formatter.parse(arg1);
         for (WebElement temp : startdateList) {
             Date tempDate = formatter.parse(temp.getText());
@@ -64,8 +61,8 @@ public class PageIndexSteps {
 
     @When("^the user enters the end date as \"([^\"]*)\" and status as \"([^\"]*)\"$")
     public void the_user_enters_the_end_date_as_and_status_as(String endDate, String status) throws Throwable {
-        listIndexMethods.setEndDate(endDate);
-        listIndexMethods.setStatus(status);
+        pageFactory.getListIndexMethods().setEndDate(endDate);
+        pageFactory.getListIndexMethods().setStatus(status);
     }
 
     /*
@@ -74,16 +71,24 @@ public class PageIndexSteps {
     @Then("^the user shall be able to view the list of indexes with end date from \"([^\"]*)\" and status as \"([^\"]*)\"$")
     public void the_user_shall_be_able_to_view_the_list_of_indexes_with_end_date_from_and_status_as(String arg1,
                                                                                                     String arg2) throws Throwable {
-        List<WebElement> statusList = edriver.findElements(By.xpath(Constants.indexList_StatusColumn_xpath));
+        List<WebElement> statusList;
+        while (true) {
+            try {
+                statusList = edriver.findElements(By.xpath(Constants.indexList_StatusColumn_xpath));
 
-        for (WebElement temp : statusList) {
-            if (!temp.getText().equals(arg2)) {
-                assert false;
+                for (WebElement temp : statusList) {
+                    if (!temp.getText().equals(arg2)) {
+                        assert false;
+                    }
+                }
+                break;
+            } catch (StaleElementReferenceException exp) {
+                continue;
             }
         }
 
         List<WebElement> startdateList = edriver.findElements(By.xpath(Constants.indexList_EndDateColumn_xpath));
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd");
+        SimpleDateFormat formatter = new SimpleDateFormat("DD-MMM-YYYY");
         Date dateSelected = formatter.parse(arg1);
         for (WebElement temp : startdateList) {
             Date tempDate = null;
@@ -91,7 +96,7 @@ public class PageIndexSteps {
                 tempDate = formatter.parse(temp.getText());
             } catch (java.text.ParseException exp) {
                 if (exp.getMessage().contains("Unparseable date: \"\"")) {
-                    throw new Exception("End date is empty !!");
+                    continue;
                 } else {
                     exp.printStackTrace();
                 }
@@ -105,50 +110,73 @@ public class PageIndexSteps {
 
     @When("^the user enters the type as ([^\"]*)$")
     public void the_user_enters_the_type_as(String type) throws Throwable {
-        listIndexMethods.setType(type);
+        pageFactory.getListIndexMethods().setType(type);
     }
 
     @Then("^the user shall be able to view the list of indexes with type as \"([^\"]*)\"$")
     public void the_user_shall_be_able_to_view_the_list_of_indexes_with_type_as(String type) throws Throwable {
+        while (true) {
+            try {
+                List<WebElement> typeList = edriver.findElements(By.xpath(Constants.indexList_typeColumn_xpath));
 
-        List<WebElement> typeList = edriver.findElements(By.xpath(Constants.indexList_typeColumn_xpath));
-
-        for (WebElement temp : typeList) {
-            if (!temp.getText().equals(type)) {
-                throw new Exception("Type doesn't match (Expected:+" + type + ",Actual:" + temp.getText() + ") !!");
+                for (WebElement temp : typeList) {
+                    if (!temp.getText().equals(type)) {
+                        throw new Exception("Type doesn't match (Expected:+" + type + ",Actual:" + temp.getText() + ") !!");
+                    }
+                }
+                break;
+            } catch (StaleElementReferenceException exp) {
+                continue;
+            } catch (Exception exp) {
+                exp.printStackTrace();
+                break;
             }
         }
-
     }
 
     @When("^the user enters rate basis as ([^\"]*)$")
     public void the_user_enters_rate_basis_as(String rateBasis) throws Exception {
-        createIndexMethods.setRateBasis(rateBasis);
+        pageFactory.getCreateIndexMethods().setRateBasis(rateBasis);
+    }
+
+    @When("^the user enters rate basis in search as ([^\"]*)$")
+    public void the_user_enters_rate_basis_in_search_as(String rateBasis) throws Exception {
+        pageFactory.getListIndexMethods().setRateBasis(rateBasis);
     }
 
     @When("^name as ([^\"]*)$")
     public void name_as(String name) throws Throwable {
-        createIndexMethods.setName(name);
+        pageFactory.getCreateIndexMethods().setName(name);
     }
 
     @Then("^the codes shall be auto populated$")
     public void the_codes_shall_be_auto_populated() throws Exception {
-
+        // Used for readability
     }
 
     @And("^comment as ([^\"]*)$")
     public void comment_as(String comment) throws Throwable {
-        createIndexMethods.setComments(comment);
+        pageFactory.getCreateIndexMethods().setComments(comment);
     }
 
     @When("^currency as ([^\"]*)$")
     public void currency_as(String currency) throws Throwable {
-        createIndexMethods.setCurrency(currency);
+        pageFactory.getCreateIndexMethods().setCurrency(currency);
+    }
+
+    @When("^currency in search ([^\"]*)$")
+    public void currency_in_search(String currency) throws Throwable {
+        pageFactory.getListIndexMethods().setCurrency(currency);
     }
 
     @When("^unit of measurement as ([^\"]*)$")
     public void unit_of_measurement_as(String uom) throws Throwable {
-        createIndexMethods.setUom(uom);
+        pageFactory.getCreateIndexMethods().setUom(uom);
+    }
+
+    @When("^unit of measurement in search as ([^\"]*)$")
+    public void unit_of_measurement_in_search(String uom) throws Throwable {
+        pageFactory.getListIndexMethods().setUom(uom);
     }
 
     /*
@@ -159,10 +187,10 @@ public class PageIndexSteps {
             throws Throwable {
         Thread.sleep(3000);
         String[] params = args.split(",");
-        listIndexMethods.verifySearchResults(params[3], ListIndexMethods.Column.rateBasis);
-        listIndexMethods.verifySearchResults(params[4], ListIndexMethods.Column.name);
-        listIndexMethods.verifySearchResults(params[5], ListIndexMethods.Column.currency);
-        listIndexMethods.verifySearchResults(params[6], ListIndexMethods.Column.uom);
+        pageFactory.getListIndexMethods().verifySearchResults(params[3], ListIndexMethods.Column.rateBasis);
+        pageFactory.getListIndexMethods().verifySearchResults(params[4], ListIndexMethods.Column.name);
+        pageFactory.getListIndexMethods().verifySearchResults(params[5], ListIndexMethods.Column.currency);
+        pageFactory.getListIndexMethods().verifySearchResults(params[6], ListIndexMethods.Column.uom);
 
     }
 
@@ -171,16 +199,16 @@ public class PageIndexSteps {
      */
     @When("^([^\"]*),([^\"]*),([^\"]*) and ([^\"]*) are entered$")
     public void and_are_entered(String lowPrice, String midPrice, String highPrice, String closePrice) throws Throwable {
-        createIndexMethods.setLowPrice(lowPrice);
-        createIndexMethods.setMidPrice(midPrice);
-        createIndexMethods.setHighPrice(highPrice);
-        createIndexMethods.setClosePrice(closePrice);
+        pageFactory.getCreateIndexMethods().setLowPrice(lowPrice);
+        pageFactory.getCreateIndexMethods().setMidPrice(midPrice);
+        pageFactory.getCreateIndexMethods().setHighPrice(highPrice);
+        pageFactory.getCreateIndexMethods().setClosePrice(closePrice);
     }
 
     @And("^start date as ([^\"]*) and end date as ([^\"]*)")
     public void enterStartDateAndEndDate(String startDate, String endDate) throws Throwable {
-        createIndexMethods.setStartDate(startDate);
-        createIndexMethods.setEndDate(endDate);
+        pageFactory.getCreateIndexMethods().setStartDate(startDate);
+        pageFactory.getCreateIndexMethods().setEndDate(endDate);
     }
 
     @Then("^the user shall be able to view the created index in the list on filtering with ([^\"]*)$")
@@ -192,7 +220,7 @@ public class PageIndexSteps {
 
     @And("^the user clicked on ([^\"]*) action$")
     public void click_on_button(String action) throws Exception {
-        listIndexMethods.clickOnAction(action);
+        pageFactory.getListIndexMethods().clickOnAction(action);
     }
 
     @Then("^the index (should|should not) be (created|updated)$")
@@ -206,22 +234,22 @@ public class PageIndexSteps {
 
     @Then("^the user shall be able to edit only end date$")
     public void the_user_shall_be_able_to_edit_only_end_date() throws Throwable {
-        listIndexMethods.verifyUserIsAbleToEditOnlyEndDate();
+        pageFactory.getListIndexMethods().verifyUserIsAbleToEditOnlyEndDate();
     }
 
     @Then("^the status of the index should change to inactive$")
     public void the_status_of_the_index_should_change_to_inactive() {
-        listIndexMethods.verifyIfTheStatusOfIndexChangedToInactive();
+        pageFactory.getListIndexMethods().verifyIfTheStatusOfIndexChangedToInactive();
     }
 
     @Then("^the user is not allowed to (update|enter) low,mid,high and close prices for (active|new) index$")
     public void the_user_is_not_allowed_to_update_lowMidHighAndClose_prices_for_active_index(String act, String type) {
-        listIndexMethods.verifyUserIsUnableToEditPrices();
+        pageFactory.getListIndexMethods().verifyUserIsUnableToEditPrices();
     }
 
     @And("^scale rates are editable$")
     public void scale_rates_are_editable() {
-        listIndexMethods.verifyScaleratesAreEditable();
+        pageFactory.getListIndexMethods().verifyScaleratesAreEditable();
     }
 
     @And("^add the scale rates$")
@@ -230,9 +258,9 @@ public class PageIndexSteps {
         int i = 0;
         for (List<String> row : list) {
             if (i++ > 0) {
-                listIndexMethods.addScaleParamater();
+                pageFactory.getListIndexMethods().addScaleParamater();
             }
-            listIndexMethods.setScaleParameters(row.get(0), row.get(1), row.get(2));
+            pageFactory.getListIndexMethods().setScaleParameters(row.get(0), row.get(1), row.get(2));
         }
     }
 

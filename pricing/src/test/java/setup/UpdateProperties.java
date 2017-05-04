@@ -7,12 +7,11 @@ import com.github.dockerjava.api.DockerClient;
 import com.github.dockerjava.api.command.InspectContainerResponse;
 import com.github.dockerjava.core.DockerClientBuilder;
 
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.PrintWriter;
+import java.io.*;
+import java.net.URL;
 import java.util.Map;
 import java.util.Properties;
+import java.util.ResourceBundle;
 
 public class UpdateProperties {
 
@@ -21,18 +20,19 @@ public class UpdateProperties {
     String resourceFilePath;
     PrintWriter out;
     FileReader read;
-    File hostConfigPath;
+    File hostConfigFile;
+    InputStream inputStream;
     private DockerClient dockerClient;
 
     public UpdateProperties() {
-        resourceFile = new File(".//");
-        resourceFilePath = resourceFile.getAbsolutePath().replace(".", "src/test/resources/pricing.properties");
-        resourceFile = new File(resourceFilePath);
+
     }
 
     public void setProperty(Map<String, String> map) {
         try {
-            out = new PrintWriter(resourceFile);
+//            resourceFile = new File("pricing.properties");
+            URL pricingPath = UpdateProperties.class.getClassLoader().getResource("pricing.properties");
+            out = new PrintWriter(pricingPath.getPath());
             out.println("#Pricing Application - Container Properties#");
             for (Map.Entry<String, String> entry : map.entrySet()) {
                 out.println(entry.getKey() + "=http://" + entry.getValue() + "/");
@@ -44,30 +44,13 @@ public class UpdateProperties {
     }
 
     public String getProperty(String propertyName) {
-         /*
-         * Loading the properties file
-         */
-        try {
-            read = new FileReader(resourceFile);
-            props.load(read);
-            return props.getProperty(propertyName);
-        } catch (Exception exp) {
-            exp.printStackTrace();
-        }
-        return null;
+        ResourceBundle resourceBundle = ResourceBundle.getBundle("pricing");
+        return resourceBundle.getString(propertyName);
     }
 
     public String getEnv() {
-        try {
-            resourceFilePath = resourceFile.getAbsolutePath().replace(".", "src/test/resources/application.properties");
-            resourceFile = new File(resourceFilePath);
-            read = new FileReader(resourceFile);
-            props.load(read);
-            return props.getProperty("env");
-        } catch (Exception exp) {
-            exp.printStackTrace();
-        }
-        return null;
+        ResourceBundle resourceBundle = ResourceBundle.getBundle("application");
+        return resourceBundle.getString("env");
     }
 
     public void updateHostConfig() throws Exception {
@@ -76,21 +59,32 @@ public class UpdateProperties {
         FileWriter fwrite;
         ObjectMapper mapper = new ObjectMapper();
         /*
-         * Creating the hostConfig file
+         * Updating the hostConfig file
          */
-        root = mapper.readTree(new File("src/test/resources/hostConfig.json"));
-        ((ObjectNode) root).put("priceEngineServiceUrl", getProperty("pricing.engine"));
-        ((ObjectNode) root).put("masterDataServiceUrl", getProperty("pricing.datamock"));
-        resultUpdate = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(root);
-        fwrite = new FileWriter(hostConfigPath);
-        fwrite.write(resultUpdate);
-        fwrite.close();
+        if (getEnv().equals("Docker")) {
+            hostConfigFile = new File("./hostConfig.json");
+            if (!hostConfigFile.exists()) {
+                hostConfigFile.createNewFile();
+                fwrite = new FileWriter(hostConfigFile);
+                fwrite.write("{ }");
+                fwrite.close();
+            }
+            root = mapper.readTree(hostConfigFile);
+            ((ObjectNode) root).put("priceEngineServiceUrl", getProperty("pricing.engine"));
+            ((ObjectNode) root).put("masterDataServiceUrl", getProperty("pricing.datamock"));
+            ((ObjectNode) root).put("priceConfigServiceUrl", "https://epe-priceconfig-s.dev.aws.wfscorp.com/");
+            resultUpdate = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(root);
+            fwrite = new FileWriter(hostConfigFile);
+            fwrite.write(resultUpdate);
+            fwrite.close();
         /*
          * Copying the hostConfig.json file to the Container
          */
-        dockerClient = DockerClientBuilder.getInstance().build();
-        dockerClient.copyArchiveToContainerCmd(getContainerIdUsingName("ui")).withRemotePath("/usr/share/nginx/html/config").withHostResource(hostConfigPath.getAbsolutePath()).withNoOverwriteDirNonDir(false).exec();
-        System.out.println("Copying");
+            dockerClient = DockerClientBuilder.getInstance().build();
+            dockerClient.copyArchiveToContainerCmd(getContainerIdUsingName("ui")).withRemotePath("/usr/share/nginx/html/config").withHostResource(hostConfigFile.getAbsolutePath()).withNoOverwriteDirNonDir(false).exec();
+            System.out.println("hostConfig file is updated in the ui container");
+            System.out.println(resultUpdate);
+        }
     }
 
     public String getContainerIdUsingName(String containerName) {

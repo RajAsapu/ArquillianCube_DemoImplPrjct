@@ -63,9 +63,9 @@ Feature: List Page
     Then  the user is not allowed to update low,mid,high and close prices for active index
 
     Examples:
-    | rateBasis         |
-    | Price Point Scale |
-    | Price Break Scale |
+      | rateBasis         |
+      | Price Point Scale |
+      | Price Break Scale |
 
 
   Scenario: To verify that the user is able to edit the manual indexes.
@@ -88,16 +88,16 @@ Feature: List Page
     And   unit of measurement as TOT
     And   comment as for testing
     And   add the scale rates
-      | 0           | 100       | 2           |
-      | 100         | 500       | 1           |
-      | 500         | 1000      | 0.9         |
+      | 0   | 100  | 2   |
+      | 100 | 500  | 1   |
+      | 500 | 1000 | 0.9 |
     And   clicks on the submit button
     Then  the index should be created
 
     Examples:
-  | rateBasis         |  name                 |
-  | Price Point Scale | GasGrp3_91Prem_Argus  |
-  | Price Break Scale | CBOB Chicago Pipe     |
+      | rateBasis         | name                 |
+      | Price Point Scale | GasGrp3_91Prem_Argus |
+      | Price Break Scale | CBOB Chicago Pipe    |
 
   Scenario Outline: To verify that the user is able to create an index copying the existing active index
     Given the user has navigated to the "Create" page under the "Index"

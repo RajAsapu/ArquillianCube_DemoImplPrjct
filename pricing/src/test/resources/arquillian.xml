@@ -6,23 +6,25 @@
 
     <extension qualifier="docker">
         <property name="serverVersion">1.12.3</property>
-        <!--<property name="serverUri">http://localhost:2375</property>--> <!-- Linux: unix:///var/run/docker.sock -->
+        <property name="serverUri">http://localhost:2375</property>
+        <property name="dockerRegistry">http://jfrog.aws.wfscorp.com/artifactory/docker/docker-dev-local/</property>
+        <!--<property name="username">rasapu</property>-->
+        <!--<property name="password"></property>-->
         <property name="clean">true</property>
         <property name="dockerContainersFile">src/test/resources/docker-compose.yml</property>
         <property name="definitionFormat">CUBE</property>
         <property name="cleanBuildImage">true</property>
-        <property name="connectionMode">STARTORCONNECT</property>
+        <property name="connectionMode">STARTORCONNECTANDLEAVE</property>
         <property name="autoStartContainers">custom:setup.AutoStartContainersOrder</property>
         <property name="cubeSpecificProperties">
-            database:
+            jdatabase:
             await:
             strategy: log
             match: 'DSE startup complete'
             sleepPollingTime: 5 s
             iterations: 20
             timeout: 1800
-
-            service:
+            jservice:
             await:
             strategy: http
             match: 'startup'
@@ -31,22 +33,20 @@
             sleepPollingTime: 5 s
             iterations: 20
             timeout: 1800
-            ui:
+            jui:
             await:
             strategy: polling
             sleepPollingTime: 5 s
             iterations: 5
             timeout: 1800
-
-            datamock:
+            jdatamock:
             await:
             strategy: log
             match: 'Successfully connected'
             sleepPollingTime: 5 s
             iterations: 20
             timeout: 1800
-
-            engine:
+            jengine:
             await:
             strategy: log
             match: 'Initializing Spring FrameworkServlet'

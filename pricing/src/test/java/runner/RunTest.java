@@ -2,7 +2,7 @@ package runner;
 
 import cucumber.api.CucumberOptions;
 import cucumber.api.java.Before;
-import cucumber.runtime.arquillian.CukeSpace;
+import cucumber.runtime.arquillian.ArquillianCucumber;
 import org.arquillian.cube.HostPort;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.junit.runner.RunWith;
@@ -11,12 +11,11 @@ import setup.UpdateProperties;
 import java.util.HashMap;
 import java.util.Map;
 
-@RunWith(CukeSpace.class)
+@RunWith(ArquillianCucumber.class)
 @RunAsClient
 @CucumberOptions(
-        strict = true,
-        features = {"src/test/resources/features/pageobjects/PageIndexCreatePage.feature"},
-        glue = {"classpath:stepdef", "classpath:setup"},
+        features = {"src/test/resources/features/integrationtests/uitests/VerifyIfUserIsAbleToCreateWorkbookDefinition.feature"},
+        glue = {"classpath:"},
         tags = {"@PageObjects"}
 )
 public class RunTest {

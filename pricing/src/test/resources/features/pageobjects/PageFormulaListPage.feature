@@ -20,3 +20,4 @@ Feature: To verify if the user is able to access list page under formula.
       | startdate          |
       | enddate            |
       | rounding precision |
+

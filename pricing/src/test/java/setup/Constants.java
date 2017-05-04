@@ -7,7 +7,7 @@ public class Constants {
     /*
      * Default user id and password
 	 */
-    public static String username = "cxl_admin1";
+    public static String username = "mkhanal";
     public static String password = "Welcome01";
     /*
      * Login page identifiers
@@ -19,26 +19,26 @@ public class Constants {
      * Index : List page identifiers
      */
     public static String indexList_startdate_xpath = "//input[@placeholder='DD-MMM-YYYY']";
-    public static String indexList_status_xpath = "//*/calc-rule-list/div/div/div/div[2]/form/p-fieldset/fieldset/div/div/div[1]/div[3]/div/select";
-    public static String indexList_startdatepicker_xpath = "//*/app-root/calc-rule-list/div/div/div/div[2]/form/p-fieldset/fieldset/div/div/div[1]/div[1]/div/p-calendar/span/button";
+    public static String indexList_status_xpath = ".//*[@id='content']/calc-rule-list/div/div/div/p-panel/div/div[2]/div/form/div/div[1]/div[3]/div/p-dropdown/div/label";
+    public static String indexList_startdatepicker_xpath = ".//*[@id='content']/calc-rule-list/div/div/div/p-panel/div/div[2]/div/form/div/div[1]/div[1]/div/p-calendar/span/button";
     public static String indexList_StartDateColumn_xpath = "//*/p-datatable/div/div[2]/table/tbody/tr[*]/td[2]";
-    public static String indexList_enddatepicker_xapth = "//*/app-root/calc-rule-list/div/div/div/div[2]/form/p-fieldset/fieldset/div/div/div[1]/div[2]/div/p-calendar/span/button";
-    public static String indexList_endDate_xpath = ".//p-calendar[@formcontrolname='endDate']/span/input";
-    public static String indexList_EndDateColumn_xpath = "//*/p-datatable/div/div[2]/table/tbody/tr[1]/td[3]";
-    public static String indexList_search_xpath = "//*/p-fieldset/fieldset/div/div/div[2]/div[*]/button";
+    public static String indexList_enddatepicker_xapth = ".//*[@id='content']/calc-rule-list/div/div/div/p-panel/div/div[2]/div/form/div/div[1]/div[2]/div/p-calendar/span/button";
+    public static String indexList_endDate_xpath = ".//*[@id='content']/calc-rule-list/div/div/div/p-panel/div/div[2]/div/form/div/div[1]/div[2]/div/p-calendar/span/input";
+    public static String indexList_EndDateColumn_xpath = "//*/p-datatable/div/div[2]/table/tbody/tr[*]/td[3]";
+    public static String indexList_search_xpath = "//button[@label='Search']";
     public static String indexList_StatusColumn_xpath = "//*/p-datatable/div/div[2]/table/tbody/tr[*]/td[1]";
-    public static String indexList_type_xpath = "//*/select[@ng-reflect-name='type']";
-    public static String indexList_rateBasis_xpath = "//*/select[@formcontrolname='rateBasis']";
+    public static String indexList_type_xpath = ".//*[@id='content']/calc-rule-list/div/div/div/p-panel/div/div[2]/div/form/div/div[2]/div[1]/div/p-dropdown/div/label";
+    public static String indexList_rateBasis_xpath = ".//*[@id='content']/calc-rule-list/div/div/div/p-panel/div/div[2]/div/form/div/div[2]/div[2]/div/p-dropdown/div/label";
     public static String indexList_name_xpath = "//*/p-autocomplete/span/input";
-    public static String indexList_currency_xpath = "//*/fieldset/div/div/div[2]/div[4]/div/select";
-    public static String indexList_uom_xpath = "//*/fieldset/div/div/div[2]/div[5]/div/select";
+    public static String indexList_currency_xpath = ".//*[@id='content']/calc-rule-list/div/div/div/p-panel/div/div[2]/div/form/div/div[2]/div[4]/div/select";
+    public static String indexList_uom_xpath = ".//*[@id='content']/calc-rule-list/div/div/div/p-panel/div/div[2]/div/form/div/div[2]/div[5]/div/select";
     public static String indexList_typeColumn_xpath = "//*/p-datatable/div/div[2]/table/tbody/tr[*]/td[4]";
     public static String indexList_name_autofill_xpath = "//*/calc-rule-list/div/div/div/div[2]/form/p-fieldset/fieldset/div/div/div[2]/div[3]/div/p-autocomplete/span/div/ul/li";
     public static String indexList_ratebasisColumn_xpath = "//*/p-datatable/div/div[2]/table/tbody/tr[*]/td[12]";
     public static String indexList_nameColumn_xpath = "//*/p-datatable/div/div[2]/table/tbody/tr[*]/td[5]";
     public static String indexList_currencyColumn_xpath = "//*/p-datatable/div/div[2]/table/tbody/tr[*]/td[10]";
     public static String indexList_uomColumn_xpath = "//*/p-datatable/div/div[2]/table/tbody/tr[*]/td[11]";
-    public static String indexList_addNewIndex_xpath = "//*/a[normalize-space()='Add New Index']";
+    public static String indexList_addNewIndex_xpath = "//*/button[normalize-space()='Add New Index']";
     public static String indexList_deactivateAction_xpath = "//*[@title='Deactivate']";
     public static String indexList_copyAction_xpath = "//*[@title='Copy']";
     public static String indexList_editAction_xpath = "//*[@title='Edit']";
@@ -50,31 +50,33 @@ public class Constants {
     public static String indexCreate_midprice_xpath = "//*[@id='txtMid']";
     public static String indexCreate_highprice_xpath = "//*[@id='txtHigh']";
     public static String indexCreate_closeprice_xpath = ".//input[@type='number']";
-    public static String indexCreate_startDatePicker_xpath = "//*/div/div/div[3]/div/p-calendar/span/button";
-    public static String indexCreate_startDate_xpath = ".//*[@ng-reflect-name=\"startDate\"]/span/input";
-    public static String indexCreate_endDatePicker_xpath = "//*/div/div/div[4]/div/p-calendar/span/button";
-    public static String indexCreate_endDate_xpath = ".//*[@ng-reflect-name=\"endDate\"]/span/input";
-    public static String indexCreate_currency_xpath = "//*/p-fieldset/fieldset/div/div/div[9]/div/select";
-    public static String indexCreate_uom_xpath = "//*/p-fieldset/fieldset/div/div/div[10]/div/select";
-    public static String indexCreate_comment_xpath = "//*[@id='txtDesc']";
+    public static String indexCreate_startDatePicker_xpath = ".//*[@id='content']/app-index/div/div/div/div/div/div/form/div[2]/div/p-calendar/span/button";
+    public static String indexCreate_startDate_xpath = ".//*[@id='content']/app-index/div/div/div/div/div/div/form/div[2]/div/p-calendar/span/input";
+    public static String indexCreate_endDatePicker_xpath = ".//*[@id='content']/app-index/div/div/div/div/div/div/form/div[3]/div/p-calendar/span/button";
+    public static String indexCreate_endDate_xpath = ".//*[@id='content']/app-index/div/div/div/div/div/div/form/div[3]/div/p-calendar/span/input";
+    public static String indexCreate_currency_xpath = ".//*[@id='content']/app-index/div/div/div/div/div/div/form/div[4]/div/select";
+    public static String indexCreate_uom_xpath = ".//*[@id='content']/app-index/div/div/div/div/div/div/form/div[5]/div/select";
+    public static String indexCreate_comment_xpath = ".//*[@id='txtDesc']";
     public static String indexCreate_submit_xpath = "//*/button[normalize-space()='Submit']";
+    public static String indexCreate_search_xpath = "//button[@ng-reflect-label='Search']";
     public static String indexCreate_priceBreak_xpath = "//*/input[@type='number']";
     public static String indexCreate_addScale_xpath = "//*/button[normalize-space()='Add Scale']";
     public static String indexCreate_fromScale_xpath = "//input[@formcontrolname='from']";
     public static String indexCreate_toScale_xpath = "//input[@formcontrolname='to']";
     public static String indexCreate_rateScale_xpath = "//input[@formcontrolname='rate']";
+    public static String indexCreate_rateBasis_xpath = ".//*[@id='content']/app-index/div/div/div/div/div/div/form/div[6]/div/select";
 
     /*
-     * Currency Exchange List Page Identifiers Filters on search
+     * Currency Exchange List IPage Identifiers Filters on search
      */
     public static String currencyExchangeList_type_xpath = "//*/select[@ng-reflect-name='type']";
     public static String currencyExchangeList_status_xpath = "//*/select[@ng-reflect-name='status']";
     public static String currencyExchangeList_convType_xpath = "//*/select[@ng-reflect-name='conversionType']";
     public static String currencyExchangeList_currForm_xpath = "//*/select[@ng-reflect-name='currencyFrom']";
     public static String currencyExchangeList_currTo_xpath = "//*/select[@ng-reflect-name='currencyTo']";
-    public static String currencyExchangeList_submit_xpath = "//*/button[text()='Submit']";
+    public static String currencyExchangeList_search_xpath = "//button[@label='Search']";
     /*
-     * Currency Exchange List Page Identifiers Currency Exchange table column
+     * Currency Exchange List IPage Identifiers Currency Exchange table column
      * identifiers
      */
     public static String currencyExchangeList_statusColumn_xpath = "//*/p-datatable/div/div[2]/table/tbody/tr[*]/td[1]";
@@ -83,32 +85,33 @@ public class Constants {
     public static String currencyExchangeList_dateColumn_xpath = "//*/p-datatable/div/div[2]/table/tbody/tr[*]/td[4]";
     public static String currencyExchangeList_rateTypeColumn_xpath = "//*/p-datatable/div/div[2]/table/tbody/tr[*]/td[5]";
     public static String currencyExchangeList_rateColumn_xpath = "//*/p-datatable/div/div[2]/table/tbody/tr[*]/td[6]";
-    public static String currencyExchangeList_startDatePicker_xpath = "//*/p-fieldset/fieldset/div/div/div[1]/div[2]/div/p-calendar/span/button";
-    public static String currencyExchangeList_endDatePicker_xpath = "//p-calendar[@formcontrolname='toDate']/span/input";
+    public static String currencyExchangeList_startDatePicker_xpath = ".//*[@id='content']/calc-rule-list/div/div/div/div/p-panel/div/div[2]/div/form/div/div[1]/div[2]/div/p-calendar/span/button";
+    public static String currencyExchangeList_endDatePicker_xpath = ".//*[@id='content']/calc-rule-list/div/div/div/div/p-panel/div/div[2]/div/form/div/div[1]/div[3]/div/div/p-calendar/span/button";
     /*
-     * Currency Exchange Create Page Identifiers
+     * Currency Exchange Create IPage Identifiers
      */
     public static String currencyExchangeCreate_datePicker_xpath = "//*/button[@ng-reflect-icon='fa-calendar']";
-    public static String currencyExchangeCreate_type_xpath = "//*/select[@ng-reflect-name='type']";
-    public static String currencyExchangeCreate_fromCurrency_xpath = "//*/select[@ng-reflect-name='currencyFrom']";
-    public static String currencyExchangeCreate_toCurrency_xpath = "//*/select[@ ng-reflect-name='currencyTo']";
+    public static String currencyExchangeCreate_type_xpath = ".//*[@id='content']/app-currency-exchange/div/div/div/div/form/div[1]/div[2]/div/p-dropdown/div/label";
+    public static String currencyExchangeCreate_fromCurrency_xpath = ".//*[@id='content']/app-currency-exchange/div/div/div/div/form/div[1]/div[3]/div/p-dropdown/div/label";
+    public static String currencyExchangeCreate_toCurrency_xpath = ".//*[@id='content']/app-currency-exchange/div/div/div/div/form/div[1]/div[4]/div/p-dropdown/div/label";
     public static String currencyExchangeCreate_conversionRate_xpath = "//*/input[@type='number']";
+    public static String currencyExchangeCreate_startDate_xpath = "//*[@id='content']/app-currency-exchange/div/div/div/div/form/div[1]/div[1]/div/p-calendar/span/input";
     /*
      * Calculation period create page identifiers
      * Type: Day
      */
-    public static String calculationRuleCreate_name_xpath = "//*[@id='name']";
-    public static String calculationRuleCreate_startDatePicker_xpath = "//*[@id=\"startDate\"]/span/button";
-    public static String calculationRuleCreate_endDatePicker_xpath = "//*[@id=\"endDate\"]/span/button";
-    public static String calculationRuleCreate_endDate_xpath = "//*/p-calendar[@id='endDate']/span/input";
-    public static String calculationRuleCreate_type_xpath = "//*/p-fieldset/fieldset/div/div/div[4]/div/select";
-    public static String calculationRuleCreate_description_xpath = "//*[@name='description']";
-    public static String calculationRuleCreate_dayrule_xpath = "//*/app-day-rule/div/div[1]/div[1]/div/select";
-    public static String calculationRuleCreate_daysBeforeEvent_xpath = "//*[@id='daysBefore']";
-    public static String calculationRuleCreate_daysAfterEvent_xpath = "//*[@id='daysAfter']";
-    public static String calculationRuleCreate_includeEventDay_xpath = "//*[@id='includeEvent']";
-    public static String calculationRuleCreate_totalNumberofDays_xpath = "//*[@id='totalNumberOfDays']";
-    public static String calculationRuleCreate_testDate_xpath = "//p-calendar[@formcontrolname='testDate']/span/input";
+    public static String calculationRuleCreate_name_xpath = "//input[@ng-reflect-name='name']";
+    public static String calculationRuleCreate_startDatePicker_xpath = ".//*[@id='content']/ng-component/div/div/form/div[2]/div[1]/div[1]/div[1]/div/div/div[2]/div[2]/p-calendar/span/button";
+    public static String calculationRuleCreate_endDatePicker_xpath = ".//*[@id='endDate']/span/button";
+    public static String calculationRuleCreate_endDate_xpath = ".//*[@id='endDate']/span/input";
+    public static String calculationRuleCreate_type_xpath = ".//*[@id='type']/div/label";
+    public static String calculationRuleCreate_description_xpath = ".//*[@id='description']";
+    public static String calculationRuleCreate_dayrule_xpath = ".//*[@id='content']/ng-component/div/div/form/div[2]/div[1]/div[2]/div/div/div/div/span/app-day-rule/div/div[1]/div/select";
+    public static String calculationRuleCreate_daysBeforeEvent_xpath = ".//*[@id='daysBefore']";
+    public static String calculationRuleCreate_daysAfterEvent_xpath = ".//*[@id='daysAfter']";
+    public static String calculationRuleCreate_includeEventDay_xpath = ".//*[@id='includeEvent']";
+    public static String calculationRuleCreate_totalNumberofDays_xpath = ".//*[@id='totalNumberOfDays']";
+    public static String calculationRuleCreate_testDate_xpath = ".//*[@id='testDate']/span/input";
     public static String calculationRuleCreate_testRuleButton_xpath = "//*/button[normalize-space()='Test Rule']";
     /*
      * Type: Week
@@ -137,14 +140,14 @@ public class Constants {
     public static String calculationRuleList_nameColumn_xpath = "//*/table/tbody/tr[*]/td[4]";
     public static String calculationRuleList_typeColumn_xpath = "//*/table/tbody/tr[*]/td[5]";
     public static String calculationRuleList_descpColumn_xpath = "//*/table/tbody/tr[*]/td[6]";
-    public static String calculationRuleList_addNewRule_xpath = "//a[normalize-space()='Add New Rule']";
+    public static String calculationRuleList_addNewRule_xpath = "//button[normalize-space()='Add New Rule']";
     public static String calculationRuleList_hdrStatusColumn_xpath = "//*/tr/th[1]";
     public static String calculationRuleList_hdrNameColumn_xpath = "//*/tr/th[4]/span[2]";
     public static String calculationRuleList_hdrTypeColumn_xpath = "//*/tr/th[5]/span[2]";
     public static String calculationRuleList_hdrDescrpColumn_xpath = "//*/tr/th[6]/span[2]";
     public static String calculationRuleList_actionView_xpath = "//*/tr[*]/td[7]/span/div/button[1]";
-    public static String calculationRuleList_actionInactive_xpath = "//*/tr[*]/td[7]/span/div/button[2]";
-    public static String calculationRuleList_actionEdit_xpath = "//*/tr[*]/td[7]/span/div/button[3]";
+    public static String calculationRuleList_actionInactive_xpath = "//*/authorize/button[1]";
+    public static String calculationRuleList_actionEdit_xpath = "//*/authorize/button[2]";
     /*
      * Formula - List page identifiers
      */
@@ -156,13 +159,14 @@ public class Constants {
     public static String formulaList_startDateFilter_xpath = "//*/p-datatable/div/div/table/thead/tr/th[5]/input";
     public static String formulaList_endDateFilter_xpath = "//*/p-datatable/div/div/table/thead/tr/th[6]/input";
     public static String formulaList_roundPrecsFilter_xpath = "//*/p-datatable/div/div/table/thead/tr/th[8]/input";
+    public static String formulaList_roundModeFilter_xpath = "//*/p-datatable/div/div/table/thead/tr/th[9]/input";
     /*
      * Actions
      */
-    public static String formulaList_viewAction_xpath = "//table/tbody/tr[*]/td[9]/span[2]/button[@title='View']";
-    public static String formulaList_copyAction_xpath = "//table/tbody/tr[*]/td[9]/span[2]/button[@title='Copy']";
-    public static String formulaList_editAction_xpath = "//table/tbody/tr[*]/td[9]/span[2]/button[@title='Edit']";
-    public static String formulaList_deactivateAction_xpath = "//table/tbody/tr[*]/td[9]/span[2]/button[@title='Deactivate']";
+    public static String formulaList_viewAction_xpath = "//*/tr[*]/td[10]/span[2]/button";
+    public static String formulaList_copyAction_xpath = "//tr[*]/td[10]/span[2]/authorize/button[1]";
+    public static String formulaList_editAction_xpath = "//tr[*]/td[10]/span[2]/authorize/button[2]";
+    public static String formulaList_deactivateAction_xpath = "//tbody/tr[*]/td[10]/span[2]/authorize/button[3]";
     public static String formulaList_updateAction_xpath = "//button[normalize-space()='Update']";
     public static String formulaList_cancelAction_xpath = "//button[normalize-space()='Cancel']";
     public static String formulaList_status_xpath = "//span[normalize-space()='Status']";
@@ -194,11 +198,12 @@ public class Constants {
     public static String formulaCreate_expression_xpath = "//*/input[@ng-reflect-name='expression']";
     public static String formulaCreate_validateExpre_xpath = "//*/button[normalize-space()='Validate Expression']";
     public static String formulaCreate_startDatePicker_xpath = "//*/button[@ng-reflect-icon='fa-calendar']";
-    public static String formulaCreate_endDatePicker_xpath = "//*/div[2]/p-calendar/span/button";
-    public static String formulaCreate_endDate_xpath = "//input[not(contains(@ng-reflect-disabled,'true')) and @placeholder='yyyy-mm-dd']";
-    public static String formulaCreate_roundingMode_xpath = "//*/div[3]/div[3]/div/p-dropdown/div";
+    public static String formulaCreate_startDate_xpath = ".//*[@id='content']/app-update-formula/div/div/div/div/form/form/div/div[1]/div[5]/div[2]/p-calendar/span/input";
+    public static String formulaCreate_endDatePicker_xpath = ".//*[@id='content']/app-update-formula/div/div/div/div/form/form/div/div[1]/div[6]/div[2]/p-calendar/span/button";
+    public static String formulaCreate_endDate_xpath = ".//*[@id='content']/app-update-formula/div/div/div/div/form/form/div/div[1]/div[6]/div[2]/p-calendar/span/input";
+    public static String formulaCreate_roundingMode_xpath = ".//*[@id='content']/app-update-formula/div/div/div/div/form/form/div/div[1]/div[7]/div[2]/p-dropdown/div/label";
     public static String formulaCreate_roundingModeList_xpath = "//*/p-dropdown/div/div[4]/div/ul/li[*]";
-    public static String formulaCreate_roundingPrecision_xpath = "//*/form/div[3]/div[4]/input";
+    public static String formulaCreate_roundingPrecision_xpath = ".//*[@id='content']/app-update-formula/div/div/div/div/form/form/div/div[1]/div[8]/div[2]/input";
     public static String formulaCreate_addParameter_xpath = "//*/button[normalize-space()='Add Parameter']";
     public static String formulaCreate_nameParameter_xpath = "//*/div/form/div[1]/input";
     public static String formulaCreate_typeParameter_xpath = "//*/form/div[2]/p-dropdown/div";
@@ -206,13 +211,68 @@ public class Constants {
     public static String formulaCreate_indexPointParameter_xpath = "//*/formula-params/form/div/form/div[3]/div/div[2]/p-dropdown/div";
     public static String formulaCreate_indexNameParameter_xpath = "//*/div/div[3]/p-autocomplete/span/input";
     public static String formulaCreate_calculationPeriodParamater_xpath = "//*/div/div[4]/p-autocomplete/span/input";
-    public static String formulaCreate_create_xpath = "//*/button[normalize-space()='Create']";
-    public static String formulaCreate_cancel_xpath = "//*/form/div/button[2]";
+    public static String formulaCreate_submit_xpath = "//*/button[normalize-space()='Submit']";
+    public static String formulaCreate_cancel_xpath = "//*/button[normalize-space()='Cancel']";
     public static String formulaCreate_errorMessageValidate_xpath = "//*[normalize-space()='formula parameters do not match expression']";
     public static String formulaCreate_workBookName_xpath = "//*/formula-params/form/div[*]/form/div[3]/div/div[1]/p-autocomplete/span/input";
     public static String formulaCreate_supplier_xpath = "//formula-params/form/div[*]/form/div[3]/div/div[2]/p-autocomplete/span/input";
     public static String formulaCreate_location_xpath = "//formula-params/form/div[*]/form/div[3]/div/div[3]/p-autocomplete/span/input";
     public static String formulaCreate_product_xpath = "//formula-params/form/div[*]/form/div[3]/div/div[4]/p-autocomplete/span/input";
+    /*
+     * Workbook - Create page
+     */
+    public static String workbookCreate_name_xpath = ".//*[@id='txtName']";
+    public static String workbookCreate_description_xpath = ".//*[@id='txtDesc']";
+    public static String workbookCreate_formulaType_xpath = ".//select[@formcontrolname='formulaType']";
+    public static String workbookCreate_segmentType_xpath = ".//select[@formcontrolname='segmentType']";
+    public static String workbookCreate_defaultValueYes_xpath = ".//*[@id='chboxDefaultVal']/div/div[2]/span";
+    public static String workbookCreate_defaultValue_xpath = ".//*[@id='numbDefaultVal']";
+    public static String workbookCreate_defaultValueNo_xpath = ".//*[@id='chboxDefaultVal']/div/div[1]/span";
+    public static String workbookCreate_addSingleAttribute = "//button[@icon='fa-angle-right']";
+    public static String workbookCreate_addMultipleAttributes = "//button[@icon='fa-angle-double-right']";
+    public static String workbookCreate_removeSingleAttributes = "//button[@icon='fa-angle-left']";
+    public static String workbookCreate_removeMultipleAttributes = "//button[@icon='fa-angle-double-left']";
+    public static String workbookCreate_attribute_xpath = "//li[@class='ui-picklist-item']/div";
+    public static String workbookCreate_attributeListView_xpath = "//p-picklist/div/div[2]/ul";
+    /*
+     * Workbook - List page
+     */
+    public static String workbookList_addNewWorkbookConfig_xpath = "//*[@label='Add New Workbook Configuration']";
+    public static String workbookList_nameFilter_xpath = "//*[@id='content']/ng-component/div/div/div/div/div/div/p-datatable/div/div[2]/table/thead/tr/th[1]/input";
+    public static String workbookList_descrpFilter_xpath = "//*[@id='content']/ng-component/div/div/div/div/div/div/p-datatable/div/div[2]/table/thead/tr/th[2]/input";
+    public static String workbookList_formulaTypeFilter_xpath = "//*[@id='content']/ng-component/div/div/div/div/div/div/p-datatable/div/div[2]/table/thead/tr/th[3]/input";
+    public static String workbookList_segmentFilter_xpath = "//*[@id='content']/ng-component/div/div/div/div/div/div/p-datatable/div/div[2]/table/thead/tr/th[4]/input";
+    public static String workbookList_definition_xpath = ".//*[@label='Definition']";
+    public static String workbookList_data_xpath = ".//*[@label='Data']";
+    public static String workbookList_nextPage_xpath = "//*[@id='content']/ng-component/div/div/div/div/div/div/p-datatable/div/p-paginator/div/a[3]";
+    public static String workbookList_nameColumn_xpath = "//*[@id='content']/ng-component/div/div/div/div/div/div/p-datatable/div/div[2]/table/tbody/tr[*]/td[1]";
+    public static String workbookList_descrptionColumn_xpath = "//*[@id='content']/ng-component/div/div/div/div/div/div/p-datatable/div/div[2]/table/tbody/tr[*]/td[2]";
+    public static String workbookList_formulaTypeColumn_xpath = "//*[@id='content']/ng-component/div/div/div/div/div/div/p-datatable/div/div[2]/table/tbody/tr[*]/td[3]";
+    public static String workbookList_segmentColumn_xpath = "//*[@id='content']/ng-component/div/div/div/div/div/div/p-datatable/div/div[2]/table/tbody/tr[*]/td[4]";
+    /*
+     * Workbook - Data page
+     */
+    public static String workbookData_priceBasisColumn_xpath = ".//*[@id='content']/workbook-data/div/div/div/div/p-datatable/div/div[1]/table/tbody/tr[*]/td[1]";
+    public static String workbookData_currencyColumn_xpath = ".//*[@id='content']/workbook-data/div/div/div/div/p-datatable/div/div[1]/table/tbody/tr[*]/td[2]";
+    public static String workbookData_uomColumn_xpath = ".//*[@id='content']/workbook-data/div/div/div/div/p-datatable/div/div[1]/table/tbody/tr[*]/td[3]";
+    public static String workbookData_startDateColumn_xpath = ".//*[@id='content']/workbook-data/div/div/div/div/p-datatable/div/div[1]/table/tbody/tr[*]/td[4]";
+    public static String workbookData_endDateColumn_xpath = ".//*[@id='content']/workbook-data/div/div/div/div/p-datatable/div/div[1]/table/tbody/tr[*]/td[5]";
+    public static String workbookData_demoColumn_xpath = ".//*[@id='content']/workbook-data/div/div/div/div/p-datatable/div/div[1]/table/tbody/tr[*]/td[6]";
+    public static String workbookData_statusColumn_xpath = ".//*[@id='content']/workbook-data/div/div/div/div/p-datatable/div/div[1]/table/tbody/tr[*]/td[8]";
+    public static String workbookData_amountColumn_xpath = ".//*[@id='content']/workbook-data/div/div/div/div/p-datatable/div/div[1]/table/tbody/tr[*]/td[9]";
+    public static String workbookData_scaleRatesColumn_xpath = ".//*[@id='content']/workbook-data/div/div/div/div/p-datatable/div/div[1]/table/tbody/tr[*]/td[10]";
+    public static String workbookData_editAction_xpath = ".//*[@id='content']/workbook-data/div/div/div/div/p-datatable/div/div[1]/table/tbody/tr[*]/td[11]/span/button[2]";
+    public static String workbookData_inactivateAction_xpath = ".//*[@id='content']/workbook-data/div/div/div/div/p-datatable/div/div[1]/table/tbody/tr[*]/td[11]/span/button[1]";
+    public static String workbookData_addNewData_xpath = ".//*[@id='content']/workbook-data/div/div/div/div/authorize/div/button[1]";
+    public static String workbookData_upload_xpath = ".//*[@id='content']/workbook-data/div/div/div/div/authorize/div/button[2]";
+    public static String workbookData_search_xpath = ".//*[@id='content']/workbook-data/div/div/div/div/authorize/div/button[3]";
+    /*
+     * Add new data
+     */
+    public static String workbookData_addNewDataEndDate_xpath = "//div[2]/div[2]/div/p-calendar/span/input";
+    public static String workbookData_addNewDataStartDate_xpath = "//div[2]/div[1]/div/p-calendar/span/input";
+
+
 }
 
 

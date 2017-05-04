@@ -3,8 +3,10 @@ package functions;
 import com.google.common.base.Verify;
 import org.junit.Assert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import setup.Constants;
@@ -12,8 +14,9 @@ import setup.DriverBean;
 
 public class PageCommonMethods {
 
+    public static EventFiringWebDriver edriver;
     private static Logger log = null;
-    private static EventFiringWebDriver edriver;
+    private WebDriverWait webDriverWait;
 
     /*
   * Constructor to intialize the dependent classes
@@ -21,6 +24,14 @@ public class PageCommonMethods {
     public PageCommonMethods() {
         log = LoggerFactory.getLogger(PageCommonMethods.class);
         edriver = DriverBean.getDriver();
+    }
+
+    public void waitFor(long timeInSeconds) {
+        try {
+            webDriverWait.wait(timeInSeconds);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     /*
@@ -60,8 +71,8 @@ public class PageCommonMethods {
             } else {
                 Verify.verify(!edriver.findElement(By.xpath("//*[normalize-space()='" + message + "']")).isDisplayed(), "Error Message is displayed!!");
             }
-        } catch (NullPointerException exp) {
-            Assert.fail("Error message is not displayed");
+        } catch (NullPointerException | NoSuchElementException exp) {
+            Assert.fail("Error message is not displayed, Expected error message:" + message);
         }
     }
 

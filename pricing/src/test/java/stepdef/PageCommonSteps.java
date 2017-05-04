@@ -3,18 +3,14 @@ package stepdef;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.When;
-import dockerhandler.HandleDocker;
 import functions.PageCommonMethods;
 import org.apache.log4j.Logger;
+import org.junit.Assert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
-import setup.BaseClass;
-import setup.Constants;
-import setup.DriverBean;
-import setup.UpdateProperties;
-
-import java.util.Map;
-import java.util.Properties;
+import setup.*;
 
 public class PageCommonSteps extends BaseClass {
     final static Logger logger = Logger.getLogger(PageCommonSteps.class.getName());
@@ -22,11 +18,15 @@ public class PageCommonSteps extends BaseClass {
     /*
      * Global variables
      */
-    public Properties props = new Properties();
-    PageCommonMethods pageCommonMethods;
-    HandleDocker dock = new HandleDocker();
-    Map<String, String> map;
-    UpdateProperties updateProperties = new UpdateProperties();
+    private PageFactory pageFactory = null;
+    private UpdateProperties updateProperties;
+    private String environment = null;
+
+    public PageCommonSteps() {
+        updateProperties = new UpdateProperties();
+        environment = updateProperties.getEnv();
+        pageFactory = new PageFactory();
+    }
 
     @And("^wait for sometime$")
     public void wait_for_sometime() throws Exception {
@@ -39,16 +39,15 @@ public class PageCommonSteps extends BaseClass {
     @Given("^the user has logged into the pricing application$")
     public void the_user_has_logged_into_the_pricing_application() {
 
-        if (updateProperties.getEnv().equalsIgnoreCase("Docker")) {
+        if (environment.equalsIgnoreCase("Docker")) {
             edriver = initBrowser(updateProperties.getProperty("pricing.ui"));
-        } else if (updateProperties.getEnv().equalsIgnoreCase("Test")) {
+        } else if (environment.equalsIgnoreCase("Test")) {
             edriver = initBrowser("https://epe-priceconfig-ui.test.aws.wfscorp.com");
-        } else if (updateProperties.getEnv().equalsIgnoreCase("Dev")) {
+        } else if (environment.equalsIgnoreCase("Dev")) {
             edriver = initBrowser("https://epe-priceconfig-ui.dev.aws.wfscorp.com");
         }
         DriverBean.setDriver(edriver);
-        pageCommonMethods = new PageCommonMethods();
-        pageCommonMethods.login();
+        pageFactory.getPageCommonMethods().login();
     }
 
     /*
@@ -56,7 +55,12 @@ public class PageCommonSteps extends BaseClass {
      */
     @When("^clicks on the search button$")
     public void clicks_on_the_search_button() {
-        edriver.findElement(By.xpath(Constants.indexList_search_xpath)).click();
+        WebElement search = edriver.findElement(By.xpath(Constants.indexCreate_search_xpath));
+        if (!search.isEnabled()) {
+            Assert.fail("Search Button is not enabled");
+        }
+        Actions actions = new Actions(edriver);
+        actions.click(search).perform();
     }
 
     /*
@@ -75,6 +79,6 @@ public class PageCommonSteps extends BaseClass {
     @Given("^the user has navigated to the \"([^\"]*)\" page under the \"([^\"]*)\"$")
     public void the_user_has_navigated_to_the_page_under_the(PageCommonMethods.page page, PageCommonMethods.module module)
             throws Exception {
-        pageCommonMethods.moveTo(page, module);
+        pageFactory.getPageCommonMethods().moveTo(page, module);
     }
 }

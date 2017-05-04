@@ -17,5 +17,5 @@ Feature: To verify if the user is able to create currency exchange rate info und
     Then  the currency exchange info should be created
       | <date> | <type> | <currencyFrom> | <currencyTo> | <rate> |
     Examples:
-      | date       | type | currencyFrom | currencyTo | rate |
-      | 2017-02-24 | CWB  | BBD          | USD        | 6.00 |
+      | date        | type | currencyFrom | currencyTo | rate |
+      | 24-APR-2017 | CWB  | AED          | USD        | 6.00 |

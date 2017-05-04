@@ -1,20 +1,22 @@
-ui:
-  image: 'ui:latest'
+jui:
+  image: 'epe-ui:latest'
   containerName: "pricing_ui"
   exposedPorts: [4200/tcp]
   publishAllPorts: true
   attachStdin: true
   attachSterr: true
   dnsSearch: [localhost]
+  alwaysPull: true
   portBindings: [4200->80/tcp]
-datamock:
-  image: 'datamock:latest'
+jdatamock:
+  image: 'epe-data-mock:latest'
   containerName: "pricing_datamock"
   exposedPorts: [5555/tcp]
   attachStdin: true
   attachSterr: true
   networkMode: host
   privileged: true
+  alwaysPull: true
   dnsSearch: [losthost]
   env:
     - server.port=5555
@@ -23,36 +25,40 @@ datamock:
     - spring.datasource.username=apps
     - spring.datasource.password=apps
   portBindings: [5555->5555/tcp]
-engine:
-  image: 'engine:latest'
-  containerName: "pricing_engine"
+jengine:
+  image: 'epe-price-engine:latest'
   exposedPorts: [6666/tcp]
   publishAllPorts: true
   attachStdin: true
   attachSterr: true
+  alwaysPull: true
   dnsSearch: [localhost]
   env: [server.port=6666]
   portBindings: [8081->6666/tcp]
-database:
-  image: 'db2.0:latest'
+jdatabase:
+  image: 'solr-cassandra:latest'
   containerName: "pricing_db"
   exposedPorts: [9042/tcp]
   publishAllPorts: true
   attachStdin: true
   attachSterr: true
-  dnsSearch: [127.0.0.1]
+  alwaysPull: true
+  memoryLimit: 1024
+  memorySwap: 1024
+  dnsSearch: [localhost]
   portBindings: [9042->9042/tcp,8943->8943/tcp]
-service:
-  image: 'service:latest'
+jservice:
+  image: 'epe-config:latest'
   containerName: "pricing_service"
   exposedPorts: [8080/tcp]
   publishAllPorts: true
   attachStdin: true
   attachSterr: true
-  dependsOn: [pricing_db]
+  alwaysPull: true
+  dependsOn: [database]
   dnsSearch: [localhost]
   links:
-      - aqpricedb:db
+      - database:db
   env: [cassandra.contactpoints=db]
   portBindings: [8080->8080/tcp]
   manual: true

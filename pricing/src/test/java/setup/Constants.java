@@ -266,13 +266,27 @@ public class Constants {
     public static String workbookData_addNewData_xpath = ".//*[@id='content']/workbook-data/div/div/div/div/authorize/div/button[1]";
     public static String workbookData_upload_xpath = ".//*[@id='content']/workbook-data/div/div/div/div/authorize/div/button[2]";
     public static String workbookData_search_xpath = ".//*[@id='content']/workbook-data/div/div/div/div/authorize/div/button[3]";
+    public static String workbookData_chooseFile_xpath = "//button[@ng-reflect-label='Choose']";
     /*
      * Add new data
      */
     public static String workbookData_addNewDataEndDate_xpath = "//div[2]/div[2]/div/p-calendar/span/input";
     public static String workbookData_addNewDataStartDate_xpath = "//div[2]/div[1]/div/p-calendar/span/input";
-
-
+    public static String workbookData_addNewDataCurrencyCode_xpath = "//select[@formcontrolname='currencyCode']";
+    public static String workbookData_addNewDataAmount_xpath = "//input[@formcontrolname='amount']";
+    public static String workbookData_addNewDataPriceBasis_xpath = ".//*[@id='priceBasis']/div/div/select";
+    public static String workbookData_addNewDataUom_xpath = "//select[@formcontrolname='uomCode']";
+    public static String workbookData_addNewDataCommon_xpath = "//p-autocomplete[@ng-reflect-name='ToBeReplaced']/span/input";
+    public static String workbookData_addNewDataSupplier_xpath = "//p-autocomplete[@ng-reflect-name='supplier']/span/input";
+    public static String workbookData_addNewDataSupplierSite_xpath = "//p-autocomplete[@ng-reflect-name='supplierSite']/span/input";
+    public static String workbookData_addNewDataLocation_xpath = "//p-autocomplete[@ng-reflect-name='location']/span/input";
+    public static String workbookData_addNewDataItem_xpath = "//p-autocomplete[@ng-reflect-name='item']/span/input";
+    public static String workbookData_addNewDataHauler_xpath = "//p-autocomplete[@ng-reflect-name='hauler']/span/input";
+    public static String workbookData_addNewDataCustomershipto_xpath = "//p-dropdown[@ng-reflect-name='customerShipTo']/div/label";
+    public static String workbookData_addNewDataCustomer_xpath = "//p-dropdown[@ng-reflect-name='customer']/div/label";
+    public static String workbookData_addNewDataFbo_xpath = "//p-dropdown[@ng-reflect-name='fbo']/div/label";
+    public static String workbookData_save_xpath = "//*/button[normalize-space()='Save']";
+    public static String workbookData_searchInDropdown_xpath = "//input[@class='ui-dropdown-filter ui-inputtext ui-widget ui-state-default ui-corner-all']";
 }
 
 

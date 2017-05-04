@@ -89,8 +89,12 @@ public class PageWorkbooksteps extends PageCommonMethods {
         temp = pageFactory.getListWorkBookMethods().getFirstRecord(filter);
     }
 
-    @Then("^the list workbook configuration list should be filtered with the \"([^\"]*)\"$")
-    public void the_list_workbook_configuration_list_should_be_filtered_with(String filter) {
+    @Then("^the list workbook configuration list should be filtered with the \"([^\"]*)\" as \"([^\"]*)\"$")
+    public void the_list_workbook_configuration_list_should_be_filtered_with(String filter,String filterValue) {
+        if(!filterValue.equals("firstWorkbook"))
+        {
+            temp=filterValue;
+        }
         switch (filter) {
             case "name":
                 pageFactory.getListWorkBookMethods().checkIfRecordExistsUsingNameFilter(temp);
@@ -121,6 +125,15 @@ public class PageWorkbooksteps extends PageCommonMethods {
                 break;
             case "update":
                 pageFactory.getWorkBookDataMethods().clickOnUpdate();
+                break;
+            case "upload":
+                pageFactory.getWorkBookDataMethods().clickOnUpload();
+                break;
+            case "search":
+                pageFactory.getWorkBookDataMethods().clickOnSearch();
+                break;
+            default:
+                System.out.println("Option not found in the list");
         }
     }
 
@@ -130,5 +143,11 @@ public class PageWorkbooksteps extends PageCommonMethods {
         pageFactory.getListWorkBookMethods().checkIfRecordExistsUsingNameFilter(rows.get(0).get(0));
         pageFactory.getListWorkBookMethods().clickOnDefinition(0);
         pageFactory.getCreateWorkBookMethods().verifyIfWorkbookConfigurationIsDisplayed(dataTable);
+    }
+
+    @And("^choose file having path \"([^\"]*)\"$")
+    public void choose_file_having_path(String filePath)
+    {
+        pageFactory.getWorkBookDataMethods().clickOnChoose(filePath);
     }
 }

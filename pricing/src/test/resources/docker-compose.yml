@@ -1,6 +1,5 @@
 jui:
   image: 'epe-ui:latest'
-  containerName: "pricing_ui"
   exposedPorts: [4200/tcp]
   publishAllPorts: true
   attachStdin: true
@@ -10,7 +9,6 @@ jui:
   portBindings: [4200->80/tcp]
 jdatamock:
   image: 'epe-data-mock:latest'
-  containerName: "pricing_datamock"
   exposedPorts: [5555/tcp]
   attachStdin: true
   attachSterr: true
@@ -37,7 +35,6 @@ jengine:
   portBindings: [8081->6666/tcp]
 jdatabase:
   image: 'solr-cassandra:latest'
-  containerName: "pricing_db"
   exposedPorts: [9042/tcp]
   publishAllPorts: true
   attachStdin: true
@@ -49,7 +46,6 @@ jdatabase:
   portBindings: [9042->9042/tcp,8943->8943/tcp]
 jservice:
   image: 'epe-config:latest'
-  containerName: "pricing_service"
   exposedPorts: [8080/tcp]
   publishAllPorts: true
   attachStdin: true

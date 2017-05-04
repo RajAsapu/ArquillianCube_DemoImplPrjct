@@ -16,7 +16,7 @@ public class OpenBrowser {
         switch (browser) {
             case CHROME:
                 System.setProperty("webdriver.chrome.driver",
-                        "../chromedriver");
+                        "chromedriver");
                 ChromeOptions options = new ChromeOptions();
                 options.addArguments("--no-sandbox");
                 options.addArguments("--test-type");
@@ -27,7 +27,7 @@ public class OpenBrowser {
                 break;
             case FIREFOX:
                 System.setProperty("webdriver.gecko.driver",
-                        "../geckodriver");
+                        "geckodriver");
                 driver = new FirefoxDriver();
                 break;
             case IE:

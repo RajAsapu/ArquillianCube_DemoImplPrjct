@@ -39,16 +39,16 @@ public class ListWorkBookMethods extends GenericWebElementMethods {
         String temp = null;
         switch (type) {
             case "name":
-                temp = getValue(Constants.workbookList_nameColumn_xpath);
+                temp = getFirstValueNotNull(Constants.workbookList_nameColumn_xpath);
                 break;
             case "description":
-                temp = getValue(Constants.workbookList_descrptionColumn_xpath);
+                temp = getFirstValueNotNull(Constants.workbookList_descrptionColumn_xpath);
                 break;
             case "formulaType":
-                temp = getValue(Constants.workbookList_formulaTypeColumn_xpath);
+                temp = getFirstValueNotNull(Constants.workbookList_formulaTypeColumn_xpath);
                 break;
             case "segment":
-                temp = getValue(Constants.workbookList_segmentColumn_xpath);
+                temp = getFirstValueNotNull(Constants.workbookList_segmentColumn_xpath);
                 break;
         }
         return temp;

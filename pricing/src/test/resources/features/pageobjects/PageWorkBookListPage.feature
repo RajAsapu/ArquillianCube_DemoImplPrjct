@@ -28,7 +28,7 @@ Feature: Workbook List Page
   Scenario Outline: To verify if the user is able to filter the work book configuration list using name,description,formulaType and segment.
     Given the user has navigated to the "List" page under the "Workbook"
     When  the user filters workbook configuration list using "<filter>"
-    Then  the list workbook configuration list should be filtered with the "<filter>"
+    Then  the list workbook configuration list should be filtered with the "<filter>" as "firstWorkbook"
     Examples:
       | filter      |
       | name        |

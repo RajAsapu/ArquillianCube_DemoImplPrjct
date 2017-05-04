@@ -28,8 +28,8 @@ public class PageCommonMethods {
 
     public void waitFor(long timeInSeconds) {
         try {
-            webDriverWait.wait(timeInSeconds);
-        } catch (InterruptedException e) {
+            Thread.sleep(timeInSeconds*1000);
+        } catch (InterruptedException|NullPointerException e) {
             e.printStackTrace();
         }
     }

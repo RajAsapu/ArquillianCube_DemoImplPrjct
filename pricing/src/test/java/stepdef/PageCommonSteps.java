@@ -64,11 +64,31 @@ public class PageCommonSteps extends BaseClass {
     }
 
     /*
+     * Overloaded method: User clicks on the search button in the Index and Currency Exchange pages
+     * Doesn't validate if button is enabled
+     */
+    @When("^search button is clicked$")
+    public void search_button_is_clicked() {
+        WebElement search = edriver.findElement(By.xpath(Constants.indexCreate_search_xpath));
+        Actions actions = new Actions(edriver);
+        actions.click(search).perform();
+    }
+
+    /*
      * User clicks on the search button in the Index and Currency Exchange pages
      */
     @And("^clicks on the submit button$")
     public void clicks_on_the_submit_button() throws Exception {
         edriver.findElement(By.xpath(Constants.indexCreate_submit_xpath)).click();
+        Thread.sleep(3000);
+    }
+
+    /*
+    * User clicks on the save button in the Workbook data
+    */
+    @And("^clicks on the save button$")
+    public void clicks_on_the_save_button() throws Exception {
+        edriver.findElement(By.xpath(Constants.workbookData_save_xpath)).click();
         Thread.sleep(3000);
     }
 

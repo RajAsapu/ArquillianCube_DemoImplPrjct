@@ -1,6 +1,7 @@
 package functions;
 
 import com.google.common.base.Verify;
+import com.google.common.collect.Lists;
 import org.apache.maven.shared.utils.StringUtils;
 import org.junit.Assert;
 import org.openqa.selenium.By;
@@ -12,6 +13,7 @@ import org.openqa.selenium.support.events.EventFiringWebDriver;
 import org.openqa.selenium.support.ui.Select;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import setup.Constants;
 import setup.DateOperations;
 import setup.DriverBean;
 
@@ -64,7 +66,22 @@ public class GenericWebElementMethods extends PageCommonMethods {
             return null;
         }
     }
-
+    /*
+     * Method to get the enabled element fro list
+     */
+    protected WebElement getLastEnabledElementFromList(String identifier) {
+        List<WebElement> list = null;
+        list = edriver.findElements(By.xpath(identifier));
+        list = Lists.reverse(list);
+        for(WebElement temp:list)
+        {
+            if(temp.isDisplayed())
+            {
+                return temp;
+            }
+        }
+        return null;
+    }
     /*
      *  Method to enter text into a field using sendKeys
      */
@@ -91,6 +108,34 @@ public class GenericWebElementMethods extends PageCommonMethods {
             value = webElement.getAttribute("value");
         }
         return value == null ? webElement.getText() : value;
+    }
+
+    /*
+     * Overloaded Method-to get the value of the web element
+     */
+    protected String getValue(WebElement webElement) {
+        String value = null;
+        value = webElement.getAttribute("ng-reflect-value");
+        if (value == null) {
+            value = webElement.getAttribute("value");
+        }
+        return value == null ? webElement.getText() : value;
+    }
+
+    /*
+     * Method to get the first value not null of the web element
+     */
+    protected String getFirstValueNotNull(String filter) {
+        List<WebElement> list = edriver.findElements(By.xpath(filter));
+        for(WebElement temp:list)
+        {
+            String x=getValue(temp);
+            if(!getValue(temp).equals(""))
+            {
+                return getValue(temp);
+            }
+        }
+        return null;
     }
 
     /*
@@ -132,20 +177,38 @@ public class GenericWebElementMethods extends PageCommonMethods {
      */
     protected void selectFromDropDown_LabelTag(String identifier, String value, int position) {
         WebElement autoFill = null;
-        WebElement dropdown = getElementFromListWithPosition(identifier, 0);
+        WebElement dropdown = getElementFromListWithPosition(identifier, -1);
         actions.click(dropdown).perform();
-        try {
-            Thread.sleep(4000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        waitFor(3);
         scrollIntoView("//*[normalize-space()='" + value + "']");
         if (getSizeOfList("//*[normalize-space()='" + value + "']") > 0) {
-            autoFill = getElementFromListWithPosition("//*[normalize-space()='" + value + "']", -1);
+            autoFill = getElementFromListWithPosition("//*[normalize-space()='" + value + "']", 0);
         } else if (getSizeOfList("//*[normalize-space()='" + value.toUpperCase() + "']") > 0) {
-            autoFill = getElementFromListWithPosition("//*[normalize-space()='" + value.toUpperCase() + "']", -1);
+            autoFill = getElementFromListWithPosition("//*[normalize-space()='" + value.toUpperCase() + "']", 0);
         } else if (getSizeOfList("//*[normalize-space()='" + value.replaceAll(" ", "") + "']") > 0) {
-            autoFill = getElementFromListWithPosition("//*[normalize-space()='" + value.replaceAll(" ", "") + "']", -1);
+            autoFill = getElementFromListWithPosition("//*[normalize-space()='" + value.replaceAll(" ", "") + "']", 0);
+        } else {
+            Assert.fail("Auto Fill options are not displayed");
+        }
+        actions.click(autoFill).perform();
+    }
+  /*
+   *  Method to select the values from the drop down with search option
+   */
+    protected void selectFromDropDownWithSearchBar_LabelTag(String dropdownId,String value) {
+        WebElement autoFill = null;
+        WebElement dropdown = getElementFromListWithPosition(dropdownId, 0);
+        actions.click(dropdown).perform();
+        waitFor(3);
+        sendKeysToWE(Constants.workbookData_searchInDropdown_xpath,value);
+        waitFor(1);
+        scrollIntoView("//*[normalize-space()='" + value + "']");
+        if (getSizeOfList("//*[normalize-space()='" + value + "']") > 0) {
+            autoFill = getElementFromListWithPosition("//*[normalize-space()='" + value + "']", 0);
+        } else if (getSizeOfList("//*[normalize-space()='" + value.toUpperCase() + "']") > 0) {
+            autoFill = getElementFromListWithPosition("//*[normalize-space()='" + value.toUpperCase() + "']", 0);
+        } else if (getSizeOfList("//*[normalize-space()='" + value.replaceAll(" ", "") + "']") > 0) {
+            autoFill = getElementFromListWithPosition("//*[normalize-space()='" + value.replaceAll(" ", "") + "']", 0);
         } else {
             Assert.fail("Auto Fill options are not displayed");
         }
@@ -189,12 +252,7 @@ public class GenericWebElementMethods extends PageCommonMethods {
         WebElement autoFill = null;
         getElementFromListWithPosition(identifier, -1).clear();
         getElementFromListWithPosition(identifier, -1).sendKeys(value.substring(0, value.length() - 1));
-        try {
-            Thread.sleep(4000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
+        waitFor(3);
         if (getSizeOfList("//*[normalize-space()='" + value + "']") > 0) {
             autoFill = getElementFromListWithPosition("//*[normalize-space()='" + value + "']", -1);
         } else if (getSizeOfList("//*[normalize-space()='" + value.toUpperCase() + "']") > 0) {

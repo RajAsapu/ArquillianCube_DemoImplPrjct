@@ -6,7 +6,8 @@
 
     <extension qualifier="docker">
         <property name="serverVersion">1.12.3</property>
-        <property name="dockerRegistry">http://jfrog.aws.wfscorp.com/artifactory/docker/docker-dev-local/</property>
+        <property name="serverUri">http://localhost:2375</property>
+        <!--<property name="dockerRegistry">http://jfrog.aws.wfscorp.com/artifactory/docker/docker-dev-local/</property>-->
         <property name="clean">true</property>
         <property name="dockerContainersFile">src/test/resources/docker-compose.yml</property>
         <property name="definitionFormat">CUBE</property>
@@ -14,14 +15,16 @@
         <property name="connectionMode">STARTORCONNECTANDLEAVE</property>
         <property name="autoStartContainers">custom:setup.AutoStartContainersOrder</property>
         <property name="cubeSpecificProperties">
-            jdatabase:
+            database:
                 await:
                     strategy: log
                     match: 'DSE startup complete'
                     sleepPollingTime: 5 s
                     iterations: 20
-                    timeout: 1800
-            jservice:
+                    stdOut: true
+                    stdErr: true
+                    timeout: 1800  
+            service:
                 await:
                     strategy: http
                     match: 'startup'
@@ -29,26 +32,34 @@
                     url: http://localhost:8080/swagger-ui.html
                     sleepPollingTime: 5 s
                     iterations: 20
+                    stdOut: true
+                    stdErr: true
                     timeout: 1800
-            jui:
+            ui:
                 await:
                     strategy: polling
                     sleepPollingTime: 5 s
                     iterations: 5
+                    stdOut: true
+                    stdErr: true
                     timeout: 1800
-            jdatamock:
+            datamock:
                 await:
                     strategy: log
                     match: 'Successfully connected'
                     sleepPollingTime: 5 s
                     iterations: 20
+                    stdOut: true
+                    stdErr: true
                     timeout: 1800
-            jengine:
+            engine:
                 await:
                     strategy: log
                     match: 'Initializing Spring FrameworkServlet'
                     sleepPollingTime: 5 s
                     iterations: 20
+                    stdOut: true
+                    stdErr: true
                     timeout: 1800
         </property>
     </extension>

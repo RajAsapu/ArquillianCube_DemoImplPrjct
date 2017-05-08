@@ -21,9 +21,6 @@ dependencies {
     compile group: 'org.seleniumhq.selenium', name: 'selenium-chrome-driver', version: '3.0.1'
     compile group: 'log4j', name: 'log4j', version: '1.2.17'
     compile 'io.rest-assured:xml-path:3.0.2'
-    testCompile group: 'org.jboss.arquillian.junit', name: 'arquillian-junit-standalone', version: '1.1.12.Final'
-    testCompile group: 'org.arquillian.cube', name: 'arquillian-cube-docker', version: '1.0.0.Alpha17'
-    testCompile group: 'org.jboss.arquillian.container', name: 'arquillian-container-test-api', version: '1.1.12.Final'
     testCompile group: 'org.mockito', name: 'mockito-all', version: '2.0.2-beta'
     testCompile group: 'com.github.docker-java', name: 'docker-java', version: '3.0.9'
     testCompile group: 'io.rest-assured', name: 'rest-assured', version: '3.0.0'
@@ -32,8 +29,13 @@ dependencies {
 
     //Arquillian dependencies
     compile group: 'org.jboss.arquillian.junit', name: 'arquillian-junit-standalone', version: '1.1.12.Final'
-    compile group: 'org.arquillian.cube', name: 'arquillian-cube-docker', version: '1.0.0.Alpha17'
+    compile group: 'org.arquillian.cube', name: 'arquillian-cube-docker', version: '1.1.0'
     compile group: 'org.jboss.arquillian.container', name: 'arquillian-container-test-api', version: '1.1.12.Final'
-
-
+    compile group: 'org.jboss.shrinkwrap.descriptors', name: 'shrinkwrap-descriptors-api-docker', version: '1.0.0-alpha-2'
+    compile group: 'org.jboss.shrinkwrap.descriptors', name: 'shrinkwrap-descriptors-impl-docker', version: '1.0.0-alpha-2'
+    compile group: 'org.arquillian.cube', name: 'arquillian-cube-requirement', version: '1.2.0'
+    compile group: 'org.arquillian.cube', name: 'arquillian-cube-spi', version: '1.2.0'
+    compile group: 'org.arquillian.cube', name: 'arquillian-cube-api', version: '1.2.0'
+    compile group: 'org.arquillian.cube', name: 'arquillian-cube-core', version: '1.2.0'
+    compile group: 'org.arquillian.cube', name: 'arquillian-cube-containerless', version: '1.0.0.Alpha16'
 }

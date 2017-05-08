@@ -1,20 +1,20 @@
-jui:
+ui:
   image: 'epe-ui:latest'
   exposedPorts: [4200/tcp]
   publishAllPorts: true
   attachStdin: true
   attachSterr: true
   dnsSearch: [localhost]
-  alwaysPull: true
+  alwaysPull: false
   portBindings: [4200->80/tcp]
-jdatamock:
+datamock:
   image: 'epe-data-mock:latest'
   exposedPorts: [5555/tcp]
   attachStdin: true
   attachSterr: true
   networkMode: host
   privileged: true
-  alwaysPull: true
+  alwaysPull: false
   dnsSearch: [losthost]
   env:
     - server.port=5555
@@ -23,41 +23,39 @@ jdatamock:
     - spring.datasource.username=apps
     - spring.datasource.password=apps
   portBindings: [5555->5555/tcp]
-jengine:
+engine:
   image: 'epe-price-engine:latest'
   exposedPorts: [6666/tcp]
   publishAllPorts: true
   attachStdin: true
   attachSterr: true
-  alwaysPull: true
+  alwaysPull: false
   dnsSearch: [localhost]
   env: [server.port=6666]
   portBindings: [8081->6666/tcp]
-jdatabase:
+database:
   image: 'solr-cassandra:latest'
   exposedPorts: [9042/tcp]
   publishAllPorts: true
   attachStdin: true
   attachSterr: true
-  alwaysPull: true
-  memoryLimit: 1024
-  memorySwap: 1024
+  alwaysPull: false
   dnsSearch: [localhost]
   portBindings: [9042->9042/tcp,8943->8943/tcp]
-jservice:
+service:
   image: 'epe-config:latest'
   exposedPorts: [8080/tcp]
   publishAllPorts: true
   attachStdin: true
   attachSterr: true
-  alwaysPull: true
+  alwaysPull: false
   dependsOn: [database]
   dnsSearch: [localhost]
   links:
       - database:db
-  env: [cassandra.contactpoints=db]
+  env: [cassandra.contactpoints=database]
   portBindings: [8080->8080/tcp]
   manual: true
   restartPolicy:
       name: failure
-      maximumRetryCount: 5
+      maximumRetryCount: 2

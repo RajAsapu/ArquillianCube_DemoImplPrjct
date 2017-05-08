@@ -4,14 +4,24 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.github.dockerjava.api.DockerClient;
+import com.github.dockerjava.api.command.CreateContainerResponse;
 import com.github.dockerjava.api.command.InspectContainerResponse;
+import com.github.dockerjava.api.model.ExposedPort;
+import com.github.dockerjava.api.model.InternetProtocol;
+import com.github.dockerjava.api.model.PortBinding;
+import com.github.dockerjava.api.model.RestartPolicy;
 import com.github.dockerjava.core.DockerClientBuilder;
+import com.github.dockerjava.core.command.WaitContainerResultCallback;
+import org.junit.Assert;
 
 import java.io.*;
 import java.net.URL;
 import java.util.Map;
 import java.util.Properties;
 import java.util.ResourceBundle;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 
 public class UpdateProperties {
 
@@ -72,7 +82,7 @@ public class UpdateProperties {
             root = mapper.readTree(hostConfigFile);
             ((ObjectNode) root).put("priceEngineServiceUrl", getProperty("pricing.engine"));
             ((ObjectNode) root).put("masterDataServiceUrl", getProperty("pricing.datamock"));
-            ((ObjectNode) root).put("priceConfigServiceUrl", "https://epe-priceconfig-s.dev.aws.wfscorp.com/");
+            ((ObjectNode) root).put("priceConfigServiceUrl", "http://localhost:8080/");
             resultUpdate = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(root);
             fwrite = new FileWriter(hostConfigFile);
             fwrite.write(resultUpdate);
@@ -90,5 +100,33 @@ public class UpdateProperties {
     public String getContainerIdUsingName(String containerName) {
         InspectContainerResponse containerInfo = dockerClient.inspectContainerCmd(containerName).exec();
         return containerInfo.getId();
+    }
+
+    public boolean startServiceContainer(String dbIpAddress,String image)
+    {
+        try
+        {
+            dockerClient = DockerClientBuilder.getInstance().build();
+            CreateContainerResponse container = dockerClient.createContainerCmd(image)
+                    .withExposedPorts(new ExposedPort(8080, InternetProtocol.TCP))
+                    .withPortBindings(PortBinding.parse("8080:8080"))
+                    .withPublishAllPorts(true)
+                    .withAttachStderr(true)
+                    .withAttachStdin(true)
+                    .withEnv("cassandra.contactpoints="+dbIpAddress)
+                    .withName("service")
+                    .withRestartPolicy(RestartPolicy.onFailureRestart(2))
+                    .exec();
+
+            dockerClient.startContainerCmd(container.getId()).exec();
+
+            return true;
+        }
+        catch (Exception exp)
+        {
+            Assert.fail("Service Container is not started"+exp.getMessage());
+            return false;
+        }
+
     }
 }

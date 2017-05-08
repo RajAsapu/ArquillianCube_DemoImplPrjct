@@ -3,6 +3,7 @@ package runner;
 import com.google.common.base.Verify;
 import cucumber.api.CucumberOptions;
 import cucumber.api.java.Before;
+import cucumber.runtime.arquillian.ArquillianCucumber;
 import cucumber.runtime.arquillian.CukeSpace;
 import org.arquillian.cube.CubeIp;
 import org.arquillian.cube.HostPort;
@@ -14,7 +15,7 @@ import stepdef.AbstractApiDefinitions;
 import java.util.HashMap;
 import java.util.Map;
 
-@RunWith(CukeSpace.class)
+@RunWith(ArquillianCucumber.class)
 @RunAsClient
 @CucumberOptions(
         features = {"src/test/resources/features/pageobjects/"},
@@ -32,7 +33,7 @@ public class RunTest {
     private static int datamockPort;
     @HostPort(containerName = "engine", value = 6666)
     private static int enginePort;
-    @HostPort(containerName = "service", value = 6666)
+    @HostPort(containerName = "service", value = 8080)
     private static int servicePort;
     @CubeIp(containerName = "database")
     protected String ipDatabase;

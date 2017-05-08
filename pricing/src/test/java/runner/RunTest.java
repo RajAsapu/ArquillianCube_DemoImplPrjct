@@ -9,6 +9,7 @@ import org.arquillian.cube.CubeIp;
 import org.arquillian.cube.HostPort;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.junit.Arquillian;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import setup.UpdateProperties;
 import stepdef.AbstractApiDefinitions;
@@ -38,7 +39,7 @@ public class RunTest {
     @CubeIp(containerName = "database")
     protected String ipDatabase;
 
-    @Before
+    @Test
     public void updatePricingProperties() throws Exception {
         Verify.verify(props.startServiceContainer(ipDatabase, "epe-config:latest"));
         map.put("pricing.ui", "localhost:" + String.valueOf(uiPort));

@@ -19,7 +19,7 @@ import java.util.Map;
 @RunWith(ArquillianCucumber.class)
 @RunAsClient
 @CucumberOptions(
-        features = {"src/test/resources/features/pageobjects/"},
+        features = {"src/test/resources/features/pageobjects/PageIndexCreatePage.feature"},
         glue = {"classpath:"},
         tags = {"@PageObjects"}
 )

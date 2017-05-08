@@ -42,20 +42,3 @@ database:
   alwaysPull: false
   dnsSearch: [localhost]
   portBindings: [9042->9042/tcp,8943->8943/tcp]
-service:
-  image: 'epe-config:latest'
-  exposedPorts: [8080/tcp]
-  publishAllPorts: true
-  attachStdin: true
-  attachSterr: true
-  alwaysPull: false
-  dependsOn: [database]
-  dnsSearch: [localhost]
-  links:
-      - database:db
-  env: [cassandra.contactpoints=database]
-  portBindings: [8080->8080/tcp]
-  manual: true
-  restartPolicy:
-      name: failure
-      maximumRetryCount: 2

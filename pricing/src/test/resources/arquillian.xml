@@ -19,48 +19,37 @@
                 await:
                     strategy: log
                     match: 'DSE startup complete'
-                    sleepPollingTime: 5 s
-                    iterations: 20
-                    stdOut: true
-                    stdErr: true
-                    timeout: 1800  
-            service:
-                await:
-                    strategy: http
-                    match: 'startup'
-                    responseCode: 200
-                    url: http://localhost:8080/swagger-ui.html
-                    sleepPollingTime: 5 s
-                    iterations: 20
-                    stdOut: true
-                    stdErr: true
-                    timeout: 1800
-            ui:
-                await:
-                    strategy: polling
-                    sleepPollingTime: 5 s
+                    sleepPollingTime: 10 s
                     iterations: 5
                     stdOut: true
                     stdErr: true
-                    timeout: 1800
+                    timeout: 180
+            ui:
+                await:
+                    strategy: polling
+                    sleepPollingTime: 10 s
+                    iterations: 5
+                    stdOut: true
+                    stdErr: true
+                    timeout: 180
             datamock:
                 await:
                     strategy: log
                     match: 'Successfully connected'
-                    sleepPollingTime: 5 s
-                    iterations: 20
+                    sleepPollingTime: 10 s
+                    iterations: 5
                     stdOut: true
                     stdErr: true
-                    timeout: 1800
+                    timeout: 180
             engine:
                 await:
                     strategy: log
                     match: 'Initializing Spring FrameworkServlet'
                     sleepPollingTime: 5 s
-                    iterations: 20
+                    iterations: 5
                     stdOut: true
                     stdErr: true
-                    timeout: 1800
+                    timeout: 180
         </property>
     </extension>
 </arquillian>

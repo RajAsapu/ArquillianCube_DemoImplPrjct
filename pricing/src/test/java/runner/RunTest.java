@@ -34,8 +34,6 @@ public class RunTest {
     private static int datamockPort;
     @HostPort(containerName = "engine", value = 6666)
     private static int enginePort;
-    @HostPort(containerName = "service", value = 8080)
-    private static int servicePort;
     @CubeIp(containerName = "database")
     protected String ipDatabase;
 
@@ -45,7 +43,7 @@ public class RunTest {
         map.put("pricing.ui", "localhost:" + String.valueOf(uiPort));
         map.put("pricing.datamock", "localhost:" + String.valueOf(datamockPort));
         map.put("pricing.engine", "localhost:" + String.valueOf(enginePort));
-        map.put("pricing.service", "localhost:" + String.valueOf(servicePort));
+        map.put("pricing.service", "localhost:8080");
         props.setProperty(map);
         props.updateHostConfig();
         System.out.println("Arquillian - Containers has started .");

@@ -37,7 +37,7 @@ public class RunTest {
     @CubeIp(containerName = "database")
     protected String ipDatabase;
 
-    @Test
+    @Before
     public void updatePricingProperties() throws Exception {
         Verify.verify(props.startServiceContainer(ipDatabase, "epe-config:latest"));
         map.put("pricing.ui", "localhost:" + String.valueOf(uiPort));

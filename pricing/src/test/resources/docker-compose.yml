@@ -23,6 +23,9 @@ datamock:
     - spring.datasource.username=apps
     - spring.datasource.password=apps
   portBindings: [5555->5555/tcp]
+  restartPolicy:
+        name: failure
+        maximumRetryCount: 2
 engine:
   image: 'epe-price-engine:latest'
   exposedPorts: [6666/tcp]
@@ -33,6 +36,9 @@ engine:
   dnsSearch: [localhost]
   env: [server.port=6666]
   portBindings: [8081->6666/tcp]
+  restartPolicy:
+        name: failure
+        maximumRetryCount: 2
 database:
   image: 'solr-cassandra:latest'
   exposedPorts: [9042/tcp]
@@ -42,3 +48,6 @@ database:
   alwaysPull: false
   dnsSearch: [localhost]
   portBindings: [9042->9042/tcp,8943->8943/tcp]
+  restartPolicy:
+        name: failure
+        maximumRetryCount: 2

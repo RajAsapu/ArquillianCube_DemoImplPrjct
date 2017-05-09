@@ -23,15 +23,15 @@
                     iterations: 5
                     stdOut: true
                     stdErr: true
-                    timeout: 180
+                    timeout: 1800
             ui:
                 await:
                     strategy: polling
                     sleepPollingTime: 10 s
                     iterations: 5
-                    stdOut: false
+                    stdOut: true
                     stdErr: true
-                    timeout: 180
+                    timeout: 1800
             datamock:
                 await:
                     strategy: log
@@ -40,16 +40,16 @@
                     iterations: 5
                     stdOut: true
                     stdErr: true
-                    timeout: 180
+                    timeout: 1800
             engine:
                 await:
                     strategy: log
-                    match: 'Initializing Spring FrameworkServlet'
+                    match: 'Message broker is not set up'
                     sleepPollingTime: 5 s
                     iterations: 5
                     stdOut: true
                     stdErr: true
-                    timeout: 180
+                    timeout: 1800
         </property>
     </extension>
 </arquillian>

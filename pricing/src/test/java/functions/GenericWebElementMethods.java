@@ -254,13 +254,13 @@ public class GenericWebElementMethods extends PageCommonMethods {
         getElementFromListWithPosition(identifier, -1).sendKeys(value.substring(0, value.length() - 1));
         waitFor(3);
         if (getSizeOfList("//*[normalize-space()='" + value + "']") > 0) {
-            autoFill = getElementFromListWithPosition("//*[normalize-space()='" + value + "']", -1);
+            autoFill = getElementFromListWithPosition("//*[normalize-space()='" + value + "']", 0);
         } else if (getSizeOfList("//*[normalize-space()='" + value.toUpperCase() + "']") > 0) {
-            autoFill = getElementFromListWithPosition("//*[normalize-space()='" + value.toUpperCase() + "']", -1);
+            autoFill = getElementFromListWithPosition("//*[normalize-space()='" + value.toUpperCase() + "']", 0);
         } else if (getSizeOfList("//*[normalize-space()='" + value.replaceAll(" ", "") + "']") > 0) {
-            autoFill = getElementFromListWithPosition("//*[normalize-space()='" + value.replaceAll(" ", "") + "']", -1);
+            autoFill = getElementFromListWithPosition("//*[normalize-space()='" + value.replaceAll(" ", "") + "']", 0);
         } else if (getSizeOfList("//*[normalize-space()='" + StringUtils.capitalise(value) + "']") > 0) {
-            autoFill = getElementFromListWithPosition("//*[normalize-space()='" + StringUtils.capitalise(value) + "']", -1);
+            autoFill = getElementFromListWithPosition("//*[normalize-space()='" + StringUtils.capitalise(value) + "']", 0);
         } else {
             Assert.fail("Auto Fill options are not displayed");
         }

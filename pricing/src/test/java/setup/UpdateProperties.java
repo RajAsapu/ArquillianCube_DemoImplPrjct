@@ -124,8 +124,15 @@ public class UpdateProperties {
         }
         catch (Exception exp)
         {
-            Assert.fail("Service Container is not started"+exp.getMessage());
-            return false;
+            if(exp.getMessage().contains("already in use by container"))
+            {
+                return true;
+            }
+            else
+            {
+                Assert.fail("Service Container is not started"+exp.getMessage());
+                return false;
+            }
         }
 
     }

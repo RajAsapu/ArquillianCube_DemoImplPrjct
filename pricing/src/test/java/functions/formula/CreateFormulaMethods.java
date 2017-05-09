@@ -76,13 +76,13 @@ public class CreateFormulaMethods extends GenericWebElementMethods {
             if (type.equalsIgnoreCase("Index")) {
                 selectFromDropDown_LabelTag(Constants.formulaCreate_indexTypeParameter_xpath, parameters.get(i).get(2), -1);
                 selectFromDropDown_LabelTag(Constants.formulaCreate_indexPointParameter_xpath, parameters.get(i).get(3), -1);
-                setNameFromAutoFill(Constants.formulaCreate_indexNameParameter_xpath, parameters.get(i).get(4));
-                setNameFromAutoFill(Constants.formulaCreate_calculationPeriodParamater_xpath, parameters.get(i).get(5));
+                setNameFromAutoFill(Constants.formulaCreate_indexNameParameter_xpath, parameters.get(i).get(4), -1);
+                setNameFromAutoFill(Constants.formulaCreate_calculationPeriodParamater_xpath, parameters.get(i).get(5), -1);
             } else if (type.equalsIgnoreCase("Workbook")) {
-                setNameFromAutoFill(Constants.formulaCreate_workBookName_xpath, parameters.get(i).get(2));
-                setNameFromAutoFill(Constants.formulaCreate_supplier_xpath, parameters.get(i).get(3));
-                setNameFromAutoFill(Constants.formulaCreate_location_xpath, parameters.get(i).get(4));
-                setNameFromAutoFill(Constants.formulaCreate_product_xpath, parameters.get(i).get(5));
+                setNameFromAutoFill(Constants.formulaCreate_workBookName_xpath, parameters.get(i).get(2), -1);
+                setNameFromAutoFill(Constants.formulaCreate_supplier_xpath, parameters.get(i).get(3), -1);
+                setNameFromAutoFill(Constants.formulaCreate_location_xpath, parameters.get(i).get(4), -1);
+                setNameFromAutoFill(Constants.formulaCreate_product_xpath, parameters.get(i).get(5), -1);
             }
             i++;
         }

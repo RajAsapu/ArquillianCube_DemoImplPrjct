@@ -31,8 +31,7 @@ public class ListWorkBookMethods extends GenericWebElementMethods {
     }
 
     public void checkIfRecordExistsUsingSegmentFilter(String segment) {
-        sendKeysToWE(Constants.workbookList_segmentFilter_xpath, segment);
-        checkDataInRowsMatchesFilter(Constants.workbookList_segmentColumn_xpath, segment);
+        selectFromDropDown(Constants.workbookList_segmentFilter_xpath,Constants.workbookList_segmentListWe_xpath,segment);
     }
 
     public String getFirstRecord(String type) {
@@ -54,12 +53,16 @@ public class ListWorkBookMethods extends GenericWebElementMethods {
         return temp;
     }
 
-    public void clickOnData(int position) {
-        getElementFromListWithPosition(Constants.workbookList_data_xpath, position).click();
+    public void clickOnRadioButton(int position) {
+        getElementFromListWithPosition(Constants.workbookList_radioButtonColumn_xpath, position).click();
     }
 
-    public void clickOnDefinition(int position) {
-        getElementFromListWithPosition(Constants.workbookList_definition_xpath, position).click();
+    public void clickOnViewWorkBookConfiguration(int position) {
+        getElementFromListWithPosition(Constants.workbookList_viewWorkBookConfiguration_xpath, position).click();
+    }
+
+    public void clickOnManageData(int position) {
+        getElementFromListWithPosition(Constants.workbookList_manageData_xpath, position).click();
     }
 
 }

@@ -114,11 +114,11 @@ public class PageWorkbooksteps extends PageCommonMethods {
     @And("^clicked on \"([^\"]*)\"")
     public void clicked_on_(String button) throws Exception {
         switch (button.toLowerCase()) {
-            case "data":
-                pageFactory.getListWorkBookMethods().clickOnData(0);
+            case "row":
+                pageFactory.getListWorkBookMethods().clickOnRadioButton(0);
                 break;
-            case "definition":
-                pageFactory.getListWorkBookMethods().clickOnDefinition(0);
+            case "view workbook configuration":
+                pageFactory.getListWorkBookMethods().clickOnViewWorkBookConfiguration(0);
                 break;
             case "add new data":
                 pageFactory.getWorkBookDataMethods().clickOnAddNewData();
@@ -132,6 +132,9 @@ public class PageWorkbooksteps extends PageCommonMethods {
             case "search":
                 pageFactory.getWorkBookDataMethods().clickOnSearch();
                 break;
+            case "manage data":
+                pageFactory.getListWorkBookMethods().clickOnManageData(0);
+                break;
             default:
                 System.out.println("Option not found in the list");
         }
@@ -141,7 +144,7 @@ public class PageWorkbooksteps extends PageCommonMethods {
     public void the_definition_should_be_displayed_with_below_details(DataTable dataTable) {
         List<List<String>> rows = dataTable.transpose().raw();
         pageFactory.getListWorkBookMethods().checkIfRecordExistsUsingNameFilter(rows.get(0).get(0));
-        pageFactory.getListWorkBookMethods().clickOnDefinition(0);
+        pageFactory.getListWorkBookMethods().clickOnViewWorkBookConfiguration(0);
         pageFactory.getCreateWorkBookMethods().verifyIfWorkbookConfigurationIsDisplayed(dataTable);
     }
 

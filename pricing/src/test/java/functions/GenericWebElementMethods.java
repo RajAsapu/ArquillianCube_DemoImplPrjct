@@ -86,7 +86,15 @@ public class GenericWebElementMethods extends PageCommonMethods {
      *  Method to enter text into a field using sendKeys
      */
     protected void sendKeysToWE(String identifier, String value) {
-        edriver.findElement(By.xpath(identifier)).sendKeys(value);
+        List<WebElement> webElementList = edriver.findElements(By.xpath(identifier));
+        for(WebElement temp:webElementList)
+        {
+            if(temp.isDisplayed())
+            {
+                temp.sendKeys(value);
+                break;
+            }
+        }
     }
 
     /*
@@ -182,11 +190,11 @@ public class GenericWebElementMethods extends PageCommonMethods {
         waitFor(3);
         scrollIntoView("//*[normalize-space()='" + value + "']");
         if (getSizeOfList("//*[normalize-space()='" + value + "']") > 0) {
-            autoFill = getElementFromListWithPosition("//*[normalize-space()='" + value + "']", 0);
+            autoFill = getElementFromListWithPosition("//*[normalize-space()='" + value + "']", position);
         } else if (getSizeOfList("//*[normalize-space()='" + value.toUpperCase() + "']") > 0) {
-            autoFill = getElementFromListWithPosition("//*[normalize-space()='" + value.toUpperCase() + "']", 0);
+            autoFill = getElementFromListWithPosition("//*[normalize-space()='" + value.toUpperCase() + "']", position);
         } else if (getSizeOfList("//*[normalize-space()='" + value.replaceAll(" ", "") + "']") > 0) {
-            autoFill = getElementFromListWithPosition("//*[normalize-space()='" + value.replaceAll(" ", "") + "']", 0);
+            autoFill = getElementFromListWithPosition("//*[normalize-space()='" + value.replaceAll(" ", "") + "']", position);
         } else {
             Assert.fail("Auto Fill options are not displayed");
         }
@@ -204,17 +212,36 @@ public class GenericWebElementMethods extends PageCommonMethods {
         waitFor(1);
         scrollIntoView("//*[normalize-space()='" + value + "']");
         if (getSizeOfList("//*[normalize-space()='" + value + "']") > 0) {
-            autoFill = getElementFromListWithPosition("//*[normalize-space()='" + value + "']", 0);
+            autoFill = getElementFromListWithPosition("//*[normalize-space()='" + value + "']", -1);
         } else if (getSizeOfList("//*[normalize-space()='" + value.toUpperCase() + "']") > 0) {
-            autoFill = getElementFromListWithPosition("//*[normalize-space()='" + value.toUpperCase() + "']", 0);
+            autoFill = getElementFromListWithPosition("//*[normalize-space()='" + value.toUpperCase() + "']", -1);
         } else if (getSizeOfList("//*[normalize-space()='" + value.replaceAll(" ", "") + "']") > 0) {
-            autoFill = getElementFromListWithPosition("//*[normalize-space()='" + value.replaceAll(" ", "") + "']", 0);
+            autoFill = getElementFromListWithPosition("//*[normalize-space()='" + value.replaceAll(" ", "") + "']", -1);
         } else {
             Assert.fail("Auto Fill options are not displayed");
         }
         actions.click(autoFill).perform();
     }
 
+    /*
+     * Method  to select from drop down using the drop down identifiers
+     */
+    public void selectFromDropDown(String identifier,String listIdentifier,String value)
+    {
+        WebElement autoFill = null;
+        WebElement dropdown = getElementFromListWithPosition(identifier, 0);
+        actions.click(dropdown).perform();
+        waitFor(2);
+        List<WebElement> elementList = edriver.findElements(By.xpath(listIdentifier));
+        for(WebElement temp:elementList)
+        {
+            if(temp.getText().equalsIgnoreCase(value))
+            {
+                temp.click();
+                break;
+            }
+        }
+    }
     /*
      * Method to select the date
      */
@@ -248,19 +275,19 @@ public class GenericWebElementMethods extends PageCommonMethods {
     /*
      * Method to set value from the auto fill list
      */
-    protected void setNameFromAutoFill(String identifier, String value) {
+    protected void setNameFromAutoFill(String identifier, String value, int position) {
         WebElement autoFill = null;
         getElementFromListWithPosition(identifier, -1).clear();
         getElementFromListWithPosition(identifier, -1).sendKeys(value.substring(0, value.length() - 1));
         waitFor(3);
         if (getSizeOfList("//*[normalize-space()='" + value + "']") > 0) {
-            autoFill = getElementFromListWithPosition("//*[normalize-space()='" + value + "']", 0);
+            autoFill = getElementFromListWithPosition("//*[normalize-space()='" + value + "']", position);
         } else if (getSizeOfList("//*[normalize-space()='" + value.toUpperCase() + "']") > 0) {
-            autoFill = getElementFromListWithPosition("//*[normalize-space()='" + value.toUpperCase() + "']", 0);
+            autoFill = getElementFromListWithPosition("//*[normalize-space()='" + value.toUpperCase() + "']", position);
         } else if (getSizeOfList("//*[normalize-space()='" + value.replaceAll(" ", "") + "']") > 0) {
-            autoFill = getElementFromListWithPosition("//*[normalize-space()='" + value.replaceAll(" ", "") + "']", 0);
+            autoFill = getElementFromListWithPosition("//*[normalize-space()='" + value.replaceAll(" ", "") + "']", position);
         } else if (getSizeOfList("//*[normalize-space()='" + StringUtils.capitalise(value) + "']") > 0) {
-            autoFill = getElementFromListWithPosition("//*[normalize-space()='" + StringUtils.capitalise(value) + "']", 0);
+            autoFill = getElementFromListWithPosition("//*[normalize-space()='" + StringUtils.capitalise(value) + "']", position);
         } else {
             Assert.fail("Auto Fill options are not displayed");
         }
@@ -362,5 +389,9 @@ public class GenericWebElementMethods extends PageCommonMethods {
 
     protected void verifyIfTextIsDisplayed(String text) {
         Verify.verify(getSizeOfList("//*[normalize-space()='" + text + "']") > 0, "Text:" + text + " is not displayed");
+    }
+
+    protected boolean isSizeOfWEListGtZero(String text) {
+        return getSizeOfList("//*[normalize-space()='" + text + "']") > 0;
     }
 }

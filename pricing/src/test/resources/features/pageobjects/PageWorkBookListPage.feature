@@ -23,7 +23,7 @@ Feature: Workbook List Page
 
     Examples:
       | name   | description | formulaType | segmentType | defaultValue |
-      | Test01 | for testing | PRICE       | LAND        | 20           |
+      | Test03 | for testing | PRICE       | LAND        | 20           |
 
   Scenario Outline: To verify if the user is able to filter the work book configuration list using name,description,formulaType and segment.
     Given the user has navigated to the "List" page under the "Workbook"

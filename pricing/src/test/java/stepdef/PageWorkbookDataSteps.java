@@ -1,5 +1,6 @@
 package stepdef;
 
+import cucumber.api.DataTable;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import org.apache.log4j.Logger;
@@ -24,12 +25,12 @@ public class PageWorkbookDataSteps {
         pageFactory.getWorkBookDataMethods().setEndDate(endDate);
     }
 
-    @Then("^the workbook data (should|should not) be created$")
-    public void the_workbook_data_should_be_created(String cond) throws Exception {
+    @Then("^the workbook data (should|should not) be (created|dispalyed in the search results)$")
+    public void the_workbook_data_should_be_created(String cond,String placeHolder, DataTable table) throws Exception {
         if (cond.contains("not")) {
-            pageFactory.getWorkBookDataMethods().verifyIfWorkbookDataIsCreated(false);
+            pageFactory.getWorkBookDataMethods().verifyIfWorkbookDataIsCreated(false,table);
         } else {
-            pageFactory.getWorkBookDataMethods().verifyIfWorkbookDataIsCreated(true);
+            pageFactory.getWorkBookDataMethods().verifyIfWorkbookDataIsCreated(true,table);
         }
     }
 

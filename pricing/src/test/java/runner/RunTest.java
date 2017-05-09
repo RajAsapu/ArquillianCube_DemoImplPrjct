@@ -39,13 +39,16 @@ public class RunTest {
 
     @Before
     public void updatePricingProperties() throws Exception {
-        Verify.verify(props.startServiceContainer(ipDatabase, "epe-config:latest"));
-        map.put("pricing.ui", "localhost:" + String.valueOf(uiPort));
-        map.put("pricing.datamock", "localhost:" + String.valueOf(datamockPort));
-        map.put("pricing.engine", "localhost:" + String.valueOf(enginePort));
-        map.put("pricing.service", "localhost:8080");
-        props.setProperty(map);
-        props.updateHostConfig();
-        System.out.println("Arquillian - Containers has started .");
+        if(props.getEnv().equalsIgnoreCase("docker"))
+        {
+            Verify.verify(props.startServiceContainer(ipDatabase, "epe-config:latest"));
+            map.put("pricing.ui", "localhost:" + String.valueOf(uiPort));
+            map.put("pricing.datamock", "localhost:" + String.valueOf(datamockPort));
+            map.put("pricing.engine", "localhost:" + String.valueOf(enginePort));
+            map.put("pricing.service", "localhost:8080");
+            props.setProperty(map);
+            props.updateHostConfig();
+            System.out.println("Arquillian - Containers has started .");
+        }
     }
 }

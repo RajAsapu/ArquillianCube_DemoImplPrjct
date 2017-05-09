@@ -29,7 +29,7 @@
                     strategy: polling
                     sleepPollingTime: 10 s
                     iterations: 5
-                    stdOut: true
+                    stdOut: false
                     stdErr: true
                     timeout: 180
             datamock:

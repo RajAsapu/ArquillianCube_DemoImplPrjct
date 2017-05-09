@@ -20,6 +20,7 @@ public class OpenBrowser {
                 ChromeOptions options = new ChromeOptions();
                 options.addArguments("--no-sandbox");
                 options.addArguments("--test-type");
+                options.addArguments("--incognito");
                 options.addArguments("--disable-plugins");
                 options.addArguments("--start-maximized");
                 options.addArguments("--disable-extensions");

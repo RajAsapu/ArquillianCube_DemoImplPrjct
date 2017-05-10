@@ -17,6 +17,9 @@ import setup.Constants;
 import setup.DateOperations;
 import setup.DriverBean;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /*
@@ -375,7 +378,7 @@ public class GenericWebElementMethods extends PageCommonMethods {
     /*
      * Date Operations : Set date
      */
-    protected void setDate(String operation, String datePicker, String dateField) {
+    protected void setDateWithTimeStamp(String operation, String datePicker, String dateField) {
         dateOperations.setDate(operation, datePicker, dateField);
     }
 
@@ -393,5 +396,32 @@ public class GenericWebElementMethods extends PageCommonMethods {
 
     protected boolean isSizeOfWEListGtZero(String text) {
         return getSizeOfList("//*[normalize-space()='" + text + "']") > 0;
+    }
+
+    /*
+     * Method to set the date with time stamp
+     * day : today,tomorrow or yesterday
+     */
+    public String setDateWithTimeStamp(String day)
+    {
+        String date = null;
+        day = day.toLowerCase();
+
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy HH:mm");
+        Date timeStamp = new Date();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(timeStamp);
+
+        if(day.contains("tomorrow"))
+        {
+            calendar.add(Calendar.DATE,1);
+        }
+        else if(day.contains("yesterday"))
+        {
+            calendar.add(Calendar.DATE,-1);
+        }
+
+        date = formatter.format(calendar.getTime());
+        return date;
     }
 }

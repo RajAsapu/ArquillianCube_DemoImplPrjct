@@ -6,6 +6,7 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import functions.PageCommonMethods;
 import org.apache.log4j.Logger;
+import org.junit.Assert;
 import setup.PageFactory;
 
 import java.util.List;
@@ -135,8 +136,11 @@ public class PageWorkbooksteps extends PageCommonMethods {
             case "manage data":
                 pageFactory.getListWorkBookMethods().clickOnManageData(0);
                 break;
+            case "edit data":
+                pageFactory.getListWorkBookMethods().clickOnManageData(0);
+                break;
             default:
-                System.out.println("Option not found in the list");
+                Assert.fail("Option not found in the list");
         }
     }
 
@@ -144,6 +148,7 @@ public class PageWorkbooksteps extends PageCommonMethods {
     public void the_definition_should_be_displayed_with_below_details(DataTable dataTable) {
         List<List<String>> rows = dataTable.transpose().raw();
         pageFactory.getListWorkBookMethods().checkIfRecordExistsUsingNameFilter(rows.get(0).get(0));
+        pageFactory.getListWorkBookMethods().clickOnRadioButton(0);
         pageFactory.getListWorkBookMethods().clickOnViewWorkBookConfiguration(0);
         pageFactory.getCreateWorkBookMethods().verifyIfWorkbookConfigurationIsDisplayed(dataTable);
     }

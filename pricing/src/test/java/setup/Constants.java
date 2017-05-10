@@ -235,6 +235,12 @@ public class Constants {
     public static String workbookCreate_attribute_xpath = "//li[@class='ui-picklist-item']/div";
     public static String workbookCreate_attributeListView_xpath = "//p-picklist/div/div[2]/ul";
     /*
+     * Workbook - View definition
+     */
+    public static String workbookView_formulaType_xpath = ".//*[@id='content']/app-workbook/div/div/div/div/form/div/div[1]/div[4]/div/input";
+    public static String workbookView_segmentType_xpath = ".//*[@id='content']/app-workbook/div/div/div/div/form/div/div[1]/div[5]/div/input";
+
+    /*
      * Workbook - List page
      */
     public static String workbookList_addNewWorkbookConfig_xpath = "//*/button[normalize-space()='Add Workbook Configuration']";

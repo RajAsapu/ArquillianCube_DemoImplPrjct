@@ -6,7 +6,7 @@ Feature: Workbook Create Page
     Given   the user has logged into the pricing application
 
   Scenario Outline: To verify if the user is able to create a workbook configuration by adding Item,Customer Brand and Customer as the attributes and view these in definition.
-    Given the user has navigated to the "Create" page under the "Workbook"
+    Given the user has navigated to the "List" page under the "Workbook"
     When  name is set to "<name>"
     And   description is set to "<description>"
     And   formula type is set to "<formulaType>"
@@ -54,7 +54,7 @@ Feature: Workbook Create Page
     Then  the workbook configuration should be created
     Examples:
       | name   | formulaType | segmentType |
-      | Test08 | PRICE       | LAND        |
+      | Test09 | PRICE       | LAND        |
 
   Scenario Outline: To verify that the user is not allowed to create workbook definition when name is null.
     Given the user has navigated to the "Create" page under the "Workbook"

@@ -4,23 +4,26 @@ Feature: Workbook Data Page
 
   Background:
     Given   the user has logged into the pricing application
-
+  # Depends on test data of workbook definition
   Scenario Outline: To verify that the user is not allowed to create workbook data with end date before todays date.
     Given the user has navigated to the "List" page under the "Workbook"
-    And   clicked on "data"
-    When  clicked on "add new data"
+    When  clicked on "Row"
+    And   clicked on "Manage Data"
+    And   clicked on "Add New Data"
     And   set the start date for data as "<startDate>"
     And   set the end date for data as "<endDate>"
     Then  the application displays an error message as "End date cannot be before todays date."
     Examples:
       | startDate         | endDate           |
-      | 03-May-2017 10:23 | 02-May-2017 10:39 |
-      | 04-May-2017 10:23 | 03-May-2017 10:39 |
+      | today             | yesterday         |
+      | tomorrow          | today             |
 
   Scenario Outline: To verify that the user is not allowed to update workbook data with end date before todays date.
     Given the user has navigated to the "List" page under the "Workbook"
-    And   clicked on "data"
-    When  clicked on "update"
+    When  clicked on "Row"
+    And   clicked on "Manage Data"
+    And   clicked on "Row"
+    And   clicked on "Edit Data"
     And   set the end date for data as "<endDate>"
     Then  the application displays an error message as "End date cannot be before todays date."
     Examples:

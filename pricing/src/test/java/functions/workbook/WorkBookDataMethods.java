@@ -35,11 +35,20 @@ public class WorkBookDataMethods extends GenericWebElementMethods {
     }
 
     public void setStartDate(String startDate) {
+
+        if(startDate.matches("^[a-zA-Z]*$"))
+        {
+            startDate= setDateWithTimeStamp(startDate);
+        }
         sendKeysToWE(Constants.workbookData_addNewDataStartDate_xpath, startDate);
         clickOnTab();
     }
 
     public void setEndDate(String endDate) {
+        if(endDate.matches("^[a-zA-Z]*$"))
+        {
+            endDate= setDateWithTimeStamp(endDate);
+        }
         sendKeysToWE(Constants.workbookData_addNewDataEndDate_xpath, endDate);
         clickOnTab();
     }
@@ -108,5 +117,7 @@ public class WorkBookDataMethods extends GenericWebElementMethods {
             default: System.out.println("Work book data operation not found in the list");
         }
     }
+
+
 
 }

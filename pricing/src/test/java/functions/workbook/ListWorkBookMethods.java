@@ -6,11 +6,14 @@ import setup.Constants;
 
 public class ListWorkBookMethods extends GenericWebElementMethods {
     private EventFiringWebDriver edriver;
+    private static final String NAME ="name";
+    private static final String DESCRIPTION ="description";
+    private static final String FORMULATYPE ="formulaType";
+    private static final String SEGMENT ="segment";
 
     public ListWorkBookMethods() {
         edriver = getEdriver();
     }
-
     public void clickAddNewWorkBookConfiguration() {
         clickButton(Constants.workbookList_addNewWorkbookConfig_xpath);
     }
@@ -31,35 +34,38 @@ public class ListWorkBookMethods extends GenericWebElementMethods {
     }
 
     public void checkIfRecordExistsUsingSegmentFilter(String segment) {
-        sendKeysToWE(Constants.workbookList_segmentFilter_xpath, segment);
-        checkDataInRowsMatchesFilter(Constants.workbookList_segmentColumn_xpath, segment);
+        selectFromDropDown(Constants.workbookList_segmentFilter_xpath,Constants.workbookList_segmentListWe_xpath,segment);
     }
 
-    public String getFirstRecord(String type) {
+    public String getFirstRecord(String fieldType) {
         String temp = null;
-        switch (type) {
-            case "name":
-                temp = getValue(Constants.workbookList_nameColumn_xpath);
+        switch (fieldType) {
+            case NAME:
+                temp = getFirstValueNotNull(Constants.workbookList_nameColumn_xpath);
                 break;
-            case "description":
-                temp = getValue(Constants.workbookList_descrptionColumn_xpath);
+            case DESCRIPTION:
+                temp = getFirstValueNotNull(Constants.workbookList_descrptionColumn_xpath);
                 break;
-            case "formulaType":
-                temp = getValue(Constants.workbookList_formulaTypeColumn_xpath);
+            case FORMULATYPE:
+                temp = getFirstValueNotNull(Constants.workbookList_formulaTypeColumn_xpath);
                 break;
-            case "segment":
-                temp = getValue(Constants.workbookList_segmentColumn_xpath);
+            case SEGMENT:
+                temp = getFirstValueNotNull(Constants.workbookList_segmentColumn_xpath);
                 break;
         }
         return temp;
     }
 
-    public void clickOnData(int position) {
-        getElementFromListWithPosition(Constants.workbookList_data_xpath, position).click();
+    public void clickOnRadioButton(int position) {
+        getElementFromListWithPosition(Constants.workbookList_radioButtonColumn_xpath, position).click();
     }
 
-    public void clickOnDefinition(int position) {
-        getElementFromListWithPosition(Constants.workbookList_definition_xpath, position).click();
+    public void clickOnViewWorkBookConfiguration(int position) {
+        getElementFromListWithPosition(Constants.workbookList_viewWorkBookConfiguration_xpath, position).click();
+    }
+
+    public void clickOnManageData(int position) {
+        getElementFromListWithPosition(Constants.workbookList_manageData_xpath, position).click();
     }
 
 }

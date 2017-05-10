@@ -13,7 +13,7 @@ public class CreateIndexMethods extends GenericWebElementMethods {
     }
 
     public void setName(String name) {
-        setNameFromAutoFill(Constants.indexList_name_xpath, name);
+        setNameFromAutoFill(Constants.indexList_name_xpath, name, -1);
     }
 
     public void setStartDate(String startDate) {

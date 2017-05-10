@@ -6,11 +6,14 @@ import setup.Constants;
 
 public class ListWorkBookMethods extends GenericWebElementMethods {
     private EventFiringWebDriver edriver;
+    private static final String NAME ="name";
+    private static final String DESCRIPTION ="description";
+    private static final String FORMULATYPE ="formulaType";
+    private static final String SEGMENT ="segment";
 
     public ListWorkBookMethods() {
         edriver = getEdriver();
     }
-
     public void clickAddNewWorkBookConfiguration() {
         clickButton(Constants.workbookList_addNewWorkbookConfig_xpath);
     }
@@ -34,19 +37,19 @@ public class ListWorkBookMethods extends GenericWebElementMethods {
         selectFromDropDown(Constants.workbookList_segmentFilter_xpath,Constants.workbookList_segmentListWe_xpath,segment);
     }
 
-    public String getFirstRecord(String type) {
+    public String getFirstRecord(String fieldType) {
         String temp = null;
-        switch (type) {
-            case "name":
+        switch (fieldType) {
+            case NAME:
                 temp = getFirstValueNotNull(Constants.workbookList_nameColumn_xpath);
                 break;
-            case "description":
+            case DESCRIPTION:
                 temp = getFirstValueNotNull(Constants.workbookList_descrptionColumn_xpath);
                 break;
-            case "formulaType":
+            case FORMULATYPE:
                 temp = getFirstValueNotNull(Constants.workbookList_formulaTypeColumn_xpath);
                 break;
-            case "segment":
+            case SEGMENT:
                 temp = getFirstValueNotNull(Constants.workbookList_segmentColumn_xpath);
                 break;
         }

@@ -1,8 +1,13 @@
 package functions.workbook;
 
 import functions.GenericWebElementMethods;
+import org.junit.Assert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 import setup.Constants;
+
+import java.util.List;
 
 public class ListWorkBookMethods extends GenericWebElementMethods {
     private EventFiringWebDriver edriver;
@@ -68,4 +73,13 @@ public class ListWorkBookMethods extends GenericWebElementMethods {
         getElementFromListWithPosition(Constants.workbookList_manageData_xpath, position).click();
     }
 
+    public void viewDataForDefinitionWithName(String name)
+    {
+        if(selectDataSearchingPages(Constants.workbookList_nameColumn_xpath,name)){
+            clickOnManageData(0);
+        }
+
+    }
 }
+
+

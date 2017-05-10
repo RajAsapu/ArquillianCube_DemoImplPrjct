@@ -124,8 +124,8 @@ public class PageWorkbooksteps extends PageCommonMethods {
             case "add new data":
                 pageFactory.getWorkBookDataMethods().clickOnAddNewData();
                 break;
-            case "update":
-                pageFactory.getWorkBookDataMethods().clickOnUpdate();
+            case "edit data":
+                pageFactory.getWorkBookDataMethods().clickOnDataWithEditEnabled("Active");
                 break;
             case "upload":
                 pageFactory.getWorkBookDataMethods().clickOnUpload();
@@ -134,9 +134,6 @@ public class PageWorkbooksteps extends PageCommonMethods {
                 pageFactory.getWorkBookDataMethods().clickOnSearch();
                 break;
             case "manage data":
-                pageFactory.getListWorkBookMethods().clickOnManageData(0);
-                break;
-            case "edit data":
                 pageFactory.getListWorkBookMethods().clickOnManageData(0);
                 break;
             default:
@@ -157,5 +154,11 @@ public class PageWorkbooksteps extends PageCommonMethods {
     public void choose_file_having_path(String filePath)
     {
         pageFactory.getWorkBookDataMethods().clickOnChoose(filePath);
+    }
+
+    @When("^the user clicks on manage data for a workbook with name as \"([^\"]*)\"$")
+    public void the_user_clicks_on_manage_data_for_a_workbook_with_name_as(String workBookName)
+    {
+        pageFactory.getListWorkBookMethods().viewDataForDefinitionWithName(workBookName);
     }
 }

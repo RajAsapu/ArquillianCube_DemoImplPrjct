@@ -422,6 +422,51 @@ public class GenericWebElementMethods extends PageCommonMethods {
         }
 
         date = formatter.format(calendar.getTime());
+
+        if(day.equals("")){
+            date="";
+        }
+
         return date;
+    }
+    /*
+     * Method to search the list of records in all the pages and click on the
+     * radio button , if identified
+     */
+    public boolean selectDataSearchingPages(String identifer,String name)
+    {
+        int position=0;
+        boolean flag=false;
+        List<WebElement> webElementList;
+        List<WebElement> pageList;
+        waitFor(2);
+        pageList = edriver.findElements(By.xpath(Constants.workbookList_noOfPages_xpath));
+
+        for(WebElement page:pageList) {
+            if(position!=0)
+            {
+                clickButton(Constants.workbookList_nextPage_xpath);
+            }
+            position=0;
+            waitFor(3);
+            webElementList = edriver.findElements(By.xpath(identifer));
+            for (WebElement temp : webElementList) {
+                if (temp.getText().equalsIgnoreCase(name)) {
+                    temp.click();
+                    flag = true;
+                    break;
+                }
+                ++position;
+            }
+            if(flag){
+                break;
+            }
+        }
+
+        if(!flag)
+        {
+            Assert.fail("Record with name:"+name+" not found");
+        }
+        return flag;
     }
 }

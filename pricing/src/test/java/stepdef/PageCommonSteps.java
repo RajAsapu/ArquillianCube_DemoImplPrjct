@@ -64,6 +64,20 @@ public class PageCommonSteps extends BaseClass {
     }
 
     /*
+     * User clicks on the update button in workbook data
+     */
+    @When("^clicks on the update button$")
+    public void clicks_on_the_update_button() {
+        WebElement update = edriver.findElement(By.xpath(Constants.formulaList_updateAction_xpath));
+        if (!update.isEnabled()) {
+            Assert.fail("Update Button is not enabled");
+        }
+        Actions actions = new Actions(edriver);
+        actions.click(update).perform();
+        actions.click().perform();
+    }
+
+    /*
      * Overloaded method: User clicks on the search button in the Index and Currency Exchange pages
      * Doesn't validate if button is enabled
      */

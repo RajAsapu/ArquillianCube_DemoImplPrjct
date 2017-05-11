@@ -67,4 +67,16 @@ Feature: Workbook Create Page
     Examples:
       | name | formulaType | segmentType |
       |      | PRICE       | LAND        |
+  # Test Data : Required workbook configuration
+  Scenario Outline: To verify that the user is not allowed to create workbook definition when name is null.
+    Given the user has navigated to the "List" page under the "Workbook"
+    When  name is set to "<name>"
+    And   formula type is set to "<formulaType>"
+    And   segment type is set to "<segmentType>"
+    And   clicks on the submit button
+    Then the application displays an error message as "Name is required."
+    And  the workbook configuration should not be created
+    Examples:
+      | name | formulaType | segmentType |
+      |      | PRICE       | LAND        |
 

@@ -234,6 +234,7 @@ public class Constants {
     public static String workbookCreate_removeMultipleAttributes = "//button[@icon='fa-angle-double-left']";
     public static String workbookCreate_attribute_xpath = "//li[@class='ui-picklist-item']/div";
     public static String workbookCreate_attributeListView_xpath = "//p-picklist/div/div[2]/ul";
+    public static String workbookCreate_attributeListViewDefinition_xpath = "//ul[@class='ui-datalist-data']/li[*]/div/div";
     /*
      * Workbook - View definition
      */

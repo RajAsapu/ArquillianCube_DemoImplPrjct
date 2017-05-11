@@ -167,9 +167,22 @@ public class PageWorkbooksteps extends PageCommonMethods {
         pageFactory.getWorkBookDataMethods().clickOnChoose(filePath);
     }
 
-    @When("^the user clicks on manage data for a workbook with name as \"([^\"]*)\"$")
-    public void the_user_clicks_on_manage_data_for_a_workbook_with_name_as(String workBookName)
+    @When("^the user clicks on (manage data|view workbook configuration) for a workbook with name as \"([^\"]*)\"$")
+    public void the_user_clicks_on_manage_data_for_a_workbook_with_name_as(String fn,String workBookName)
     {
-        pageFactory.getListWorkBookMethods().viewDataForDefinitionWithName(workBookName);
+        if(fn.contains("workbook configuration"))
+        {
+            pageFactory.getListWorkBookMethods().viewDefinitionWithName(workBookName);
+        }
+        else
+        {
+            pageFactory.getListWorkBookMethods().viewDataForDefinitionWithName(workBookName);
+        }
+    }
+
+    @Then("^the user is only allowed to read the attributes in workbook configuration$")
+    public void the_user_is_only_allowed_to_read_the_attributes_in_workbook_configuration()
+    {
+        pageFactory.getCreateWorkBookMethods().verifyIfWorkbookConfigurationDefinitionIsReadOnly();
     }
 }

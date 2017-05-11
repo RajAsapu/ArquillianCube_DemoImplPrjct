@@ -80,6 +80,14 @@ public class ListWorkBookMethods extends GenericWebElementMethods {
         }
 
     }
+
+    public void viewDefinitionWithName(String name)
+    {
+        if(selectDataSearchingPages(Constants.workbookList_nameColumn_xpath,name)){
+            clickOnViewWorkBookConfiguration(0);
+        }
+
+    }
 }
 
 

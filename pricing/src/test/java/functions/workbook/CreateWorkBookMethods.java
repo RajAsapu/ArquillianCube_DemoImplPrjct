@@ -122,4 +122,12 @@ public class CreateWorkBookMethods extends GenericWebElementMethods {
         verifyIfTextIsDisplayed(list.get(0).get(7));
     }
 
+    public void verifyIfWorkbookConfigurationDefinitionIsReadOnly() {
+        viewableOnly(Constants.workbookCreate_name_xpath);
+        viewableOnly(Constants.workbookCreate_description_xpath);
+        viewableOnly(Constants.workbookView_formulaType_xpath);
+        viewableOnly(Constants.workbookView_segmentType_xpath);
+        viewableOnly(Constants.workbookCreate_defaultValue_xpath);
+    }
+
 }

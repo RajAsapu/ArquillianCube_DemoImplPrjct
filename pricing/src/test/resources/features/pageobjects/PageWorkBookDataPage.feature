@@ -8,9 +8,7 @@ Feature: Workbook Data Page
   #Test Data : Workbook definition with all the 14 attributes should exist - Ref : TestData01
   Scenario Outline:To verify if the user is able to create work book data.
     Given the user has navigated to the "List" page under the "Workbook"
-    When  the list workbook configuration list should be filtered with the "name" as "TestData01"
-    And   clicked on "Row"
-    And   clicked on "Manage Data"
+    When  the user clicks on manage data for a workbook with name as "TestData01"
     And   clicked on "Add New Data"
     And   supplier as "<supplier>"
     And   supplierSite as "<supplierSite>"
@@ -27,7 +25,6 @@ Feature: Workbook Data Page
     And   set the currency for data as "<currencyCode>"
     And   set the amount for data as "<amount>"
     And   clicks on the save button
-    And   wait for sometime
     Then  the workbook data should be created
       |<supplier>|<supplierSite>|<location>|<item>|<hauler>|<customerShipTo>|<customer>|<fbo>|<priceBasis>|<uom>|<startDate>|<endDate>|<currencyCode>|<amount>|
     Examples:
@@ -36,12 +33,11 @@ Feature: Workbook Data Page
 
   Scenario Outline:To verify if the user is able to upload work book data.
     Given the user has navigated to the "List" page under the "Workbook"
-    When  the list workbook configuration list should be filtered with the "name" as "TestData01"
+    When  the user clicks on manage data for a workbook with name as "TestData01"
     And   clicked on "Row"
     And   clicked on "Manage Data"
     And   clicked on "Upload"
     And   choose file having path "<filePath>"
-    And   wait for sometime
     #Yet to be implemented
   Examples:
     | filePath   |
@@ -49,9 +45,7 @@ Feature: Workbook Data Page
   # Test Data required for search Ref:TestData01
   Scenario Outline:To verify if the user is able to search work book data.
     Given the user has navigated to the "List" page under the "Workbook"
-    When  the list workbook configuration list should be filtered with the "name" as "TestData01"
-    And   clicked on "Row"
-    And   clicked on "Manage Data"
+    When  the user clicks on manage data for a workbook with name as "TestData01"
     And   clicked on "Search"
     And   supplier as "<supplier>"
     And   supplierSite as "<supplierSite>"

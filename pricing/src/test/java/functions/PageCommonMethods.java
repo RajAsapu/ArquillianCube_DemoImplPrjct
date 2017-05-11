@@ -4,8 +4,12 @@ import com.google.common.base.Verify;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -64,15 +68,16 @@ public class PageCommonMethods {
      * isDisplayed : true - Message should be displayed
      *               false - Message should not be displayed
      */
-    public void verifyIfErrorMessageIsDisplayed(String message, boolean isDisplayed) {
+    public void verifyIfErrorMessageIsDisplayed(String errorOrSuccess,String message, boolean isDisplayed) {
         try {
+            WebDriverWait wait = new WebDriverWait(edriver,10);
             if (isDisplayed) {
-                Verify.verify(edriver.findElement(By.xpath("//*[normalize-space()='" + message + "']")).isDisplayed(), "Error Message is not displayed!!");
+                wait.until(ExpectedConditions.visibilityOf(edriver.findElement(By.xpath("//*[normalize-space()=\"" + message + "\"]"))));
             } else {
-                Verify.verify(!edriver.findElement(By.xpath("//*[normalize-space()='" + message + "']")).isDisplayed(), "Error Message is displayed!!");
+                Verify.verify(!edriver.findElement(By.xpath("//*[normalize-space()=\"" + message + "\"]")).isDisplayed(), errorOrSuccess+" Message is displayed!!");
             }
         } catch (NullPointerException | NoSuchElementException exp) {
-            Assert.fail("Error message is not displayed, Expected error message:" + message);
+            Assert.fail(errorOrSuccess+" message is not displayed, Expected "+errorOrSuccess+" message:" + message);
         }
     }
 

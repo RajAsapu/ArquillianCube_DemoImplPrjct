@@ -17,6 +17,9 @@ import setup.Constants;
 import setup.DateOperations;
 import setup.DriverBean;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /*
@@ -375,7 +378,7 @@ public class GenericWebElementMethods extends PageCommonMethods {
     /*
      * Date Operations : Set date
      */
-    protected void setDate(String operation, String datePicker, String dateField) {
+    protected void setDateWithTimeStamp(String operation, String datePicker, String dateField) {
         dateOperations.setDate(operation, datePicker, dateField);
     }
 
@@ -393,5 +396,77 @@ public class GenericWebElementMethods extends PageCommonMethods {
 
     protected boolean isSizeOfWEListGtZero(String text) {
         return getSizeOfList("//*[normalize-space()='" + text + "']") > 0;
+    }
+
+    /*
+     * Method to set the date with time stamp
+     * day : today,tomorrow or yesterday
+     */
+    public String setDateWithTimeStamp(String day)
+    {
+        String date = null;
+        day = day.toLowerCase();
+
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy HH:mm");
+        Date timeStamp = new Date();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(timeStamp);
+
+        if(day.contains("tomorrow"))
+        {
+            calendar.add(Calendar.DATE,1);
+        }
+        else if(day.contains("yesterday"))
+        {
+            calendar.add(Calendar.DATE,-1);
+        }
+
+        date = formatter.format(calendar.getTime());
+
+        if(day.equals("")){
+            date="";
+        }
+
+        return date;
+    }
+    /*
+     * Method to search the list of records in all the pages and click on the
+     * radio button , if identified
+     */
+    public boolean selectDataSearchingPages(String identifer,String name)
+    {
+        int position=0;
+        boolean flag=false;
+        List<WebElement> webElementList;
+        List<WebElement> pageList;
+        waitFor(2);
+        pageList = edriver.findElements(By.xpath(Constants.workbookList_noOfPages_xpath));
+
+        for(WebElement page:pageList) {
+            if(position!=0)
+            {
+                clickButton(Constants.workbookList_nextPage_xpath);
+            }
+            position=0;
+            waitFor(3);
+            webElementList = edriver.findElements(By.xpath(identifer));
+            for (WebElement temp : webElementList) {
+                if (temp.getText().equalsIgnoreCase(name)) {
+                    temp.click();
+                    flag = true;
+                    break;
+                }
+                ++position;
+            }
+            if(flag){
+                break;
+            }
+        }
+
+        if(!flag)
+        {
+            Assert.fail("Record with name:"+name+" not found");
+        }
+        return flag;
     }
 }

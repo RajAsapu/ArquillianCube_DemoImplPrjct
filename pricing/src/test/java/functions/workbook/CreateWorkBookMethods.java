@@ -114,8 +114,8 @@ public class CreateWorkBookMethods extends GenericWebElementMethods {
 
         verifyTextOnWeIsEqualToValue(Constants.workbookCreate_name_xpath, list.get(0).get(0));
         verifyTextOnWeIsEqualToValue(Constants.workbookCreate_description_xpath, list.get(0).get(1));
-        verifyTextOnWeIsEqualToValue(Constants.workbookCreate_formulaType_xpath, list.get(0).get(2));
-        verifyTextOnWeIsEqualToValue(Constants.workbookCreate_segmentType_xpath, list.get(0).get(3));
+        verifyTextOnWeIsEqualToValue(Constants.workbookView_formulaType_xpath, list.get(0).get(2));
+        verifyTextOnWeIsEqualToValue(Constants.workbookView_segmentType_xpath, list.get(0).get(3));
         verifyTextOnWeIsEqualToValue(Constants.workbookCreate_defaultValue_xpath, list.get(0).get(4));
         verifyIfTextIsDisplayed(list.get(0).get(5));
         verifyIfTextIsDisplayed(list.get(0).get(6));

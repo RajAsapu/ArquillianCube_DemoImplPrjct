@@ -235,6 +235,12 @@ public class Constants {
     public static String workbookCreate_attribute_xpath = "//li[@class='ui-picklist-item']/div";
     public static String workbookCreate_attributeListView_xpath = "//p-picklist/div/div[2]/ul";
     /*
+     * Workbook - View definition
+     */
+    public static String workbookView_formulaType_xpath = ".//*[@id='content']/app-workbook/div/div/div/div/form/div/div[1]/div[4]/div/input";
+    public static String workbookView_segmentType_xpath = ".//*[@id='content']/app-workbook/div/div/div/div/form/div/div[1]/div[5]/div/input";
+
+    /*
      * Workbook - List page
      */
     public static String workbookList_addNewWorkbookConfig_xpath = "//*/button[normalize-space()='Add Workbook Configuration']";
@@ -245,6 +251,7 @@ public class Constants {
     public static String workbookList_viewWorkBookConfiguration_xpath = "//*/button[normalize-space()='View Workbook Configuration']";
     public static String workbookList_manageData_xpath = "//*/button[normalize-space()='Manage Data']";
     public static String workbookList_nextPage_xpath = "//*[@id='content']/ng-component/div/div/div/div/div/div/p-datatable/div/p-paginator/div/a[3]";
+    public static String workbookList_noOfPages_xpath = "//p-paginator/div/span/a";
     public static String workbookList_radioButtonColumn_xpath = "//p-dtradiobutton/div/div[2]";
     public static String workbookList_nameColumn_xpath = "//*[@id='content']/ng-component/div/div/div/div/div/div/p-datatable/div/div[2]/table/tbody/tr[*]/td[2]";
     public static String workbookList_descrptionColumn_xpath = "//*[@id='content']/ng-component/div/div/div/div/div/div/p-datatable/div/div[2]/table/tbody/tr[*]/td[3]";
@@ -260,7 +267,7 @@ public class Constants {
     public static String workbookData_uomColumn_xpath = ".//*[@id='content']/workbook-data/div/div/div/div/p-datatable/div/div[1]/table/tbody/tr[*]/td[5]";
     public static String workbookData_startDateColumn_xpath = ".//*[@id='content']/workbook-data/div/div/div/div/p-datatable/div/div[1]/table/tbody/tr[*]/td[6]";
     public static String workbookData_endDateColumn_xpath = ".//*[@id='content']/workbook-data/div/div/div/div/p-datatable/div/div[1]/table/tbody/tr[*]/td[7]";
-    public static String workbookData_demoColumn_xpath = ".//*[@id='content']/workbook-data/div/div/div/div/p-datatable/div/div[1]/table/tbody/tr[row]/td[data]";
+    public static String workbookData_dataCommon_xpath = ".//*[@id='content']/workbook-data/div/div/div/div/p-datatable/div/div[1]/div/div[2]/div/table/tbody/tr[*]/td[(placeHolder)]";
     public static String workbookData_statusColumn_xpath = ".//*[@id='content']/workbook-data/div/div/div/div/p-datatable/div/div[1]/table/tbody/tr[*]/td[8]";
     public static String workbookData_amountColumn_xpath = ".//*[@id='content']/workbook-data/div/div/div/div/p-datatable/div/div[1]/table/tbody/tr[*]/td[9]";
     public static String workbookData_scaleRatesColumn_xpath = ".//*[@id='content']/workbook-data/div/div/div/div/p-datatable/div/div[1]/table/tbody/tr[*]/td[10]";
@@ -270,6 +277,7 @@ public class Constants {
     public static String workbookData_upload_xpath = "//*/button[normalize-space()='Upload']";
     public static String workbookData_search_xpath = "//*/button[normalize-space()='Search']";
     public static String workbookData_chooseFile_xpath = "//button[@ng-reflect-label='Choose']";
+    public static String workbookData_headerList_xpath = "//table/thead/tr/th[*]";
     /*
      * Add new data
      */

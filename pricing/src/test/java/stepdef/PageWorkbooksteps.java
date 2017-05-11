@@ -6,6 +6,7 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import functions.PageCommonMethods;
 import org.apache.log4j.Logger;
+import org.junit.Assert;
 import setup.PageFactory;
 
 import java.util.List;
@@ -16,6 +17,17 @@ public class PageWorkbooksteps extends PageCommonMethods {
     String temp;
     private PageFactory pageFactory;
 
+    private static final String NAME ="name";
+    private static final String DESCRIPTION ="description";
+    private static final String FORMULATYPE ="formulaType";
+    private static final String SEGMENT ="segment";
+    private static final String ROW ="row";
+    private static final String VIEW_WORKBOOK_CONFIGURATION = "view workbook configuration";
+    private static final String ADD_NEW_DATA = "add new data";
+    private static final String EDIT_DATA = "edit data";
+    private static final String UPLOAD = "upload";
+    private static final String SEARCH = "search";
+    private static final String MANAGE_DATA = "manage data";
 
     public PageWorkbooksteps() {
         pageFactory = new PageFactory();
@@ -96,16 +108,16 @@ public class PageWorkbooksteps extends PageCommonMethods {
             temp=filterValue;
         }
         switch (filter) {
-            case "name":
+            case NAME:
                 pageFactory.getListWorkBookMethods().checkIfRecordExistsUsingNameFilter(temp);
                 break;
-            case "description":
+            case DESCRIPTION:
                 pageFactory.getListWorkBookMethods().checkIfRecordExistsUsingDescriptionFilter(temp);
                 break;
-            case "formulaType":
+            case FORMULATYPE:
                 pageFactory.getListWorkBookMethods().checkIfRecordExistsUsingFormulaTypeFilter(temp);
                 break;
-            case "segment":
+            case SEGMENT:
                 pageFactory.getListWorkBookMethods().checkIfRecordExistsUsingSegmentFilter(temp);
                 break;
         }
@@ -114,29 +126,29 @@ public class PageWorkbooksteps extends PageCommonMethods {
     @And("^clicked on \"([^\"]*)\"")
     public void clicked_on_(String button) throws Exception {
         switch (button.toLowerCase()) {
-            case "row":
+            case ROW:
                 pageFactory.getListWorkBookMethods().clickOnRadioButton(0);
                 break;
-            case "view workbook configuration":
+            case VIEW_WORKBOOK_CONFIGURATION:
                 pageFactory.getListWorkBookMethods().clickOnViewWorkBookConfiguration(0);
                 break;
-            case "add new data":
+            case ADD_NEW_DATA:
                 pageFactory.getWorkBookDataMethods().clickOnAddNewData();
                 break;
-            case "update":
-                pageFactory.getWorkBookDataMethods().clickOnUpdate();
+            case EDIT_DATA:
+                pageFactory.getWorkBookDataMethods().clickOnDataWithEditEnabled("Active");
                 break;
-            case "upload":
+            case UPLOAD:
                 pageFactory.getWorkBookDataMethods().clickOnUpload();
                 break;
-            case "search":
+            case SEARCH:
                 pageFactory.getWorkBookDataMethods().clickOnSearch();
                 break;
-            case "manage data":
+            case MANAGE_DATA:
                 pageFactory.getListWorkBookMethods().clickOnManageData(0);
                 break;
             default:
-                System.out.println("Option not found in the list");
+                Assert.fail("Option not found in the list");
         }
     }
 
@@ -144,6 +156,7 @@ public class PageWorkbooksteps extends PageCommonMethods {
     public void the_definition_should_be_displayed_with_below_details(DataTable dataTable) {
         List<List<String>> rows = dataTable.transpose().raw();
         pageFactory.getListWorkBookMethods().checkIfRecordExistsUsingNameFilter(rows.get(0).get(0));
+        pageFactory.getListWorkBookMethods().clickOnRadioButton(0);
         pageFactory.getListWorkBookMethods().clickOnViewWorkBookConfiguration(0);
         pageFactory.getCreateWorkBookMethods().verifyIfWorkbookConfigurationIsDisplayed(dataTable);
     }
@@ -152,5 +165,11 @@ public class PageWorkbooksteps extends PageCommonMethods {
     public void choose_file_having_path(String filePath)
     {
         pageFactory.getWorkBookDataMethods().clickOnChoose(filePath);
+    }
+
+    @When("^the user clicks on manage data for a workbook with name as \"([^\"]*)\"$")
+    public void the_user_clicks_on_manage_data_for_a_workbook_with_name_as(String workBookName)
+    {
+        pageFactory.getListWorkBookMethods().viewDataForDefinitionWithName(workBookName);
     }
 }

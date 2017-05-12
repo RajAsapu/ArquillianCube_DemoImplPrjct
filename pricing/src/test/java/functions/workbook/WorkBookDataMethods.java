@@ -92,7 +92,7 @@ public class WorkBookDataMethods extends GenericWebElementMethods {
         selectDataSearchingPages(Constants.workbookData_dataCommon_xpath.replace("(placeHolder)", String.valueOf(getColumnNumber(STATUS_COLUMN))), key);
     }
 
-    public void deActivateRecord()
+    public void deactivateRecord()
     {
        String currentWindow = edriver.getWindowHandle();
        Set<String> windowHandles= edriver.getWindowHandles();

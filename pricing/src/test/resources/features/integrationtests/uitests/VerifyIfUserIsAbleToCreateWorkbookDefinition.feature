@@ -79,4 +79,8 @@ Feature: Workbook Create Page
     Examples:
       | name | formulaType | segmentType |
       |      | PRICE       | LAND        |
-
+ # Test Data : Workbook configuration with default value
+  Scenario: To verify that all the attributes in work book definition are read only.
+    Given the user has navigated to the "List" page under the "Workbook"
+    When  the user clicks on view workbook configuration for a workbook with name as "RajTesting"
+    Then  the user is only allowed to read the attributes in workbook configuration

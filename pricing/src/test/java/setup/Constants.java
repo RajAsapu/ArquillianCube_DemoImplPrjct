@@ -279,6 +279,7 @@ public class Constants {
     public static String workbookData_search_xpath = "//*/button[normalize-space()='Search']";
     public static String workbookData_chooseFile_xpath = "//button[@ng-reflect-label='Choose']";
     public static String workbookData_headerList_xpath = "//table/thead/tr/th[*]";
+    public static String workbookData_deActivateConfirmationYes_xpath = "//*/button[normalize-space()='Yes']";
     /*
      * Add new data
      */

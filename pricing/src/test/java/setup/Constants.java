@@ -234,6 +234,7 @@ public class Constants {
     public static String workbookCreate_removeMultipleAttributes = "//button[@icon='fa-angle-double-left']";
     public static String workbookCreate_attribute_xpath = "//li[@class='ui-picklist-item']/div";
     public static String workbookCreate_attributeListView_xpath = "//p-picklist/div/div[2]/ul";
+    public static String workbookCreate_attributeListViewDefinition_xpath = "//ul[@class='ui-datalist-data']/li[*]/div/div";
     /*
      * Workbook - View definition
      */
@@ -278,6 +279,7 @@ public class Constants {
     public static String workbookData_search_xpath = "//*/button[normalize-space()='Search']";
     public static String workbookData_chooseFile_xpath = "//button[@ng-reflect-label='Choose']";
     public static String workbookData_headerList_xpath = "//table/thead/tr/th[*]";
+    public static String workbookData_deActivateConfirmationYes_xpath = "//*/button[normalize-space()='Yes']";
     /*
      * Add new data
      */

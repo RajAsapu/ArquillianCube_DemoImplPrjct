@@ -63,11 +63,21 @@ Feature: Workbook Data Page
     |  day     |
     | today    |
     | tomorrow |
-
-  Scenario: To verify that the user is able to update the end date to null.
+  # Depends on test data with attributes
+  Scenario: To verify that all the work book data fields except end date are read only.
     Given the user has navigated to the "List" page under the "Workbook"
     When  the user clicks on manage data for a workbook with name as "Test"
     And   clicked on "Edit Data"
-    And   set the end date for data as ""
-    And   clicks on the update button
-    Then  the application displays an success message as "Workbook data updated successfully."
+    And   the user is only allowed to read the attributes in workbook data
+
+  Scenario: To verify that the user is able to deactive existing active work book data record.
+    Given the user has navigated to the "List" page under the "Workbook"
+    When  the user clicks on manage data for a workbook with name as "Test"
+    And   clicked on "deactivate"
+    Then  the application displays an success message as "Deactivated workbook data."
+
+  Scenario: To verify that application doesn't display edit and deactivate options for the inactive record.
+    Given the user has navigated to the "List" page under the "Workbook"
+    When  the user clicks on manage data for a workbook with name as "Test"
+    And   clicked on "Inactive Data"
+    Then  the application doesn't display edit and deactive actions

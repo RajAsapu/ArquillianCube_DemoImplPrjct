@@ -334,10 +334,17 @@ public class GenericWebElementMethods extends PageCommonMethods {
      * Method to validate that the element is viewable Only
      */
     protected void viewableOnly(String identifier) {
+        boolean flag=false;
+        String testString = "(SendKeys)";
         List<WebElement> list = edriver.findElements(By.xpath(identifier));
         for (WebElement temp : list) {
             Verify.verify(temp.isDisplayed());
-            Verify.verify(!temp.isEnabled(), "Element is enabled !!");
+            flag = !temp.isEnabled();
+            if(!flag)
+            {
+                temp.sendKeys(testString);
+                Verify.verify(!getValue(temp).equals(testString),"Field is not readOnly");
+            }
         }
         if (list.size() == 0) {
             Assert.fail("No elements found matching:" + identifier);

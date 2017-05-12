@@ -28,6 +28,11 @@ public class PageWorkbooksteps extends PageCommonMethods {
     private static final String UPLOAD = "upload";
     private static final String SEARCH = "search";
     private static final String MANAGE_DATA = "manage data";
+    private static final String DEACTIVATE = "deactivate";
+    private static final String INACTIVE_DATA = "inactive data";
+    private static final String STATUS_ACTIVE = "Active";
+    private static final String STATUS_INACTIVE = "Inactive";
+
 
     public PageWorkbooksteps() {
         pageFactory = new PageFactory();
@@ -65,6 +70,12 @@ public class PageWorkbooksteps extends PageCommonMethods {
         } else {
             pageFactory.getCreateWorkBookMethods().hasDefaultValue(true);
         }
+    }
+
+    @Then("^the application doesn't display edit and deactive actions$")
+    public void the_application_doesnt_display_edit_and_deactivate_actions()
+    {
+        pageFactory.getWorkBookDataMethods().verifyIfEditAndDeactivateIsDisplayed();
     }
 
     @And("^select below attributes$")
@@ -136,7 +147,7 @@ public class PageWorkbooksteps extends PageCommonMethods {
                 pageFactory.getWorkBookDataMethods().clickOnAddNewData();
                 break;
             case EDIT_DATA:
-                pageFactory.getWorkBookDataMethods().clickOnDataWithEditEnabled("Active");
+                pageFactory.getWorkBookDataMethods().clickOnDataWithEditEnabled(STATUS_ACTIVE);
                 break;
             case UPLOAD:
                 pageFactory.getWorkBookDataMethods().clickOnUpload();
@@ -146,6 +157,13 @@ public class PageWorkbooksteps extends PageCommonMethods {
                 break;
             case MANAGE_DATA:
                 pageFactory.getListWorkBookMethods().clickOnManageData(0);
+                break;
+            case DEACTIVATE:
+                pageFactory.getWorkBookDataMethods().clickOnDataWithDeActivateEnabled(STATUS_ACTIVE);
+                pageFactory.getWorkBookDataMethods().deActivateRecord();
+                break;
+            case INACTIVE_DATA:
+                pageFactory.getWorkBookDataMethods().clickOnDataWithInactiveStatus(STATUS_INACTIVE);
                 break;
             default:
                 Assert.fail("Option not found in the list");
@@ -167,9 +185,26 @@ public class PageWorkbooksteps extends PageCommonMethods {
         pageFactory.getWorkBookDataMethods().clickOnChoose(filePath);
     }
 
-    @When("^the user clicks on manage data for a workbook with name as \"([^\"]*)\"$")
-    public void the_user_clicks_on_manage_data_for_a_workbook_with_name_as(String workBookName)
+    @When("^the user clicks on (manage data|view workbook configuration) for a workbook with name as \"([^\"]*)\"$")
+    public void the_user_clicks_on_manage_data_for_a_workbook_with_name_as(String fn,String workBookName)
     {
-        pageFactory.getListWorkBookMethods().viewDataForDefinitionWithName(workBookName);
+        if(fn.contains("workbook configuration"))
+        {
+            pageFactory.getListWorkBookMethods().viewDefinitionWithName(workBookName);
+        }
+        else
+        {
+            pageFactory.getListWorkBookMethods().viewDataForDefinitionWithName(workBookName);
+        }
+    }
+
+    @Then("^the user is only allowed to read the attributes in workbook (configuration|data)$")
+    public void the_user_is_only_allowed_to_read_the_attributes_in_workbook_configuration(String key)
+    {
+        if(key.equals("configuration")) {
+            pageFactory.getCreateWorkBookMethods().verifyIfWorkbookConfigurationDefinitionIsReadOnly();
+        }else{
+            pageFactory.getWorkBookDataMethods().verifyIfWorkbookDataIsReadOnly();
+        }
     }
 }

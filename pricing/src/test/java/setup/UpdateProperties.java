@@ -53,8 +53,13 @@ public class UpdateProperties {
         }
     }
 
-    public String getProperty(String propertyName) {
+    public String getPricingProperty(String propertyName) {
         ResourceBundle resourceBundle = ResourceBundle.getBundle("pricing");
+        return resourceBundle.getString(propertyName);
+    }
+
+    public String getApplicationProperty(String propertyName) {
+        ResourceBundle resourceBundle = ResourceBundle.getBundle("application");
         return resourceBundle.getString(propertyName);
     }
 
@@ -80,8 +85,8 @@ public class UpdateProperties {
                 fwrite.close();
             }
             root = mapper.readTree(hostConfigFile);
-            ((ObjectNode) root).put("priceEngineServiceUrl", getProperty("pricing.engine"));
-            ((ObjectNode) root).put("masterDataServiceUrl", getProperty("pricing.datamock"));
+            ((ObjectNode) root).put("priceEngineServiceUrl", getPricingProperty("pricing.engine"));
+            ((ObjectNode) root).put("masterDataServiceUrl", getPricingProperty("pricing.datamock"));
             ((ObjectNode) root).put("priceConfigServiceUrl", "http://localhost:8080/");
             resultUpdate = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(root);
             fwrite = new FileWriter(hostConfigFile);

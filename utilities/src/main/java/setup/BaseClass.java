@@ -24,15 +24,6 @@ public class BaseClass {
         return edriver;
     }
 
-	/*
-     * Next Step :Impliment hooks
-	 */
-
-	/*
-     * Intialization of the Browser Opens the browser Maximizes the browser Set
-	 * implicit wait time as 10 seconds Set Page load time as 10 seconds
-	 */
-
     /*
      * Closes the browser
      */

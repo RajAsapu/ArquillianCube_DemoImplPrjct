@@ -30,7 +30,7 @@ public class PageCommonSteps extends BaseClass {
 
     @And("^wait for sometime$")
     public void wait_for_sometime() throws Exception {
-        Thread.sleep(10000);
+        pageFactory.getPageCommonMethods().waitFor(5);
     }
 
     /*
@@ -40,11 +40,11 @@ public class PageCommonSteps extends BaseClass {
     public void the_user_has_logged_into_the_pricing_application() {
 
         if (environment.equalsIgnoreCase("Docker")) {
-            edriver = initBrowser(updateProperties.getProperty("pricing.ui"));
+            edriver = initBrowser(updateProperties.getProperty("pricing.ui"), OpenBrowser.Open.CHROME);
         } else if (environment.equalsIgnoreCase("Test")) {
-            edriver = initBrowser("https://epe-priceconfig-ui.test.aws.wfscorp.com");
+            edriver = initBrowser(updateProperties.getProperty("testPricingUrl"), OpenBrowser.Open.CHROME);
         } else if (environment.equalsIgnoreCase("Dev")) {
-            edriver = initBrowser("https://epe-priceconfig-ui.dev.aws.wfscorp.com");
+            edriver = initBrowser(updateProperties.getProperty("devPricingUrl"), OpenBrowser.Open.CHROME);
         }
         DriverBean.setDriver(edriver);
         pageFactory.getPageCommonMethods().login();
@@ -80,7 +80,7 @@ public class PageCommonSteps extends BaseClass {
     @And("^clicks on the submit button$")
     public void clicks_on_the_submit_button() throws Exception {
         edriver.findElement(By.xpath(Constants.indexCreate_submit_xpath)).click();
-        Thread.sleep(3000);
+        pageFactory.getPageCommonMethods().waitFor(3);
     }
 
     /*
@@ -89,7 +89,7 @@ public class PageCommonSteps extends BaseClass {
     @And("^clicks on the save button$")
     public void clicks_on_the_save_button() throws Exception {
         edriver.findElement(By.xpath(Constants.workbookData_save_xpath)).click();
-        Thread.sleep(3000);
+        pageFactory.getPageCommonMethods().waitFor(3);
     }
 
     /*

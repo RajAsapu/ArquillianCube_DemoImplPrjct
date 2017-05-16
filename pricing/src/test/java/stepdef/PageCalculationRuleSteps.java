@@ -242,13 +242,13 @@ public class PageCalculationRuleSteps {
         pageFactory.getCreateCalculationRuleMethods().verifyIfUserIsAbleToViewOrEditDetails(act, table);
     }
 
-    @Then("^the application displays an error message as \"(.*)\"$")
-    public void the_application_displays_an_error_message_as(String errMsg)  {
-        pageFactory.getPageCommonMethods().verifyIfErrorMessageIsDisplayed(errMsg, true);
+    @Then("^the application displays an (error|success) message as \"(.*)\"$")
+    public void the_application_displays_an_error_message_as(String hasError,String errMsg) throws Throwable {
+        pageFactory.getPageCommonMethods().verifyIfErrorMessageIsDisplayed(hasError,errMsg, true);
     }
 
     @Then("^the application accepts the input$")
     public void the_application_accepts_the_input() {
-        pageFactory.getPageCommonMethods().verifyIfErrorMessageIsDisplayed("End date cannot be before start date", false);
+        pageFactory.getPageCommonMethods().verifyIfErrorMessageIsDisplayed("Error","End date cannot be before start date", false);
     }
 }

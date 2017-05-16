@@ -70,7 +70,7 @@ public class PageCurrencyExchangeSteps {
 
     @When("^the user selects the sets the date as \"([^\"]*)\"$")
     public void the_user_selects_the_sets_the_date_as(String date) throws Throwable {
-        pageFactory.getCreateCurrencyExchangeMethods().setDate(date);
+        pageFactory.getCreateCurrencyExchangeMethods().setDateWithTimeStamp(date);
     }
 
     @When("^sets the currency type as \"([^\"]*)\"")

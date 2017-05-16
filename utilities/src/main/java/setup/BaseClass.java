@@ -11,8 +11,8 @@ public class BaseClass {
     private EventFiringWebDriver edriver;
     private IEventListener listener;
 
-    public EventFiringWebDriver initBrowser(String url,OpenBrowser.Open browser){
-        driver = OpenBrowser.getDriver(browser);
+    public EventFiringWebDriver initBrowser(String url){
+        driver = OpenBrowser.getDriver(OpenBrowser.Open.CHROME);
         listener = new IEventListener();
         edriver = new EventFiringWebDriver(driver);
         edriver.register(listener);

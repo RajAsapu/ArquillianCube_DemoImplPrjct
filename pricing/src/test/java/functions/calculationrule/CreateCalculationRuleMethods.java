@@ -26,7 +26,7 @@ public class CreateCalculationRuleMethods extends GenericWebElementMethods {
     }
 
     public void setEndDate(String endDate) {
-        setDate(endDate, Constants.calculationRuleCreate_endDatePicker_xpath, Constants.calculationRuleCreate_endDate_xpath);
+        setDateWithTimeStamp(endDate, Constants.calculationRuleCreate_endDatePicker_xpath, Constants.calculationRuleCreate_endDate_xpath);
     }
 
     public void setType(String type) {

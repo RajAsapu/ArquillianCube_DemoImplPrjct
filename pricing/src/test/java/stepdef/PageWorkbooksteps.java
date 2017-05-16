@@ -6,6 +6,7 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import functions.PageCommonMethods;
 import org.apache.log4j.Logger;
+import org.junit.Assert;
 import setup.PageFactory;
 
 import java.util.List;
@@ -15,6 +16,22 @@ public class PageWorkbooksteps extends PageCommonMethods {
     final static Logger logger = Logger.getLogger(PageWorkbooksteps.class.getName());
     String temp;
     private PageFactory pageFactory;
+
+    private static final String NAME ="name";
+    private static final String DESCRIPTION ="description";
+    private static final String FORMULATYPE ="formulaType";
+    private static final String SEGMENT ="segment";
+    private static final String ROW ="row";
+    private static final String VIEW_WORKBOOK_CONFIGURATION = "view workbook configuration";
+    private static final String ADD_NEW_DATA = "add new data";
+    private static final String EDIT_DATA = "edit data";
+    private static final String UPLOAD = "upload";
+    private static final String SEARCH = "search";
+    private static final String MANAGE_DATA = "manage data";
+    private static final String DEACTIVATE = "deactivate";
+    private static final String INACTIVE_DATA = "inactive data";
+    private static final String STATUS_ACTIVE = "Active";
+    private static final String STATUS_INACTIVE = "Inactive";
 
 
     public PageWorkbooksteps() {
@@ -53,6 +70,12 @@ public class PageWorkbooksteps extends PageCommonMethods {
         } else {
             pageFactory.getCreateWorkBookMethods().hasDefaultValue(true);
         }
+    }
+
+    @Then("^the application doesn't display edit and deactive actions$")
+    public void the_application_doesnt_display_edit_and_deactivate_actions()
+    {
+        pageFactory.getWorkBookDataMethods().verifyIfEditAndDeactivateIsDisplayed();
     }
 
     @And("^select below attributes$")
@@ -96,16 +119,16 @@ public class PageWorkbooksteps extends PageCommonMethods {
             temp=filterValue;
         }
         switch (filter) {
-            case "name":
+            case NAME:
                 pageFactory.getListWorkBookMethods().checkIfRecordExistsUsingNameFilter(temp);
                 break;
-            case "description":
+            case DESCRIPTION:
                 pageFactory.getListWorkBookMethods().checkIfRecordExistsUsingDescriptionFilter(temp);
                 break;
-            case "formulaType":
+            case FORMULATYPE:
                 pageFactory.getListWorkBookMethods().checkIfRecordExistsUsingFormulaTypeFilter(temp);
                 break;
-            case "segment":
+            case SEGMENT:
                 pageFactory.getListWorkBookMethods().checkIfRecordExistsUsingSegmentFilter(temp);
                 break;
         }
@@ -114,29 +137,36 @@ public class PageWorkbooksteps extends PageCommonMethods {
     @And("^clicked on \"([^\"]*)\"")
     public void clicked_on_(String button) throws Exception {
         switch (button.toLowerCase()) {
-            case "row":
+            case ROW:
                 pageFactory.getListWorkBookMethods().clickOnRadioButton(0);
                 break;
-            case "view workbook configuration":
+            case VIEW_WORKBOOK_CONFIGURATION:
                 pageFactory.getListWorkBookMethods().clickOnViewWorkBookConfiguration(0);
                 break;
-            case "add new data":
+            case ADD_NEW_DATA:
                 pageFactory.getWorkBookDataMethods().clickOnAddNewData();
                 break;
-            case "update":
-                pageFactory.getWorkBookDataMethods().clickOnUpdate();
+            case EDIT_DATA:
+                pageFactory.getWorkBookDataMethods().clickOnDataWithEditEnabled(STATUS_ACTIVE);
                 break;
-            case "upload":
+            case UPLOAD:
                 pageFactory.getWorkBookDataMethods().clickOnUpload();
                 break;
-            case "search":
+            case SEARCH:
                 pageFactory.getWorkBookDataMethods().clickOnSearch();
                 break;
-            case "manage data":
+            case MANAGE_DATA:
                 pageFactory.getListWorkBookMethods().clickOnManageData(0);
                 break;
+            case DEACTIVATE:
+                pageFactory.getWorkBookDataMethods().clickOnDataWithDeActivateEnabled(STATUS_ACTIVE);
+                pageFactory.getWorkBookDataMethods().deActivateRecord();
+                break;
+            case INACTIVE_DATA:
+                pageFactory.getWorkBookDataMethods().clickOnDataWithInactiveStatus(STATUS_INACTIVE);
+                break;
             default:
-                System.out.println("Option not found in the list");
+                Assert.fail("Option not found in the list");
         }
     }
 
@@ -144,6 +174,7 @@ public class PageWorkbooksteps extends PageCommonMethods {
     public void the_definition_should_be_displayed_with_below_details(DataTable dataTable) {
         List<List<String>> rows = dataTable.transpose().raw();
         pageFactory.getListWorkBookMethods().checkIfRecordExistsUsingNameFilter(rows.get(0).get(0));
+        pageFactory.getListWorkBookMethods().clickOnRadioButton(0);
         pageFactory.getListWorkBookMethods().clickOnViewWorkBookConfiguration(0);
         pageFactory.getCreateWorkBookMethods().verifyIfWorkbookConfigurationIsDisplayed(dataTable);
     }
@@ -152,5 +183,28 @@ public class PageWorkbooksteps extends PageCommonMethods {
     public void choose_file_having_path(String filePath)
     {
         pageFactory.getWorkBookDataMethods().clickOnChoose(filePath);
+    }
+
+    @When("^the user clicks on (manage data|view workbook configuration) for a workbook with name as \"([^\"]*)\"$")
+    public void the_user_clicks_on_manage_data_for_a_workbook_with_name_as(String fn,String workBookName)
+    {
+        if(fn.contains("workbook configuration"))
+        {
+            pageFactory.getListWorkBookMethods().viewDefinitionWithName(workBookName);
+        }
+        else
+        {
+            pageFactory.getListWorkBookMethods().viewDataForDefinitionWithName(workBookName);
+        }
+    }
+
+    @Then("^the user is only allowed to read the attributes in workbook (configuration|data)$")
+    public void the_user_is_only_allowed_to_read_the_attributes_in_workbook_configuration(String key)
+    {
+        if(key.equals("configuration")) {
+            pageFactory.getCreateWorkBookMethods().verifyIfWorkbookConfigurationDefinitionIsReadOnly();
+        }else{
+            pageFactory.getWorkBookDataMethods().verifyIfWorkbookDataIsReadOnly();
+        }
     }
 }

@@ -40,11 +40,11 @@ public class PageCommonSteps extends BaseClass {
     public void the_user_has_logged_into_the_pricing_application() {
 
         if (environment.equalsIgnoreCase("Docker")) {
-            edriver = initBrowser(updateProperties.getProperty("pricing.ui"), OpenBrowser.Open.CHROME);
+            edriver = initBrowser(updateProperties.getPricingProperty("pricing.ui"));
         } else if (environment.equalsIgnoreCase("Test")) {
-            edriver = initBrowser(updateProperties.getProperty("testPricingUrl"), OpenBrowser.Open.CHROME);
+            edriver = initBrowser(updateProperties.getApplicationProperty("testPricingUrl"));
         } else if (environment.equalsIgnoreCase("Dev")) {
-            edriver = initBrowser(updateProperties.getProperty("devPricingUrl"), OpenBrowser.Open.CHROME);
+            edriver = initBrowser(updateProperties.getApplicationProperty("devPricingUrl"));
         }
         DriverBean.setDriver(edriver);
         pageFactory.getPageCommonMethods().login();
@@ -61,6 +61,20 @@ public class PageCommonSteps extends BaseClass {
         }
         Actions actions = new Actions(edriver);
         actions.click(search).perform();
+    }
+
+    /*
+     * User clicks on the update button in workbook data
+     */
+    @When("^clicks on the update button$")
+    public void clicks_on_the_update_button() {
+        WebElement update = edriver.findElement(By.xpath(Constants.formulaList_updateAction_xpath));
+        if (!update.isEnabled()) {
+            Assert.fail("Update Button is not enabled");
+        }
+        Actions actions = new Actions(edriver);
+        actions.click(update).perform();
+        actions.click().perform();
     }
 
     /*

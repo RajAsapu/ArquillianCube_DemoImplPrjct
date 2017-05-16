@@ -29,37 +29,37 @@ public class PageCalculationRuleSteps {
     }
 
     @When("^the user enters name  as \"([^\"]*)\"$")
-    public void the_user_enters_name_as(String name) throws Throwable {
+    public void the_user_enters_name_as(String name)  {
         pageFactory.getCreateCalculationRuleMethods().setName(name);
     }
 
     @When("^set the start date as \"([^\"]*)\"$")
-    public void set_the_start_date_as(String startDate) throws Throwable {
+    public void set_the_start_date_as(String startDate)  {
         pageFactory.getCreateCalculationRuleMethods().setStartDate(startDate);
     }
 
     @When("^set the end date as \"([^\"]*)\"$")
-    public void set_the_end_date_as(String endDate) throws Throwable {
+    public void set_the_end_date_as(String endDate)  {
         pageFactory.getCreateCalculationRuleMethods().setEndDate(endDate);
     }
 
     @When("^select type as \"([^\"]*)\"$")
-    public void select_type_as(String type) throws Throwable {
+    public void select_type_as(String type)  {
         pageFactory.getCreateCalculationRuleMethods().setType(type);
     }
 
     @When("^enter the description as \"([^\"]*)\"$")
-    public void enter_the_description_as(String description) throws Throwable {
+    public void enter_the_description_as(String description)  {
         pageFactory.getCreateCalculationRuleMethods().setDescription(description);
     }
 
     @When("^select the day rule type as \"([^\"]*)\"$")
-    public void select_the_day_rule_type_as(String rule) throws Throwable {
+    public void select_the_day_rule_type_as(String rule){
         pageFactory.getCreateCalculationRuleMethods().setDayRuleType(rule);
     }
 
     @When("^enter days before event as \"([^\"]*)\"$")
-    public void enter_days_before_event_as(String daysBeforeEvent) throws Throwable {
+    public void enter_days_before_event_as(String daysBeforeEvent)  {
         pageFactory.getCreateCalculationRuleMethods().setDaysBeforeEvent(daysBeforeEvent);
     }
 
@@ -69,7 +69,7 @@ public class PageCalculationRuleSteps {
     }
 
     @When("^(include|do not include) event day$")
-    public void include_event_day(String cond) throws Throwable {
+    public void include_event_day(String cond) {
         if (cond.equals("include")) {
             pageFactory.getCreateCalculationRuleMethods().includeEventDay(true);
         } else if (cond.equals("do not include")) {
@@ -78,38 +78,38 @@ public class PageCalculationRuleSteps {
     }
 
     @Then("^the calculation rule should be (created|updated)$")
-    public void the_calculation_rule_should_be_createdOrupdated(String status, DataTable table) throws Exception {
+    public void the_calculation_rule_should_be_createdOrupdated(String status, DataTable table)  {
         List<List<String>> rule = table.raw();
         pageFactory.getCreateCalculationRuleMethods().verifyIfPageIsCalculationRuleList();
     }
 
     @When("^start day of the week for the effective period as \"([^\"]*)\"$")
-    public void start_day_of_the_week_for_the_effective_period_as(String day) throws Throwable {
+    public void start_day_of_the_week_for_the_effective_period_as(String day) {
         pageFactory.getCreateCalculationRuleMethods().setEffectiveStartDay(day);
     }
 
     @When("^set number of weeks for the effective period as \"([^\"]*)\"$")
-    public void set_number_of_weeks_for_the_effective_period_as(String weeks) throws Throwable {
+    public void set_number_of_weeks_for_the_effective_period_as(String weeks) {
         pageFactory.getCreateCalculationRuleMethods().setEffTotalNoOfWeeks(weeks);
     }
 
     @When("^start day of the week for the calculation period as \"([^\"]*)\"$")
-    public void start_day_of_the_week_for_the_calculation_period_as(String day) throws Throwable {
+    public void start_day_of_the_week_for_the_calculation_period_as(String day) {
         pageFactory.getCreateCalculationRuleMethods().setCalculationStartDay(day);
     }
 
     @When("^set number of weeks for the calculation period as \"([^\"]*)\"$")
-    public void set_number_of_weeks_for_the_calculation_period_as(String weeks) throws Throwable {
+    public void set_number_of_weeks_for_the_calculation_period_as(String weeks) {
         pageFactory.getCreateCalculationRuleMethods().setCalTotalNoOfWeeks(weeks);
     }
 
     @When("^set offset as \"(\\d+)$")
-    public void set_offset_as(int offset) throws Throwable {
+    public void set_offset_as(int offset)  {
         pageFactory.getCreateCalculationRuleMethods().setCalOffset(String.valueOf(offset));
     }
 
     @When("^overlap (is|is not) allowed$")
-    public void overlap_is_allowed(String cond) throws Throwable {
+    public void overlap_is_allowed(String cond) {
         if (cond.equals("is")) {
             pageFactory.getCreateCalculationRuleMethods().overlapAllowed(true);
         } else if (cond.equals("is not")) {
@@ -118,32 +118,32 @@ public class PageCalculationRuleSteps {
     }
 
     @And("^set month rule type as \"([^\"]*)\"$")
-    public void set_month_rule_type_as(String rule) throws Throwable {
+    public void set_month_rule_type_as(String rule){
         pageFactory.getCreateCalculationRuleMethods().setMonthRuleType(rule);
     }
 
     @And("^number of months for effective period as \"([^\"]*)\"$")
-    public void number_of_months_for_effective_period_as(String months) throws Throwable {
+    public void number_of_months_for_effective_period_as(String months) {
         pageFactory.getCreateCalculationRuleMethods().setNoOfMonthsEffPeriof(months);
     }
 
     @And("^effective start day of month as \"([^\"]*)\"$")
-    public void effective_start_day_of_month_as(String day) throws Throwable {
+    public void effective_start_day_of_month_as(String day) {
         pageFactory.getCreateCalculationRuleMethods().setEffStartDayOfMonth(day);
     }
 
     @And("^number of months for calculation period as \"([^\"]*)\"$")
-    public void number_of_months_for_calculation_period_as(String months) throws Throwable {
+    public void number_of_months_for_calculation_period_as(String months)  {
         pageFactory.getCreateCalculationRuleMethods().setNoOfMonthsCalPeriod(months);
     }
 
     @And("^set calculation start day of month as \"([^\"]*)\"$")
-    public void set_calculation_start_day_of_month_as(String day) throws Throwable {
+    public void set_calculation_start_day_of_month_as(String day)  {
         pageFactory.getCreateCalculationRuleMethods().setCalStartDayOfMonth(day);
     }
 
     @When("^the user enters \"([^\"]*)\" as \"([^\"]*)\"$")
-    public void the_user_enters_as(String filter, String key) throws Throwable {
+    public void the_user_enters_as(String filter, String key)  {
         if (filter.equalsIgnoreCase("Name")) {
             pageFactory.getListCalculationRuleMethods().setFilterName(key);
         } else if (filter.equalsIgnoreCase("Type")) {
@@ -154,7 +154,7 @@ public class PageCalculationRuleSteps {
     }
 
     @Then("^the list should display the records matching the filter criteria$")
-    public void the_list_should_display_the_records_matching_the_filter_criteria(List<List<String>> table) throws Throwable {
+    public void the_list_should_display_the_records_matching_the_filter_criteria(List<List<String>> table)  {
         String filter = table.get(0).get(0);
         String value = table.get(0).get(1);
 
@@ -175,7 +175,7 @@ public class PageCalculationRuleSteps {
      * Move to the class implimentation file
      */
     @Then("^the calculation rules shall be displayed in (ascending order|descending order)$")
-    public void the_calculation_rules_shall_be_displayed_in_sorted_order(String order, DataTable table) throws Throwable {
+    public void the_calculation_rules_shall_be_displayed_in_sorted_order(String order, DataTable table) throws Exception {
         List<List<String>> rows = table.raw();
         String header = rows.get(0).get(0);
         List<WebElement> columnList = null;
@@ -218,7 +218,7 @@ public class PageCalculationRuleSteps {
     }
 
     @Then("^the calculation rules should display the status as inactive$")
-    public void the_calculation_rules_should_display_the_status_as_inactive() throws Throwable {
+    public void the_calculation_rules_should_display_the_status_as_inactive() {
         the_user_enters_as("Name", ruleName);
         List<List<String>> list = new ArrayList<>();
         List<String> sublist = new ArrayList<>();
@@ -229,7 +229,7 @@ public class PageCalculationRuleSteps {
     }
 
     @When("^the user clicks on the (view|edit) button of a plan$")
-    public void the_user_clicks_on_the_view_button_of_a_plan(String act) throws Throwable {
+    public void the_user_clicks_on_the_view_button_of_a_plan(String act)  {
         if (act.equals("view")) {
             pageFactory.getListCalculationRuleMethods().clickOnAction("view");
         } else if (act.equals("edit")) {
@@ -238,12 +238,12 @@ public class PageCalculationRuleSteps {
     }
 
     @Then("^the user shall be able to (view|edit) the calculation rule details$")
-    public void the_user_shall_be_able_to_view_the_calculation_rule_details(String act, DataTable table) throws Throwable {
+    public void the_user_shall_be_able_to_view_the_calculation_rule_details(String act, DataTable table) {
         pageFactory.getCreateCalculationRuleMethods().verifyIfUserIsAbleToViewOrEditDetails(act, table);
     }
 
     @Then("^the application displays an error message as \"(.*)\"$")
-    public void the_application_displays_an_error_message_as(String errMsg) throws Throwable {
+    public void the_application_displays_an_error_message_as(String errMsg)  {
         pageFactory.getPageCommonMethods().verifyIfErrorMessageIsDisplayed(errMsg, true);
     }
 

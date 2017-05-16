@@ -11,16 +11,14 @@ public class BaseClass {
     private EventFiringWebDriver edriver;
     private IEventListener listener;
 
-    public EventFiringWebDriver initBrowser(String url) {
-        driver = OpenBrowser.getDriver(OpenBrowser.Open.CHROME);
-
+    public EventFiringWebDriver initBrowser(String url,OpenBrowser.Open browser){
+        driver = OpenBrowser.getDriver(browser);
         listener = new IEventListener();
         edriver = new EventFiringWebDriver(driver);
         edriver.register(listener);
         edriver.navigate().to(url);
         edriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         edriver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
-
         return edriver;
     }
 

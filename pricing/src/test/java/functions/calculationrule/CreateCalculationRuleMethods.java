@@ -30,7 +30,7 @@ public class CreateCalculationRuleMethods extends GenericWebElementMethods {
     }
 
     public void setType(String type) {
-        selectFromDropDown_LabelTag(Constants.calculationRuleCreate_type_xpath, type.toUpperCase(), 0);
+        selectFromDropDown_LabelTag(Constants.calculationRuleCreate_type_xpath, type.toUpperCase(), -1);
     }
 
     public void setDescription(String description) {
@@ -62,10 +62,11 @@ public class CreateCalculationRuleMethods extends GenericWebElementMethods {
     }
 
     public void setEffectiveStartDay(String efStartDay) {
-        selectFromDropDown_LabelTag(Constants.calculationRuleCreate_efStartDayOfWeek_xpath, efStartDay.toUpperCase(), 0);
+        selectFromDropDown_SelectTag(Constants.calculationRuleCreate_efStartDayOfWeek_xpath, efStartDay.toUpperCase());
     }
 
     public void setEffTotalNoOfWeeks(String effTotalNoOfWeeks) {
+        clearText(Constants.calculationRuleCreate_efTotalNoOfWeeks_xpath);
         sendKeysToWE(Constants.calculationRuleCreate_efTotalNoOfWeeks_xpath, effTotalNoOfWeeks);
     }
 
@@ -78,6 +79,7 @@ public class CreateCalculationRuleMethods extends GenericWebElementMethods {
     }
 
     public void setCalOffset(String calOffset) {
+        clearText(Constants.calculationRuleCreate_cpOffset_xpath);
         sendKeysToWE(Constants.calculationRuleCreate_cpOffset_xpath, calOffset);
     }
 
@@ -113,6 +115,7 @@ public class CreateCalculationRuleMethods extends GenericWebElementMethods {
     }
 
     public void verifyIfPageIsCalculationRuleList() {
+        waitFor(5);
         if (!edriver.getCurrentUrl().contains("/calc-rule/list")) {
             Assert.fail("Calculation Rule is not created");
         }

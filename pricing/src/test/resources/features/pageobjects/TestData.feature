@@ -41,7 +41,7 @@ Feature: Test Data
       | <name> | <startDate> | <endDate> | <type> | <description> | <ep_StartDate> | <ep_NoOfWeeks> | <cp_StartDate> | <ep_NoOfWeeks> | <offset> |
     Examples:
       | name             | startDate   | endDate | type | description | ep_StartDate | ep_NoOfWeeks | cp_StartDate | ep_NoOfWeeks | offset |
-      | TestCalcWeekRule | 23-JAN-2017 |         | Week | for testing | Monday       | 1            | Tuesday      | 2            | 1      |
+      | TestCalcWeekRule | 23-JAN-2017 | today   | Week | for testing | Monday       | 1            | Tuesday      | 2            | 1      |
 
   Scenario Outline: To verify if the user is able to create a calculation rule with type as Month.
     Given the user has navigated to the "Create" page under the "Calculation_Rule"
@@ -68,7 +68,7 @@ Feature: Test Data
     When  the user enters rate basis as Unit
     And   <lowPrice> ,<midPrice> ,<highPrice> and <closePrice> are entered
     And   name as PREMCBOBNYCARGO
-    And   start date as 12-Dec-2016 and end date as 26-May-2017
+    And   start date as 12-Dec-2016 and end date as today
     And   currency as USD
     And   unit of measurement as USG
     And   comment as Created for new clients
@@ -109,8 +109,8 @@ Feature: Test Data
     Then  the workbook configuration should be created
 
     Examples:
-      | name   | description | formulaType | segmentType | defaultValue |
-      | Test01 | for testing | PRICE       | LAND        | 20           |
+      | name              | description | formulaType | segmentType | defaultValue |
+      | TestWorkbook3Attr | for testing | PRICE       | LAND        | 20           |
 
   Scenario Outline: To verify if the user is able to create a workbook configuration by adding all the available attributes.
     Given the user has navigated to the "Create" page under the "Workbook"
@@ -125,14 +125,12 @@ Feature: Test Data
     Then  the workbook configuration should be created
 
     Examples:
-      | name   | description | formulaType | segmentType | defaultValue |
-      | Test02 | for testing | PRICE       | LAND        | 20           |
+      | name                | description | formulaType | segmentType | defaultValue |
+      | TestWorkbookAllAttr | for testing | PRICE       | LAND        | 20           |
     # Test data : Work book data
   Scenario Outline:To verify if the user is able to create work book data.
     Given the user has navigated to the "List" page under the "Workbook"
-    When  the list workbook configuration list should be filtered with the "name" as "TestData01"
-    And   clicked on "Row"
-    And   clicked on "Manage Data"
+    When  the user clicks on manage data for a workbook with name as "TestWorkbook3Attr"
     And   clicked on "Add New Data"
     And   supplier as "<supplier>"
     And   location as "<location>"
@@ -147,6 +145,24 @@ Feature: Test Data
     Then  the workbook data should be created
       |<supplier>|<location>|<customer>|<priceBasis>|<uom>|<startDate>|<endDate>|<currencyCode>|<amount>|
     Examples:
-      | supplier         | location | customer         | priceBasis | uom | startDate         | endDate          | currencyCode | amount |
-      | 101 LIMITED      | HOUSTON  | SKYCHASE / TAK   | Unit       | 300 | 09-May-2017 10:19 | 09-May-2017 10:19| AMD          | 100    |
-      | JEFFREY WEISSMAN | HOUSTON  | SKYCHASE / TAK   | Unit       | 300 | 09-May-2017 10:19 | 09-May-2017 10:19| AMD          | 100    |
+      | supplier                       | location                     | customer               | priceBasis | uom | startDate         | endDate          | currencyCode | amount |
+      | 121 INFLIGHT CATERING LLC      | MINNEAPOLIS-ANOKA CO-BLAINE  | ATLAS BLUE             | Unit       | 300 | 09-May-2017 10:19 | today            | AMD          | 100    |
+      | JEFFREY WEISSMAN               | HOUSTON                      | JET FORWARD AVIATION   | Unit       | 300 | 09-May-2017 10:19 | today            | AMD          | 100    |
+    # Test data : Formula
+  Scenario Outline: To verify if the user is able to create formula.
+    Given the user has navigated to the "Create" page under the "Formula"
+    When  the user creates a formula with "<name>"
+    And   description as "<description>"
+    And   set type as "<type>"
+    And   expression as "<expression>"
+    And   set the start date for formula as "<startDate>"
+    And   set the end date for formula as "<endDate>"
+    And   set the rounding mode as "<roundingMode>"
+    And   set the rounding precision to "<roundingPrecision>"
+    And   enter the details for the paramters
+      | <expression> | <paramType> | <indexType> | <indexPoint> | <indexName> | <calculationPeriod> |
+    And   validate the expression and click on Create
+    Then  the formula should be created
+    Examples:
+      | name        | description | type | expression | startDate   | endDate     | roundingMode | roundingPrecision | paramType | indexType | indexPoint | indexName        | calculationPeriod    |
+      | TestFormula | for testing | COST | Test       | 12-Dec-2016 | today       | Round Up     | 3                 | Index     | Argus     | Mid        | PREMCBOBNYCARGO  | TestCalcDayRule      |

@@ -4,10 +4,8 @@ import com.google.common.base.Verify;
 import cucumber.api.DataTable;
 import functions.GenericWebElementMethods;
 import org.junit.Assert;
-import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.security.Credentials;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 import setup.Constants;
 
@@ -61,7 +59,7 @@ public class WorkBookDataMethods extends GenericWebElementMethods {
     public void setStartDate(String startDate) {
 
         if (startDate.matches("^[a-zA-Z]*$")) {
-            startDate = setDateWithTimeStamp(startDate);
+            startDate = setDateWithTimeStamp(startDate,true);
         }
         clearText(Constants.workbookData_addNewDataStartDate_xpath);
         sendKeysToWE(Constants.workbookData_addNewDataStartDate_xpath, startDate);
@@ -70,7 +68,7 @@ public class WorkBookDataMethods extends GenericWebElementMethods {
 
     public void setEndDate(String endDate) {
         if (endDate.matches("^[a-zA-Z]*$")) {
-            endDate = setDateWithTimeStamp(endDate);
+            endDate = setDateWithTimeStamp(endDate,true);
         }
         clearText(Constants.workbookData_addNewDataEndDate_xpath);
         sendKeysToWE(Constants.workbookData_addNewDataEndDate_xpath, endDate);

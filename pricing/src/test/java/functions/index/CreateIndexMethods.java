@@ -17,11 +17,21 @@ public class CreateIndexMethods extends GenericWebElementMethods {
     }
 
     public void setStartDate(String startDate) {
-        selectDate(startDate, Constants.indexCreate_startDatePicker_xpath, Constants.indexCreate_startDate_xpath);
+        if (startDate.matches("^[a-zA-Z]*$")) {
+            startDate = setDateWithTimeStamp(startDate,false);
+        }
+        clearText(Constants.indexCreate_startDate_xpath);
+        sendKeysToWE(Constants.indexCreate_startDate_xpath, startDate);
+        clickOnTab();
     }
 
     public void setEndDate(String endDate) {
-        selectDate(endDate, Constants.indexCreate_endDatePicker_xpath, Constants.indexCreate_endDate_xpath);
+        if (endDate.matches("^[a-zA-Z]*$")) {
+            endDate = setDateWithTimeStamp(endDate,false);
+        }
+        clearText(Constants.indexCreate_endDate_xpath);
+        sendKeysToWE(Constants.indexCreate_endDate_xpath, endDate);
+        clickOnTab();
     }
 
     public void setCurrency(String currency) {

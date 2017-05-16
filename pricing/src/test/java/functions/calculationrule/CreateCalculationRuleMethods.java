@@ -26,7 +26,12 @@ public class CreateCalculationRuleMethods extends GenericWebElementMethods {
     }
 
     public void setEndDate(String endDate) {
-        setDateWithTimeStamp(endDate, Constants.calculationRuleCreate_endDatePicker_xpath, Constants.calculationRuleCreate_endDate_xpath);
+        if (endDate.matches("^[a-zA-Z]*$")) {
+            endDate = setDateWithTimeStamp(endDate,false);
+        }
+        clearText(Constants.calculationRuleCreate_endDate_xpath);
+        sendKeysToWE(Constants.calculationRuleCreate_endDate_xpath, endDate);
+        clickOnTab();
     }
 
     public void setType(String type) {

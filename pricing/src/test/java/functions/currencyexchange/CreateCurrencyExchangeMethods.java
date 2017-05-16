@@ -19,15 +19,15 @@ public class CreateCurrencyExchangeMethods extends GenericWebElementMethods {
     }
 
     public void setType(String type) {
-        selectFromDropDown_LabelTag(Constants.currencyExchangeCreate_type_xpath, type, 0);
+        selectFromDropDown_LabelTag(Constants.currencyExchangeCreate_type_xpath, type, -1);
     }
 
     public void setFromCurrency(String fromCurrency) {
-        selectFromDropDown_LabelTag(Constants.currencyExchangeCreate_fromCurrency_xpath, fromCurrency, 0);
+        selectFromDropDown_LabelTag(Constants.currencyExchangeCreate_fromCurrency_xpath, fromCurrency, -1);
     }
 
     public void setToCurrency(String toCurrency) {
-        selectFromDropDown_LabelTag(Constants.currencyExchangeCreate_toCurrency_xpath, toCurrency, 0);
+        selectFromDropDown_LabelTag(Constants.currencyExchangeCreate_toCurrency_xpath, toCurrency, -1);
     }
 
     public void setConverstionRate(String rate) {

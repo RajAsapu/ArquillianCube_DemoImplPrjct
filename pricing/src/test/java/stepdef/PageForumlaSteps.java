@@ -69,7 +69,7 @@ public class PageForumlaSteps {
 
     @When("^(set|update) the end date for formula as \"([^\"]*)\"$")
     public void set_the_end_date_for_formula_as(String action, String endDate) throws Throwable {
-        pageFactory.getCreateFormulaMethods().setStartDate(endDate);
+        pageFactory.getCreateFormulaMethods().setEndDate(endDate);
     }
 
     @When("^set the rounding mode as \"([^\"]*)\"$")

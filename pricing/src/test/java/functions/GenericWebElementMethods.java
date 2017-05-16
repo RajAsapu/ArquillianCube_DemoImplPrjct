@@ -94,7 +94,7 @@ public class GenericWebElementMethods extends PageCommonMethods {
         {
             if(temp.isDisplayed())
             {
-                temp.sendKeys(value);
+                temp.sendKeys(value.trim());
                 break;
             }
         }
@@ -409,12 +409,20 @@ public class GenericWebElementMethods extends PageCommonMethods {
      * Method to set the date with time stamp
      * day : today,tomorrow or yesterday
      */
-    public String setDateWithTimeStamp(String day)
+    public String setDateWithTimeStamp(String day, boolean withTimeStamp)
     {
         String date = null;
+        SimpleDateFormat formatter =null;
         day = day.toLowerCase();
+        if(withTimeStamp)
+        {
+            formatter = new SimpleDateFormat("dd-MMM-yyyy HH:mm");
+        }
+        else
+        {
+            formatter = new SimpleDateFormat("dd-MMM-yyyy");
+        }
 
-        SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy HH:mm");
         Date timeStamp = new Date();
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(timeStamp);
@@ -434,7 +442,7 @@ public class GenericWebElementMethods extends PageCommonMethods {
             date="";
         }
 
-        return date;
+        return date.toUpperCase();
     }
     /*
      * Method to search the list of records in all the pages and click on the

@@ -35,15 +35,25 @@ public class CreateFormulaMethods extends GenericWebElementMethods {
     }
 
     public void setStartDate(String startDate) {
-        selectDate(startDate, Constants.formulaCreate_startDatePicker_xpath, Constants.formulaCreate_startDate_xpath);
+        if (startDate.matches("^[a-zA-Z]*$")) {
+            startDate = setDateWithTimeStamp(startDate,false);
+        }
+        clearText(Constants.formulaCreate_startDate_xpath);
+        sendKeysToWE(Constants.formulaCreate_startDate_xpath, startDate);
+        clickOnTab();
     }
 
     public void setEndDate(String endDate) {
-        selectDate(endDate, Constants.formulaCreate_endDatePicker_xpath, Constants.formulaCreate_endDate_xpath);
+        if (endDate.matches("^[a-zA-Z]*$")) {
+            endDate = setDateWithTimeStamp(endDate,false);
+        }
+        clearText(Constants.formulaCreate_endDate_xpath);
+        sendKeysToWE(Constants.formulaCreate_endDate_xpath, endDate);
+        clickOnTab();
     }
 
     public void setRoundingMode(String roundingMode) {
-        selectFromDropDown_LabelTag(Constants.formulaCreate_roundingMode_xpath, roundingMode, 0);
+        selectFromDropDown_LabelTag(Constants.formulaCreate_roundingMode_xpath, roundingMode, -1);
     }
 
     public void setRoundingPrecision(String roundingPrecision) {

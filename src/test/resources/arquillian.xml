@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<arquillian xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns="http://jboss.org/schema/arquillian"
+            xsi:schemaLocation="http://jboss.org/schema/arquillian
+  http://jboss.org/schema/arquillian/arquillian_1_0.xsd">
+
+    <extension qualifier="docker">
+        <property name="serverVersion">1.12.3</property>
+        <property name="serverUri">http://localhost:2375</property>
+        <!--<property name="dockerRegistry">http://jfrog.aws.wfscorp.com/artifactory/docker/docker-dev-local/</property>-->
+        <property name="clean">true</property>
+        <property name="dockerContainersFile">src/test/resources/docker-compose.yml</property>
+        <property name="definitionFormat">CUBE</property>
+        <property name="cleanBuildImage">true</property>
+        <property name="connectionMode">STARTORCONNECTANDLEAVE</property>
+        <property name="autoStartContainers">custom:setup.AutoStartContainersOrder</property>
+        <property name="cubeSpecificProperties">
+            database:
+            await:
+            strategy: log
+            match: 'DSE startup complete'
+            sleepPollingTime: 10 s
+            iterations: 5
+            stdOut: true
+            stdErr: true
+            timeout: 1800
+            ui:
+            await:
+            strategy: polling
+            sleepPollingTime: 10 s
+            iterations: 5
+            stdOut: true
+            stdErr: true
+            timeout: 1800
+            datamock:
+            await:
+            strategy: log
+            match: 'Successfully connected'
+            sleepPollingTime: 10 s
+            iterations: 5
+            stdOut: true
+            stdErr: true
+            timeout: 1800
+            engine:
+            await:
+            strategy: log
+            match: 'Message broker is not set up'
+            sleepPollingTime: 5 s
+            iterations: 5
+            stdOut: true
+            stdErr: true
+            timeout: 1800
+        </property>
+    </extension>
+</arquillian>

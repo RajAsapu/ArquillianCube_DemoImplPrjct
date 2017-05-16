@@ -160,7 +160,7 @@ public class PageWorkbooksteps extends PageCommonMethods {
                 break;
             case DEACTIVATE:
                 pageFactory.getWorkBookDataMethods().clickOnDataWithDeActivateEnabled(STATUS_ACTIVE);
-                pageFactory.getWorkBookDataMethods().deActivateRecord();
+                pageFactory.getWorkBookDataMethods().deactivateRecord();
                 break;
             case INACTIVE_DATA:
                 pageFactory.getWorkBookDataMethods().clickOnDataWithInactiveStatus(STATUS_INACTIVE);

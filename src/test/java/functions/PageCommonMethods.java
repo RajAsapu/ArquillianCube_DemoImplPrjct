@@ -1,0 +1,103 @@
+package functions;
+
+import com.google.common.base.Verify;
+import org.junit.Assert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.events.EventFiringWebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import setup.Constants;
+import setup.DateOperations;
+import setup.PageFactory;
+import stepdef.PageCommonSteps;
+
+public class PageCommonMethods {
+
+    protected static EventFiringWebDriver edriver;
+    protected static Logger log = null;
+    protected WebDriverWait webDriverWait;
+    protected static DateOperations dateOperations;
+    protected static JavascriptExecutor js;
+    protected static Actions actions = null;
+
+    /*
+     * Constructor to intialize the dependent classes
+     */
+    public PageCommonMethods()
+    {}
+    public PageCommonMethods(EventFiringWebDriver edriver) {
+        log = LoggerFactory.getLogger(PageCommonMethods.class);
+        this.edriver=edriver;
+        dateOperations = new DateOperations();
+        actions = new Actions(edriver);
+        js = ((JavascriptExecutor) edriver);
+    }
+
+    public void closeBrowser()
+    {
+        edriver.quit();
+    }
+    public void waitFor(long timeInSeconds) {
+        try {
+            Thread.sleep(timeInSeconds * 1000);
+        } catch (InterruptedException | NullPointerException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /*
+     * Method to navigate to a page under a module (eg : List under Index)
+     *  Calculation Rule
+     *  Workbook
+     *  Index
+     *  Currency Exchange
+     *  Formula
+     */
+    public void moveTo(page p, module m) throws Exception {
+        Actions act = new Actions(edriver);
+        act.moveToElement(edriver.findElement(By.linkText(m.toString().replace("_", " ")))).clickAndHold().perform();
+        Thread.sleep(1000);
+        act.click(edriver.findElement(By.linkText(p.toString()))).perform();
+        log.info("Navigated to " + p.toString() + " page under " + m.toString());
+    }
+
+    /*
+     * Method to login to the application
+     */
+    public void login() {
+        edriver.findElement(By.id(Constants.login_username_id)).sendKeys(Constants.username);
+        edriver.findElement(By.id(Constants.login_password_id)).sendKeys(Constants.password);
+        edriver.findElement(By.id(Constants.login_submit_id)).click();
+    }
+
+    /*
+     * Method to verify if the error message is displayed or not
+     * isDisplayed : true - Message should be displayed
+     *               false - Message should not be displayed
+     */
+    public void verifyIfErrorMessageIsDisplayed(String errorOrSuccess, String message, boolean isDisplayed) {
+        try {
+            WebDriverWait wait = new WebDriverWait(edriver, 10);
+            if (isDisplayed) {
+                wait.until(ExpectedConditions.visibilityOf(edriver.findElement(By.xpath("//*[normalize-space()=\"" + message + "\"]"))));
+            } else {
+                Verify.verify(!edriver.findElement(By.xpath("//*[normalize-space()=\"" + message + "\"]")).isDisplayed(), errorOrSuccess + " Message is displayed!!");
+            }
+        } catch (NullPointerException | NoSuchElementException exp) {
+            Assert.fail(errorOrSuccess + " message is not displayed, Expected " + errorOrSuccess + " message:" + message);
+        }
+    }
+
+    public enum module {
+        Calculation_Rule, Workbook, Index, Currency_Exchange, Formula
+    }
+
+    public enum page {
+        List, Create
+    }
+}

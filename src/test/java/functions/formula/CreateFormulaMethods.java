@@ -72,8 +72,8 @@ public class CreateFormulaMethods extends GenericWebElementMethods {
         scrollDown();
        for(int i=0;i<parameters.size();i++){
             String type = parameters.get(i).get(1);
-            String x= getValue(Constants.formulaCreate_nameParameter_xpath);
-            if (x!=null && !x.equals("")) {
+            String attributeName= getValue(Constants.formulaCreate_nameParameter_xpath);
+            if (attributeName!=null && !attributeName.equals("")) {
                 clickOnAddParameter();
             }
             sendKeysToWeAtPosition(Constants.formulaCreate_nameParameter_xpath, parameters.get(i).get(0), -1);

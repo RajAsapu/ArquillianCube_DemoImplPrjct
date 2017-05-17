@@ -2,6 +2,7 @@ package functions.formula;
 
 
 import com.google.common.base.Verify;
+import com.google.common.base.VerifyException;
 import functions.GenericWebElementMethods;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
@@ -11,6 +12,7 @@ import setup.Constants;
 import java.util.List;
 
 public class CreateFormulaMethods extends GenericWebElementMethods {
+    private static final String EXPRESSSION_ERROR_MESSAGE = "Expression operand names dont match.";
 
     public void clickOnAddParameter() {
         clickButton(Constants.formulaCreate_addParameter_xpath);
@@ -59,10 +61,9 @@ public class CreateFormulaMethods extends GenericWebElementMethods {
     }
 
     public void createFormula() {
-        try {
-            Verify.verify(edriver.findElement(By.xpath(Constants.formulaCreate_errorMessageValidate_xpath)).isDisplayed(), "Invalid Expression!!");
-        } catch (NoSuchElementException exp) {
-            System.out.println("Expression is Verified !");
+        try{ verifyIfTextIsDisplayed(EXPRESSSION_ERROR_MESSAGE);}
+        catch (VerifyException exp) {
+            System.out.println("Expression is valid");
         }
         clickButton(Constants.formulaCreate_submit_xpath);
     }
@@ -73,7 +74,7 @@ public class CreateFormulaMethods extends GenericWebElementMethods {
        for(int i=0;i<parameters.size();i++){
             String type = parameters.get(i).get(1);
             String attributeName= getValue(Constants.formulaCreate_nameParameter_xpath);
-            if (attributeName!=null && !attributeName.equals("")) {
+            if (attributeName!=null && !attributeName.isEmpty()) {
                 clickOnAddParameter();
             }
             sendKeysToWeAtPosition(Constants.formulaCreate_nameParameter_xpath, parameters.get(i).get(0), -1);

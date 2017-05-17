@@ -6,12 +6,6 @@ import setup.Constants;
 
 public class ListCalculationRuleMethods extends GenericWebElementMethods {
 
-    private EventFiringWebDriver edriver;
-
-    public ListCalculationRuleMethods() {
-        edriver = getEdriver();
-    }
-
     public void clickOnAddNewRule() {
         clickButton(Constants.calculationRuleList_addNewRule_xpath);
     }

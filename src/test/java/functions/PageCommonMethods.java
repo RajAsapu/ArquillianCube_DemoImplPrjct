@@ -3,6 +3,7 @@ package functions;
 import com.google.common.base.Verify;
 import org.junit.Assert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
@@ -11,22 +12,36 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import setup.Constants;
-import setup.DriverBean;
+import setup.DateOperations;
+import setup.PageFactory;
+import stepdef.PageCommonSteps;
 
 public class PageCommonMethods {
 
-    public static EventFiringWebDriver edriver;
-    private static Logger log = null;
-    private WebDriverWait webDriverWait;
+    protected static EventFiringWebDriver edriver;
+    protected static Logger log = null;
+    protected WebDriverWait webDriverWait;
+    protected static DateOperations dateOperations;
+    protected static JavascriptExecutor js;
+    protected static Actions actions = null;
 
     /*
-  * Constructor to intialize the dependent classes
-  */
-    public PageCommonMethods() {
+     * Constructor to intialize the dependent classes
+     */
+    public PageCommonMethods()
+    {}
+    public PageCommonMethods(EventFiringWebDriver edriver) {
         log = LoggerFactory.getLogger(PageCommonMethods.class);
-        edriver = DriverBean.getDriver();
+        this.edriver=edriver;
+        dateOperations = new DateOperations();
+        actions = new Actions(edriver);
+        js = ((JavascriptExecutor) edriver);
     }
 
+    public void closeBrowser()
+    {
+        edriver.quit();
+    }
     public void waitFor(long timeInSeconds) {
         try {
             Thread.sleep(timeInSeconds * 1000);

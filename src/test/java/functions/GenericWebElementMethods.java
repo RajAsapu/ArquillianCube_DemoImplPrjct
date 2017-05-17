@@ -15,7 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import setup.Constants;
 import setup.DateOperations;
-import setup.DriverBean;
+import setup.PageFactory;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -27,27 +27,9 @@ import java.util.List;
  */
 public class GenericWebElementMethods extends PageCommonMethods {
 
-    private static Logger log = LoggerFactory.getLogger(GenericWebElementMethods.class);
-    private EventFiringWebDriver edriver;
-    private DateOperations dateOperations;
-    private JavascriptExecutor js;
-    private Actions actions = null;
-
-    /*
-     * Constructor
-     */
-    public GenericWebElementMethods() {
-        this.edriver = DriverBean.getDriver();
-        dateOperations = new DateOperations();
-        actions = new Actions(edriver);
-        js = ((JavascriptExecutor) edriver);
-    }
-
-    /*
-     * Getter method for Event Firing WebDriver
-     */
-    public EventFiringWebDriver getEdriver() {
-        return edriver;
+    public GenericWebElementMethods()
+    {
+        log = LoggerFactory.getLogger(GenericWebElementMethods.class);
     }
 
     /*
@@ -186,10 +168,10 @@ public class GenericWebElementMethods extends PageCommonMethods {
         WebElement autoFill = null;
         WebElement dropdown = getElementFromListWithPosition(identifier, -1);
         actions.click(dropdown).perform();
-        waitFor(3);
-        scrollIntoView("//*[normalize-space()='" + value + "']");
-        if (getSizeOfList("//*[normalize-space()='" + value + "']") > 0) {
-            autoFill = getElementFromListWithPosition("//*[normalize-space()='" + value + "']", position);
+        waitFor(1);
+        scrollIntoView("//li[normalize-space()='" + value + "']");
+        if (getSizeOfList("//li[normalize-space()='" + value + "']") > 0) {
+            autoFill = getElementFromListWithPosition("//li[normalize-space()='" + value + "']", position);
         } else if (getSizeOfList("//*[normalize-space()='" + value.toUpperCase() + "']") > 0) {
             autoFill = getElementFromListWithPosition("//*[normalize-space()='" + value.toUpperCase() + "']", position);
         } else if (getSizeOfList("//*[normalize-space()='" + value.replaceAll(" ", "") + "']") > 0) {
@@ -207,7 +189,7 @@ public class GenericWebElementMethods extends PageCommonMethods {
         WebElement autoFill = null;
         WebElement dropdown = getElementFromListWithPosition(dropdownId, 0);
         actions.click(dropdown).perform();
-        waitFor(3);
+        waitFor(1);
         sendKeysToWE(Constants.workbookData_searchInDropdown_xpath, value);
         waitFor(1);
         scrollIntoView("//*[normalize-space()='" + value + "']");

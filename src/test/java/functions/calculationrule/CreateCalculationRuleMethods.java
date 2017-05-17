@@ -11,12 +11,6 @@ import java.util.List;
 
 public class CreateCalculationRuleMethods extends GenericWebElementMethods {
 
-    private EventFiringWebDriver edriver;
-
-    public CreateCalculationRuleMethods() {
-        edriver = getEdriver();
-    }
-
     public void setName(String name) {
         sendKeysToWE(Constants.calculationRuleCreate_name_xpath, name);
     }

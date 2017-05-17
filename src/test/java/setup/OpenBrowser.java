@@ -6,12 +6,39 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.support.events.EventFiringWebDriver;
+
+import java.util.concurrent.TimeUnit;
 
 public class OpenBrowser {
 
-    static WebDriver driver;
+    public WebDriver driver;
+    private EventFiringWebDriver edriver;
+    private IEventListener listener;
+    public static enum Open {
+        CHROME, IE, FIREFOX, HtmlUnitDriver
+    }
+    public enum url {
+        Pricing
+    }
 
-    public static WebDriver getDriver(Open browser) {
+    public EventFiringWebDriver initBrowser(String url) {
+        driver = getDriver(Open.CHROME);
+        listener = new IEventListener();
+        edriver = new EventFiringWebDriver(driver);
+        edriver.register(listener);
+        edriver.navigate().to(url);
+        edriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        edriver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
+      return edriver;
+    }
+
+    public void closeBrowser() {
+        edriver.unregister(listener);
+        edriver.quit();
+    }
+
+    public WebDriver getDriver(Open browser) {
 
         switch (browser) {
             case CHROME:
@@ -37,9 +64,5 @@ public class OpenBrowser {
                 driver = new HtmlUnitDriver();
         }
         return driver;
-    }
-
-    public static enum Open {
-        CHROME, IE, FIREFOX, HtmlUnitDriver
     }
 }

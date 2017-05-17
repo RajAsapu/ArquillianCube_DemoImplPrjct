@@ -12,9 +12,9 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 import setup.*;
 
-public class PageCommonSteps extends BaseClass {
+public class PageCommonSteps extends OpenBrowser {
     final static Logger logger = Logger.getLogger(PageCommonSteps.class.getName());
-    static EventFiringWebDriver edriver;
+    private EventFiringWebDriver edriver;
     /*
      * Global variables
      */
@@ -34,19 +34,26 @@ public class PageCommonSteps extends BaseClass {
     }
 
     /*
+       Open and close application
+     */
+    public void openApplication()
+    {
+        if (environment.equalsIgnoreCase("Docker")) {
+           edriver = initBrowser(updateProperties.getPricingProperty("pricing.ui"));
+        } else if (environment.equalsIgnoreCase("Test")) {
+           edriver = initBrowser(updateProperties.getApplicationProperty("testPricingUrl"));
+        } else if (environment.equalsIgnoreCase("Dev")) {
+           edriver = initBrowser(updateProperties.getApplicationProperty("devPricingUrl"));
+        }
+        pageFactory.setEventFiringWebDriver(edriver);
+    }
+
+    /*
      * Opens up the pricing application
      */
     @Given("^the user has logged into the pricing application$")
     public void the_user_has_logged_into_the_pricing_application() {
-
-        if (environment.equalsIgnoreCase("Docker")) {
-            edriver = initBrowser(updateProperties.getPricingProperty("pricing.ui"));
-        } else if (environment.equalsIgnoreCase("Test")) {
-            edriver = initBrowser(updateProperties.getApplicationProperty("testPricingUrl"));
-        } else if (environment.equalsIgnoreCase("Dev")) {
-            edriver = initBrowser(updateProperties.getApplicationProperty("devPricingUrl"));
-        }
-        DriverBean.setDriver(edriver);
+        openApplication();
         pageFactory.getPageCommonMethods().login();
     }
 

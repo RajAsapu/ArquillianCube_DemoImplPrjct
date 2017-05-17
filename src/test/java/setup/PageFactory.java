@@ -1,5 +1,6 @@
 package setup;
 
+import com.gargoylesoftware.htmlunit.Page;
 import functions.PageCommonMethods;
 import functions.calculationrule.CreateCalculationRuleMethods;
 import functions.calculationrule.ListCalculationRuleMethods;
@@ -12,6 +13,9 @@ import functions.index.ListIndexMethods;
 import functions.workbook.CreateWorkBookMethods;
 import functions.workbook.ListWorkBookMethods;
 import functions.workbook.WorkBookDataMethods;
+import org.openqa.selenium.support.events.EventFiringWebDriver;
+
+import java.awt.*;
 
 public class PageFactory {
 
@@ -27,10 +31,26 @@ public class PageFactory {
     private CreateFormulaMethods createFormulaMethods = null;
     private WorkBookDataMethods workBookDataMethods = null;
     private PageCommonMethods pageCommonMethods = null;
+    private DriverBean driverBean = null;
+    private EventFiringWebDriver eventFiringWebDriver = null;
+
+    public PageFactory(){
+        driverBean=new DriverBean();
+    }
+
+    public EventFiringWebDriver getDriver() {
+        return driverBean.getDriver();
+    }
+
+    public void setEventFiringWebDriver(EventFiringWebDriver eventFiringWebDriver) {
+        driverBean.init();
+        driverBean.setDriver(eventFiringWebDriver);
+        eventFiringWebDriver=driverBean.getDriver();
+    }
 
     public PageCommonMethods getPageCommonMethods() {
         if (pageCommonMethods == null) {
-            pageCommonMethods = new PageCommonMethods();
+            pageCommonMethods = new PageCommonMethods(driverBean.getDriver());
         }
         return pageCommonMethods;
     }

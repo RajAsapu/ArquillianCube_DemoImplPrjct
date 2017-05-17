@@ -14,12 +14,6 @@ import java.util.List;
 
 public class ListCurrencyExchangeMethods extends GenericWebElementMethods {
 
-    private EventFiringWebDriver edriver;
-
-    public ListCurrencyExchangeMethods() {
-        edriver = getEdriver();
-    }
-
     public void setSearchType(String searchType) {
         selectFromDropDown_SelectTag(Constants.currencyExchangeList_type_xpath, searchType);
     }

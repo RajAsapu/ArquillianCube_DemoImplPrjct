@@ -12,7 +12,6 @@ import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 import setup.Constants;
-import setup.DriverBean;
 import setup.PageFactory;
 
 import java.text.SimpleDateFormat;
@@ -26,8 +25,8 @@ public class PageIndexSteps {
     private PageFactory pageFactory;
 
     public PageIndexSteps() {
-        edriver = DriverBean.getDriver();
         pageFactory = new PageFactory();
+        edriver = pageFactory.getDriver();
     }
 
 

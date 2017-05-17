@@ -2,24 +2,26 @@ package runner;
 
 import com.google.common.base.Verify;
 import cucumber.api.CucumberOptions;
-import cucumber.api.java.Before;
 import cucumber.runtime.arquillian.ArquillianCucumber;
+import cucumber.runtime.arquillian.CukeSpace;
 import org.arquillian.cube.CubeIp;
 import org.arquillian.cube.HostPort;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.junit.runner.RunWith;
+import org.junit.runner.notification.RunListener;
 import setup.UpdateProperties;
-
 import java.util.HashMap;
 import java.util.Map;
 
-@RunWith(ArquillianCucumber.class)
-@RunAsClient
+@RunWith(CukeSpace.class)
 @CucumberOptions(
-        features = {"src/test/resources/features/pageobjects/PageIndexCreatePage.feature"},
+        strict = true,
+        features = {"src/test/resources/features/pageobjects/TestData.feature"},
         glue = {"classpath:"},
-        tags = {"@PageObjects"}
+        tags = {"@TestData"}
 )
+@RunAsClient
+@RunListener.ThreadSafe
 public class RunTest {
 
     @HostPort(containerName = "ui", value = 80)
@@ -33,8 +35,9 @@ public class RunTest {
     private UpdateProperties props = new UpdateProperties();
     private Map<String, String> map = new HashMap<String, String>();
 
-    @Before
-    public void updatePricingProperties() throws Exception {
+
+    @cucumber.api.java.Before
+    public void initialization() throws Exception {
         if (props.getEnv().equalsIgnoreCase("docker")) {
             Verify.verify(props.startServiceContainer(ipDatabase, "epe-config:latest"));
             map.put("pricing.ui", "localhost:" + String.valueOf(uiPort));

@@ -12,12 +12,6 @@ import java.util.List;
 
 public class CreateFormulaMethods extends GenericWebElementMethods {
 
-    private EventFiringWebDriver edriver;
-
-    public CreateFormulaMethods() {
-        edriver = getEdriver();
-    }
-
     public void clickOnAddParameter() {
         clickButton(Constants.formulaCreate_addParameter_xpath);
     }
@@ -31,7 +25,7 @@ public class CreateFormulaMethods extends GenericWebElementMethods {
     }
 
     public void setType(String type) {
-        selectFromDropDown_LabelTag(Constants.formulaCreate_typeSelect_xpath, type, 0);
+        selectFromDropDown_LabelTag(Constants.formulaCreate_typeSelect_xpath, type, -1);
     }
 
     public void setStartDate(String startDate) {
@@ -74,11 +68,12 @@ public class CreateFormulaMethods extends GenericWebElementMethods {
     }
 
     public void addParameters(List<List<String>> parameters) {
-        int i = 0;
+
         scrollDown();
-        while (i < parameters.size()) {
+       for(int i=0;i<parameters.size();i++){
             String type = parameters.get(i).get(1);
-            if (i > 0) {
+            String x= getValue(Constants.formulaCreate_nameParameter_xpath);
+            if (x!=null && !x.equals("")) {
                 clickOnAddParameter();
             }
             sendKeysToWeAtPosition(Constants.formulaCreate_nameParameter_xpath, parameters.get(i).get(0), -1);
@@ -94,17 +89,12 @@ public class CreateFormulaMethods extends GenericWebElementMethods {
                 setNameFromAutoFill(Constants.formulaCreate_location_xpath, parameters.get(i).get(4), -1);
                 setNameFromAutoFill(Constants.formulaCreate_product_xpath, parameters.get(i).get(5), -1);
             }
-            i++;
         }
     }
 
     public void verifyIfFormulaCreatedOrNot(String perfom, String action) {
         if (!perfom.contains("not")) {
-            try {
-                Thread.sleep(4000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            waitFor(4);
             Verify.verify(edriver.getCurrentUrl().contains("formula/list"), "Formula is not Created !!");
         } else {
             Verify.verify(edriver.getCurrentUrl().contains("formula/create"), "ERROR : Formula is Created !!");

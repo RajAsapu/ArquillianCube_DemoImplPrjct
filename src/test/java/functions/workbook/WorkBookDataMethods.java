@@ -32,12 +32,6 @@ public class WorkBookDataMethods extends GenericWebElementMethods {
     private static final String AMOUNT = "Amount";
     private static final String SCALE_RATES = "Scale Rates";
     private static final String ALERT_MESSAGE = "Warning: The record will be deactivated permanently. You can't undo this action.";
-    private EventFiringWebDriver edriver;
-
-
-    public WorkBookDataMethods() {
-        edriver = getEdriver();
-    }
 
     public void clickOnAddNewData() {
         clickButton(Constants.workbookData_addDataAction_xpath);

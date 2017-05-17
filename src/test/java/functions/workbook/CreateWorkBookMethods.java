@@ -14,11 +14,6 @@ import setup.Constants;
 import java.util.List;
 
 public class CreateWorkBookMethods extends GenericWebElementMethods {
-    private EventFiringWebDriver edriver;
-
-    public CreateWorkBookMethods() {
-        edriver = getEdriver();
-    }
 
     public void setName(String name) {
         sendKeysToWE(Constants.workbookCreate_name_xpath, name);

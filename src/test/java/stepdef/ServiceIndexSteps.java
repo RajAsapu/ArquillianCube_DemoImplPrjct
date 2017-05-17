@@ -9,17 +9,22 @@ import io.restassured.response.Response;
 import io.restassured.response.ResponseBody;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
-import setup.DriverBean;
+import setup.PageFactory;
 
 import java.util.List;
 
 public class ServiceIndexSteps extends AbstractApiDefinitions {
 
     final static Logger logger = Logger.getLogger(PageIndexSteps.class.getName());
-    private static EventFiringWebDriver edriver = DriverBean.getDriver();
-    public PageCommonSteps steps = new PageCommonSteps();
+    private EventFiringWebDriver edriver;
+    private PageFactory pageFactory=null;
     private Response response;
     private ResponseBody body;
+
+    public ServiceIndexSteps() {
+        pageFactory = new PageFactory();
+        edriver=pageFactory.getDriver();
+    }
 
     @When("^the user querys the GET on search end point in list page with parameters as \"([^\"]*)\"$")
     public void the_user_querys_the_GET_on_search_end_point_in_list_page(List<String> args) throws Throwable {

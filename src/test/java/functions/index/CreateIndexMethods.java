@@ -6,12 +6,6 @@ import setup.Constants;
 
 public class CreateIndexMethods extends GenericWebElementMethods {
 
-    private EventFiringWebDriver edriver;
-
-    public CreateIndexMethods() {
-        edriver = getEdriver();
-    }
-
     public void setName(String name) {
         setNameFromAutoFill(Constants.indexList_name_xpath, name, -1);
     }

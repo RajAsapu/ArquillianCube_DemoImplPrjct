@@ -16,9 +16,7 @@ Feature: Test Data
     And    enter days before event as "<daysBeforeEvent>"
     And    enter days after event as "<daysAfterEvent>"
     And    include event day
-    And    clicks on the submit button
-    Then   the calculation rule should be created
-      | <name> | <startDate> | <endDate> | <type> | <description> | <ruleType> | <daysBeforeEvent> | <daysAfterEvent> |
+    Then    clicks on the submit button
     Examples:
       | name            | startDate   | endDate | type | description | ruleType | daysBeforeEvent | daysAfterEvent |
       | TestCalcDayRule | 23-JAN-2017 | today   | Day  | for testing | Day Wrap | 2               | 2              |
@@ -36,13 +34,11 @@ Feature: Test Data
     And    set number of weeks for the calculation period as "<ep_NoOfWeeks>"
     And    set offset as "<offset>
     And    overlap is allowed
-    And    clicks on the submit button
-    Then   the calculation rule should be created
-      | <name> | <startDate> | <endDate> | <type> | <description> | <ep_StartDate> | <ep_NoOfWeeks> | <cp_StartDate> | <ep_NoOfWeeks> | <offset> |
+    Then    clicks on the submit button
     Examples:
       | name             | startDate   | endDate | type | description | ep_StartDate | ep_NoOfWeeks | cp_StartDate | ep_NoOfWeeks | offset |
       | TestCalcWeekRule | 23-JAN-2017 | today   | Week | for testing | Monday       | 1            | Tuesday      | 2            | 1      |
-
+  @TestData1
   Scenario Outline: To verify if the user is able to create a calculation rule with type as Month.
     Given the user has navigated to the "Create" page under the "Calculation_Rule"
     When  the user enters name  as "<name>"
@@ -56,9 +52,7 @@ Feature: Test Data
     And    number of months for calculation period as "<noOfMonthsCalc>"
     And    set calculation start day of month as "<cp_startDayMn>"
     And    set offset as "<offset>
-    And    clicks on the submit button
-    Then   the calculation rule should be created
-      | <name> | <startDate> | <endDate> | <type> | <description> | <mn_RuleType> | <ep_NoOfMonths> | <ep_startDayMn> | <noOfMonthsCalc> | <cp_startDayMn> | <offset> |
+    Then    clicks on the submit button
     Examples:
       | name              | startDate   | endDate | type  | description | mn_RuleType   | ep_NoOfMonths | ep_startDayMn | noOfMonthsCalc | cp_startDayMn | offset |
       | TestCalcMonthRule | 23-JAN-2017 | today   | Month | for testing | Single Period | 2             | 5             | 2              | 7             | 2      |
@@ -72,9 +66,7 @@ Feature: Test Data
     And   currency as USD
     And   unit of measurement as USG
     And   comment as Created for new clients
-    And   clicks on the submit button
-    Then  the user shall be able to view the created index in the list on filtering with Price Point Scale
-
+    Then  clicks on the submit button
     Examples:
       | lowPrice | midPrice | highPrice | closePrice |
       | 10.5     | 15.8     | 30.2      | 18.8       |
@@ -86,8 +78,7 @@ Feature: Test Data
     And   sets the currencyFrom field in create page to "<currencyFrom>"
     And   sets the currencyTo field in create page to "<currencyTo>"
     And   converstion rate to "<rate>"
-    And   clicks on the submit button
-    Then  the currency exchange info should be created
+    Then  clicks on the submit button
       | <date> | <type> | <currencyFrom> | <currencyTo> | <rate> |
     Examples:
       | date        | type    | currencyFrom | currencyTo | rate  |
@@ -105,9 +96,7 @@ Feature: Test Data
       | Supplier |
       | Location |
       | Customer |
-    And   clicks on the submit button
-    Then  the workbook configuration should be created
-
+    Then   clicks on the submit button
     Examples:
       | name              | description | formulaType | segmentType | defaultValue |
       | TestWorkbook3Attr | for testing | PRICE       | LAND        | 20           |
@@ -121,9 +110,7 @@ Feature: Test Data
     And   has a default value
     And   set the default value to "<defaultValue>"
     And   select all the attributes
-    And   clicks on the submit button
-    Then  the workbook configuration should be created
-
+    Then  clicks on the submit button
     Examples:
       | name                | description | formulaType | segmentType | defaultValue |
       | TestWorkbookAllAttr | for testing | PRICE       | LAND        | 20           |
@@ -141,8 +128,7 @@ Feature: Test Data
     And   set the end date for data as "<endDate>"
     And   set the currency for data as "<currencyCode>"
     And   set the amount for data as "<amount>"
-    And   clicks on the save button
-    Then  the workbook data should be created
+    Then  clicks on the save button
       | <supplier> | <location> | <customer> | <priceBasis> | <uom> | <startDate> | <endDate> | <currencyCode> | <amount> |
     Examples:
       | supplier                  | location                    | customer             | priceBasis | uom | startDate         | endDate | currencyCode | amount |
@@ -160,9 +146,10 @@ Feature: Test Data
     And   set the rounding mode as "<roundingMode>"
     And   set the rounding precision to "<roundingPrecision>"
     And   enter the details for the paramters
-      | <expression> | <paramType> | <indexType> | <indexPoint> | <indexName> | <calculationPeriod> |
-    And   validate the expression and click on Create
-    Then  the formula should be created
+      | ITest | Index | Ice | Mid | Prem CBOB NY Cargo | TestCalcDayRule |
+    And   enter the details for the paramters
+      | WTest | Workbook | TestWorkbookAllAttr | 121 INFLIGHT CATERING LLC | MINNEAPOLIS-FLYING CLOUD | GASOIL-AUTO |
+    Then   validate the expression and click on Create
     Examples:
-      | name        | description | type | expression | startDate   | endDate | roundingMode | roundingPrecision | paramType | indexType | indexPoint | indexName       | calculationPeriod |
-      | TestFormula | for testing | COST | Test       | 12-Dec-2016 | today   | Round Up     | 3                 | Index     | Argus     | Mid        | PREMCBOBNYCARGO | TestCalcDayRule   |
+      | name        | description | type | expression  | startDate   | endDate | roundingMode | roundingPrecision |
+      | TestFormula | for testing | COST | ITest+WTest | 12-Dec-2016 | today   | Round Up     | 3                 |

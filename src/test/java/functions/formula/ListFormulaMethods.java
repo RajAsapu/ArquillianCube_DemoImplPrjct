@@ -6,11 +6,6 @@ import org.openqa.selenium.support.events.EventFiringWebDriver;
 import setup.Constants;
 
 public class ListFormulaMethods extends GenericWebElementMethods {
-    private EventFiringWebDriver edriver;
-
-    public ListFormulaMethods() {
-        edriver = getEdriver();
-    }
 
     public String applyFilter(String filter) {
         String temp = null;

@@ -118,7 +118,7 @@ public class UpdateProperties {
                     .exec();
 
             dockerClient.startContainerCmd(container.getId()).exec();
-
+            System.out.println("Started Service Container");
             return true;
         } catch (Exception exp) {
             if (exp.getMessage().contains("already in use by container")) {

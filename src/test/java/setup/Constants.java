@@ -193,7 +193,7 @@ public class Constants {
      */
     public static String formulaCreate_name_xpath = "//*/input[@ng-reflect-name='name']";
     public static String formulaCreate_description_xpath = "//*/input[@ng-reflect-name='description']";
-    public static String formulaCreate_typeSelect_xpath = "//*/p-dropdown/div/div[1]/select";
+    public static String formulaCreate_typeSelect_xpath = ".//*[@id='type']/div/label";
     public static String formulaCreate_typeList_xpath = "//*/p-dropdown/div/div[4]/div/ul/li[*]";
     public static String formulaCreate_expression_xpath = "//*/input[@ng-reflect-name='expression']";
     public static String formulaCreate_validateExpre_xpath = "//*/button[normalize-space()='Validate Expression']";

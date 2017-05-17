@@ -11,9 +11,11 @@ import java.time.format.DateTimeFormatter;
 
 public class DateOperations {
     private EventFiringWebDriver edriver;
+    private PageFactory pageFactory = null;
 
     public DateOperations() {
-        edriver = DriverBean.getDriver();
+        pageFactory = new PageFactory();
+        edriver = pageFactory.getDriver();
     }
 
     /*

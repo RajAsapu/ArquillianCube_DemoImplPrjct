@@ -9,11 +9,6 @@ public class ListWorkBookMethods extends GenericWebElementMethods {
     private static final String DESCRIPTION = "description";
     private static final String FORMULATYPE = "formulaType";
     private static final String SEGMENT = "segment";
-    private EventFiringWebDriver edriver;
-
-    public ListWorkBookMethods() {
-        edriver = getEdriver();
-    }
 
     public void clickAddNewWorkBookConfiguration() {
         clickButton(Constants.workbookList_addNewWorkbookConfig_xpath);

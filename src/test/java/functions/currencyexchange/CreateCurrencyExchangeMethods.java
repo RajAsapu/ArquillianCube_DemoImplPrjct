@@ -6,12 +6,6 @@ import setup.Constants;
 
 public class CreateCurrencyExchangeMethods extends GenericWebElementMethods {
 
-    private EventFiringWebDriver edriver;
-
-    public CreateCurrencyExchangeMethods() {
-        edriver = getEdriver();
-    }
-
     public void setDate(String date) {
         clearText(Constants.currencyExchangeCreate_startDate_xpath);
         sendKeysToWE(Constants.currencyExchangeCreate_startDate_xpath, date);

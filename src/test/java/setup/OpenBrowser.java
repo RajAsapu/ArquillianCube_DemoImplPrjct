@@ -8,6 +8,8 @@ import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 public class OpenBrowser {
@@ -39,14 +41,16 @@ public class OpenBrowser {
     }
 
     public WebDriver getDriver(Open browser) {
-
         switch (browser) {
             case CHROME:
                 System.setProperty("webdriver.chrome.driver",
                         "chromedriver");
                 ChromeOptions options = new ChromeOptions();
+                Map<String, Object> prefs = new HashMap<String, Object>();
+                prefs.put("credentials_enable_service", false);
+                prefs.put("profile.password_manager_enabled", false);
+                options.setExperimentalOption("prefs", prefs);
                 options.addArguments("--no-sandbox");
-                options.addArguments("--test-type");
                 options.addArguments("--disable-plugins");
                 options.addArguments("--start-maximized");
                 options.addArguments("--disable-extensions");

@@ -79,7 +79,6 @@ Feature: Test Data
     And   sets the currencyTo field in create page to "<currencyTo>"
     And   converstion rate to "<rate>"
     Then  clicks on the submit button
-      | <date> | <type> | <currencyFrom> | <currencyTo> | <rate> |
     Examples:
       | date        | type    | currencyFrom | currencyTo | rate  |
       | 24-APR-2017 | Average | USD          | INR        | 63.00 |
@@ -129,11 +128,10 @@ Feature: Test Data
     And   set the currency for data as "<currencyCode>"
     And   set the amount for data as "<amount>"
     Then  clicks on the save button
-      | <supplier> | <location> | <customer> | <priceBasis> | <uom> | <startDate> | <endDate> | <currencyCode> | <amount> |
     Examples:
       | supplier                  | location                    | customer             | priceBasis | uom | startDate         | endDate | currencyCode | amount |
       | 121 INFLIGHT CATERING LLC | MINNEAPOLIS-ANOKA CO-BLAINE | ATLAS BLUE           | Unit       | 300 | 09-May-2017 10:19 | today   | AMD          | 100    |
-      | JEFFREY WEISSMAN          | HOUSTON                     | JET FORWARD AVIATION | Unit       | 300 | 09-May-2017 10:19 | today   | AMD          | 100    |
+      | JEFFREY WEISSMAN          | HOUSTON EXECUTIVE AIRPORT   | JET FORWARD AVIATION | Unit       | 300 | 09-May-2017 10:19 | today   | AMD          | 100    |
     # Test data : Formula
   Scenario Outline: To verify if the user is able to create formula.
     Given the user has navigated to the "Create" page under the "Formula"
@@ -148,7 +146,7 @@ Feature: Test Data
     And   enter the details for the paramters
       | ITest | Index | Ice | Mid | Prem CBOB NY Cargo | TestCalcDayRule |
     And   enter the details for the paramters
-      | WTest | Workbook | TestWorkbookAllAttr | 121 INFLIGHT CATERING LLC | MINNEAPOLIS-FLYING CLOUD | GASOIL-AUTO |
+      | WTest | Workbook | TestWorkbookAllAttr | 121 INFLIGHT CATERING LLC | MINNEAPOLIS-FLYING CLOUD | GASOLINE |
     Then   validate the expression and click on Create
     Examples:
       | name        | description | type | expression  | startDate   | endDate | roundingMode | roundingPrecision |

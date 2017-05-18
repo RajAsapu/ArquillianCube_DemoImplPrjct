@@ -8,11 +8,18 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 import setup.Constants;
+import setup.DriverBean;
 
 import java.util.List;
 
 public class CreateFormulaMethods extends GenericWebElementMethods {
     private static final String EXPRESSSION_ERROR_MESSAGE = "Expression operand names dont match.";
+
+    private EventFiringWebDriver edriver;
+    public CreateFormulaMethods()
+    {
+        edriver= DriverBean.getDriver();
+    }
 
     public void clickOnAddParameter() {
         clickButton(Constants.formulaCreate_addParameter_xpath);

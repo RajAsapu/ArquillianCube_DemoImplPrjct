@@ -45,7 +45,7 @@ public class PageCommonSteps extends OpenBrowser {
         } else if (environment.equalsIgnoreCase("Dev")) {
            edriver = initBrowser(updateProperties.getApplicationProperty("devPricingUrl"));
         }
-        pageFactory.setEventFiringWebDriver(edriver);
+        DriverBean.setDriver(edriver);
     }
 
     /*
@@ -108,7 +108,7 @@ public class PageCommonSteps extends OpenBrowser {
     * User clicks on the save button in the Workbook data
     */
     @And("^clicks on the save button$")
-    public void clicks_on_the_save_button() throws Exception {
+    public void clicks_on_the_save_button()  {
         edriver.findElement(By.xpath(Constants.workbookData_save_xpath)).click();
         pageFactory.getPageCommonMethods().waitFor(3);
     }

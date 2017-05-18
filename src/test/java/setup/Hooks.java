@@ -6,7 +6,7 @@ import functions.PageCommonMethods;
 public class Hooks {
     @After
     public void tearDown() {
-        new PageCommonMethods().closeBrowser();
+        DriverBean.getDriver().quit();
     }
 }
 

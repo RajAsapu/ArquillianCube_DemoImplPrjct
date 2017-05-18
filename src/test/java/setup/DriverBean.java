@@ -4,18 +4,13 @@ import org.openqa.selenium.support.events.EventFiringWebDriver;
 
 public class DriverBean {
 
-    public EventFiringWebDriver edriver;
+    public static EventFiringWebDriver edriver;
 
-    public void init()
-    {
-        edriver=null;
-    }
-
-    public EventFiringWebDriver getDriver() {
+    public static EventFiringWebDriver getDriver() {
         return edriver;
     }
 
-    public void setDriver(EventFiringWebDriver driver) {
+    public static void setDriver(EventFiringWebDriver driver) {
         edriver = driver;
     }
 

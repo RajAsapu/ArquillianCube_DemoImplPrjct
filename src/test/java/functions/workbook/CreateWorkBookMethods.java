@@ -10,10 +10,16 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 import setup.Constants;
+import setup.DriverBean;
 
 import java.util.List;
 
 public class CreateWorkBookMethods extends GenericWebElementMethods {
+    private EventFiringWebDriver edriver;
+    public CreateWorkBookMethods()
+    {
+        edriver= DriverBean.getDriver();
+    }
 
     public void setName(String name) {
         sendKeysToWE(Constants.workbookCreate_name_xpath, name);

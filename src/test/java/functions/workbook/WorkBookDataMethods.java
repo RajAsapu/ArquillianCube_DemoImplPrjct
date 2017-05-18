@@ -7,7 +7,10 @@ import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import setup.Constants;
+import setup.DriverBean;
 
 import java.util.List;
 import java.util.Set;
@@ -29,12 +32,21 @@ public class WorkBookDataMethods extends GenericWebElementMethods {
     private static final String SET_CURRENCY = "set the currency for data";
     private static final String SET_AMOUNT = "set the amount for data";
     private static final String STATUS_COLUMN = "Status";
+    private static final String SUPPLIER_COLUMN = "Supplier";
     private static final String AMOUNT = "Amount";
     private static final String SCALE_RATES = "Scale Rates";
     private static final String ALERT_MESSAGE = "Warning: The record will be deactivated permanently. You can't undo this action.";
 
+    private EventFiringWebDriver edriver;
+    public WorkBookDataMethods()
+    {
+        edriver= DriverBean.getDriver();
+    }
+
     public void clickOnAddNewData() {
-        clickButton(Constants.workbookData_addDataAction_xpath);
+        waitFor(5);
+        WebDriverWait wait=new WebDriverWait(edriver,10);
+            wait.until(ExpectedConditions.elementToBeClickable(edriver.findElement(By.xpath(Constants.workbookData_addDataAction_xpath)))).click();
     }
 
     public void clickOnSearch() {
@@ -80,6 +92,11 @@ public class WorkBookDataMethods extends GenericWebElementMethods {
 
     public void clickOnDataWithInactiveStatus(String key) {
         selectDataSearchingPages(Constants.workbookData_dataCommon_xpath.replace("(placeHolder)", String.valueOf(getColumnNumber(STATUS_COLUMN))), key);
+    }
+
+    public void clickOnDataWithSupplier(String key) {
+        int supplierColumn = getColumnNumber(SUPPLIER_COLUMN);
+        selectDataSearchingPages(Constants.workbookData_dataCommon_xpath.replace("(placeHolder)", String.valueOf(getColumnNumber(SUPPLIER_COLUMN))), key);
     }
 
     public void deactivateRecord() {
@@ -145,7 +162,7 @@ public class WorkBookDataMethods extends GenericWebElementMethods {
                 selectFromDropDownWithSearchBar_LabelTag(Constants.workbookData_addNewDataFbo_xpath, attributeValue);
                 break;
             case PRICE_BASIS:
-                selectFromDropDown_LabelTag(Constants.workbookData_addNewDataPriceBasis_xpath, attributeValue, 0);
+                selectFromDropDown_LabelTag(Constants.workbookData_addNewDataPriceBasis_xpath, attributeValue, -1);
                 break;
             case UOM:
                 selectFromDropDown_SelectTag(Constants.workbookData_addNewDataUom_xpath, attributeValue);
@@ -158,6 +175,7 @@ public class WorkBookDataMethods extends GenericWebElementMethods {
                 break;
             default:
                 System.out.println("Work book data operation not found in the list");
+                break;
         }
     }
 
@@ -168,17 +186,23 @@ public class WorkBookDataMethods extends GenericWebElementMethods {
     }
 
     public int getColumnNumber(String columnName) {
-        int position = 0;
+        int position = 3;
         waitFor(2);
         List<WebElement> headerList = edriver.findElements(By.xpath(Constants.workbookData_headerList_xpath));
         for (WebElement temp : headerList) {
-            position++;
+            String x=temp.getText();
             if (temp.getText().equalsIgnoreCase(columnName)) {
                 break;
             }
+            ++position;
         }
         return position;
     }
+
+    public void clickOnSaveButton()  {
+        clickButton(Constants.workbookData_save_xpath);
+    }
+
 
     public void verifyIfWorkbookDataIsReadOnly() {
         if (getSizeOfList(Constants.workbookData_addNewDataStartDate_xpath) > 0) {

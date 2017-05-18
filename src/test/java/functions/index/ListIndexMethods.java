@@ -10,11 +10,16 @@ import org.openqa.selenium.support.events.EventFiringWebDriver;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.UnexpectedTagNameException;
 import setup.Constants;
+import setup.DriverBean;
 
 import java.util.List;
 
 public class ListIndexMethods extends GenericWebElementMethods {
-
+    private EventFiringWebDriver edriver;
+    public ListIndexMethods()
+    {
+        edriver= DriverBean.getDriver();
+    }
     /*
      * Methods to search
      */

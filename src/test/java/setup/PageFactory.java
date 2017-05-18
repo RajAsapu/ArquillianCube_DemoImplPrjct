@@ -32,25 +32,10 @@ public class PageFactory {
     private WorkBookDataMethods workBookDataMethods = null;
     private PageCommonMethods pageCommonMethods = null;
     private DriverBean driverBean = null;
-    private EventFiringWebDriver eventFiringWebDriver = null;
-
-    public PageFactory(){
-        driverBean=new DriverBean();
-    }
-
-    public EventFiringWebDriver getDriver() {
-        return driverBean.getDriver();
-    }
-
-    public void setEventFiringWebDriver(EventFiringWebDriver eventFiringWebDriver) {
-        driverBean.init();
-        driverBean.setDriver(eventFiringWebDriver);
-        eventFiringWebDriver=driverBean.getDriver();
-    }
 
     public PageCommonMethods getPageCommonMethods() {
         if (pageCommonMethods == null) {
-            pageCommonMethods = new PageCommonMethods(driverBean.getDriver());
+            pageCommonMethods = new PageCommonMethods();
         }
         return pageCommonMethods;
     }

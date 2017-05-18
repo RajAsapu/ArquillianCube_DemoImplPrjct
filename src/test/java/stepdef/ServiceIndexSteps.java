@@ -9,6 +9,7 @@ import io.restassured.response.Response;
 import io.restassured.response.ResponseBody;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
+import setup.DriverBean;
 import setup.PageFactory;
 
 import java.util.List;
@@ -23,7 +24,7 @@ public class ServiceIndexSteps extends AbstractApiDefinitions {
 
     public ServiceIndexSteps() {
         pageFactory = new PageFactory();
-        edriver=pageFactory.getDriver();
+        edriver= DriverBean.getDriver();
     }
 
     @When("^the user querys the GET on search end point in list page with parameters as \"([^\"]*)\"$")

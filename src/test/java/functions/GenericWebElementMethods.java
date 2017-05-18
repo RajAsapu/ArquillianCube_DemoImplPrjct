@@ -15,9 +15,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import setup.Constants;
 import setup.DateOperations;
+import setup.DriverBean;
 import setup.PageFactory;
 
+import java.sql.Driver;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -26,10 +29,17 @@ import java.util.List;
  * Class has the methods to perform operations on the web elements
  */
 public class GenericWebElementMethods extends PageCommonMethods {
-
+    protected static DateOperations dateOperations;
+    protected static JavascriptExecutor js;
+    protected static Actions actions = null;
+    private EventFiringWebDriver edriver;
     public GenericWebElementMethods()
     {
+        edriver= DriverBean.getDriver();
         log = LoggerFactory.getLogger(GenericWebElementMethods.class);
+        dateOperations = new DateOperations();
+        actions = new Actions(edriver);
+        js = ((JavascriptExecutor) edriver);
     }
 
     /*
@@ -194,7 +204,7 @@ public class GenericWebElementMethods extends PageCommonMethods {
         waitFor(1);
         scrollIntoView("//*[normalize-space()='" + value + "']");
         if (getSizeOfList("//*[normalize-space()='" + value + "']") > 0) {
-            autoFill = getElementFromListWithPosition("//*[normalize-space()='" + value + "']", -1);
+            autoFill = getElementFromListWithPosition("//li[normalize-space()='" + value + "']", -1);
         } else if (getSizeOfList("//*[normalize-space()='" + value.toUpperCase() + "']") > 0) {
             autoFill = getElementFromListWithPosition("//*[normalize-space()='" + value.toUpperCase() + "']", -1);
         } else if (getSizeOfList("//*[normalize-space()='" + value.replaceAll(" ", "") + "']") > 0) {
@@ -260,8 +270,10 @@ public class GenericWebElementMethods extends PageCommonMethods {
         getElementFromListWithPosition(identifier, -1).clear();
         getElementFromListWithPosition(identifier, -1).sendKeys(value.substring(0, value.length() - 1));
         waitFor(3);
-        if (getSizeOfList("//*[normalize-space()='" + value + "']") > 0) {
-            autoFill = getElementFromListWithPosition("//*[normalize-space()='" + value + "']", position);
+        if (getSizeOfList("//li[normalize-space()='" + value + "']") > 0) {
+            autoFill = getElementFromListWithPosition("//li[normalize-space()='" + value + "']", position);
+        }else if (getSizeOfList("//span[normalize-space()='" + value + "']") > 0) {
+            autoFill = getElementFromListWithPosition("//span[normalize-space()='" + value + "']", position);
         } else if (getSizeOfList("//*[normalize-space()='" + value.toUpperCase() + "']") > 0) {
             autoFill = getElementFromListWithPosition("//*[normalize-space()='" + value.toUpperCase() + "']", position);
         } else if (getSizeOfList("//*[normalize-space()='" + value.replaceAll(" ", "") + "']") > 0) {

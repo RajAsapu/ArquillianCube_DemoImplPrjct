@@ -6,10 +6,18 @@ import functions.GenericWebElementMethods;
 import org.junit.Assert;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 import setup.Constants;
+import setup.DriverBean;
 
+import java.sql.Driver;
 import java.util.List;
 
 public class CreateCalculationRuleMethods extends GenericWebElementMethods {
+
+    private EventFiringWebDriver edriver;
+    public CreateCalculationRuleMethods()
+    {
+        edriver= DriverBean.getDriver();
+    }
 
     public void setName(String name) {
         sendKeysToWE(Constants.calculationRuleCreate_name_xpath, name);

@@ -64,37 +64,46 @@ public class UpdateProperties {
         return resourceBundle.getString("env");
     }
 
-    public void updateHostConfig() throws Exception {
+    public void updateHostConfig() {
         JsonNode root;
-        String resultUpdate;
+        String resultUpdate=null;
         FileWriter fwrite;
         ObjectMapper mapper = new ObjectMapper();
         /*
          * Updating the hostConfig file
          */
-        if (getEnv().equals("Docker")) {
-            hostConfigFile = new File("./hostConfig.json");
-            if (!hostConfigFile.exists()) {
-                hostConfigFile.createNewFile();
+        try {
+            if (getEnv().equals("Docker")) {
+                hostConfigFile = new File("./hostConfig.json");
+                if (!hostConfigFile.exists()) {
+                    hostConfigFile.createNewFile();
+                    fwrite = new FileWriter(hostConfigFile);
+                    fwrite.write("{ }");
+                    fwrite.close();
+                }
+                root = mapper.readTree(hostConfigFile);
+                ((ObjectNode) root).put("priceEngineServiceUrl", getPricingProperty("pricing.engine"));
+                ((ObjectNode) root).put("masterDataServiceUrl", getPricingProperty("pricing.datamock"));
+                ((ObjectNode) root).put("priceConfigServiceUrl", "http://localhost:8080/");
+                resultUpdate = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(root);
                 fwrite = new FileWriter(hostConfigFile);
-                fwrite.write("{ }");
+                fwrite.write(resultUpdate);
                 fwrite.close();
             }
-            root = mapper.readTree(hostConfigFile);
-            ((ObjectNode) root).put("priceEngineServiceUrl", getPricingProperty("pricing.engine"));
-            ((ObjectNode) root).put("masterDataServiceUrl", getPricingProperty("pricing.datamock"));
-            ((ObjectNode) root).put("priceConfigServiceUrl", "http://localhost:8080/");
-            resultUpdate = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(root);
-            fwrite = new FileWriter(hostConfigFile);
-            fwrite.write(resultUpdate);
-            fwrite.close();
+        }catch (IOException exp) {
+            System.out.println("Error creating the hostConfig File"+exp.getMessage());
+        }
         /*
          * Copying the hostConfig.json file to the Container
          */
+        try {
             dockerClient = DockerClientBuilder.getInstance().build();
             dockerClient.copyArchiveToContainerCmd(getContainerIdUsingName("ui")).withRemotePath("/usr/share/nginx/html/config").withHostResource(hostConfigFile.getAbsolutePath()).withNoOverwriteDirNonDir(false).exec();
             System.out.println("hostConfig file is updated in the ui container");
             System.out.println(resultUpdate);
+        }catch (Exception exp)
+        {
+            System.out.println("Check if environment is set to docker in application.properties!!"+exp.getMessage());
         }
     }
 

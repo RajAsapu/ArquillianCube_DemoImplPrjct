@@ -2,13 +2,11 @@ package runner;
 
 import com.google.common.base.Verify;
 import cucumber.api.CucumberOptions;
-import cucumber.runtime.arquillian.ArquillianCucumber;
 import cucumber.runtime.arquillian.CukeSpace;
 import org.arquillian.cube.CubeIp;
 import org.arquillian.cube.HostPort;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.junit.runner.RunWith;
-import org.junit.runner.notification.RunListener;
 import setup.UpdateProperties;
 import java.util.HashMap;
 import java.util.Map;
@@ -16,12 +14,12 @@ import java.util.Map;
 @RunWith(CukeSpace.class)
 @CucumberOptions(
         strict = true,
+        plugin = {"html:target/cucumber-html-report"},
         features = {"src/test/resources/features/pageobjects/TestData.feature"},
         glue = {"classpath:"},
         tags = {"@TestData"}
 )
 @RunAsClient
-@RunListener.ThreadSafe
 public class RunTest {
 
     @HostPort(containerName = "ui", value = 80)
@@ -49,4 +47,5 @@ public class RunTest {
             System.out.println("Arquillian - Containers has started .");
         }
     }
+
 }

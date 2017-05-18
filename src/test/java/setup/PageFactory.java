@@ -31,92 +31,67 @@ public class PageFactory {
     private CreateFormulaMethods createFormulaMethods = null;
     private WorkBookDataMethods workBookDataMethods = null;
     private PageCommonMethods pageCommonMethods = null;
-    private DriverBean driverBean = null;
 
     public PageCommonMethods getPageCommonMethods() {
-        if (pageCommonMethods == null) {
             pageCommonMethods = new PageCommonMethods();
-        }
         return pageCommonMethods;
     }
 
     public WorkBookDataMethods getWorkBookDataMethods() {
-        if (workBookDataMethods == null) {
             workBookDataMethods = new WorkBookDataMethods();
-        }
         return workBookDataMethods;
     }
 
     public ListCalculationRuleMethods getListCalculationRuleMethods() {
-        if (listCalculationRuleMethods == null) {
             listCalculationRuleMethods = new ListCalculationRuleMethods();
-        }
         return listCalculationRuleMethods;
     }
 
 
     public CreateCalculationRuleMethods getCreateCalculationRuleMethods() {
-        if (createCalculationRuleMethods == null) {
             createCalculationRuleMethods = new CreateCalculationRuleMethods();
-        }
         return createCalculationRuleMethods;
     }
 
 
     public ListWorkBookMethods getListWorkBookMethods() {
-        if (listWorkBookMethods == null) {
             listWorkBookMethods = new ListWorkBookMethods();
-        }
         return listWorkBookMethods;
     }
 
     public CreateWorkBookMethods getCreateWorkBookMethods() {
-        if (createWorkBookMethods == null) {
             createWorkBookMethods = new CreateWorkBookMethods();
-        }
         return createWorkBookMethods;
     }
 
 
     public ListIndexMethods getListIndexMethods() {
-        if (listIndexMethods == null) {
             listIndexMethods = new ListIndexMethods();
-        }
         return listIndexMethods;
     }
 
     public CreateIndexMethods getCreateIndexMethods() {
-        if (createIndexMethods == null) {
             createIndexMethods = new CreateIndexMethods();
-        }
         return createIndexMethods;
     }
 
     public ListCurrencyExchangeMethods getListCurrencyExchangeMethods() {
-        if (listCurrencyExchangeMethods == null) {
             listCurrencyExchangeMethods = new ListCurrencyExchangeMethods();
-        }
         return listCurrencyExchangeMethods;
     }
 
     public CreateCurrencyExchangeMethods getCreateCurrencyExchangeMethods() {
-        if (createCurrencyExchangeMethods == null) {
             createCurrencyExchangeMethods = new CreateCurrencyExchangeMethods();
-        }
         return createCurrencyExchangeMethods;
     }
 
     public ListFormulaMethods getListFormulaMethods() {
-        if (listFormulaMethods == null) {
             listFormulaMethods = new ListFormulaMethods();
-        }
         return listFormulaMethods;
     }
 
     public CreateFormulaMethods getCreateFormulaMethods() {
-        if (createFormulaMethods == null) {
             createFormulaMethods = new CreateFormulaMethods();
-        }
         return createFormulaMethods;
     }
 }

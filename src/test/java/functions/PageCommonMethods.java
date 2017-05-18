@@ -13,7 +13,7 @@ import setup.DriverBean;
 
 public class PageCommonMethods {
 
-    protected static EventFiringWebDriver edriver;
+    protected EventFiringWebDriver edriver;
     protected static Logger log = null;
     protected WebDriverWait webDriverWait;
 
@@ -24,11 +24,7 @@ public class PageCommonMethods {
     {
         edriver= DriverBean.getDriver();
     }
-
-    public void closeBrowser()
-    {
-        edriver.quit();
-    }
+    
     public void waitFor(long timeInSeconds) {
         try {
             Thread.sleep(timeInSeconds * 1000);

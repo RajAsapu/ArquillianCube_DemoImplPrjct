@@ -21,7 +21,7 @@ import java.util.ResourceBundle;
 
 public class UpdateProperties {
 
-    public Properties props = new Properties();
+    public Properties props;
     File resourceFile;
     String resourceFilePath;
     PrintWriter out;
@@ -31,12 +31,11 @@ public class UpdateProperties {
     private DockerClient dockerClient;
 
     public UpdateProperties() {
-
+        props = new Properties();
     }
 
     public void setProperty(Map<String, String> map) {
         try {
-//            resourceFile = new File("pricing.properties");
             URL pricingPath = UpdateProperties.class.getClassLoader().getResource("pricing.properties");
             out = new PrintWriter(pricingPath.getPath());
             out.println("#Pricing Application - Container Properties#");

@@ -24,40 +24,40 @@
         <property name="autoStartContainers">custom:setup.AutoStartContainersOrder</property>
         <property name="cubeSpecificProperties">
             database:
-            await:
-            strategy: log
-            match: 'DSE startup complete'
-            sleepPollingTime: 10 s
-            iterations: 5
-            stdOut: true
-            stdErr: true
-            timeout: 1800
+                await:
+                    strategy: log
+                    match: 'DSE startup complete'
+                    sleepPollingTime: 10 s
+                    iterations: 5
+                    stdOut: true
+                    stdErr: true
+                    timeout: 1800
             ui:
-            await:
-            strategy: polling
-            sleepPollingTime: 10 s
-            iterations: 5
-            stdOut: true
-            stdErr: true
-            timeout: 1800
+                await:
+                    strategy: polling
+                    sleepPollingTime: 10 s
+                    iterations: 5
+                    stdOut: true
+                    stdErr: true
+                    timeout: 1800
             datamock:
-            await:
-            strategy: log
-            match: 'Successfully connected'
-            sleepPollingTime: 10 s
-            iterations: 5
-            stdOut: true
-            stdErr: true
-            timeout: 1800
+                await:
+                    strategy: log
+                    match: 'Successfully connected'
+                    sleepPollingTime: 10 s
+                    iterations: 5
+                    stdOut: true
+                    stdErr: true
+                    timeout: 1800
             engine:
-            await:
-            strategy: log
-            match: 'Message broker is not set up'
-            sleepPollingTime: 5 s
-            iterations: 5
-            stdOut: true
-            stdErr: true
-            timeout: 1800
+                await:
+                    strategy: log
+                    match: 'Message broker is not set up'
+                    sleepPollingTime: 5 s
+                    iterations: 5
+                    stdOut: true
+                    stdErr: true
+                    timeout: 1800
         </property>
     </extension>
 </arquillian>

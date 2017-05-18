@@ -12,6 +12,7 @@ import java.util.List;
 public class CreateCalculationRuleMethods extends GenericWebElementMethods {
 
     private EventFiringWebDriver edriver;
+
     public CreateCalculationRuleMethods()
     {
         edriver= DriverBean.getDriver();

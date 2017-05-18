@@ -8,9 +8,9 @@ import setup.DriverBean;
 public class ListCalculationRuleMethods extends GenericWebElementMethods {
 
     private EventFiringWebDriver edriver;
-    public ListCalculationRuleMethods()
-    {
-        edriver= DriverBean.getDriver();
+
+    public ListCalculationRuleMethods() {
+        edriver = DriverBean.getDriver();
     }
 
     public void clickOnAddNewRule() {

@@ -9,6 +9,7 @@ import setup.DriverBean;
 public class ListFormulaMethods extends GenericWebElementMethods {
 
     private EventFiringWebDriver edriver;
+
     public ListFormulaMethods()
     {
         edriver= DriverBean.getDriver();

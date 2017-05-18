@@ -16,6 +16,7 @@ import java.util.List;
 
 public class ListIndexMethods extends GenericWebElementMethods {
     private EventFiringWebDriver edriver;
+
     public ListIndexMethods()
     {
         edriver= DriverBean.getDriver();

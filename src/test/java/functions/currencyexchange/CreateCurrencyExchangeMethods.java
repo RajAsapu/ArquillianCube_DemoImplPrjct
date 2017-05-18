@@ -8,6 +8,7 @@ import setup.DriverBean;
 public class CreateCurrencyExchangeMethods extends GenericWebElementMethods {
 
     private EventFiringWebDriver edriver;
+
     public CreateCurrencyExchangeMethods()
     {
         edriver= DriverBean.getDriver();

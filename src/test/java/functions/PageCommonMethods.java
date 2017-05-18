@@ -16,7 +16,6 @@ public class PageCommonMethods {
     protected EventFiringWebDriver edriver;
     protected static Logger log = null;
     protected WebDriverWait webDriverWait;
-
     /*
      * Constructor to intialize the dependent classes
      */

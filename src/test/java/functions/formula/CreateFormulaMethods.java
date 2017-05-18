@@ -14,6 +14,7 @@ public class CreateFormulaMethods extends GenericWebElementMethods {
     private static final String EXPRESSSION_ERROR_MESSAGE = "Expression operand names dont match.";
 
     private EventFiringWebDriver edriver;
+
     public CreateFormulaMethods()
     {
         edriver= DriverBean.getDriver();

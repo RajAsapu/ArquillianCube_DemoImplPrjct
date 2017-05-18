@@ -28,6 +28,7 @@ public class GenericWebElementMethods extends PageCommonMethods {
     protected static JavascriptExecutor js;
     protected static Actions actions = null;
     private EventFiringWebDriver edriver;
+
     public GenericWebElementMethods()
     {
         edriver= DriverBean.getDriver();

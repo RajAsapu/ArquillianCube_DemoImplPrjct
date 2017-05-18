@@ -81,3 +81,83 @@ Feature: Workbook Data Page
     When  the user clicks on manage data for a workbook with name as "Test"
     And   clicked on "Inactive Data"
     Then  the application doesn't display edit and deactive actions
+
+  # Test Case for the overlap check
+  Scenario:To verify if the application displays an error message on trying to update a data overlapping on record with same name.
+    Given the user has navigated to the "List" page under the "Workbook"
+    When  the user clicks on manage data for a workbook with name as "TestWorkbook3Attr"
+    And   create the workbook data
+      | supplier                  | location   | customer                 | priceBasis | uom | startDate         | endDate | currencyCode | amount |
+      | JET AVIATION HOUSTON INC  | MIAMI INTL | BUSINESS AVIATION CENTRE | Unit       | 300 | 09-May-2017 10:19 | today   | BBD          | 100    |
+      | JET AVIATION HOUSTON INC  | MIAMI INTL | BUSINESS AVIATION CENTRE | Unit       | 300 | tomorrow          | tomorrow| BBD          | 100    |
+    And   edit the record with the supplier name as "JET AVIATION HOUSTON INC"
+    And   set the end date for data as "tomorrow"
+    And   clicks on the update button
+    Then  the application displays an error message as "Overlap exception"
+
+  # Test Case for the overlap check
+  # Defect : Application is not displaying error message
+  Scenario:To verify if the application displays an error message on trying to create a data overlapping on record with same name.
+    Given the user has navigated to the "List" page under the "Workbook"
+    When  the user clicks on manage data for a workbook with name as "TestWorkbook3Attr"
+    And   create the workbook data
+      | supplier                  | location   | customer                 | priceBasis | uom | startDate         | endDate | currencyCode | amount |
+      | JAMUNA OIL COMPANY LTD    | MIAMI INTL | BUSINESS AVIATION CENTRE | Unit       | 300 | 09-May-2017 10:19 | tomorrow| BBD          | 100    |
+      | JAMUNA OIL COMPANY LTD    | MIAMI INTL | BUSINESS AVIATION CENTRE | Unit       | 300 | today             | tomorrow| BBD          | 100    |
+    And  clicks on the save button
+    Then  the application displays an error message as "Overlap exception"
+  # Error messages has to be implemented
+  Scenario Outline:To verify if the application displays error message when the scale rates are invalid in the price point scale.
+    Given the user has navigated to the "List" page under the "Workbook"
+    When  the user clicks on manage data for a workbook with name as "TestWorkbook3Attr"
+    And   clicked on "Add New Data"
+    And   supplier as "3 HONG KONG"
+    And   location as "HOUSTON EXECUTIVE AIRPORT"
+    And   customer as "SKYCHASE / TAK"
+    And   price basis as "Price Point Scale"
+    And   uom as "300"
+    And   set the start date for data as "today"
+    And   set the currency for data as "USD"
+    And   add the scale rates
+      | <scaleFrom> | <scaleTo> | <scaleRate> |
+      | 100         | 500       | 1           |
+      | 500         | 1000      | 0.9         |
+    And   clicks on the save button
+    Then  the application displays an error message as "<errorMessage>"
+    Examples:
+    | scaleFrom  | scaleTo  | scaleRate | errorMessage                               |
+    | 0          | 100      |           | Rate cannot be null or zero                |
+    | 0          |          |  2        | Rate from cannot be null or zero           |
+    | 1          | 100      |  2        | Rate should start from zero                |
+    | 100        | 1        |  2        | Range is invalid                           |
+    | 0          | -100     |  2        | Range cannot be negative                   |
+    | 0          | 100      |  -1       | Rate should be greater than or equal to 0  |
+
+  Scenario Outline:To verify if the application displays error message when the scale rates are invalid in the price break scale.
+    Given the user has navigated to the "List" page under the "Workbook"
+    When  the user clicks on manage data for a workbook with name as "TestWorkbook3Attr"
+    And   clicked on "Add New Data"
+    And   supplier as "3 HONG KONG"
+    And   location as "HOUSTON EXECUTIVE AIRPORT"
+    And   customer as "SKYCHASE / TAK"
+    And   price basis as "Price Break Scale"
+    And   uom as "300"
+    And   set the start date for data as "today"
+    And   set the currency for data as "USD"
+    And   add the scale rates
+      | <scaleFrom> | <scaleTo> | <scaleRate> |
+      | 100         | 500       | 1           |
+      | 500         | 1000      | 0.9         |
+    And   clicks on the save button
+    Then  the application displays an error message as "<errorMessage>"
+    Examples:
+      | scaleFrom  | scaleTo  | scaleRate | errorMessage                               |
+      | 0          | 100      |           | Rate cannot be null or zero                |
+      | 0          |          |  2        | Rate from cannot be null or zero           |
+      | 1          | 100      |  2        | Rate should start from zero                |
+      | 100        | 1        |  2        | Range is invalid                           |
+      | 0          | -100     |  2        | Range cannot be negative                   |
+      | 0          | 100      |  -1       | Rate should be greater than or equal to 0  |
+
+
+

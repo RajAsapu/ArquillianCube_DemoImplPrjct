@@ -10,12 +10,13 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class DateOperations {
+
     private EventFiringWebDriver edriver;
     private PageFactory pageFactory = null;
 
     public DateOperations() {
         pageFactory = new PageFactory();
-        edriver = pageFactory.getDriver();
+        edriver = DriverBean.getDriver();
     }
 
     /*

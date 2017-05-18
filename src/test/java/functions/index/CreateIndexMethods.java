@@ -3,8 +3,16 @@ package functions.index;
 import functions.GenericWebElementMethods;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 import setup.Constants;
+import setup.DriverBean;
 
 public class CreateIndexMethods extends GenericWebElementMethods {
+
+    private EventFiringWebDriver edriver;
+
+    public CreateIndexMethods()
+    {
+        edriver= DriverBean.getDriver();
+    }
 
     public void setName(String name) {
         setNameFromAutoFill(Constants.indexList_name_xpath, name, -1);

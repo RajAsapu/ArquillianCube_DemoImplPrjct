@@ -3,12 +3,19 @@ package functions.workbook;
 import functions.GenericWebElementMethods;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 import setup.Constants;
+import setup.DriverBean;
 
 public class ListWorkBookMethods extends GenericWebElementMethods {
     private static final String NAME = "name";
     private static final String DESCRIPTION = "description";
     private static final String FORMULATYPE = "formulaType";
     private static final String SEGMENT = "segment";
+    private EventFiringWebDriver edriver;
+
+    public ListWorkBookMethods()
+    {
+        edriver= DriverBean.getDriver();
+    }
 
     public void clickAddNewWorkBookConfiguration() {
         clickButton(Constants.workbookList_addNewWorkbookConfig_xpath);

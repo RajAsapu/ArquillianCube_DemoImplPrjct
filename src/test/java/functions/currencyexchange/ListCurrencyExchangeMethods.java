@@ -7,12 +7,19 @@ import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 import setup.Constants;
-
+import setup.DriverBean;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
 public class ListCurrencyExchangeMethods extends GenericWebElementMethods {
+
+    private EventFiringWebDriver edriver;
+
+    public ListCurrencyExchangeMethods()
+    {
+        edriver= DriverBean.getDriver();
+    }
 
     public void setSearchType(String searchType) {
         selectFromDropDown_SelectTag(Constants.currencyExchangeList_type_xpath, searchType);

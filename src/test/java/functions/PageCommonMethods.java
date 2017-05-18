@@ -2,46 +2,28 @@ package functions;
 
 import com.google.common.base.Verify;
 import org.junit.Assert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import setup.Constants;
-import setup.DateOperations;
-import setup.PageFactory;
-import stepdef.PageCommonSteps;
+import setup.DriverBean;
 
 public class PageCommonMethods {
 
-    protected static EventFiringWebDriver edriver;
+    protected EventFiringWebDriver edriver;
     protected static Logger log = null;
     protected WebDriverWait webDriverWait;
-    protected static DateOperations dateOperations;
-    protected static JavascriptExecutor js;
-    protected static Actions actions = null;
-
     /*
      * Constructor to intialize the dependent classes
      */
     public PageCommonMethods()
-    {}
-    public PageCommonMethods(EventFiringWebDriver edriver) {
-        log = LoggerFactory.getLogger(PageCommonMethods.class);
-        this.edriver=edriver;
-        dateOperations = new DateOperations();
-        actions = new Actions(edriver);
-        js = ((JavascriptExecutor) edriver);
-    }
-
-    public void closeBrowser()
     {
-        edriver.quit();
+        edriver= DriverBean.getDriver();
     }
+    
     public void waitFor(long timeInSeconds) {
         try {
             Thread.sleep(timeInSeconds * 1000);
@@ -63,7 +45,7 @@ public class PageCommonMethods {
         act.moveToElement(edriver.findElement(By.linkText(m.toString().replace("_", " ")))).clickAndHold().perform();
         Thread.sleep(1000);
         act.click(edriver.findElement(By.linkText(p.toString()))).perform();
-        log.info("Navigated to " + p.toString() + " page under " + m.toString());
+        System.out.println("Navigated to " + p.toString() + " page under " + m.toString());
     }
 
     /*

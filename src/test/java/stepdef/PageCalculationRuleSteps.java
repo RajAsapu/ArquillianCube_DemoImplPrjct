@@ -9,6 +9,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 import setup.Constants;
+import setup.DriverBean;
 import setup.PageFactory;
 
 import java.util.ArrayList;
@@ -24,7 +25,7 @@ public class PageCalculationRuleSteps {
 
     public PageCalculationRuleSteps() {
         pageFactory = new PageFactory();
-        edriver = pageFactory.getDriver();
+        edriver = DriverBean.getDriver();
     }
 
     @When("^the user enters name  as \"([^\"]*)\"$")

@@ -3,8 +3,16 @@ package functions.currencyexchange;
 import functions.GenericWebElementMethods;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 import setup.Constants;
+import setup.DriverBean;
 
 public class CreateCurrencyExchangeMethods extends GenericWebElementMethods {
+
+    private EventFiringWebDriver edriver;
+
+    public CreateCurrencyExchangeMethods()
+    {
+        edriver= DriverBean.getDriver();
+    }
 
     public void setDate(String date) {
         clearText(Constants.currencyExchangeCreate_startDate_xpath);

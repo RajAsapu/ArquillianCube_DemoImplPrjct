@@ -4,8 +4,16 @@ import com.google.common.base.Verify;
 import functions.GenericWebElementMethods;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 import setup.Constants;
+import setup.DriverBean;
 
 public class ListFormulaMethods extends GenericWebElementMethods {
+
+    private EventFiringWebDriver edriver;
+
+    public ListFormulaMethods()
+    {
+        edriver= DriverBean.getDriver();
+    }
 
     public String applyFilter(String filter) {
         String temp = null;

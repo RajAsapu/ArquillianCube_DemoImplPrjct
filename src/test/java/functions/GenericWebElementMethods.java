@@ -11,16 +11,11 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 import org.openqa.selenium.support.ui.Select;
-import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import setup.Constants;
 import setup.DateOperations;
 import setup.DriverBean;
-import setup.PageFactory;
-
-import java.sql.Driver;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;

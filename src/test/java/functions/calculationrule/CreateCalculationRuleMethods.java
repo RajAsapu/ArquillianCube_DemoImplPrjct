@@ -7,8 +7,6 @@ import org.junit.Assert;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 import setup.Constants;
 import setup.DriverBean;
-
-import java.sql.Driver;
 import java.util.List;
 
 public class CreateCalculationRuleMethods extends GenericWebElementMethods {

@@ -5,13 +5,10 @@ import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import setup.Constants;
-import setup.DateOperations;
 import setup.DriverBean;
 
 public class PageCommonMethods {

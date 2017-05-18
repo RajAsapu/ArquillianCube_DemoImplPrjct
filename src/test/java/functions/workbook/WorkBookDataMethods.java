@@ -191,7 +191,6 @@ public class WorkBookDataMethods extends GenericWebElementMethods {
         waitFor(2);
         List<WebElement> headerList = edriver.findElements(By.xpath(Constants.workbookData_headerList_xpath));
         for (WebElement temp : headerList) {
-            String x=temp.getText();
             if (temp.getText().equalsIgnoreCase(columnName)) {
                 break;
             }

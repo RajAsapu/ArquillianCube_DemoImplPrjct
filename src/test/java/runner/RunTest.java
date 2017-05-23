@@ -22,7 +22,7 @@ import java.util.Map;
 @RunWith(ArquillianCucumber.class)
 @CucumberOptions(
         strict = true,
-        plugin = {"html:target/cucumber-html-report"},
+        plugin = {"html:target/cucumber-html-report","json:target/cucumber-json-report"},
         features = {"src/test/resources/features/pageobjects/"},
         glue = {"classpath:"},
         tags = {"@TestData1"}
@@ -56,9 +56,9 @@ public class RunTest {
     {
         File reportOutputDirectory = new File("target");
         List<String> jsonFiles = new ArrayList<>();
-        jsonFiles.add("target/cucumber-report/runner.RunTest.json");
+        jsonFiles.add("target/cucumber-json-report");
 
-        String buildNumber = "1";
+        String buildNumber = System.getenv("bamboo.buildNumber");
         String projectName = "Pricing-e2e-tests";
         boolean parallelTesting = false;
 
@@ -72,12 +72,6 @@ public class RunTest {
         ReportBuilder reportBuilder = new ReportBuilder(jsonFiles, configuration);
         Reportable result = reportBuilder.generateReports();
 
-    }
-
-    @Test
-    public void test()
-    {
-        System.out.println("Test");
     }
  }
 

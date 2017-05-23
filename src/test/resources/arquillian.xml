@@ -4,16 +4,6 @@
             xsi:schemaLocation="http://jboss.org/schema/arquillian
   http://jboss.org/schema/arquillian/arquillian_1_0.xsd">
 
-
-    <extension qualifier="seam2">
-        <property name="autoPackage">false</property>
-    </extension>
-
-    <extension qualifier="cucumber">
-        <property name="report">true</property>
-        <property name="reportDirectory">target/cucumber-report</property>
-    </extension>
-
     <extension qualifier="cube">
         <property name="connectionMode">STARTORCONNECTANDLEAVE</property>
     </extension>

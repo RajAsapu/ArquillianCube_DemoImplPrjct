@@ -5,7 +5,7 @@ Feature: Test Data
     Given  the user has logged into the pricing application
 
   # Test data :Calculation Rules
-
+  @TestData1
   Scenario Outline: To verify if the user is able to create a calculation rule with type as Day.
     Given the user has navigated to the "Create" page under the "Calculation_Rule"
     When  the user enters name  as "<name>"
@@ -39,7 +39,7 @@ Feature: Test Data
     Examples:
       | name             | startDate   | endDate | type | description | ep_StartDate | ep_NoOfWeeks | cp_StartDate | ep_NoOfWeeks | offset |
       | TestCalcWeekRule | 23-JAN-2017 | today   | Week | for testing | Monday       | 1            | Tuesday      | 2            | 1      |
-  @TestData1
+
   Scenario Outline: To verify if the user is able to create a calculation rule with type as Month.
     Given the user has navigated to the "Create" page under the "Calculation_Rule"
     When  the user enters name  as "<name>"

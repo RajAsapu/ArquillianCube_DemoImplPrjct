@@ -2,45 +2,48 @@ package runner;
 
 import com.google.common.base.Verify;
 import cucumber.api.CucumberOptions;
-import cucumber.runtime.arquillian.CukeSpace;
+import cucumber.runtime.arquillian.ArquillianCucumber;
+import net.masterthought.cucumber.Configuration;
+import net.masterthought.cucumber.ReportBuilder;
+import net.masterthought.cucumber.Reportable;
 import org.arquillian.cube.CubeIp;
-import org.arquillian.cube.HostPort;
 import org.jboss.arquillian.container.test.api.RunAsClient;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import setup.UpdateProperties;
+import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-@RunWith(CukeSpace.class)
+@RunWith(ArquillianCucumber.class)
 @CucumberOptions(
         strict = true,
         plugin = {"html:target/cucumber-html-report"},
-        features = {"src/test/resources/features/pageobjects/TestData.feature"},
+        features = {"src/test/resources/features/pageobjects/"},
         glue = {"classpath:"},
-        tags = {"@TestData"}
+        tags = {"@TestData1"}
 )
 @RunAsClient
+
 public class RunTest {
 
-    @HostPort(containerName = "ui", value = 80)
-    private static int uiPort;
-    @HostPort(containerName = "datamock", value = 5555)
-    private static int datamockPort;
-    @HostPort(containerName = "engine", value = 6666)
-    private static int enginePort;
     @CubeIp(containerName = "database")
-    protected String ipDatabase;
-    private UpdateProperties props = new UpdateProperties();
-    private Map<String, String> map = new HashMap<String, String>();
+    protected static String ipDatabase;
 
+    @BeforeClass
+    public static void initialization() throws Exception {
+         UpdateProperties props = new UpdateProperties();
+         Map<String, String> map = new HashMap<String, String>();
 
-    @cucumber.api.java.Before
-    public void initialization() throws Exception {
         if (props.getEnv().equalsIgnoreCase("docker")) {
             Verify.verify(props.startServiceContainer(ipDatabase, "epe-config:latest"));
-            map.put("pricing.ui", "localhost:" + String.valueOf(uiPort));
-            map.put("pricing.datamock", "localhost:" + String.valueOf(datamockPort));
-            map.put("pricing.engine", "localhost:" + String.valueOf(enginePort));
+            map.put("pricing.ui", "localhost:4200");
+            map.put("pricing.datamock", "localhost:5555");
+            map.put("pricing.engine", "localhost:8081");
             map.put("pricing.service", "localhost:8080");
             props.setProperty(map);
             props.updateHostConfig();
@@ -48,4 +51,33 @@ public class RunTest {
         }
     }
 
-}
+    @AfterClass
+    public static void generateReports()
+    {
+        File reportOutputDirectory = new File("target");
+        List<String> jsonFiles = new ArrayList<>();
+        jsonFiles.add("target/cucumber-report/runner.RunTest.json");
+
+        String buildNumber = "1";
+        String projectName = "Pricing-e2e-tests";
+        boolean parallelTesting = false;
+
+        Configuration configuration = new Configuration(reportOutputDirectory, projectName);
+        configuration.setParallelTesting(false);
+        configuration.setBuildNumber(buildNumber);
+
+        configuration.addClassifications("Platform", "Linux");
+        configuration.addClassifications("Browser", "Phantom JS");
+
+        ReportBuilder reportBuilder = new ReportBuilder(jsonFiles, configuration);
+        Reportable result = reportBuilder.generateReports();
+
+    }
+
+    @Test
+    public void test()
+    {
+        System.out.println("Test");
+    }
+ }
+

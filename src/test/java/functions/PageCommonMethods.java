@@ -42,9 +42,9 @@ public class PageCommonMethods {
      */
     public void moveTo(page p, module m) throws Exception {
         Actions act = new Actions(edriver);
-        act.moveToElement(edriver.findElement(By.linkText(m.toString().replace("_", " ")))).clickAndHold().perform();
-        Thread.sleep(1000);
-        act.click(edriver.findElement(By.linkText(p.toString()))).perform();
+        act.moveToElement(edriver.findElement(By.xpath("//*/a[normalize-space()='"+m.toString().replace("_", " ")+"']"))).clickAndHold().perform();
+        waitFor(1);
+        act.click(edriver.findElement(By.xpath("//*/a[normalize-space()='"+p.toString()+"']"))).perform();
         System.out.println("Navigated to " + p.toString() + " page under " + m.toString());
     }
 

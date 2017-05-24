@@ -5,6 +5,7 @@ import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
@@ -54,18 +55,14 @@ public class PageCommonMethods {
      * Method to login to the application
      */
     public void login() {
-        log.info("Url"+edriver.getCurrentUrl()+"\n");
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        for(WebElement temp:edriver.findElements(By.tagName("//*")))
-        {
-            log.info("---->"+temp.getTagName()+"------->"+temp.getText()+"------->"+temp.getAttribute("id"));
-        }
-        WebDriverWait wait = new WebDriverWait(edriver,30,5000);
-        edriver.findElement(By.xpath(Constants.login_username_xpath)).sendKeys(Constants.username);
+        WebElement element = (new WebDriverWait(edriver, 30)).until(new ExpectedCondition<WebElement>()
+                    {       @Override
+                            public WebElement apply(WebDriver d)
+                            {
+                              return d.findElement(By.xpath(Constants.login_username_xpath));
+                            }
+                    });
+        element.sendKeys(Constants.username);
         edriver.findElement(By.xpath(Constants.login_password_xpath)).sendKeys(Constants.password);
         edriver.findElement(By.xpath(Constants.login_submit_xpath)).click();
     }

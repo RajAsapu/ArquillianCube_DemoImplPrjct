@@ -1,6 +1,7 @@
 package setup;
 
 import org.openqa.selenium.Dimension;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -72,10 +73,16 @@ public class OpenBrowser {
                 driver = new HtmlUnitDriver(true);
             case PhantomJS:
                 DesiredCapabilities capabilities = new DesiredCapabilities();
+                PhantomJSDriverService.createDefaultService();
                 capabilities.setJavascriptEnabled(true);
                 capabilities.setCapability(PhantomJSDriverService.PHANTOMJS_EXECUTABLE_PATH_PROPERTY,"phantomjs");
+                capabilities.setCapability(PhantomJSDriverService.PHANTOMJS_CLI_ARGS,"--webdriver=3838 --webdriver-selenium-grid-hub" +
+                        "=http ://localhost:3839");
                 capabilities.setCapability("--ignore-ssl-errors",true);
                 driver = new PhantomJSDriver(capabilities);
+                long start = System.currentTimeMillis();
+                ((JavascriptExecutor) driver).executeAsyncScript(
+                        "window.setTimeout(arguments[arguments.length - 1], 5000);");
                 driver.manage().window().setSize(new Dimension(1280,1024));
         }
         return driver;

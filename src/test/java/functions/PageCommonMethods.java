@@ -65,9 +65,8 @@ public class PageCommonMethods {
             log.info("---->"+temp.getTagName()+"------->"+temp.getText()+"------->"+temp.getAttribute("id"));
         }
         WebDriverWait wait = new WebDriverWait(edriver,30,5000);
-        wait.until(ExpectedConditions.invisibilityOf(edriver.findElement(By.xpath(Constants.login_username_xpath))));
         edriver.findElement(By.xpath(Constants.login_username_xpath)).sendKeys(Constants.username);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(Constants.login_password_xpath))).sendKeys(Constants.password);
+        edriver.findElement(By.xpath(Constants.login_password_xpath)).sendKeys(Constants.password);
         edriver.findElement(By.xpath(Constants.login_submit_xpath)).click();
     }
 

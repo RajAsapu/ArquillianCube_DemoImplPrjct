@@ -58,8 +58,9 @@ public class PageCommonMethods {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        edriver.findElement(By.xpath(Constants.login_username_xpath)).sendKeys(Constants.username);
-        edriver.findElement(By.xpath(Constants.login_password_xpath)).sendKeys(Constants.password);
+        WebDriverWait wait = new WebDriverWait(edriver,30,5000);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(Constants.login_username_xpath))).sendKeys(Constants.username);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(Constants.login_password_xpath))).sendKeys(Constants.password);
         edriver.findElement(By.xpath(Constants.login_submit_xpath)).click();
     }
 

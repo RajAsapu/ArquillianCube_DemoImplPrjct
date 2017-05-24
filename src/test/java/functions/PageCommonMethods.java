@@ -52,7 +52,7 @@ public class PageCommonMethods {
      * Method to login to the application
      */
     public void login() {
-        System.out.println(edriver.getCurrentUrl()+"\n");
+        log.info("Url"+edriver.getCurrentUrl()+"\n");
         try {
             Thread.sleep(5000);
         } catch (InterruptedException e) {

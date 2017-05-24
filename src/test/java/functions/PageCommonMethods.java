@@ -52,6 +52,12 @@ public class PageCommonMethods {
      * Method to login to the application
      */
     public void login() {
+        System.out.println(edriver.getCurrentUrl()+"\n");
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         edriver.findElement(By.xpath(Constants.login_username_xpath)).sendKeys(Constants.username);
         edriver.findElement(By.xpath(Constants.login_password_xpath)).sendKeys(Constants.password);
         edriver.findElement(By.xpath(Constants.login_submit_xpath)).click();

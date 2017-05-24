@@ -12,8 +12,8 @@ repositories {
 }
 
 test{
-    reports.junitXml.enabled = false
-    reports.html.enabled = false
+    reports.junitXml.enabled = true
+    reports.html.enabled = true
 }
 
 dependencies {

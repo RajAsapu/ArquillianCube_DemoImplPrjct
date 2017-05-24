@@ -8,8 +8,12 @@ sourceCompatibility = 1.8
 
 repositories {
     maven{url 'http://uk.maven.org/maven2'}
-//    maven { url 'https://jitpack.io' }
     mavenCentral()
+}
+
+test{
+    reports.junitXml.enabled = false
+    reports.html.enabled = false
 }
 
 dependencies {
@@ -33,4 +37,5 @@ dependencies {
     compile group: 'org.jboss.arquillian.container', name: 'arquillian-container-test-spi', version: '1.1.13.Final'
     compile group: 'org.jboss.arquillian.junit', name: 'arquillian-junit-container', version: '1.1.13.Final'
     compile group: 'org.arquillian.cube', name: 'arquillian-cube-docker', version: '1.1.0'
+    runtime fileTree(dir: 'libs', include: '*.jar')
 }

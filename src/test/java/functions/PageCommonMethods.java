@@ -52,9 +52,9 @@ public class PageCommonMethods {
      * Method to login to the application
      */
     public void login() {
-        edriver.findElement(By.id(Constants.login_username_id)).sendKeys(Constants.username);
-        edriver.findElement(By.id(Constants.login_password_id)).sendKeys(Constants.password);
-        edriver.findElement(By.id(Constants.login_submit_id)).click();
+        edriver.findElement(By.xpath(Constants.login_username_xpath)).sendKeys(Constants.username);
+        edriver.findElement(By.xpath(Constants.login_password_xpath)).sendKeys(Constants.password);
+        edriver.findElement(By.xpath(Constants.login_submit_xpath)).click();
     }
 
     /*

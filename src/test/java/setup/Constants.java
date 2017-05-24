@@ -12,9 +12,9 @@ public class Constants {
     /*
      * Login page identifiers
      */
-    public static String login_username_id = "username";
-    public static String login_password_id = "password";
-    public static String login_submit_id = "kc-login";
+    public static String login_username_xpath = "//*[@id='username']";
+    public static String login_password_xpath = "//*[@id='password']";
+    public static String login_submit_xpath = "//*[@id='kc-login']";
     /*
      * Index : List page identifiers
      */

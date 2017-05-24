@@ -8,6 +8,7 @@ import org.openqa.selenium.support.events.EventFiringWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import setup.Constants;
 import setup.DriverBean;
 
@@ -22,6 +23,7 @@ public class PageCommonMethods {
     public PageCommonMethods()
     {
         edriver= DriverBean.getDriver();
+        log = LoggerFactory.getLogger(PageCommonMethods.class);
     }
     
     public void waitFor(long timeInSeconds) {

@@ -38,8 +38,8 @@ public class OpenBrowser {
         edriver = new EventFiringWebDriver(driver);
         edriver.register(listener);
         edriver.navigate().to(url);
-        edriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        edriver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
+        edriver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+        edriver.manage().timeouts().pageLoadTimeout(60, TimeUnit.SECONDS);
       return edriver;
     }
 

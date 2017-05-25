@@ -33,7 +33,7 @@ public class OpenBrowser {
     }
 
     public EventFiringWebDriver initBrowser(String url) {
-        driver = getDriver(Open.CHROME);
+        driver = getDriver(Open.PhantomJS);
         listener = new IEventListener();
         edriver = new EventFiringWebDriver(driver);
         edriver.register(listener);
@@ -89,7 +89,8 @@ public class OpenBrowser {
 //                ((JavascriptExecutor) driver).executeAsyncScript(
 //                        "window.setTimeout(arguments[arguments.length - 1], 5000);");
                 try {
-                    String[] cli_args = new String[]{ "--ignore-ssl-errors=true" };
+                    String[] cli_args = new String[]{ "--ignore-ssl-errors=true" ,"--ssl-certificates-path=Fortinet_CA_SSLProxy.pem"};
+
                     DesiredCapabilities capabilities = DesiredCapabilities.phantomjs();
                     capabilities.setJavascriptEnabled(true);
                     capabilities.acceptInsecureCerts();

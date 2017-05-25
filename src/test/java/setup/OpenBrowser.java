@@ -55,7 +55,7 @@ public class OpenBrowser {
     public WebDriver getDriver(Open browser) {
         switch (browser) {
             case CHROME:
-//                ChromeDriverManager.getInstance().setup();
+                ChromeDriverManager.getInstance().setup();
 //                System.setProperty("webdriver.chrome.driver",
 //                        "chromedriver");
                 ChromeOptions options = new ChromeOptions();

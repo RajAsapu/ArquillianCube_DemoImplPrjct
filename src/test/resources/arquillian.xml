@@ -53,6 +53,14 @@
                     stdOut: true
                     stdErr: true
                     timeout: 1800
+            selenium_chrome:
+                await:
+                    strategy: polling
+                    sleepPollingTime: 10 s
+                    iterations: 5
+                    stdOut: true
+                    stdErr: true
+                    timeout: 1800
         </property>
     </extension>
 </arquillian>

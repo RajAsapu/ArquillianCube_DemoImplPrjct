@@ -26,14 +26,14 @@ public class OpenBrowser {
     private EventFiringWebDriver edriver;
     private IEventListener listener;
     public static enum Open {
-        CHROME, IE, FIREFOX, HtmlUnitDriver , PhantomJS
+        CHROME, IE, FIREFOX, HtmlUnitDriver , PhantomJS ,ChromeHeadLess
     }
     public enum url {
         Pricing
     }
 
     public EventFiringWebDriver initBrowser(String url) {
-        driver = getDriver(Open.PhantomJS);
+        driver = getDriver(Open.CHROME);
         listener = new IEventListener();
         edriver = new EventFiringWebDriver(driver);
         edriver.register(listener);
@@ -50,6 +50,8 @@ public class OpenBrowser {
 
     public WebDriver getDriver(Open browser) {
         switch (browser) {
+            case ChromeHeadLess:
+
             case CHROME:
                 System.setProperty("webdriver.chrome.driver",
                         "chromedriver");
@@ -59,6 +61,9 @@ public class OpenBrowser {
                 prefs.put("profile.password_manager_enabled", false);
                 options.setExperimentalOption("prefs", prefs);
                 options.addArguments("--no-sandbox");
+                options.setBinary("/usr/bin/google-chrome-unstable");
+                options.addArguments("window-size=1280x1024");
+                options.addArguments("--headless");
                 options.addArguments("--disable-plugins");
                 options.addArguments("--start-maximized");
                 options.addArguments("--disable-extensions");

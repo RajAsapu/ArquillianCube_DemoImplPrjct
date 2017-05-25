@@ -20,8 +20,8 @@ Feature: Test Data
     Then    clicks on the submit button
     Examples:
       | name            | startDate   | endDate | type | description | ruleType | daysBeforeEvent | daysAfterEvent |
-      | TestCalcDayRule | 23-JAN-2017 | today   | Day  | for testing | Day Wrap | 2               | 2              |
-  @TestData1
+      | TestCalcDayRule2017 | 23-JAN-2017 | today   | Day  | for testing | Day Wrap | 2               | 2              |
+  @TestData2
   Scenario Outline: To verify if the user is able to create a calculation rule with type as Week.
     Given the user has navigated to the "Create" page under the "Calculation_Rule"
     When  the user enters name  as "<name>"
@@ -39,7 +39,7 @@ Feature: Test Data
     Examples:
       | name             | startDate   | endDate | type | description | ep_StartDate | ep_NoOfWeeks | cp_StartDate | ep_NoOfWeeks | offset |
       | TestCalcWeekRule | 23-JAN-2017 | today   | Week | for testing | Monday       | 1            | Tuesday      | 2            | 1      |
-  @TestData1
+  @TestData3
   Scenario Outline: To verify if the user is able to create a calculation rule with type as Month.
     Given the user has navigated to the "Create" page under the "Calculation_Rule"
     When  the user enters name  as "<name>"

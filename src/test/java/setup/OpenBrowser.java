@@ -73,6 +73,7 @@ public class OpenBrowser {
                 DesiredCapabilities capabilities=new DesiredCapabilities();
                 capabilities.setCapability(ChromeOptions.CAPABILITY,options);
                 capabilities.setBrowserName("chrome");
+                capabilities.setJavascriptEnabled(true);
                 capabilities.acceptInsecureCerts();
                 try {
 

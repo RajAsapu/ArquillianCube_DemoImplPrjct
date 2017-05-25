@@ -109,6 +109,8 @@ public class OpenBrowser {
 //                long start = System.currentTimeMillis();
 //                ((JavascriptExecutor) driver).executeAsyncScript(
 //                        "window.setTimeout(arguments[arguments.length - 1], 5000);");
+
+
                 try {
                     String[] cli_args = new String[]{ "--ignore-ssl-errors=true" ,"--ssl-certificates-path=Fortinet_CA_SSLProxy.pem"};
 

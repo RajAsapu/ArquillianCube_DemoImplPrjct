@@ -1,11 +1,14 @@
 package setup;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebElement;
+import cucumber.api.Scenario;
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 
+import java.io.File;
+import java.io.IOException;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -66,4 +69,18 @@ public class DateOperations {
         value = edriver.findElement(By.xpath(identifier)).getAttribute("ng-reflect-value");
         return value == null ? edriver.findElement(By.xpath(identifier)).getText() : value;
     }
+
+    public void getScreenShot()
+    {
+        File screenshot = ((TakesScreenshot) DriverBean.getDriver()).getScreenshotAs(OutputType.FILE);
+        Scenario name;
+        try {
+            String timestamp = new Timestamp(System.currentTimeMillis()).toString();
+            FileUtils.copyFile(screenshot,new File("screenshot/testRun"+timestamp.replaceAll(" ","")+".jpeg"));
+            Thread.sleep(5000);
+        } catch (IOException|InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

@@ -89,9 +89,11 @@ public class OpenBrowser {
 //                ((JavascriptExecutor) driver).executeAsyncScript(
 //                        "window.setTimeout(arguments[arguments.length - 1], 5000);");
                 try {
-                    DesiredCapabilities capabilities = new DesiredCapabilities();
+                    String[] cli_args = new String[]{ "--ignore-ssl-errors=true" };
+                    DesiredCapabilities capabilities = DesiredCapabilities.phantomjs();
                     capabilities.setJavascriptEnabled(true);
-                    capabilities.setCapability("--ignore-ssl-errors",true);
+                    capabilities.setAcceptInsecureCerts(true);
+                    capabilities.setCapability(PhantomJSDriverService.PHANTOMJS_CLI_ARGS,cli_args);
                     driver = new PhantomJSDriver(
                             ResolvingPhantomJSDriverService.createDefaultService(),
                             capabilities);

@@ -21,7 +21,6 @@ import java.util.Map;
 
 @RunWith(ArquillianCucumber.class)
 @CucumberOptions(
-        strict = true,
         plugin = {"html:target/cucumber-html-report","json:target/cucumber-json-report"},
         features = {"src/test/resources/features/pageobjects/"},
         glue = {"classpath:"},

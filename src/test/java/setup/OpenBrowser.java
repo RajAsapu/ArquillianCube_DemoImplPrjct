@@ -33,7 +33,7 @@ public class OpenBrowser {
     }
 
     public EventFiringWebDriver initBrowser(String url) {
-        driver = getDriver(Open.PhantomJS);
+        driver = getDriver(Open.CHROME);
         listener = new IEventListener();
         edriver = new EventFiringWebDriver(driver);
         edriver.register(listener);
@@ -92,7 +92,7 @@ public class OpenBrowser {
                     String[] cli_args = new String[]{ "--ignore-ssl-errors=true" };
                     DesiredCapabilities capabilities = DesiredCapabilities.phantomjs();
                     capabilities.setJavascriptEnabled(true);
-                    capabilities.setAcceptInsecureCerts(true);
+                    capabilities.acceptInsecureCerts();
                     capabilities.setCapability(PhantomJSDriverService.PHANTOMJS_CLI_ARGS,cli_args);
                     driver = new PhantomJSDriver(
                             ResolvingPhantomJSDriverService.createDefaultService(),

@@ -37,10 +37,11 @@ public class OpenBrowser {
     }
 
     public EventFiringWebDriver initBrowser(String url) {
-        driver = getDriver(Open.CHROME);
+        driver = getDriver(Open.PhantomJS);
         listener = new IEventListener();
         edriver = new EventFiringWebDriver(driver);
         edriver.register(listener);
+        DriverBean.setDriver(edriver);
         edriver.navigate().to(url);
         edriver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
         edriver.manage().timeouts().pageLoadTimeout(60, TimeUnit.SECONDS);

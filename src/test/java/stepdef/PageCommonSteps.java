@@ -45,7 +45,6 @@ public class PageCommonSteps extends OpenBrowser {
         } else if (environment.equalsIgnoreCase("Dev")) {
            edriver = initBrowser(updateProperties.getApplicationProperty("devPricingUrl"));
         }
-        DriverBean.setDriver(edriver);
     }
 
     /*

@@ -69,6 +69,7 @@ public class PageCurrencyExchangeSteps {
     @And("^clicks on deactivate currency exchange$")
     public void clicks_on_deactivate_currency_exchange() {
         pageFactory.getListCurrencyExchangeMethods().clickOnDeactivateCurrencyExchangeButton();
+        pageFactory.getWorkBookDataMethods().deactivateRecord();
     }
 
     @Then("^the application displays the search results as per the filters$")
@@ -124,12 +125,4 @@ public class PageCurrencyExchangeSteps {
     public void the_columns_of_the_currency_exchange_should_be_in_the_order_of_Status_From_To_Date_Rate_Type_Rate_and_Actions() {
         pageFactory.getListCurrencyExchangeMethods().verifyIfColumnOrder();
     }
-
-    @And("^selects the inactive currency exchange$")
-    public void selects_the_inactive_currency_exchange()
-    {
-
-    }
-
-
 }

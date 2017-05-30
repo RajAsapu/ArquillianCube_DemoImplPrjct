@@ -11,6 +11,8 @@ import com.github.dockerjava.api.model.InternetProtocol;
 import com.github.dockerjava.api.model.PortBinding;
 import com.github.dockerjava.api.model.RestartPolicy;
 import com.github.dockerjava.core.DockerClientBuilder;
+import org.arquillian.cube.docker.impl.await.AwaitStrategyFactory;
+import org.arquillian.cube.spi.await.AwaitStrategy;
 import org.junit.Assert;
 
 import java.io.*;

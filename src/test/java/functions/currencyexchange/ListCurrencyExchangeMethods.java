@@ -49,8 +49,20 @@ public class ListCurrencyExchangeMethods extends GenericWebElementMethods {
         selectFromDropDown_SelectTag(Constants.currencyExchangeList_currTo_xpath, currencyTo);
     }
 
-    public void clickOnSearch() {
+    public void clickOnAddCurrencyExchangeButton() {
+        clickButton(Constants.currencyExchangeList_addCurrencyExchange_xpath);
+    }
 
+    public void clickOnCopyCurrencyExchangeButton() {
+        clickButton(Constants.currencyExchangeList_copyCurrencyExchange_xpath);
+    }
+
+    public void clickOnDeactivateCurrencyExchangeButton() {
+        clickButton(Constants.currencyExchangeList_deactivateCurrencyExchange_xpath);
+    }
+
+    public void clickOnSearchButton() {
+        clickButton(Constants.currencyExchangeList_search_xpath);
     }
 
     public void verifyIfThePageIsListPage() {
@@ -157,6 +169,20 @@ public class ListCurrencyExchangeMethods extends GenericWebElementMethods {
             }
         } catch (Exception exp) {
             exp.printStackTrace();
+        }
+    }
+
+    public void verifyIfColumnOrder()
+    {
+        String []order = {"Status","From","To", "Date", "Rate Type", "Rate","Actions"};
+        List<WebElement> columnList = edriver.findElements(By.xpath(Constants.currencyExchangeList_columnHdrList_xpath));
+        int i=0;
+        for(WebElement temp:columnList)
+        {
+            if(!temp.getText().equals(order[i++]))
+            {
+              Assert.fail("Column order doesn't match Status, From, To, Date, Rate Type, Rate and Actions");
+            }
         }
     }
 }

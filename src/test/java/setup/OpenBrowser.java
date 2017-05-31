@@ -37,14 +37,20 @@ public class OpenBrowser {
     }
 
     public EventFiringWebDriver initBrowser(String url) {
-        driver = getDriver(Open.CHROME);
+        driver = getDriver(Open.FIREFOX);
         listener = new IEventListener();
         edriver = new EventFiringWebDriver(driver);
         edriver.register(listener);
         DriverBean.setDriver(edriver);
         edriver.navigate().to(url);
+        try {
+            Thread.sleep(8000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         edriver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
         edriver.manage().timeouts().pageLoadTimeout(60, TimeUnit.SECONDS);
+        edriver.manage().timeouts().setScriptTimeout(30,TimeUnit.SECONDS);
       return edriver;
     }
 
@@ -88,7 +94,18 @@ public class OpenBrowser {
             case FIREFOX:
                 System.setProperty("webdriver.gecko.driver",
                         "geckodriver");
-                driver = new FirefoxDriver();
+                capabilities=new DesiredCapabilities();
+                capabilities.setBrowserName("firefox");
+                capabilities.setJavascriptEnabled(true);
+                capabilities.acceptInsecureCerts();
+                try {
+
+                    driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"),capabilities);
+                    //driver = new ChromeDriver(capabilities);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+//                driver = new FirefoxDriver();
                 break;
             case IE:
                 driver = new InternetExplorerDriver();

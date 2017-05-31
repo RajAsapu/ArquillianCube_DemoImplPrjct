@@ -37,17 +37,17 @@ public class OpenBrowser {
     }
 
     public EventFiringWebDriver initBrowser(String url) {
-        driver = getDriver(Open.FIREFOX);
+        driver = getDriver(Open.CHROME);
         listener = new IEventListener();
         edriver = new EventFiringWebDriver(driver);
         edriver.register(listener);
         DriverBean.setDriver(edriver);
-        edriver.navigate().to(url);
         try {
             Thread.sleep(8000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        edriver.navigate().to(url);
         edriver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
         edriver.manage().timeouts().pageLoadTimeout(60, TimeUnit.SECONDS);
         edriver.manage().timeouts().setScriptTimeout(30,TimeUnit.SECONDS);
@@ -106,6 +106,7 @@ public class OpenBrowser {
                     e.printStackTrace();
                 }
 //                driver = new FirefoxDriver();
+                driver.manage().window().setSize(new Dimension(1280,1024));
                 break;
             case IE:
                 driver = new InternetExplorerDriver();

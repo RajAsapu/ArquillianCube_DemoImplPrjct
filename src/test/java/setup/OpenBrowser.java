@@ -30,14 +30,14 @@ public class OpenBrowser {
     private EventFiringWebDriver edriver;
     private IEventListener listener;
     public static enum Open {
-        CHROME, IE, FIREFOX, HtmlUnitDriver , PhantomJS
+        CHROME, IE, FIREFOX, HtmlUnitDriver , PhantomJS ,jBrowserDriver
     }
     public enum url {
         Pricing
     }
 
     public EventFiringWebDriver initBrowser(String url) {
-        driver = getDriver(Open.PhantomJS);
+        driver = getDriver(Open.CHROME);
         listener = new IEventListener();
         edriver = new EventFiringWebDriver(driver);
         edriver.register(listener);
@@ -56,9 +56,9 @@ public class OpenBrowser {
     public WebDriver getDriver(Open browser) {
         switch (browser) {
             case CHROME:
-                ChromeDriverManager.getInstance().setup();
-//                System.setProperty("webdriver.chrome.driver",
-//                        "chromedriver");
+//                ChromeDriverManager.getInstance().setup();
+                System.setProperty("webdriver.chrome.driver",
+                        "chromedriver");
                 ChromeOptions options = new ChromeOptions();
                 Map<String, Object> prefs = new HashMap<String, Object>();
                 prefs.put("credentials_enable_service", false);
@@ -112,7 +112,7 @@ public class OpenBrowser {
 
 
                 try {
-                    String[] cli_args = new String[]{ "--ignore-ssl-errors=true" ,"--ssl-certificates-path=Fortinet_CA_SSLProxy.pem"};
+                    String[] cli_args = new String[]{ "--ignore-ssl-errors=true" ,"--debug=true"};
 
                     capabilities = DesiredCapabilities.phantomjs();
                     capabilities.setJavascriptEnabled(true);
@@ -125,6 +125,15 @@ public class OpenBrowser {
                     e.printStackTrace();
                 }
                 driver.manage().window().setSize(new Dimension(1280,1024));
+//            case jBrowserDriver:
+//                Settings.Builder builder=new Settings.Builder();
+//                builder.ajaxResourceTimeout(10000);
+//                builder.headless(true);
+//                builder.javascript(true);
+//                builder.logJavascript(true);
+//                builder.screen(new Dimension(1280,1024));
+//                builder.timezone(Timezone.AMERICA_NEWYORK);
+//                driver = new JBrowserDriver(builder.build());
         }
         return driver;
     }

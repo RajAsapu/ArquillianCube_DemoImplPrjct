@@ -37,7 +37,7 @@ public class OpenBrowser {
     }
 
     public EventFiringWebDriver initBrowser(String url) {
-        driver = getDriver(Open.CHROME);
+        driver = getDriver(Open.PhantomJS);
         listener = new IEventListener();
         edriver = new EventFiringWebDriver(driver);
         edriver.register(listener);
@@ -125,8 +125,7 @@ public class OpenBrowser {
 //                capabilities.setCapability("--ignore-ssl-errors",true);
 //                driver = new PhantomJSDriver(capabilities);
 //                long start = System.currentTimeMillis();
-//                ((JavascriptExecutor) driver).executeAsyncScript(
-//                        "window.setTimeout(arguments[arguments.length - 1], 5000);");
+
 
 
                 try {
@@ -142,6 +141,8 @@ public class OpenBrowser {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+                                ((JavascriptExecutor) driver).executeAsyncScript(
+                        "window.setTimeout(arguments[arguments.length - 1], 30000);");
                 driver.manage().window().setSize(new Dimension(1280,1024));
 //            case jBrowserDriver:
 //                Settings.Builder builder=new Settings.Builder();

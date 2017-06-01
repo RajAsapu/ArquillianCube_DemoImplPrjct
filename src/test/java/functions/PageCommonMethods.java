@@ -13,6 +13,8 @@ import org.slf4j.LoggerFactory;
 import setup.Constants;
 import setup.DriverBean;
 
+import java.util.List;
+
 public class PageCommonMethods {
 
     protected EventFiringWebDriver edriver;
@@ -47,7 +49,14 @@ public class PageCommonMethods {
         Actions act = new Actions(edriver);
         act.moveToElement(edriver.findElement(By.xpath("//*/a[normalize-space()='"+m.toString().replace("_", " ")+"']"))).clickAndHold().perform();
         waitFor(1);
-        act.click(edriver.findElement(By.xpath("//*/a[normalize-space()='"+p.toString()+"']"))).perform();
+        List<WebElement> elementList = edriver.findElements(By.xpath("//*/*[normalize-space()='"+p.toString()+"']"));
+        for(WebElement temp:elementList)
+        {
+            if(temp.isDisplayed())
+            {
+                act.click(temp).perform();
+            }
+        }
         System.out.println("Navigated to " + p.toString() + " page under " + m.toString());
     }
 

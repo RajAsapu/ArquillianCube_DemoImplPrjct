@@ -51,11 +51,3 @@ database:
   restartPolicy:
         name: failure
         maximumRetryCount: 2
-selenium_chrome:
-  image: 'selenium/standalone-chrome:latest'
-  exposedPorts: [4444/tcp]
-  publishAllPorts: true
-  attachStdin: true
-  attachSterr: true
-  dnsSearch: [localhost]
-  portBindings: [4444->4444/tcp]

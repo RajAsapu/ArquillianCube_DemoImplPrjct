@@ -37,9 +37,9 @@ public class AutoStartContainersOrder implements AutoStartParser {
                 }
                 nodes.put(new StringBuilder(name).reverse().toString(), Node.from(name));
             }
-       }else
+        }else
         {
-            nodes.put(new StringBuilder("selenium_chrome").reverse().toString(), Node.from("selenium_chrome"));
+            nodes.put(new StringBuilder("ui").reverse().toString(), Node.from("ui"));
         }
         return nodes;
     }

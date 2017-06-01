@@ -58,6 +58,7 @@ Feature: Test Data
       | name              | startDate   | endDate | type  | description | mn_RuleType   | ep_NoOfMonths | ep_startDayMn | noOfMonthsCalc | cp_startDayMn | offset |
       | TestCalcMonthRule | 23-JAN-2017 | today   | Month | for testing | Single Period | 2             | 5             | 2              | 7             | 2      |
   # Test data : Index
+  @TestData4
   Scenario Outline: To verify if the user is able to create an index.
     Given the user has navigated to the "Create" page under the "Index"
     When  the user enters rate basis as Unit

@@ -13,6 +13,8 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import setup.UpdateProperties;
+import stepdef.DockerCommands;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,7 +26,7 @@ import java.util.Map;
         plugin = {"html:target/cucumber-html-report","json:target/cucumber-json-report"},
         features = {"src/test/resources/features/pageobjects/"},
         glue = {"classpath:"},
-        tags = {"@TestData"}
+        tags = {"@TestData4"}
 )
 @RunAsClient
 
@@ -47,12 +49,14 @@ public class RunTest {
             props.setProperty(map);
             props.updateHostConfig();
             System.out.println("Arquillian - Containers has started .");
+            DockerCommands.ps();
         }
     }
 
     @AfterClass
     public static void generateReports()
     {
+        DockerCommands.psa();
         File reportOutputDirectory = new File("target");
         List<String> jsonFiles = new ArrayList<>();
         jsonFiles.add("target/cucumber-json-report");

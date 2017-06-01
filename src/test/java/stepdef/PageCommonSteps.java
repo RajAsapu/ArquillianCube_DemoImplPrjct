@@ -53,7 +53,7 @@ public class PageCommonSteps extends OpenBrowser {
     @Given("^the user has logged into the pricing application$")
     public void the_user_has_logged_into_the_pricing_application() {
         openApplication();
-        pageFactory.getPageCommonMethods().login();
+        //pageFactory.getPageCommonMethods().login();
     }
 
     /*

@@ -24,7 +24,7 @@ import java.util.Map;
         plugin = {"html:target/cucumber-html-report","json:target/cucumber-json-report"},
         features = {"src/test/resources/features/pageobjects/"},
         glue = {"classpath:"},
-        tags = {"@TestData1"}
+        tags = {"@TestData"}
 )
 @RunAsClient
 

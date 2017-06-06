@@ -17,13 +17,12 @@ import java.util.List;
 public class CreateWorkBookMethods extends GenericWebElementMethods {
     private EventFiringWebDriver edriver;
 
-    public CreateWorkBookMethods()
-    {
-        edriver= DriverBean.getDriver();
+    public CreateWorkBookMethods() {
+        edriver = DriverBean.getDriver();
     }
 
     public void setName(String name) {
-        sendKeysToWE(Constants.workbookCreate_name_xpath, name+getDateWithTime());
+        sendKeysToWE(Constants.workbookCreate_name_xpath, name + getDateWithTime());
     }
 
     public void setDescription(String description) {

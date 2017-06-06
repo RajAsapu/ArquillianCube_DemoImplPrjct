@@ -6,11 +6,11 @@ apply plugin: 'java'
 sourceCompatibility = 1.8
 
 repositories {
-    maven{url 'http://uk.maven.org/maven2'}
+    maven { url 'http://uk.maven.org/maven2' }
     mavenCentral()
 }
 
-test{
+test {
     reports.junitXml.enabled = true
     reports.html.enabled = true
 }

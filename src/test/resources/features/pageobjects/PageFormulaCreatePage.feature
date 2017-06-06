@@ -22,5 +22,5 @@ Feature: To verify if the user is able to create formula.
     And   validate the expression and click on Create
     Then  the formula should be created
     Examples:
-      | name         | description | type | expression | startDate   | endDate     | roundingMode | roundingPrecision | paramType | indexType | indexPoint | indexName          | calculationPeriod |
-      | TestFormula  | for testing | COST | Test       | today       | today       | Round Up     | 3                 | Index     | Argus     | Mid        | Prem CBOB NY Cargo | TestCalcDayRule   |
+      | name        | description | type | expression | startDate | endDate | roundingMode | roundingPrecision | paramType | indexType | indexPoint | indexName          | calculationPeriod |
+      | TestFormula | for testing | COST | Test       | today     | today   | Round Up     | 3                 | Index     | Argus     | Mid        | Prem CBOB NY Cargo | TestCalcDayRule   |

@@ -18,13 +18,13 @@ public class ServiceIndexSteps extends AbstractApiDefinitions {
 
     final static Logger logger = Logger.getLogger(PageIndexSteps.class.getName());
     private EventFiringWebDriver edriver;
-    private PageFactory pageFactory=null;
+    private PageFactory pageFactory = null;
     private Response response;
     private ResponseBody body;
 
     public ServiceIndexSteps() {
         pageFactory = new PageFactory();
-        edriver= DriverBean.getDriver();
+        edriver = DriverBean.getDriver();
     }
 
     @When("^the user querys the GET on search end point in list page with parameters as \"([^\"]*)\"$")

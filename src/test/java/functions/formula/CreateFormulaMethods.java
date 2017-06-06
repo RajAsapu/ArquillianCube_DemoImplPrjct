@@ -15,9 +15,8 @@ public class CreateFormulaMethods extends GenericWebElementMethods {
 
     private EventFiringWebDriver edriver;
 
-    public CreateFormulaMethods()
-    {
-        edriver= DriverBean.getDriver();
+    public CreateFormulaMethods() {
+        edriver = DriverBean.getDriver();
     }
 
     public void clickOnAddParameter() {
@@ -25,7 +24,7 @@ public class CreateFormulaMethods extends GenericWebElementMethods {
     }
 
     public void setName(String name) {
-        sendKeysToWE(Constants.formulaCreate_name_xpath, name+getDateWithTime());
+        sendKeysToWE(Constants.formulaCreate_name_xpath, name + getDateWithTime());
     }
 
     public void setDescription(String description) {
@@ -67,8 +66,9 @@ public class CreateFormulaMethods extends GenericWebElementMethods {
     }
 
     public void createFormula() {
-        try{ verifyIfTextIsDisplayed(EXPRESSSION_ERROR_MESSAGE);}
-        catch (VerifyException exp) {
+        try {
+            verifyIfTextIsDisplayed(EXPRESSSION_ERROR_MESSAGE);
+        } catch (VerifyException exp) {
             System.out.println("Expression is valid");
         }
         clickButton(Constants.formulaCreate_submit_xpath);
@@ -77,10 +77,10 @@ public class CreateFormulaMethods extends GenericWebElementMethods {
     public void addParameters(List<List<String>> parameters) {
 
         scrollDown();
-       for(int i=0;i<parameters.size();i++){
+        for (int i = 0; i < parameters.size(); i++) {
             String type = parameters.get(i).get(1);
-            String attributeName= getValue(Constants.formulaCreate_nameParameter_xpath);
-            if (attributeName!=null && !attributeName.isEmpty()) {
+            String attributeName = getValue(Constants.formulaCreate_nameParameter_xpath);
+            if (attributeName != null && !attributeName.isEmpty()) {
                 clickOnAddParameter();
             }
             sendKeysToWeAtPosition(Constants.formulaCreate_nameParameter_xpath, parameters.get(i).get(0), -1);

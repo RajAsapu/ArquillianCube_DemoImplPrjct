@@ -5,10 +5,7 @@ import functions.GenericWebElementMethods;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
-import org.openqa.selenium.support.ui.Select;
-import org.openqa.selenium.support.ui.UnexpectedTagNameException;
 import setup.Constants;
 import setup.DriverBean;
 
@@ -17,10 +14,10 @@ import java.util.List;
 public class ListIndexMethods extends GenericWebElementMethods {
     private EventFiringWebDriver edriver;
 
-    public ListIndexMethods()
-    {
-        edriver= DriverBean.getDriver();
+    public ListIndexMethods() {
+        edriver = DriverBean.getDriver();
     }
+
     /*
      * Methods to search
      */
@@ -35,7 +32,7 @@ public class ListIndexMethods extends GenericWebElementMethods {
     }
 
     public void setStatus(String status) {
-        selectFromDropDown_LabelTag(Constants.indexList_status_xpath,status,0);
+        selectFromDropDown_LabelTag(Constants.indexList_status_xpath, status, 0);
     }
 
     public void setType(String type) {
@@ -156,24 +153,21 @@ public class ListIndexMethods extends GenericWebElementMethods {
         Verify.verify(status.equalsIgnoreCase("inactive"), "Index is not deactivated !!");
     }
 
+    public void verifyIfListPageDisplayed(boolean isListPage) {
+        waitFor(2);
+        if (isListPage) {
+            Verify.verify(edriver.getCurrentUrl().contains("/index/list"), "Index is not created or updated !!");
+        } else {
+            Verify.verify(!edriver.getCurrentUrl().contains("/index/list"), "Index is created or updated !!");
+        }
+
+    }
+
     /*
      * Methods to read from the results from search
      */
     public enum Column {
         status, startDate, endDate, type, name, low, mid, high, close, currency, uom, rateBasis, scaleRates, comments
-    }
-
-    public void verifyIfListPageDisplayed(boolean isListPage)
-    {
-        waitFor(2);
-        if(isListPage)
-        {
-            Verify.verify(edriver.getCurrentUrl().contains("/index/list"), "Index is not created or updated !!");
-        }else
-        {
-            Verify.verify(!edriver.getCurrentUrl().contains("/index/list"), "Index is created or updated !!");
-        }
-
     }
 
 }

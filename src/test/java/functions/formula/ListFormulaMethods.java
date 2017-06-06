@@ -10,9 +10,8 @@ public class ListFormulaMethods extends GenericWebElementMethods {
 
     private EventFiringWebDriver edriver;
 
-    public ListFormulaMethods()
-    {
-        edriver= DriverBean.getDriver();
+    public ListFormulaMethods() {
+        edriver = DriverBean.getDriver();
     }
 
     public String applyFilter(String filter) {

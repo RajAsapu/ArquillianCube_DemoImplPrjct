@@ -19,8 +19,8 @@ import java.util.List;
 public class PageCalculationRuleSteps {
 
     final static Logger logger = Logger.getLogger(PageIndexSteps.class.getName());
-    private EventFiringWebDriver edriver;
     public String ruleName;
+    private EventFiringWebDriver edriver;
     private PageFactory pageFactory;
 
     public PageCalculationRuleSteps() {

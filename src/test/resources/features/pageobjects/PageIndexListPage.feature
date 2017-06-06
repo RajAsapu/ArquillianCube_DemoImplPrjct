@@ -24,6 +24,7 @@ Feature: To verify if the user is able to access list page under index.
     When  the user enters the type as Manual
     And   clicks on the search button
     Then  the user shall be able to view the list of indexes with type as "MANUAL"
+
   @DefectPrice736
   Scenario Outline: To verify if the user is able to search on the list page with rate basis and currency as filters.
     Given the user has navigated to the "List" page under the "Index"
@@ -33,10 +34,10 @@ Feature: To verify if the user is able to access list page under index.
     And   unit of measurement in search as <uom>
     And   clicks on the search button
     Then  the user shall be able to view the list of indexes matching the search criteria
-      |<rateBasis>|<indexName>|<currency>|<uom>|
+      | <rateBasis> | <indexName> | <currency> | <uom> |
     Examples:
-    |rateBasis| indexName          | currency | uom |
-    | Unit    | Prem CBOB NY Cargo | USD      | USG |
+      | rateBasis | indexName          | currency | uom |
+      | Unit      | Prem CBOB NY Cargo | USD      | USG |
 
 
 

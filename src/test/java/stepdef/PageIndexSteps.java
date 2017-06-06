@@ -1,13 +1,11 @@
 package stepdef;
 
-import com.google.common.base.Verify;
 import cucumber.api.DataTable;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import functions.index.ListIndexMethods;
 import org.apache.log4j.Logger;
-import org.jboss.shrinkwrap.api.asset.Asset;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.StaleElementReferenceException;
@@ -46,7 +44,7 @@ public class PageIndexSteps {
         List<WebElement> statusList = edriver.findElements(By.xpath(Constants.indexList_StatusColumn_xpath));
         for (WebElement temp : statusList) {
             if (!temp.getText().equals(status)) {
-                Assert.fail("Status doesnt match , Expected:"+status+",Actual:"+temp.getText());
+                Assert.fail("Status doesnt match , Expected:" + status + ",Actual:" + temp.getText());
             }
         }
 
@@ -55,8 +53,8 @@ public class PageIndexSteps {
         Date dateSelected = formatter.parse(startDate);
         for (WebElement temp : startdateList) {
             Date tempDate = formatter.parse(temp.getText());
-            if (tempDate.compareTo(dateSelected) != 1 && tempDate.compareTo(dateSelected)!=0)
-                Assert.fail("Date should be less than or equal to "+startDate+",Expected:"+startDate+",Actual"+tempDate);
+            if (tempDate.compareTo(dateSelected) != 1 && tempDate.compareTo(dateSelected) != 0)
+                Assert.fail("Date should be less than or equal to " + startDate + ",Expected:" + startDate + ",Actual" + tempDate);
         }
     }
 
@@ -79,7 +77,7 @@ public class PageIndexSteps {
 
                 for (WebElement temp : statusList) {
                     if (!temp.getText().equals(status)) {
-                        Assert.fail("Status doesnt match , Expected:"+status+",Actual:"+temp.getText());
+                        Assert.fail("Status doesnt match , Expected:" + status + ",Actual:" + temp.getText());
                     }
                 }
                 break;
@@ -103,7 +101,7 @@ public class PageIndexSteps {
                 }
             }
             if (tempDate.compareTo(dateSelected) != 1)
-                Assert.fail("Date should be less than or equal to "+endDate+",Expected:"+endDate+",Actual"+tempDate);
+                Assert.fail("Date should be less than or equal to " + endDate + ",Expected:" + endDate + ",Actual" + tempDate);
         }
     }
 
@@ -185,7 +183,7 @@ public class PageIndexSteps {
     public void the_user_shall_be_able_to_view_the_list_of_indexes_matching_the_above_search_criteria(DataTable table)
             throws Throwable {
         Thread.sleep(3000);
-        List<List<String>> list=table.raw();
+        List<List<String>> list = table.raw();
         pageFactory.getListIndexMethods().verifySearchResults(list.get(0).get(0), ListIndexMethods.Column.rateBasis);
         pageFactory.getListIndexMethods().verifySearchResults(list.get(0).get(1), ListIndexMethods.Column.name);
         pageFactory.getListIndexMethods().verifySearchResults(list.get(0).get(2), ListIndexMethods.Column.currency);

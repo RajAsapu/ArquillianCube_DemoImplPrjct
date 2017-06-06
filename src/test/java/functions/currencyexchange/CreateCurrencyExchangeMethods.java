@@ -9,9 +9,8 @@ public class CreateCurrencyExchangeMethods extends GenericWebElementMethods {
 
     private EventFiringWebDriver edriver;
 
-    public CreateCurrencyExchangeMethods()
-    {
-        edriver= DriverBean.getDriver();
+    public CreateCurrencyExchangeMethods() {
+        edriver = DriverBean.getDriver();
     }
 
     public void setDate(String date) {

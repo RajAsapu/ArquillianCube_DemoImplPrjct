@@ -31,9 +31,8 @@ public class GenericWebElementMethods extends PageCommonMethods {
     protected static Actions actions = null;
     private EventFiringWebDriver edriver;
 
-    public GenericWebElementMethods()
-    {
-        edriver= DriverBean.getDriver();
+    public GenericWebElementMethods() {
+        edriver = DriverBean.getDriver();
         log = LoggerFactory.getLogger(GenericWebElementMethods.class);
         dateOperations = new DateOperations();
         actions = new Actions(edriver);
@@ -270,7 +269,7 @@ public class GenericWebElementMethods extends PageCommonMethods {
         waitFor(3);
         if (getSizeOfList("//li[normalize-space()='" + value + "']") > 0) {
             autoFill = getElementFromListWithPosition("//li[normalize-space()='" + value + "']", position);
-        }else if (getSizeOfList("//span[normalize-space()='" + value + "']") > 0) {
+        } else if (getSizeOfList("//span[normalize-space()='" + value + "']") > 0) {
             autoFill = getElementFromListWithPosition("//span[normalize-space()='" + value + "']", position);
         } else if (getSizeOfList("//*[normalize-space()='" + value.toUpperCase() + "']") > 0) {
             autoFill = getElementFromListWithPosition("//*[normalize-space()='" + value.toUpperCase() + "']", position);
@@ -461,14 +460,14 @@ public class GenericWebElementMethods extends PageCommonMethods {
         }
         return flag;
     }
+
     /*
      * Method to get date with time stamp
      * Used for creating unique name
      * @return: format - ddMMMyyHHmmss
      */
-    public String getDateWithTime()
-    {
-        SimpleDateFormat dateFormat=new SimpleDateFormat("ddMMMyyHHmmss");
+    public String getDateWithTime() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("ddMMMyyHHmmss");
         return dateFormat.format(new Timestamp(System.currentTimeMillis()));
     }
 }

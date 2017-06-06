@@ -1,38 +1,27 @@
 package setup;
 
-import io.github.bonigarcia.wdm.ChromeDriverManager;
-import io.github.bonigarcia.wdm.PhantomJsDriverManager;
 import org.jboss.arquillian.phantom.resolver.ResolvingPhantomJSDriverService;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.htmlunit.HtmlUnitDriver;
-import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.openqa.selenium.phantomjs.PhantomJSDriverService;
 import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 public class OpenBrowser {
 
+    private static String choosenBrowser;
     public WebDriver driver;
     private EventFiringWebDriver edriver;
     private IEventListener listener;
-    private static String choosenBrowser;
-    public static enum Open {
-        Chrome, PhantomJS , Chrome_Headless
-    }
 
     public EventFiringWebDriver initBrowser(String url) {
         driver = getDriver(Open.Chrome);
@@ -43,8 +32,8 @@ public class OpenBrowser {
         edriver.navigate().to(url);
         edriver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
         edriver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
-        edriver.manage().timeouts().setScriptTimeout(30,TimeUnit.SECONDS);
-      return edriver;
+        edriver.manage().timeouts().setScriptTimeout(30, TimeUnit.SECONDS);
+        return edriver;
     }
 
     public void closeBrowser() {
@@ -56,7 +45,7 @@ public class OpenBrowser {
         /*
          * Chrome Options
          */
-        choosenBrowser=browser.toString();
+        choosenBrowser = browser.toString();
         ChromeOptions options = new ChromeOptions();
         Map<String, Object> prefs = new HashMap<String, Object>();
         prefs.put("credentials_enable_service", false);
@@ -71,7 +60,7 @@ public class OpenBrowser {
 
         switch (browser) {
             case Chrome:
-                driver=new ChromeDriver(options);
+                driver = new ChromeDriver(options);
                 break;
             /*
              * Chrome version greater than 58 required
@@ -79,30 +68,33 @@ public class OpenBrowser {
             case Chrome_Headless:
                 options.setBinary("/usr/bin/google-chrome-unstable");
                 options.addArguments("--headless");
-                driver=new ChromeDriver(options);
+                driver = new ChromeDriver(options);
                 break;
             case PhantomJS:
                 try {
-                    String[] cli_args = new String[]{ "--ignore-ssl-errors=true" ,"--debug=true"};
+                    String[] cli_args = new String[]{"--ignore-ssl-errors=true", "--debug=true"};
                     DesiredCapabilities capabilities = DesiredCapabilities.phantomjs();
                     capabilities.setJavascriptEnabled(true);
                     capabilities.acceptInsecureCerts();
-                    capabilities.setCapability(PhantomJSDriverService.PHANTOMJS_CLI_ARGS,cli_args);
+                    capabilities.setCapability(PhantomJSDriverService.PHANTOMJS_CLI_ARGS, cli_args);
                     driver = new PhantomJSDriver(
                             ResolvingPhantomJSDriverService.createDefaultService(),
                             capabilities);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                                ((JavascriptExecutor) driver).executeAsyncScript(
+                ((JavascriptExecutor) driver).executeAsyncScript(
                         "window.setTimeout(arguments[arguments.length - 1], 30000);");
-                driver.manage().window().setSize(new Dimension(1280,1024));
+                driver.manage().window().setSize(new Dimension(1280, 1024));
         }
         return driver;
     }
 
-    public String getSelectedDriver()
-    {
+    public String getSelectedDriver() {
         return choosenBrowser;
+    }
+
+    public static enum Open {
+        Chrome, PhantomJS, Chrome_Headless
     }
 }

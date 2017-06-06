@@ -44,14 +44,12 @@ public class PageWorkbookDataSteps {
     }
 
     @And("^create the workbook data$")
-    public void create_the_work_data(DataTable table)
-    {
+    public void create_the_work_data(DataTable table) {
         List<List<String>> dataList = table.raw();
         /*
          * | supplier | location| customer| priceBasis | uom | startDate| endDate | currencyCode | amount |
          */
-        for(int i=1;i<dataList.size();i++)
-        {
+        for (int i = 1; i < dataList.size(); i++) {
             pageFactory.getWorkBookDataMethods().clickOnAddNewData();
             pageFactory.getWorkBookDataMethods().setAttribute("supplier", dataList.get(i).get(0));
             pageFactory.getWorkBookDataMethods().setAttribute("location", dataList.get(i).get(1));
@@ -67,8 +65,7 @@ public class PageWorkbookDataSteps {
     }
 
     @And("^edit the record with the supplier name as \"([^\"]*)\"")
-    public void edit_the_record_with_the_supplier_name_as(String supplierName)
-    {
+    public void edit_the_record_with_the_supplier_name_as(String supplierName) {
         pageFactory.getWorkBookDataMethods().clickOnDataWithSupplier(supplierName);
         pageFactory.getWorkBookDataMethods().clickOnUpdate();
     }

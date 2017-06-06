@@ -13,8 +13,8 @@ Feature: List calculation rule.
     Then  the list should display the records matching the filter criteria
       | <filter> | <nameFilter> |
     Examples:
-      | filter | nameFilter       |
-      | Name   | TestCalcDayRule  |
+      | filter | nameFilter      |
+      | Name   | TestCalcDayRule |
 
   Scenario Outline: To verify if the user is able to search the list by type.
     Given the user has navigated to the "List" page under the "Calculation_Rule"

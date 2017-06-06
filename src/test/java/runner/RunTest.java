@@ -14,6 +14,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import setup.OpenBrowser;
 import setup.UpdateProperties;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,10 +23,10 @@ import java.util.Map;
 
 @RunWith(ArquillianCucumber.class)
 @CucumberOptions(
-        plugin = {"html:target/cucumber-html-report","json:target/cucumber-json-report"},
+        plugin = {"html:target/cucumber-html-report", "json:target/cucumber-json-report"},
         features = {"src/test/resources/features/"},
         glue = {"classpath:"},
-        tags = {}
+        tags = {"@TestData", "@SmokeTest"}
 )
 @RunAsClient
 public class RunTest {
@@ -39,28 +40,10 @@ public class RunTest {
     @CubeIp(containerName = "database")
     protected String ipDatabase;
 
-    @Test
-    public void initialization() throws Exception {
-
-         Map<String, String> map = new HashMap<String, String>();
-         UpdateProperties props = new UpdateProperties();
-        if (props.getEnv().equalsIgnoreCase("docker")) {
-            Verify.verify(props.startServiceContainer(ipDatabase, "epe-config:latest"));
-            map.put("pricing.ui", "localhost:" + String.valueOf(uiPort));
-            map.put("pricing.datamock", "localhost:" + String.valueOf(datamockPort));
-            map.put("pricing.engine", "localhost:" + String.valueOf(enginePort));
-            map.put("pricing.service", "localhost:8080");
-            props.setProperty(map);
-            props.updateHostConfig();
-            System.out.println("Arquillian - Containers has started .");
-        }
-    }
-
     @AfterClass
-    public static void generateReports()
-    {
+    public static void generateReports() {
         UpdateProperties props = new UpdateProperties();
-        OpenBrowser browser=new OpenBrowser();
+        OpenBrowser browser = new OpenBrowser();
         File reportOutputDirectory = new File("target");
         List<String> jsonFiles = new ArrayList<>();
         jsonFiles.add("target/cucumber-json-report");
@@ -80,5 +63,22 @@ public class RunTest {
         Reportable result = reportBuilder.generateReports();
 
     }
- }
+
+    @Test
+    public void initialization() throws Exception {
+
+        Map<String, String> map = new HashMap<String, String>();
+        UpdateProperties props = new UpdateProperties();
+        if (props.getEnv().equalsIgnoreCase("docker")) {
+            Verify.verify(props.startServiceContainer(ipDatabase, "epe-config:latest"));
+            map.put("pricing.ui", "localhost:" + String.valueOf(uiPort));
+            map.put("pricing.datamock", "localhost:" + String.valueOf(datamockPort));
+            map.put("pricing.engine", "localhost:" + String.valueOf(enginePort));
+            map.put("pricing.service", "localhost:8080");
+            props.setProperty(map);
+            props.updateHostConfig();
+            System.out.println("Arquillian - Containers has started .");
+        }
+    }
+}
 

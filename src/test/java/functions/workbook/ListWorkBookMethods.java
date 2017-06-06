@@ -12,9 +12,8 @@ public class ListWorkBookMethods extends GenericWebElementMethods {
     private static final String SEGMENT = "segment";
     private EventFiringWebDriver edriver;
 
-    public ListWorkBookMethods()
-    {
-        edriver= DriverBean.getDriver();
+    public ListWorkBookMethods() {
+        edriver = DriverBean.getDriver();
     }
 
     public void clickAddNewWorkBookConfiguration() {

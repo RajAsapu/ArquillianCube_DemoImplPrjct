@@ -22,8 +22,8 @@ Feature: Create calculation rule.
     Then   the calculation rule should be created
       | <name> | <startDate> | <endDate> | <type> | <description> | <ruleType> | <daysBeforeEvent> | <daysAfterEvent> |
     Examples:
-      | name       | startDate   | endDate | type | description | ruleType | daysBeforeEvent | daysAfterEvent |
-      | TestCalc1  | 23-JAN-2017 | today   | Day  | for testing | Day Wrap | 2               | 2              |
+      | name      | startDate   | endDate | type | description | ruleType | daysBeforeEvent | daysAfterEvent |
+      | TestCalc1 | 23-JAN-2017 | today   | Day  | for testing | Day Wrap | 2               | 2              |
 
   @DefectPrice767
   Scenario Outline: To verify if the user is able to create a calculation rule with type as Week.
@@ -43,8 +43,8 @@ Feature: Create calculation rule.
     Then   the calculation rule should be created
       | <name> | <startDate> | <endDate> | <type> | <description> | <ep_StartDate> | <ep_NoOfWeeks> | <cp_StartDate> | <ep_NoOfWeeks> | <offset> |
     Examples:
-      | name       | startDate   | endDate | type | description | ep_StartDate | ep_NoOfWeeks | cp_StartDate | ep_NoOfWeeks | offset |
-      | TestCalc2  | 23-JAN-2017 | today   | Week | for testing | Monday       | 2            | Tuesday      | 2            | 1      |
+      | name      | startDate   | endDate | type | description | ep_StartDate | ep_NoOfWeeks | cp_StartDate | ep_NoOfWeeks | offset |
+      | TestCalc2 | 23-JAN-2017 | today   | Week | for testing | Monday       | 2            | Tuesday      | 2            | 1      |
 
   Scenario Outline: To verify if the user is able to create a calculation rule with type as Month.
     Given the user has navigated to the "Create" page under the "Calculation_Rule"
@@ -63,5 +63,5 @@ Feature: Create calculation rule.
     Then   the calculation rule should be created
       | <name> | <startDate> | <endDate> | <type> | <description> | <mn_RuleType> | <ep_NoOfMonths> | <ep_startDayMn> | <noOfMonthsCalc> | <cp_startDayMn> | <offset> |
     Examples:
-      | name       | startDate   | endDate | type  | description | mn_RuleType   | ep_NoOfMonths | ep_startDayMn | noOfMonthsCalc | cp_startDayMn | offset |
-      | TestCalc3  | 23-JAN-2017 | today   | Month | for testing | Single Period | 2             | 5             | 2              | 7             | 2      |
+      | name      | startDate   | endDate | type  | description | mn_RuleType   | ep_NoOfMonths | ep_startDayMn | noOfMonthsCalc | cp_startDayMn | offset |
+      | TestCalc3 | 23-JAN-2017 | today   | Month | for testing | Single Period | 2             | 5             | 2              | 7             | 2      |

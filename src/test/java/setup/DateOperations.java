@@ -70,15 +70,14 @@ public class DateOperations {
         return value == null ? edriver.findElement(By.xpath(identifier)).getText() : value;
     }
 
-    public void getScreenShot()
-    {
+    public void getScreenShot() {
         File screenshot = ((TakesScreenshot) DriverBean.getDriver()).getScreenshotAs(OutputType.FILE);
         Scenario name;
         try {
             String timestamp = new Timestamp(System.currentTimeMillis()).toString();
-            FileUtils.copyFile(screenshot,new File("screenshot/testRun"+timestamp.replaceAll(" ","")+".jpeg"));
+            FileUtils.copyFile(screenshot, new File("screenshot/testRun" + timestamp.replaceAll(" ", "") + ".jpeg"));
             Thread.sleep(5000);
-        } catch (IOException|InterruptedException e) {
+        } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
     }

@@ -11,7 +11,6 @@ import com.github.dockerjava.api.model.InternetProtocol;
 import com.github.dockerjava.api.model.PortBinding;
 import com.github.dockerjava.api.model.RestartPolicy;
 import com.github.dockerjava.core.DockerClientBuilder;
-import functions.GenericWebElementMethods;
 import org.junit.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,6 +23,7 @@ import java.util.ResourceBundle;
 
 public class UpdateProperties {
 
+    protected static Logger log = null;
     public Properties props;
     File resourceFile;
     String resourceFilePath;
@@ -32,7 +32,6 @@ public class UpdateProperties {
     File hostConfigFile;
     InputStream inputStream;
     private DockerClient dockerClient;
-    protected static Logger log = null;
 
     public UpdateProperties() {
         props = new Properties();
@@ -70,7 +69,7 @@ public class UpdateProperties {
 
     public void updateHostConfig() {
         JsonNode root;
-        String resultUpdate=null;
+        String resultUpdate = null;
         FileWriter fwrite;
         ObjectMapper mapper = new ObjectMapper();
         /*
@@ -94,8 +93,8 @@ public class UpdateProperties {
                 fwrite.write(resultUpdate);
                 fwrite.close();
             }
-        }catch (IOException exp) {
-            log.info("Error creating the hostConfig File"+exp.getMessage());
+        } catch (IOException exp) {
+            log.info("Error creating the hostConfig File" + exp.getMessage());
         }
         /*
          * Copying the hostConfig.json file to the Container
@@ -105,9 +104,8 @@ public class UpdateProperties {
             dockerClient.copyArchiveToContainerCmd(getContainerIdUsingName("ui")).withRemotePath("/usr/share/nginx/html/config").withHostResource(hostConfigFile.getAbsolutePath()).withNoOverwriteDirNonDir(false).exec();
             log.info("hostConfig file is updated in the ui container");
             log.info(resultUpdate);
-        }catch (Exception exp)
-        {
-            Assert.fail("Check if environment is set to docker in application.properties!!"+exp.getMessage());
+        } catch (Exception exp) {
+            Assert.fail("Check if environment is set to docker in application.properties!!" + exp.getMessage());
         }
     }
 

@@ -15,6 +15,9 @@ public class CreateCurrencyExchangeMethods extends GenericWebElementMethods {
     }
 
     public void setDate(String date) {
+        if (date.matches("^[a-zA-Z]*$")) {
+            date = setDateWithTimeStamp(date, false);
+        }
         clearText(Constants.currencyExchangeCreate_startDate_xpath);
         sendKeysToWE(Constants.currencyExchangeCreate_startDate_xpath, date);
         clickOnTab();

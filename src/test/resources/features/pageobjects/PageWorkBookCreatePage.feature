@@ -1,4 +1,5 @@
-@PageObjects
+@SmokeTest
+@WorkBookCreate
 Feature: Workbook Create Page
 
   Acceptance Criteria: User shall be able to create a workbook configuration under workbook.

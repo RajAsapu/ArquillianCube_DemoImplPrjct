@@ -1,4 +1,5 @@
-@PageObjects
+@SmokeTest
+@WorkBookList
 Feature: Workbook List Page
 
   Acceptance Criteria: User shall be able to filter the workbook configurations from list page.

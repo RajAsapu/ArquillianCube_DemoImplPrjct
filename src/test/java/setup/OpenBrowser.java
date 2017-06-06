@@ -29,15 +29,13 @@ public class OpenBrowser {
     public WebDriver driver;
     private EventFiringWebDriver edriver;
     private IEventListener listener;
+    private static String choosenBrowser;
     public static enum Open {
-        CHROME, PhantomJS
-    }
-    public enum url {
-        Pricing
+        Chrome, PhantomJS , Chrome_Headless
     }
 
     public EventFiringWebDriver initBrowser(String url) {
-        driver = getDriver(Open.PhantomJS);
+        driver = getDriver(Open.Chrome);
         listener = new IEventListener();
         edriver = new EventFiringWebDriver(driver);
         edriver.register(listener);
@@ -55,24 +53,34 @@ public class OpenBrowser {
     }
 
     public WebDriver getDriver(Open browser) {
+        /*
+         * Chrome Options
+         */
+        choosenBrowser=browser.toString();
+        ChromeOptions options = new ChromeOptions();
+        Map<String, Object> prefs = new HashMap<String, Object>();
+        prefs.put("credentials_enable_service", false);
+        prefs.put("profile.password_manager_enabled", false);
+        options.setExperimentalOption("prefs", prefs);
+        options.addArguments("--no-sandbox");
+        options.addArguments("--disable-plugins");
+        options.addArguments("--start-maximized");
+        options.addArguments("--disable-extensions");
+        options.addArguments("window-size=1280x1024");
+        System.setProperty("webdriver.chrome.driver", "chromedriver");
+
         switch (browser) {
-            case CHROME:
-//                ChromeDriverManager.getInstance().setup();
-                System.setProperty("webdriver.chrome.driver",
-                        "chromedriver");
-                ChromeOptions options = new ChromeOptions();
-                Map<String, Object> prefs = new HashMap<String, Object>();
-                prefs.put("credentials_enable_service", false);
-                prefs.put("profile.password_manager_enabled", false);
-                options.setExperimentalOption("prefs", prefs);
-                options.addArguments("--no-sandbox");
-////                options.setBinary("/usr/bin/google-chrome-stable");
-//                options.addArguments("window-size=1280x1024");
-//                options.addArguments("--headless");
-                options.addArguments("--disable-plugins");
-                options.addArguments("--start-maximized");
-                options.addArguments("--disable-extensions");
+            case Chrome:
                 driver=new ChromeDriver(options);
+                break;
+            /*
+             * Chrome version greater than 58 required
+             */
+            case Chrome_Headless:
+                options.setBinary("/usr/bin/google-chrome-unstable");
+                options.addArguments("--headless");
+                driver=new ChromeDriver(options);
+                break;
             case PhantomJS:
                 try {
                     String[] cli_args = new String[]{ "--ignore-ssl-errors=true" ,"--debug=true"};
@@ -91,5 +99,10 @@ public class OpenBrowser {
                 driver.manage().window().setSize(new Dimension(1280,1024));
         }
         return driver;
+    }
+
+    public String getSelectedDriver()
+    {
+        return choosenBrowser;
     }
 }

@@ -13,10 +13,14 @@ import java.sql.Timestamp;
 
 public class Hooks {
     @After
-    public void tearDown() {
+    public void tearDown(Scenario scenario) {
+        if (scenario.isFailed()) {
+            final byte[] screenshot = ((TakesScreenshot) DriverBean.getDriver())
+                    .getScreenshotAs(OutputType.BYTES);
+            scenario.embed(screenshot, "image/png");
+        }
 
-
-        DriverBean.getDriver().quit();
+        DriverBean.getDriver().close();
         System.out.println("Browser is closed");
     }
 }

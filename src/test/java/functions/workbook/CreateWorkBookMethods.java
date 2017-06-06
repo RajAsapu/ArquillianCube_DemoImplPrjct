@@ -23,7 +23,7 @@ public class CreateWorkBookMethods extends GenericWebElementMethods {
     }
 
     public void setName(String name) {
-        sendKeysToWE(Constants.workbookCreate_name_xpath, name);
+        sendKeysToWE(Constants.workbookCreate_name_xpath, name+getDateWithTime());
     }
 
     public void setDescription(String description) {

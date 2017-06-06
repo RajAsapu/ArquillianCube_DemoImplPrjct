@@ -1,4 +1,5 @@
-@PageObjects
+@SmokeTest
+@CurrExCreate
 Feature: To verify if the user is able to create currency exchange rate info under curreny exchange.
 
   Acceptance Criteria: User shall be able to create a currency exchange info under currency exchange.
@@ -18,4 +19,4 @@ Feature: To verify if the user is able to create currency exchange rate info und
       | <date> | <type> | <currencyFrom> | <currencyTo> | <rate> |
     Examples:
       | date        | type | currencyFrom | currencyTo | rate |
-      | 24-APR-2017 | CWB  | AED          | USD        | 6.00 |
+      | today       | CWB  | AED          | USD        | 6.00 |

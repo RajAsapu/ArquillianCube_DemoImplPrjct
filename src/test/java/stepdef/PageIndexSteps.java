@@ -7,6 +7,8 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import functions.index.ListIndexMethods;
 import org.apache.log4j.Logger;
+import org.jboss.shrinkwrap.api.asset.Asset;
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
@@ -38,24 +40,23 @@ public class PageIndexSteps {
     }
 
     @Then("^the user shall be able to view the list of indexes with start date from \"([^\"]*)\" and status as \"([^\"]*)\"$")
-    public void the_user_shall_be_able_to_view_the_list_of_indexes_with_start_date_from_and_status_as(String arg1,
-                                                                                                      String arg2) throws Exception {
-
+    public void the_user_shall_be_able_to_view_the_list_of_indexes_with_start_date_from_and_status_as(String startDate,
+                                                                                                      String status) throws Exception {
+        Thread.sleep(4000);
         List<WebElement> statusList = edriver.findElements(By.xpath(Constants.indexList_StatusColumn_xpath));
-
         for (WebElement temp : statusList) {
-            if (!temp.equals(arg2)) {
-                assert false;
+            if (!temp.getText().equals(status)) {
+                Assert.fail("Status doesnt match , Expected:"+status+",Actual:"+temp.getText());
             }
         }
-        Thread.sleep(4000);
+
         List<WebElement> startdateList = edriver.findElements(By.xpath(Constants.indexList_StartDateColumn_xpath));
         SimpleDateFormat formatter = new SimpleDateFormat("DD-MMM-YYYY");
-        Date dateSelected = formatter.parse(arg1);
+        Date dateSelected = formatter.parse(startDate);
         for (WebElement temp : startdateList) {
             Date tempDate = formatter.parse(temp.getText());
-            if (tempDate.compareTo(dateSelected) != 1)
-                assert false;
+            if (tempDate.compareTo(dateSelected) != 1 && tempDate.compareTo(dateSelected)!=0)
+                Assert.fail("Date should be less than or equal to "+startDate+",Expected:"+startDate+",Actual"+tempDate);
         }
     }
 
@@ -69,16 +70,16 @@ public class PageIndexSteps {
      * Need to move to the page class
      */
     @Then("^the user shall be able to view the list of indexes with end date from \"([^\"]*)\" and status as \"([^\"]*)\"$")
-    public void the_user_shall_be_able_to_view_the_list_of_indexes_with_end_date_from_and_status_as(String arg1,
-                                                                                                    String arg2) throws Throwable {
+    public void the_user_shall_be_able_to_view_the_list_of_indexes_with_end_date_from_and_status_as(String endDate,
+                                                                                                    String status) throws Throwable {
         List<WebElement> statusList;
         while (true) {
             try {
                 statusList = edriver.findElements(By.xpath(Constants.indexList_StatusColumn_xpath));
 
                 for (WebElement temp : statusList) {
-                    if (!temp.getText().equals(arg2)) {
-                        assert false;
+                    if (!temp.getText().equals(status)) {
+                        Assert.fail("Status doesnt match , Expected:"+status+",Actual:"+temp.getText());
                     }
                 }
                 break;
@@ -89,7 +90,7 @@ public class PageIndexSteps {
 
         List<WebElement> startdateList = edriver.findElements(By.xpath(Constants.indexList_EndDateColumn_xpath));
         SimpleDateFormat formatter = new SimpleDateFormat("DD-MMM-YYYY");
-        Date dateSelected = formatter.parse(arg1);
+        Date dateSelected = formatter.parse(endDate);
         for (WebElement temp : startdateList) {
             Date tempDate = null;
             try {
@@ -102,10 +103,8 @@ public class PageIndexSteps {
                 }
             }
             if (tempDate.compareTo(dateSelected) != 1)
-                assert false;
+                Assert.fail("Date should be less than or equal to "+endDate+",Expected:"+endDate+",Actual"+tempDate);
         }
-
-        edriver.quit();
     }
 
     @When("^the user enters the type as ([^\"]*)$")
@@ -182,15 +181,15 @@ public class PageIndexSteps {
     /*
      * Move the below method to the class file
      */
-    @Then("^the user shall be able to view the list of indexes matching the search criteria as \"([^\"]*)\" on list page$")
-    public void the_user_shall_be_able_to_view_the_list_of_indexes_matching_the_above_search_criteria(String args)
+    @Then("^the user shall be able to view the list of indexes matching the search criteria$")
+    public void the_user_shall_be_able_to_view_the_list_of_indexes_matching_the_above_search_criteria(DataTable table)
             throws Throwable {
         Thread.sleep(3000);
-        String[] params = args.split(",");
-        pageFactory.getListIndexMethods().verifySearchResults(params[3], ListIndexMethods.Column.rateBasis);
-        pageFactory.getListIndexMethods().verifySearchResults(params[4], ListIndexMethods.Column.name);
-        pageFactory.getListIndexMethods().verifySearchResults(params[5], ListIndexMethods.Column.currency);
-        pageFactory.getListIndexMethods().verifySearchResults(params[6], ListIndexMethods.Column.uom);
+        List<List<String>> list=table.raw();
+        pageFactory.getListIndexMethods().verifySearchResults(list.get(0).get(0), ListIndexMethods.Column.rateBasis);
+        pageFactory.getListIndexMethods().verifySearchResults(list.get(0).get(1), ListIndexMethods.Column.name);
+        pageFactory.getListIndexMethods().verifySearchResults(list.get(0).get(2), ListIndexMethods.Column.currency);
+        pageFactory.getListIndexMethods().verifySearchResults(list.get(0).get(3), ListIndexMethods.Column.uom);
 
     }
 
@@ -214,8 +213,7 @@ public class PageIndexSteps {
     @Then("^the user shall be able to view the created index in the list on filtering with ([^\"]*)$")
     public void the_user_shall_be_able_to_view_the_created_index_in_the_list_on_filtering_with(String rate)
             throws Throwable {
-        Thread.sleep(5000);
-        Verify.verify(edriver.getCurrentUrl().contains("/index/list"), "Index is not created");
+        pageFactory.getListIndexMethods().verifyIfListPageDisplayed(true);
     }
 
     @And("^the user clicked on ([^\"]*) action$")
@@ -226,9 +224,9 @@ public class PageIndexSteps {
     @Then("^the index (should|should not) be (created|updated)$")
     public void the_index_should_be_createdOrUpdated(String action, String action1) {
         if (action.equalsIgnoreCase("should")) {
-            Verify.verify(edriver.getCurrentUrl().contains("/index/list"), "Index is not created or updated !!");
+            pageFactory.getListIndexMethods().verifyIfListPageDisplayed(true);
         } else {
-            Verify.verify(!edriver.getCurrentUrl().contains("/index/list"), "Index is created or updated !!");
+            pageFactory.getListIndexMethods().verifyIfListPageDisplayed(false);
         }
     }
 

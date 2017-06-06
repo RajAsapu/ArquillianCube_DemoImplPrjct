@@ -51,3 +51,9 @@ database:
   restartPolicy:
         name: failure
         maximumRetryCount: 2
+  beforeStop:
+    - copy:
+        from: /test
+        to: /tmp
+    - log:
+        to: /tmp/databaseContainer.log

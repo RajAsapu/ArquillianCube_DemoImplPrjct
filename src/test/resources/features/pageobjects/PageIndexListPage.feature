@@ -1,4 +1,5 @@
-@PageObjects
+@SmokeTest
+@IndexList
 Feature: To verify if the user is able to access list page under index.
 
   Acceptance Criteria: User shall be able to access features in the list page under index.
@@ -23,15 +24,20 @@ Feature: To verify if the user is able to access list page under index.
     When  the user enters the type as Manual
     And   clicks on the search button
     Then  the user shall be able to view the list of indexes with type as "MANUAL"
-
-  Scenario: To verify if the user is able to search on the list page with rate basis and currency as filters.
+  @DefectPrice736
+  Scenario Outline: To verify if the user is able to search on the list page with rate basis and currency as filters.
     Given the user has navigated to the "List" page under the "Index"
-    When  the user enters rate basis in search as Unit
-    And   name as Unl 89 NY Barge
-    And   currency in search USD
-    And   unit of measurement in search as USG
+    When  the user enters rate basis in search as <rateBasis>
+    And   name as <indexName>
+    And   currency in search <currency>
+    And   unit of measurement in search as <uom>
     And   clicks on the search button
-    Then  the user shall be able to view the list of indexes matching the search criteria as "null,null,null,Unit,UNL 89 NY BARGE,USD,USG" on list page
+    Then  the user shall be able to view the list of indexes matching the search criteria
+      |<rateBasis>|<indexName>|<currency>|<uom>|
+    Examples:
+    |rateBasis| indexName          | currency | uom |
+    | Unit    | Prem CBOB NY Cargo | USD      | USG |
+
 
 
 

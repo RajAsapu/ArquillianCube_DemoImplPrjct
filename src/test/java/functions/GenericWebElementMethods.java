@@ -15,6 +15,8 @@ import org.slf4j.LoggerFactory;
 import setup.Constants;
 import setup.DateOperations;
 import setup.DriverBean;
+
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -458,5 +460,15 @@ public class GenericWebElementMethods extends PageCommonMethods {
             Assert.fail("Record with name:" + name + " not found");
         }
         return flag;
+    }
+    /*
+     * Method to get date with time stamp
+     * Used for creating unique name
+     * @return: format - ddMMMyyHHmmss
+     */
+    public String getDateWithTime()
+    {
+        SimpleDateFormat dateFormat=new SimpleDateFormat("ddMMMyyHHmmss");
+        return dateFormat.format(new Timestamp(System.currentTimeMillis()));
     }
 }

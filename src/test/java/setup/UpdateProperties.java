@@ -11,7 +11,10 @@ import com.github.dockerjava.api.model.InternetProtocol;
 import com.github.dockerjava.api.model.PortBinding;
 import com.github.dockerjava.api.model.RestartPolicy;
 import com.github.dockerjava.core.DockerClientBuilder;
+import functions.GenericWebElementMethods;
 import org.junit.Assert;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.net.URL;
@@ -29,9 +32,11 @@ public class UpdateProperties {
     File hostConfigFile;
     InputStream inputStream;
     private DockerClient dockerClient;
+    protected static Logger log = null;
 
     public UpdateProperties() {
         props = new Properties();
+        log = LoggerFactory.getLogger(UpdateProperties.class);
     }
 
     public void setProperty(Map<String, String> map) {
@@ -90,7 +95,7 @@ public class UpdateProperties {
                 fwrite.close();
             }
         }catch (IOException exp) {
-            System.out.println("Error creating the hostConfig File"+exp.getMessage());
+            log.info("Error creating the hostConfig File"+exp.getMessage());
         }
         /*
          * Copying the hostConfig.json file to the Container
@@ -98,11 +103,11 @@ public class UpdateProperties {
         try {
             dockerClient = DockerClientBuilder.getInstance().build();
             dockerClient.copyArchiveToContainerCmd(getContainerIdUsingName("ui")).withRemotePath("/usr/share/nginx/html/config").withHostResource(hostConfigFile.getAbsolutePath()).withNoOverwriteDirNonDir(false).exec();
-            System.out.println("hostConfig file is updated in the ui container");
-            System.out.println(resultUpdate);
+            log.info("hostConfig file is updated in the ui container");
+            log.info(resultUpdate);
         }catch (Exception exp)
         {
-            System.out.println("Check if environment is set to docker in application.properties!!"+exp.getMessage());
+            Assert.fail("Check if environment is set to docker in application.properties!!"+exp.getMessage());
         }
     }
 
@@ -126,7 +131,7 @@ public class UpdateProperties {
                     .exec();
 
             dockerClient.startContainerCmd(container.getId()).exec();
-            System.out.println("Started Service Container");
+            log.info("Started Service Container");
             return true;
         } catch (Exception exp) {
             if (exp.getMessage().contains("already in use by container")) {

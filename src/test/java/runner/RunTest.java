@@ -7,14 +7,13 @@ import net.masterthought.cucumber.Configuration;
 import net.masterthought.cucumber.ReportBuilder;
 import net.masterthought.cucumber.Reportable;
 import org.arquillian.cube.CubeIp;
+import org.arquillian.cube.HostPort;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.junit.AfterClass;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import setup.OpenBrowser;
 import setup.UpdateProperties;
-import stepdef.DockerCommands;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,39 +23,44 @@ import java.util.Map;
 @RunWith(ArquillianCucumber.class)
 @CucumberOptions(
         plugin = {"html:target/cucumber-html-report","json:target/cucumber-json-report"},
-        features = {"src/test/resources/features/pageobjects/"},
+        features = {"src/test/resources/features/"},
         glue = {"classpath:"},
-        tags = {"@TestData4"}
+        tags = {}
 )
 @RunAsClient
-
 public class RunTest {
 
+    @HostPort(containerName = "ui", value = 80)
+    private static int uiPort;
+    @HostPort(containerName = "datamock", value = 5555)
+    private static int datamockPort;
+    @HostPort(containerName = "engine", value = 6666)
+    private static int enginePort;
     @CubeIp(containerName = "database")
-    protected static String ipDatabase;
+    protected String ipDatabase;
 
-    @BeforeClass
-    public static void initialization() throws Exception {
-         UpdateProperties props = new UpdateProperties();
+    @Test
+    public void initialization() throws Exception {
+
          Map<String, String> map = new HashMap<String, String>();
-
+         UpdateProperties props = new UpdateProperties();
         if (props.getEnv().equalsIgnoreCase("docker")) {
             Verify.verify(props.startServiceContainer(ipDatabase, "epe-config:latest"));
-            map.put("pricing.ui", "localhost:4200");
-            map.put("pricing.datamock", "localhost:5555");
-            map.put("pricing.engine", "localhost:8081");
+            map.put("pricing.ui", "localhost:" + String.valueOf(uiPort));
+            map.put("pricing.datamock", "localhost:" + String.valueOf(datamockPort));
+            map.put("pricing.engine", "localhost:" + String.valueOf(enginePort));
             map.put("pricing.service", "localhost:8080");
             props.setProperty(map);
             props.updateHostConfig();
             System.out.println("Arquillian - Containers has started .");
-            DockerCommands.ps();
         }
     }
 
     @AfterClass
     public static void generateReports()
     {
-        DockerCommands.psa();
+        UpdateProperties props = new UpdateProperties();
+        OpenBrowser browser=new OpenBrowser();
         File reportOutputDirectory = new File("target");
         List<String> jsonFiles = new ArrayList<>();
         jsonFiles.add("target/cucumber-json-report");
@@ -69,8 +73,8 @@ public class RunTest {
         configuration.setParallelTesting(false);
         configuration.setBuildNumber(buildNumber);
 
-        configuration.addClassifications("Platform", "Linux");
-        configuration.addClassifications("Browser", "Phantom JS");
+        configuration.addClassifications("Environment", props.getEnv());
+        configuration.addClassifications("Browser", browser.getSelectedDriver());
 
         ReportBuilder reportBuilder = new ReportBuilder(jsonFiles, configuration);
         Reportable result = reportBuilder.generateReports();

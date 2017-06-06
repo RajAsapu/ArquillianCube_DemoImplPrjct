@@ -25,7 +25,7 @@ public class CreateFormulaMethods extends GenericWebElementMethods {
     }
 
     public void setName(String name) {
-        sendKeysToWE(Constants.formulaCreate_name_xpath, name);
+        sendKeysToWE(Constants.formulaCreate_name_xpath, name+getDateWithTime());
     }
 
     public void setDescription(String description) {

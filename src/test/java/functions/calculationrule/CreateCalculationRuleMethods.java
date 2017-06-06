@@ -4,9 +4,12 @@ package functions.calculationrule;
 import cucumber.api.DataTable;
 import functions.GenericWebElementMethods;
 import org.junit.Assert;
+import org.junit.Test;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 import setup.Constants;
 import setup.DriverBean;
+
+import java.time.LocalDate;
 import java.util.List;
 
 public class CreateCalculationRuleMethods extends GenericWebElementMethods {
@@ -19,7 +22,7 @@ public class CreateCalculationRuleMethods extends GenericWebElementMethods {
     }
 
     public void setName(String name) {
-        sendKeysToWE(Constants.calculationRuleCreate_name_xpath, name);
+        sendKeysToWE(Constants.calculationRuleCreate_name_xpath, name+getDateWithTime());
     }
 
     public void setStartDate(String startDate) {

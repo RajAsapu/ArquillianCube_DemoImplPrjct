@@ -16,6 +16,6 @@ public class IEventListener extends AbstractWebDriverEventListener {
 
     @Override
     public void onException(Throwable throwable, WebDriver driver) {
-        new DateOperations().getScreenShot();
+
     }
 }

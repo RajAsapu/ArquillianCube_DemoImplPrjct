@@ -24,7 +24,7 @@ public class OpenBrowser {
     private IEventListener listener;
 
     public EventFiringWebDriver initBrowser(String url) {
-        driver = getDriver(Open.Chrome);
+        driver = getDriver(Open.PhantomJS);
         listener = new IEventListener();
         edriver = new EventFiringWebDriver(driver);
         edriver.register(listener);

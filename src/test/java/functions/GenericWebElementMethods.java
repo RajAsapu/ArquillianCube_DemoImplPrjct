@@ -44,6 +44,7 @@ public class GenericWebElementMethods extends PageCommonMethods {
      * position = -1 to get the last web element
      */
     protected WebElement getElementFromListWithPosition(String identifier, int position) {
+        waitFor(2);
         List<WebElement> list = null;
         list = edriver.findElements(By.xpath(identifier));
 

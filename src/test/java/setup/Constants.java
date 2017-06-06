@@ -75,6 +75,10 @@ public class Constants {
     public static String currencyExchangeList_currForm_xpath = "//*/select[@ng-reflect-name='currencyFrom']";
     public static String currencyExchangeList_currTo_xpath = "//*/select[@ng-reflect-name='currencyTo']";
     public static String currencyExchangeList_search_xpath = "//button[@label='Search']";
+    public static String currencyExchangeList_addCurrencyExchange_xpath = "//button[normalize-space()='Add Currency Exchange Rate']";
+    public static String currencyExchangeList_copyCurrencyExchange_xpath = "//button[normalize-space()='Copy Currency Exchange Rate']";
+    public static String currencyExchangeList_deactivateCurrencyExchange_xpath = "//button[normalize-space()='Deactivate Currency Exchange Rate']";
+
     /*
      * Currency Exchange List IPage Identifiers Currency Exchange table column
      * identifiers
@@ -87,6 +91,8 @@ public class Constants {
     public static String currencyExchangeList_rateColumn_xpath = "//table/tbody/tr[*]/td[5]";
     public static String currencyExchangeList_startDatePicker_xpath = "//div/div[1]/div[2]/div/p-calendar/span/button";
     public static String currencyExchangeList_endDatePicker_xpath = "//div[1]/div[3]/div/div/p-calendar/span/button";
+    public static String currencyExchangeList_columnHdrList_xpath = "//table/thead/tr/th[*]";
+
     /*
      * Currency Exchange Create IPage Identifiers
      */

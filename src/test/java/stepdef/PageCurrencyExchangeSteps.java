@@ -56,6 +56,22 @@ public class PageCurrencyExchangeSteps {
         pageFactory.getListCurrencyExchangeMethods().setCurrencyTo(to);
     }
 
+    @And("^clicks on add currency exchange$")
+    public void clicks_on_add_currency_exchange() {
+        pageFactory.getListCurrencyExchangeMethods().clickOnAddCurrencyExchangeButton();
+    }
+
+    @And("^clicks on copy currency exchange$")
+    public void clicks_on_copy_currency_exchange() {
+        pageFactory.getListCurrencyExchangeMethods().clickOnCopyCurrencyExchangeButton();
+    }
+
+    @And("^clicks on deactivate currency exchange$")
+    public void clicks_on_deactivate_currency_exchange() {
+        pageFactory.getListCurrencyExchangeMethods().clickOnDeactivateCurrencyExchangeButton();
+        pageFactory.getWorkBookDataMethods().deactivateRecord();
+    }
+
     @Then("^the application displays the search results as per the filters$")
     public void the_application_displays_the_search_results_as_per_the_filters(DataTable table) throws Throwable {
 
@@ -69,17 +85,22 @@ public class PageCurrencyExchangeSteps {
     }
 
     @When("^the user selects the sets the date as \"([^\"]*)\"$")
-    public void the_user_selects_the_sets_the_date_as(String date) throws Throwable {
+    public void the_user_selects_the_sets_the_date_as(String date)  {
         pageFactory.getCreateCurrencyExchangeMethods().setDate(date);
     }
 
+    @And("^the user clicks on search in currency exchange$")
+    public void the_user_clicks_on_search_in_currency_exchange() {
+        pageFactory.getListCurrencyExchangeMethods().clickOnSearchButton();
+    }
+
     @When("^sets the currency type as \"([^\"]*)\"")
-    public void sets_the_currency_type_as(String type) throws Throwable {
+    public void sets_the_currency_type_as(String type)  {
         pageFactory.getCreateCurrencyExchangeMethods().setType(type);
     }
 
     @When("^sets the currencyFrom field in create page to \"([^\"]*)\"")
-    public void sets_the_currencyFrom_field_in_create_page_to(String fromCurrency) throws Throwable {
+    public void sets_the_currencyFrom_field_in_create_page_to(String fromCurrency) {
         pageFactory.getCreateCurrencyExchangeMethods().setFromCurrency(fromCurrency);
     }
 
@@ -99,5 +120,8 @@ public class PageCurrencyExchangeSteps {
         pageFactory.getListCurrencyExchangeMethods().verifyIfThePageIsListPage();
     }
 
-
+    @Then("^the columns of the currency exchange should be in the order of Status, From, To, Date, Rate Type, Rate and Actions$")
+    public void the_columns_of_the_currency_exchange_should_be_in_the_order_of_Status_From_To_Date_Rate_Type_Rate_and_Actions() {
+        pageFactory.getListCurrencyExchangeMethods().verifyIfColumnOrder();
+    }
 }

@@ -2,31 +2,32 @@ package runner;
 
 import com.google.common.base.Verify;
 import cucumber.api.CucumberOptions;
-import cucumber.runtime.arquillian.ArquillianCucumber;
+import cucumber.runtime.arquillian.CukeSpace;
 import net.masterthought.cucumber.Configuration;
 import net.masterthought.cucumber.ReportBuilder;
 import net.masterthought.cucumber.Reportable;
 import org.arquillian.cube.CubeIp;
 import org.arquillian.cube.HostPort;
 import org.jboss.arquillian.container.test.api.RunAsClient;
+import org.junit.After;
 import org.junit.AfterClass;
-import org.junit.Test;
+import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
 import setup.OpenBrowser;
 import setup.UpdateProperties;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@RunWith(ArquillianCucumber.class)
+@RunWith(CukeSpace.class)
 @CucumberOptions(
         plugin = {"html:target/cucumber-html-report", "json:target/cucumber-json-report"},
-        features = {"src/test/resources/features/"},
+        features = {"src/test/resources/features/pageobjects/"},
         glue = {"classpath:"},
-        tags = {"@TestData", "@SmokeTest"}
+        tags = {"@TestData,@WorkBookList"}
 )
 @RunAsClient
 public class RunTest {
@@ -64,7 +65,7 @@ public class RunTest {
 
     }
 
-    @Test
+    @Before
     public void initialization() throws Exception {
 
         Map<String, String> map = new HashMap<String, String>();

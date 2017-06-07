@@ -134,8 +134,6 @@ public class UpdateProperties {
                     .exec();
 
             dockerClient.startContainerCmd(container.getId()).exec();
-            int exitCode = dockerClient.waitContainerCmd(container.getId()).exec(new WaitContainerResultCallback()).awaitStatusCode(60, TimeUnit.SECONDS);
-            Verify.verify(exitCode==0,"Service Container hasn't Started");
             log.info("Started Service Container");
             /*
              * Display list of running conatiners

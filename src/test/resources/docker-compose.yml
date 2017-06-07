@@ -5,7 +5,9 @@ ui:
   attachStdin: true
   attachSterr: true
   dnsSearch: [localhost]
-  alwaysPull: false
+  networks:
+        - mynetwork
+  alwaysPull: true
   portBindings: [4200->80/tcp]
 datamock:
   image: 'epe-data-mock:latest'
@@ -14,8 +16,10 @@ datamock:
   attachSterr: true
   networkMode: host
   privileged: true
-  alwaysPull: false
+  alwaysPull: true
   dnsSearch: [losthost]
+  networks:
+       - mynetwork
   env:
     - server.port=5555
     - "spring.datasource.url=jdbc:oracle:thin:@devdb.wfs.com:1535:dev"
@@ -32,10 +36,12 @@ engine:
   publishAllPorts: true
   attachStdin: true
   attachSterr: true
-  alwaysPull: false
+  alwaysPull: true
   dnsSearch: [localhost]
   env: [server.port=6666]
   portBindings: [8081->6666/tcp]
+  networks:
+        - mynetwork
   restartPolicy:
         name: failure
         maximumRetryCount: 2
@@ -45,9 +51,19 @@ database:
   publishAllPorts: true
   attachStdin: true
   attachSterr: true
-  alwaysPull: false
+  alwaysPull: true
   dnsSearch: [localhost]
+  cpuShares: 5
+  cpuQuota: 5000
   portBindings: [9042->9042/tcp,8943->8943/tcp]
+  networks:
+        - mynetwork
   restartPolicy:
         name: failure
         maximumRetryCount: 2
+networks:
+   mynetwork:
+      driver: bridge
+
+
+

@@ -51,7 +51,7 @@ database:
   publishAllPorts: true
   attachStdin: true
   attachSterr: true
-  alwaysPull: true
+  alwaysPull: false
   dnsSearch: [localhost]
   cpuShares: 5
   cpuQuota: 5000

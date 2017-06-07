@@ -1,5 +1,5 @@
 ui:
-  image: 'ep-ui:latest'
+  image: 'epe-ui-nokeycloak:latest'
   exposedPorts: [4200/tcp]
   publishAllPorts: true
   attachStdin: true

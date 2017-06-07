@@ -6,20 +6,24 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.github.dockerjava.api.DockerClient;
 import com.github.dockerjava.api.command.CreateContainerResponse;
 import com.github.dockerjava.api.command.InspectContainerResponse;
-import com.github.dockerjava.api.model.ExposedPort;
-import com.github.dockerjava.api.model.InternetProtocol;
-import com.github.dockerjava.api.model.PortBinding;
-import com.github.dockerjava.api.model.RestartPolicy;
+import com.github.dockerjava.api.model.*;
 import com.github.dockerjava.core.DockerClientBuilder;
+import com.github.dockerjava.core.command.WaitContainerResultCallback;
+import com.google.common.base.Verify;
 import org.junit.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.net.URL;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.ResourceBundle;
+import java.util.concurrent.TimeUnit;
+
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class UpdateProperties {
 
@@ -116,6 +120,7 @@ public class UpdateProperties {
 
     public boolean startServiceContainer(String dbIpAddress, String image) {
         try {
+            Thread.sleep(5000);
             dockerClient = DockerClientBuilder.getInstance().build();
             CreateContainerResponse container = dockerClient.createContainerCmd(image)
                     .withExposedPorts(new ExposedPort(8080, InternetProtocol.TCP))
@@ -129,7 +134,16 @@ public class UpdateProperties {
                     .exec();
 
             dockerClient.startContainerCmd(container.getId()).exec();
+            int exitCode = dockerClient.waitContainerCmd(container.getId()).exec(new WaitContainerResultCallback()).awaitStatusCode(60, TimeUnit.SECONDS);
+            Verify.verify(exitCode==0,"Service Container hasn't Started");
             log.info("Started Service Container");
+            /*
+             * Display list of running conatiners
+             */
+            List<Container> containers = dockerClient.listContainersCmd().withShowAll(true).exec();
+            assertThat(containers, notNullValue());
+            log.info("Container List: {}", containers);
+
             return true;
         } catch (Exception exp) {
             if (exp.getMessage().contains("already in use by container")) {

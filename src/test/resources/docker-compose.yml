@@ -5,9 +5,7 @@ ui:
   attachStdin: true
   attachSterr: true
   dnsSearch: [localhost]
-  networks:
-        - mynetwork
-  alwaysPull: true
+  alwaysPull: false
   portBindings: [4200->80/tcp]
 datamock:
   image: 'epe-data-mock:latest'
@@ -16,10 +14,8 @@ datamock:
   attachSterr: true
   networkMode: host
   privileged: true
-  alwaysPull: true
+  alwaysPull: false
   dnsSearch: [losthost]
-  networks:
-       - mynetwork
   env:
     - server.port=5555
     - "spring.datasource.url=jdbc:oracle:thin:@devdb.wfs.com:1535:dev"
@@ -36,12 +32,10 @@ engine:
   publishAllPorts: true
   attachStdin: true
   attachSterr: true
-  alwaysPull: true
+  alwaysPull: false
   dnsSearch: [localhost]
   env: [server.port=6666]
   portBindings: [8081->6666/tcp]
-  networks:
-        - mynetwork
   restartPolicy:
         name: failure
         maximumRetryCount: 2
@@ -56,14 +50,27 @@ database:
   cpuShares: 5
   cpuQuota: 5000
   portBindings: [9042->9042/tcp,8943->8943/tcp]
-  networks:
-        - mynetwork
   restartPolicy:
         name: failure
         maximumRetryCount: 2
-networks:
-   mynetwork:
-      driver: bridge
+service:
+  image: 'epe-config:latest'
+  publishAllPorts: true
+  exposedPorts: [9042/tcp]
+  attachStdin: true
+  alwaysPull: false
+  dnsSearch: [localhost]
+  portBindings: [8080->8080/tcp]
+  links:
+     - database
+  dependsOn: [database]
+  env:
+     - cassandra.contactpoints=database
+  restartPolicy:
+      name: failure
+      maximumRetryCount: 2
+  manual: true
+
 
 
 

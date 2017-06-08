@@ -27,7 +27,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 public class UpdateProperties {
 
-    protected static Logger log = null;
+    private static Logger log = LoggerFactory.getLogger(UpdateProperties.class);
     public Properties props;
     File resourceFile;
     String resourceFilePath;
@@ -39,7 +39,6 @@ public class UpdateProperties {
 
     public UpdateProperties() {
         props = new Properties();
-        log = LoggerFactory.getLogger(UpdateProperties.class);
     }
 
     public void setProperty(Map<String, String> map) {
@@ -116,41 +115,5 @@ public class UpdateProperties {
     public String getContainerIdUsingName(String containerName) {
         InspectContainerResponse containerInfo = dockerClient.inspectContainerCmd(containerName).exec();
         return containerInfo.getId();
-    }
-
-    public boolean startServiceContainer(String dbIpAddress, String image) {
-        try {
-            Thread.sleep(5000);
-            dockerClient = DockerClientBuilder.getInstance().build();
-            CreateContainerResponse container = dockerClient.createContainerCmd(image)
-                    .withExposedPorts(new ExposedPort(8080, InternetProtocol.TCP))
-                    .withPortBindings(PortBinding.parse("8080:8080"))
-                    .withPublishAllPorts(true)
-                    .withAttachStderr(true)
-                    .withAttachStdin(true)
-                    .withEnv("cassandra.contactpoints=" + dbIpAddress)
-                    .withName("service")
-                    .withRestartPolicy(RestartPolicy.onFailureRestart(2))
-                    .exec();
-
-            dockerClient.startContainerCmd(container.getId()).exec();
-            log.info("Started Service Container");
-            /*
-             * Display list of running conatiners
-             */
-            List<Container> containers = dockerClient.listContainersCmd().withShowAll(true).exec();
-            assertThat(containers, notNullValue());
-            log.info("Container List: {}", containers);
-
-            return true;
-        } catch (Exception exp) {
-            if (exp.getMessage().contains("already in use by container")) {
-                return true;
-            } else {
-                Assert.fail("Service Container is not started" + exp.getMessage());
-                return false;
-            }
-        }
-
     }
 }

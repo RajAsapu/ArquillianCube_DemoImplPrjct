@@ -1,10 +1,9 @@
-@TestData
+@AppTestData
 Feature: Test Data
 
   Background:
     Given  the user has logged into the pricing application
 
-  @TestOne
   Scenario Outline: To verify if the user is able to create a calculation rule with type as Day.
     Given the user has navigated to the "Create" page under the "Calculation_Rule"
     When  the user enters name  as "<name>"
@@ -54,7 +53,6 @@ Feature: Test Data
     Examples:
       | name              | startDate   | endDate | type  | description | mn_RuleType   | ep_NoOfMonths | ep_startDayMn | noOfMonthsCalc | cp_startDayMn | offset |
       | TestCalcMonthRule | 23-JAN-2017 | today   | Month | for testing | Single Period | 2             | 5             | 2              | 7             | 2      |
-  @TestTwo
   Scenario Outline: To verify if the user is able to create an index.
     Given the user has navigated to the "Create" page under the "Index"
     When  the user enters rate basis as Unit
@@ -69,6 +67,7 @@ Feature: Test Data
       | lowPrice | midPrice | highPrice | closePrice |
       | 10.5     | 15.8     | 30.2      | 18.8       |
     # Test data : Currency Exchange
+  @TestIndex
   Scenario Outline: To verify if the user is able to search on the list page with start date as filter.
     Given the user has navigated to the "Create" page under the "Currency_Exchange"
     When  the user selects the sets the date as "<date>"
@@ -97,7 +96,6 @@ Feature: Test Data
     Examples:
       | name              | description | formulaType | segmentType | defaultValue |
       | TestWorkbook3Attr | for testing | PRICE       | LAND        | 20           |
-
   Scenario Outline: To verify if the user is able to create a workbook configuration by adding all the available attributes.
     Given the user has navigated to the "Create" page under the "Workbook"
     When  name is set to "<name>"

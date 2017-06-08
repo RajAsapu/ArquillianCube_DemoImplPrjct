@@ -1,5 +1,5 @@
 ui:
-  image: 'epe-ui-nokeycloak:latest'
+  image: epe-ui-nokeycloak:${UI_IMAGE_TAG}
   exposedPorts: [4200/tcp]
   publishAllPorts: true
   attachStdin: true
@@ -9,7 +9,7 @@ ui:
   portBindings: [4200->80/tcp]
   killContainer: true
 datamock:
-  image: 'epe-data-mock:latest'
+  image: "epe-data-mock:${DATAMOCK_IMAGE_TAG}"
   exposedPorts: [8082/tcp]
   attachStdin: true
   attachSterr: true
@@ -29,52 +29,33 @@ datamock:
         name: failure
         maximumRetryCount: 2
 engine:
-  image: 'epe-price-engine:latest'
+  image: "epe-price-engine:${ENGINE_IMAGE_TAG}"
   exposedPorts: [8081/tcp]
   publishAllPorts: true
   attachStdin: true
   attachSterr: true
   alwaysPull: false
   dnsSearch: [localhost]
-  env: [server.port=8081]
+  env:
+      - server.port=8081
   portBindings: [8081->8081/tcp]
   killContainer: true
   restartPolicy:
         name: failure
         maximumRetryCount: 2
 database:
-  image: 'solr-cassandra:latest'
-  exposedPorts: [9042/tcp]
-  publishAllPorts: true
-  attachStdin: true
-  attachSterr: true
-  alwaysPull: false
-  dnsSearch: [localhost]
-  cpuShares: 2
-  cpuQuota: 2000
-  portBindings: [9042->9042/tcp,8943->8943/tcp]
-  killContainer: true
-  restartPolicy:
-        name: failure
-        maximumRetryCount: 2
-service:
-  image: 'epe-config:latest'
-  publishAllPorts: true
-  exposedPorts: [9042/tcp]
-  attachStdin: true
-  alwaysPull: false
-  dnsSearch: [localhost]
-  portBindings: [8080->8080/tcp]
-  killContainer: true
-  links:
-     - database
-  dependsOn: [database]
-  env:
-     - cassandra.contactpoints=database
-  restartPolicy:
-      name: failure
-      maximumRetryCount: 2
-  manual: true
+    image: "solr-cassandra:${DATABASE_IMAGE_TAG}"
+    exposedPorts: [9042/tcp]
+    publishAllPorts: true
+    attachStdin: true
+    attachSterr: true
+    alwaysPull: false
+    dnsSearch: [localhost]
+    portBindings: [9042->9042/tcp,8943->8943/tcp]
+    killContainer: true
+    restartPolicy:
+          name: failure
+          maximumRetryCount: 2
 
 
 

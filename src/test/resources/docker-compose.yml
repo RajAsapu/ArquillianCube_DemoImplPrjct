@@ -1,62 +1,28 @@
 ui:
-  image: epe-ui-nokeycloak:${UI_IMAGE_TAG}
-  exposedPorts: [4200/tcp]
-  publishAllPorts: true
-  attachStdin: true
-  attachSterr: true
-  dnsSearch: [localhost]
-  alwaysPull: false
-  portBindings: [4200->80/tcp]
-  killContainer: true
+    image: "epe-ui-nokeycloak:${UI_IMAGE_TAG}"
+    ports:
+        - "4200:80"
 datamock:
-  image: "epe-data-mock:${DATAMOCK_IMAGE_TAG}"
-  exposedPorts: [8082/tcp]
-  attachStdin: true
-  attachSterr: true
-  networkMode: host
-  privileged: true
-  alwaysPull: false
-  dnsSearch: [losthost]
-  killContainer: true
-  env:
-    - server.port=8082
-    - "spring.datasource.url=jdbc:oracle:thin:@devdb.wfs.com:1535:dev"
-    - spring.datasource.driverClassName=oracle.jdbc.OracleDriver
-    - spring.datasource.username=apps
-    - spring.datasource.password=apps
-  portBindings: [8082->8082/tcp]
-  restartPolicy:
-        name: failure
-        maximumRetryCount: 2
+    image: "epe-data-mock:latest"
+    environment:
+      - server.port=8082
+      - "spring.datasource.url=jdbc:oracle:thin:@devdb.wfs.com:1535:dev"
+      - spring.datasource.driverClassName=oracle.jdbc.OracleDriver
+      - spring.datasource.username=apps
+      - spring.datasource.password=apps
+    ports:
+        - "8082:8082"
 engine:
-  image: "epe-price-engine:${ENGINE_IMAGE_TAG}"
-  exposedPorts: [8081/tcp]
-  publishAllPorts: true
-  attachStdin: true
-  attachSterr: true
-  alwaysPull: false
-  dnsSearch: [localhost]
-  env:
-      - server.port=8081
-  portBindings: [8081->8081/tcp]
-  killContainer: true
-  restartPolicy:
-        name: failure
-        maximumRetryCount: 2
+    image: "epe-price-engine:latest"
+    environment:
+        - server.port=8081
+    ports:
+        - "8081:8081"
 database:
-    image: "solr-cassandra:${DATABASE_IMAGE_TAG}"
-    exposedPorts: [9042/tcp]
-    publishAllPorts: true
-    attachStdin: true
-    attachSterr: true
-    alwaysPull: false
-    dnsSearch: [localhost]
-    portBindings: [9042->9042/tcp,8943->8943/tcp]
-    killContainer: true
-    restartPolicy:
-          name: failure
-          maximumRetryCount: 2
-
+    image: "solr-cassandra:latest"
+    ports:
+        - "9042:9042"
+        - "8943:8943"
 
 
 

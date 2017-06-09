@@ -2,6 +2,7 @@ package runner;
 
 import com.google.common.base.Verify;
 import cucumber.api.CucumberOptions;
+import cucumber.runtime.arquillian.CukeSpace;
 import net.masterthought.cucumber.Configuration;
 import net.masterthought.cucumber.ReportBuilder;
 import net.masterthought.cucumber.Reportable;
@@ -21,7 +22,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@RunWith(Arquillian.class)
+@RunWith(CukeSpace.class)
 @CucumberOptions(
         plugin = {"progress","html:target/cucumber-html-report", "json:target/cucumber-json-report"},
         features = {"src/test/resources/features/"},
@@ -41,25 +42,12 @@ public class RunTest {
     /*
      * List of container names
      */
-    private final static String UI_CONTAINER_NAME = "ui";
-    private final static String ENGINE_CONTAINER_NAME = "engine";
-    private final static String DATAMOCK_CONTAINER_NAME = "datamock";
     private final static String DATABASE_CONTAINER_NAME = "database";
-    /*
-     * Extract exposed ports into variables
-     */
-    @HostPort(containerName = UI_CONTAINER_NAME, value = 80)
-    private int uiPort;
-    @HostPort(containerName = ENGINE_CONTAINER_NAME, value = 8081)
-    private int enginePort;
-    @HostPort(containerName = DATAMOCK_CONTAINER_NAME, value = 8082)
-    private int datamockPort;
     /*
      * Variable to get the ipaddress of the database container
      */
     @CubeIp(containerName = DATABASE_CONTAINER_NAME)
     private String ipDatabase;
-
 
     @AfterClass
     public static void generateReports() {
@@ -92,10 +80,10 @@ public class RunTest {
             /*
              * Writing exposed ports to the properties file
              */
-            map.put("pricing.ui", "localhost:" + String.valueOf(uiPort));
-            map.put("pricing.datamock", "localhost:" + String.valueOf(datamockPort));
-            map.put("pricing.engine", "localhost:" + String.valueOf(enginePort));
-            map.put("pricing.service", "localhost:8080");
+            map.put("pricing.ui"      , "localhost:4200");
+            map.put("pricing.datamock", "localhost:8082");
+            map.put("pricing.engine"  , "localhost:8081");
+            map.put("pricing.service" , "localhost:8080");
             props.setProperty(map);
             props.updateHostConfig();
             /*

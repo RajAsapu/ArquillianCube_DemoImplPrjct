@@ -17,11 +17,11 @@
         </encoder>
     </appender>
 
-    <logger name="pricing-e2e-tests" level="debug" additivity="false">
+    <logger name="pricing-e2e-tests" level="info" additivity="false">
         <appender-ref ref="FILE-ENGINE" />
     </logger>
 
-    <root level="error">
+    <root level="info">
         <appender-ref ref="FILE-ENGINE-ERROR" />
     </root>
 

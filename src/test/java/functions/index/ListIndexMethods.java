@@ -5,10 +5,7 @@ import functions.GenericWebElementMethods;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
-import org.openqa.selenium.support.ui.Select;
-import org.openqa.selenium.support.ui.UnexpectedTagNameException;
 import setup.Constants;
 import setup.DriverBean;
 
@@ -17,32 +14,25 @@ import java.util.List;
 public class ListIndexMethods extends GenericWebElementMethods {
     private EventFiringWebDriver edriver;
 
-    public ListIndexMethods()
-    {
-        edriver= DriverBean.getDriver();
+    public ListIndexMethods() {
+        edriver = DriverBean.getDriver();
     }
+
     /*
      * Methods to search
      */
     public void setStartDate(String startDate) {
-        selectDate(startDate, Constants.indexList_startdatepicker_xpath, Constants.indexList_startdate_xpath);
+        sendKeysToWE(Constants.indexList_startdate_xpath, startDate);
+        clickOnTab();
     }
 
     public void setEndDate(String endDate) {
-        selectDate(endDate, Constants.indexList_enddatepicker_xapth, Constants.indexList_endDate_xpath);
+        sendKeysToWE(Constants.indexList_endDate_xpath, endDate);
+        clickOnTab();
     }
 
     public void setStatus(String status) {
-        WebElement options = edriver.findElement(By.xpath(Constants.indexList_status_xpath));
-        try {
-            Select s = new Select(options);
-            s.selectByVisibleText(status);
-        } catch (UnexpectedTagNameException unexpectedTagNameException) {
-            Actions actions = new Actions(edriver);
-            actions.click(options).perform();
-            WebElement element = getElementFromListWithPosition("//*[normalize-space()='" + status + "']", -1);
-            element.click();
-        }
+        selectFromDropDown_LabelTag(Constants.indexList_status_xpath, status, 0);
     }
 
     public void setType(String type) {
@@ -161,6 +151,16 @@ public class ListIndexMethods extends GenericWebElementMethods {
     public void verifyIfTheStatusOfIndexChangedToInactive() {
         String status = getElementFromListWithPosition(Constants.indexList_StatusColumn_xpath, 0).getText();
         Verify.verify(status.equalsIgnoreCase("inactive"), "Index is not deactivated !!");
+    }
+
+    public void verifyIfListPageDisplayed(boolean isListPage) {
+        waitFor(2);
+        if (isListPage) {
+            Verify.verify(edriver.getCurrentUrl().contains("/index/list"), "Index is not created or updated !!");
+        } else {
+            Verify.verify(!edriver.getCurrentUrl().contains("/index/list"), "Index is created or updated !!");
+        }
+
     }
 
     /*

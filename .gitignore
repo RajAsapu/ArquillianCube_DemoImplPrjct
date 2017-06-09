@@ -8,3 +8,4 @@ out/*
 target/integration-cucumber/*
 target/*
 C:\log4j-application.log
+gradle/*

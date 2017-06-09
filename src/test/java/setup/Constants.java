@@ -12,33 +12,33 @@ public class Constants {
     /*
      * Login page identifiers
      */
-    public static String login_username_id = "username";
-    public static String login_password_id = "password";
-    public static String login_submit_id = "kc-login";
+    public static String login_username_xpath = "//*[@id='username']";
+    public static String login_password_xpath = "//*[@id='password']";
+    public static String login_submit_xpath = "//*[@id='kc-login']";
     /*
      * Index : List page identifiers
      */
     public static String indexList_startdate_xpath = "//input[@placeholder='DD-MMM-YYYY']";
     public static String indexList_status_xpath = ".//*[@id='content']/calc-rule-list/div/div/div/p-panel/div/div[2]/div/form/div/div[1]/div[3]/div/p-dropdown/div/label";
     public static String indexList_startdatepicker_xpath = ".//*[@id='content']/calc-rule-list/div/div/div/p-panel/div/div[2]/div/form/div/div[1]/div[1]/div/p-calendar/span/button";
-    public static String indexList_StartDateColumn_xpath = "//*/p-datatable/div/div[2]/table/tbody/tr[*]/td[2]";
+    public static String indexList_StartDateColumn_xpath = "//*/p-datatable/div/div[2]/table/tbody/tr[*]/td[13]";
     public static String indexList_enddatepicker_xapth = ".//*[@id='content']/calc-rule-list/div/div/div/p-panel/div/div[2]/div/form/div/div[1]/div[2]/div/p-calendar/span/button";
     public static String indexList_endDate_xpath = ".//*[@id='content']/calc-rule-list/div/div/div/p-panel/div/div[2]/div/form/div/div[1]/div[2]/div/p-calendar/span/input";
-    public static String indexList_EndDateColumn_xpath = "//*/p-datatable/div/div[2]/table/tbody/tr[*]/td[3]";
+    public static String indexList_EndDateColumn_xpath = "//*/p-datatable/div/div[2]/table/tbody/tr[*]/td[14]";
     public static String indexList_search_xpath = "//button[@label='Search']";
-    public static String indexList_StatusColumn_xpath = "//*/p-datatable/div/div[2]/table/tbody/tr[*]/td[1]";
+    public static String indexList_StatusColumn_xpath = "//*/p-datatable/div/div[2]/table/tbody/tr[*]/td[15]";
     public static String indexList_type_xpath = ".//*[@id='content']/calc-rule-list/div/div/div/p-panel/div/div[2]/div/form/div/div[2]/div[1]/div/p-dropdown/div/label";
     public static String indexList_rateBasis_xpath = ".//*[@id='content']/calc-rule-list/div/div/div/p-panel/div/div[2]/div/form/div/div[2]/div[2]/div/p-dropdown/div/label";
     public static String indexList_name_xpath = "//*/p-autocomplete/span/input";
     public static String indexList_currency_xpath = ".//*[@id='content']/calc-rule-list/div/div/div/p-panel/div/div[2]/div/form/div/div[2]/div[4]/div/select";
     public static String indexList_uom_xpath = ".//*[@id='content']/calc-rule-list/div/div/div/p-panel/div/div[2]/div/form/div/div[2]/div[5]/div/select";
-    public static String indexList_typeColumn_xpath = "//*/p-datatable/div/div[2]/table/tbody/tr[*]/td[4]";
+    public static String indexList_typeColumn_xpath = "//*/p-datatable/div/div[2]/table/tbody/tr[*]/td[3]";
     public static String indexList_name_autofill_xpath = "//*/calc-rule-list/div/div/div/div[2]/form/p-fieldset/fieldset/div/div/div[2]/div[3]/div/p-autocomplete/span/div/ul/li";
-    public static String indexList_ratebasisColumn_xpath = "//*/p-datatable/div/div[2]/table/tbody/tr[*]/td[12]";
-    public static String indexList_nameColumn_xpath = "//*/p-datatable/div/div[2]/table/tbody/tr[*]/td[5]";
-    public static String indexList_currencyColumn_xpath = "//*/p-datatable/div/div[2]/table/tbody/tr[*]/td[10]";
-    public static String indexList_uomColumn_xpath = "//*/p-datatable/div/div[2]/table/tbody/tr[*]/td[11]";
-    public static String indexList_addNewIndex_xpath = "//*/button[normalize-space()='Add New Index']";
+    public static String indexList_ratebasisColumn_xpath = "//*/p-datatable/div/div[2]/table/tbody/tr[*]/td[6]";
+    public static String indexList_nameColumn_xpath = "//*/p-datatable/div/div[2]/table/tbody/tr[*]/td[2]";
+    public static String indexList_currencyColumn_xpath = "//*/p-datatable/div/div[2]/table/tbody/tr[*]/td[4]";
+    public static String indexList_uomColumn_xpath = "//*/p-datatable/div/div[2]/table/tbody/tr[*]/td[5]";
+    public static String indexList_addNewIndex_xpath = "//button[normalize-space()='Add Index']";
     public static String indexList_deactivateAction_xpath = "//*[@title='Deactivate']";
     public static String indexList_copyAction_xpath = "//*[@title='Copy']";
     public static String indexList_editAction_xpath = "//*[@title='Edit']";
@@ -83,15 +83,16 @@ public class Constants {
      * Currency Exchange List IPage Identifiers Currency Exchange table column
      * identifiers
      */
-    public static String currencyExchangeList_statusColumn_xpath = "//*/p-datatable/div/div[2]/table/tbody/tr[*]/td[1]";
-    public static String currencyExchangeList_fromColumn_xpath = "//*/p-datatable/div/div[2]/table/tbody/tr[*]/td[2]";
-    public static String currencyExchangeList_toColumn_xpath = "//*/p-datatable/div/div[2]/table/tbody/tr[*]/td[3]";
-    public static String currencyExchangeList_dateColumn_xpath = "//*/p-datatable/div/div[2]/table/tbody/tr[*]/td[4]";
-    public static String currencyExchangeList_rateTypeColumn_xpath = "//*/p-datatable/div/div[2]/table/tbody/tr[*]/td[5]";
-    public static String currencyExchangeList_rateColumn_xpath = "//*/p-datatable/div/div[2]/table/tbody/tr[*]/td[6]";
-    public static String currencyExchangeList_startDatePicker_xpath = ".//*[@id='content']/calc-rule-list/div/div/div/div/p-panel/div/div[2]/div/form/div/div[1]/div[2]/div/p-calendar/span/button";
-    public static String currencyExchangeList_endDatePicker_xpath = ".//*[@id='content']/calc-rule-list/div/div/div/div/p-panel/div/div[2]/div/form/div/div[1]/div[3]/div/div/p-calendar/span/button";
+    public static String currencyExchangeList_statusColumn_xpath = "//table/tbody/tr[*]/td[7]";
+    public static String currencyExchangeList_fromColumn_xpath = "//table/tbody/tr[*]/td[2]";
+    public static String currencyExchangeList_toColumn_xpath = "//table/tbody/tr[*]/td[3]";
+    public static String currencyExchangeList_dateColumn_xpath = "//table/tbody/tr[*]/td[6]";
+    public static String currencyExchangeList_rateTypeColumn_xpath = "//table/tbody/tr[*]/td[4]";
+    public static String currencyExchangeList_rateColumn_xpath = "//table/tbody/tr[*]/td[5]";
+    public static String currencyExchangeList_startDatePicker_xpath = "//div/div[1]/div[2]/div/p-calendar/span/button";
+    public static String currencyExchangeList_endDatePicker_xpath = "//div[1]/div[3]/div/div/p-calendar/span/button";
     public static String currencyExchangeList_columnHdrList_xpath = "//table/thead/tr/th[*]";
+
     /*
      * Currency Exchange Create IPage Identifiers
      */
@@ -138,40 +139,40 @@ public class Constants {
     /*
      * Calculation period List page identifiers
      */
-    public static String calculationRuleList_searchByName_xpath = "//*/th[4]/input";
-    public static String calculationRuleList_searchByType_xpath = "//*/th[5]/input";
-    public static String calculationRuleList_searchByDescrp_xpath = "//*/th[6]/input";
-    public static String calculationRuleList_statusColumn_xpath = "//*/table/tbody/tr[*]/td[1]";
-    public static String calculationRuleList_nameColumn_xpath = "//*/table/tbody/tr[*]/td[4]";
-    public static String calculationRuleList_typeColumn_xpath = "//*/table/tbody/tr[*]/td[5]";
-    public static String calculationRuleList_descpColumn_xpath = "//*/table/tbody/tr[*]/td[6]";
-    public static String calculationRuleList_addNewRule_xpath = "//button[normalize-space()='Add New Rule']";
-    public static String calculationRuleList_hdrStatusColumn_xpath = "//*/tr/th[1]";
-    public static String calculationRuleList_hdrNameColumn_xpath = "//*/tr/th[4]/span[2]";
-    public static String calculationRuleList_hdrTypeColumn_xpath = "//*/tr/th[5]/span[2]";
-    public static String calculationRuleList_hdrDescrpColumn_xpath = "//*/tr/th[6]/span[2]";
-    public static String calculationRuleList_actionView_xpath = "//*/tr[*]/td[7]/span/div/button[1]";
-    public static String calculationRuleList_actionInactive_xpath = "//*/authorize/button[1]";
-    public static String calculationRuleList_actionEdit_xpath = "//*/authorize/button[2]";
+    public static String calculationRuleList_searchByName_xpath = "//tr/th[2]/input";
+    public static String calculationRuleList_searchByType_xpath = "//tr/th[4]/input";
+    public static String calculationRuleList_searchByDescrp_xpath = "//tr/th[3]/input";
+    public static String calculationRuleList_statusColumn_xpath = "//table/tbody/tr[*]/td[7]";
+    public static String calculationRuleList_nameColumn_xpath = "//table/tbody/tr[*]/td[2]";
+    public static String calculationRuleList_typeColumn_xpath = "//table/tbody/tr[*]/td[4]";
+    public static String calculationRuleList_descpColumn_xpath = "//table/tbody/tr[*]/td[3]";
+    public static String calculationRuleList_addNewRule_xpath = "//button[normalize-space()='Add Rule']";
+    public static String calculationRuleList_hdrStatusColumn_xpath = "//table/thead/tr/th[7]";
+    public static String calculationRuleList_hdrNameColumn_xpath = "//table/thead/tr/th[2]";
+    public static String calculationRuleList_hdrTypeColumn_xpath = "//table/thead/tr/th[4]";
+    public static String calculationRuleList_hdrDescrpColumn_xpath = "//table/thead/tr/th[3]";
+    public static String calculationRuleList_actionView_xpath = "//button[normalize-space()='View Rule']";
+    public static String calculationRuleList_actionDeactivate_xpath = "//button[normalize-space()='Deactivate Rule']";
+    public static String calculationRuleList_actionEdit_xpath = "//button[normalize-space()='Edit Rule']";
     /*
      * Formula - List page identifiers
      */
     public static String formulaList_filter_xpath = "//*/button[normalize-space()='Filter']";
-    public static String formulaList_nameFilter_xpath = "//*/p-datatable/div/div/table/thead/tr/th[1]/input";
-    public static String formulaList_descrpFilter_xpath = "//*/p-datatable/div/div/table/thead/tr/th[2]/input";
-    public static String formulaList_typeFilter_xpath = "//*/p-datatable/div/div/table/thead/tr/th[3]/input";
-    public static String formulaList_exprsFilter_xpath = "//*/p-datatable/div/div/table/thead/tr/th[4]/input";
-    public static String formulaList_startDateFilter_xpath = "//*/p-datatable/div/div/table/thead/tr/th[5]/input";
-    public static String formulaList_endDateFilter_xpath = "//*/p-datatable/div/div/table/thead/tr/th[6]/input";
-    public static String formulaList_roundPrecsFilter_xpath = "//*/p-datatable/div/div/table/thead/tr/th[8]/input";
-    public static String formulaList_roundModeFilter_xpath = "//*/p-datatable/div/div/table/thead/tr/th[9]/input";
+    public static String formulaList_nameFilter_xpath = "//table/thead/tr/th[2]/input";
+    public static String formulaList_descrpFilter_xpath = "//table/thead/tr/th[3]/input";
+    public static String formulaList_typeFilter_xpath = "//table/thead/tr/th[4]/input";
+    public static String formulaList_exprsFilter_xpath = "//table/thead/tr/th[5]/input";
+    public static String formulaList_startDateFilter_xpath = "//table/thead/tr/th[8]/input";
+    public static String formulaList_endDateFilter_xpath = "//table/thead/tr/th[9]/input";
+    public static String formulaList_roundPrecsFilter_xpath = "//table/thead/tr/th[7]/input";
+    public static String formulaList_roundModeFilter_xpath = "//table/thead/tr/th[6]/input";
     /*
      * Actions
      */
-    public static String formulaList_viewAction_xpath = "//*/tr[*]/td[10]/span[2]/button";
-    public static String formulaList_copyAction_xpath = "//tr[*]/td[10]/span[2]/authorize/button[1]";
-    public static String formulaList_editAction_xpath = "//tr[*]/td[10]/span[2]/authorize/button[2]";
-    public static String formulaList_deactivateAction_xpath = "//tbody/tr[*]/td[10]/span[2]/authorize/button[3]";
+    public static String formulaList_viewAction_xpath = "//button[normalize-space()='View Formula']";
+    public static String formulaList_copyAction_xpath = "//button[normalize-space()='Copy Formula']";
+    public static String formulaList_editAction_xpath = "//button[normalize-space()='Edit Formula']";
+    public static String formulaList_deactivateAction_xpath = "//button[normalize-space()='Deactivate Formula']";
     public static String formulaList_updateAction_xpath = "//button[normalize-space()='Update']";
     public static String formulaList_cancelAction_xpath = "//button[normalize-space()='Cancel']";
     public static String formulaList_status_xpath = "//span[normalize-space()='Status']";
@@ -185,14 +186,15 @@ public class Constants {
     /*
      * List page Column names
      */
-    public static String formulaList_nameColumn_xpath = "//*/p-datatable/div/div/table/tbody/*/td[1]/span[2]";
-    public static String formulaList_descrpColumn_xpath = "//*/p-datatable/div/div/table/tbody/*/td[2]";
-    public static String formulaList_typeColumn_xpath = "//*/p-datatable/div/div/table/tbody/*/td[3]";
-    public static String formulaList_expressionColumn_xpath = "//*/p-datatable/div/div/table/tbody/*/td[4]";
-    public static String formulaList_startDateColumn_xpath = "//*/p-datatable/div/div/table/tbody/*/td[5]";
-    public static String formulaList_endDateColumn_xpath = "//*/p-datatable/div/div/table/tbody/*/td[6]";
-    public static String formulaList_statusColumn_xpath = "//*/p-datatable/div/div/table/tbody/*/td[7]";
-    public static String formulaList_roundingPrecisionColumn_xpath = "//*/p-datatable/div/div/table/tbody/*/td[8]";
+    public static String formulaList_nameColumn_xpath = "//div/div[2]/table/tbody/tr[*]/td[2]";
+    public static String formulaList_descrpColumn_xpath = "//div/div[2]/table/tbody/tr[*]/td[3]";
+    public static String formulaList_typeColumn_xpath = "//div/div[2]/table/tbody/tr[*]/td[4]";
+    public static String formulaList_expressionColumn_xpath = "//div/div[2]/table/tbody/tr[*]/td[5]";
+    public static String formulaList_startDateColumn_xpath = "//div/div[2]/table/tbody/tr[*]/td[8]";
+    public static String formulaList_endDateColumn_xpath = "//div/div[2]/table/tbody/tr[*]/td[9]";
+    public static String formulaList_statusColumn_xpath = "//div/div[2]/table/tbody/tr[*]/td[10]";
+    public static String formulaList_roundingPrecisionColumn_xpath = "//div/div[2]/table/tbody/tr[*]/td[7]";
+    public static String formulaList_roundingMode_xpath = "//div/div[2]/table/tbody/tr[*]/td[6]";
     /*
      * Formula - Create page
      */

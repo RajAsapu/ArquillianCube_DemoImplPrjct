@@ -10,7 +10,10 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
-import setup.*;
+import setup.Constants;
+import setup.OpenBrowser;
+import setup.PageFactory;
+import setup.UpdateProperties;
 
 public class PageCommonSteps extends OpenBrowser {
     final static Logger logger = Logger.getLogger(PageCommonSteps.class.getName());
@@ -36,16 +39,14 @@ public class PageCommonSteps extends OpenBrowser {
     /*
        Open and close application
      */
-    public void openApplication()
-    {
+    public void openApplication() {
         if (environment.equalsIgnoreCase("Docker")) {
-           edriver = initBrowser(updateProperties.getPricingProperty("pricing.ui"));
+            edriver = initBrowser(updateProperties.getPricingProperty("pricing.ui"));
         } else if (environment.equalsIgnoreCase("Test")) {
-           edriver = initBrowser(updateProperties.getApplicationProperty("testPricingUrl"));
+            edriver = initBrowser(updateProperties.getApplicationProperty("testPricingUrl"));
         } else if (environment.equalsIgnoreCase("Dev")) {
-           edriver = initBrowser(updateProperties.getApplicationProperty("devPricingUrl"));
+            edriver = initBrowser(updateProperties.getApplicationProperty("devPricingUrl"));
         }
-        DriverBean.setDriver(edriver);
     }
 
     /*
@@ -108,7 +109,7 @@ public class PageCommonSteps extends OpenBrowser {
     * User clicks on the save button in the Workbook data
     */
     @And("^clicks on the save button$")
-    public void clicks_on_the_save_button()  {
+    public void clicks_on_the_save_button() {
         edriver.findElement(By.xpath(Constants.workbookData_save_xpath)).click();
         pageFactory.getPageCommonMethods().waitFor(3);
     }

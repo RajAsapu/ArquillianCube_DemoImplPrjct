@@ -1,4 +1,5 @@
-@PageObjects
+@SmokeTest
+@FormulaCreate
 Feature: To verify if the user is able to create formula.
 
   Acceptance Criteria: User shall be able to create a formula.
@@ -21,5 +22,5 @@ Feature: To verify if the user is able to create formula.
     And   validate the expression and click on Create
     Then  the formula should be created
     Examples:
-      | name         | description | type | expression | startDate   | endDate     | roundingMode | roundingPrecision | paramType | indexType | indexPoint | indexName        | calculationPeriod |
-      | WillisTower2 | for testing | COST | Test       | 12-Dec-2016 | 12-May-2017 | Round Up     | 3                 | Index     | Argus     | Mid        | NY RBOB Prem Brg | TestCalcRule      |
+      | name        | description | type | expression | startDate | endDate | roundingMode | roundingPrecision | paramType | indexType | indexPoint | indexName          | calculationPeriod |
+      | TestFormula | for testing | COST | Test       | today     | today   | Round Up     | 3                 | Index     | Argus     | Mid        | Prem CBOB NY Cargo | TestCalcDayRule   |

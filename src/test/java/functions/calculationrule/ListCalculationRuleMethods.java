@@ -44,7 +44,7 @@ public class ListCalculationRuleMethods extends GenericWebElementMethods {
                 clickButton(Constants.calculationRuleList_hdrDescrpColumn_xpath);
                 break;
             case "inactive":
-                clickButton(Constants.calculationRuleList_actionInactive_xpath);
+                clickButton(Constants.calculationRuleList_actionDeactivate_xpath);
                 break;
             case "statushdr":
                 clickButton(Constants.calculationRuleList_hdrStatusColumn_xpath);

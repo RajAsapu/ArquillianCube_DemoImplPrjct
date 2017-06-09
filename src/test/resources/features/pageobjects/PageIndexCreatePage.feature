@@ -1,4 +1,5 @@
-@PageObjects
+@SmokeTest
+@IndexCreate
 Feature: To verify if the user is able to access create page under index.
 
   Acceptance Criteria: User shall be able to access features in the Create page under index.
@@ -11,7 +12,7 @@ Feature: To verify if the user is able to access create page under index.
     When  the user enters rate basis as Unit
     And   <lowPrice> ,<midPrice> ,<highPrice> and <closePrice> are entered
     And   name as PREMCBOBNYCARGO
-    And   start date as 12-Dec-2016 and end date as 26-May-2017
+    And   start date as 12-Dec-2016 and end date as today
     And   currency as USD
     And   unit of measurement as USG
     And   comment as Created for new clients

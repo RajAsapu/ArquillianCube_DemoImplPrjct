@@ -39,15 +39,14 @@ public class WorkBookDataMethods extends GenericWebElementMethods {
 
     private EventFiringWebDriver edriver;
 
-    public WorkBookDataMethods()
-    {
-        edriver= DriverBean.getDriver();
+    public WorkBookDataMethods() {
+        edriver = DriverBean.getDriver();
     }
 
     public void clickOnAddNewData() {
         waitFor(5);
-        WebDriverWait wait=new WebDriverWait(edriver,10);
-            wait.until(ExpectedConditions.elementToBeClickable(edriver.findElement(By.xpath(Constants.workbookData_addDataAction_xpath)))).click();
+        WebDriverWait wait = new WebDriverWait(edriver, 10);
+        wait.until(ExpectedConditions.elementToBeClickable(edriver.findElement(By.xpath(Constants.workbookData_addDataAction_xpath)))).click();
     }
 
     public void clickOnSearch() {
@@ -199,7 +198,7 @@ public class WorkBookDataMethods extends GenericWebElementMethods {
         return position;
     }
 
-    public void clickOnSaveButton()  {
+    public void clickOnSaveButton() {
         clickButton(Constants.workbookData_save_xpath);
     }
 

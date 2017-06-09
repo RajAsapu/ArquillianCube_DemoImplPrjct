@@ -1,4 +1,5 @@
-@PageObjects
+@SmokeTest
+@CalcList
 Feature: List calculation rule.
 
   Acceptance Criteria: User shall be able to search from the list of calculation rule.
@@ -12,8 +13,8 @@ Feature: List calculation rule.
     Then  the list should display the records matching the filter criteria
       | <filter> | <nameFilter> |
     Examples:
-      | filter | nameFilter |
-      | Name   | TestRule1  |
+      | filter | nameFilter      |
+      | Name   | TestCalcDayRule |
 
   Scenario Outline: To verify if the user is able to search the list by type.
     Given the user has navigated to the "List" page under the "Calculation_Rule"

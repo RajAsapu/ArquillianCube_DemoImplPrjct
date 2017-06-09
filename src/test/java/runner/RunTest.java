@@ -3,21 +3,31 @@ package runner;
 import com.google.common.base.Verify;
 import cucumber.api.CucumberOptions;
 import cucumber.runtime.arquillian.CukeSpace;
+import net.masterthought.cucumber.Configuration;
+import net.masterthought.cucumber.ReportBuilder;
+import net.masterthought.cucumber.Reportable;
 import org.arquillian.cube.CubeIp;
 import org.arquillian.cube.HostPort;
 import org.jboss.arquillian.container.test.api.RunAsClient;
+import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
+import setup.OpenBrowser;
 import setup.UpdateProperties;
+import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RunWith(CukeSpace.class)
 @CucumberOptions(
-        strict = true,
-        plugin = {"html:target/cucumber-html-report"},
-        features = {"src/test/resources/features/pageobjects/TestData.feature"},
+        plugin = {"html:target/cucumber-html-report", "json:target/cucumber-json-report"},
+        features = {"src/test/resources/features/pageobjects/"},
         glue = {"classpath:"},
-        tags = {"@TestData"}
+        tags = {"@TestData,@WorkBookList"}
 )
 @RunAsClient
 public class RunTest {
@@ -30,12 +40,36 @@ public class RunTest {
     private static int enginePort;
     @CubeIp(containerName = "database")
     protected String ipDatabase;
-    private UpdateProperties props = new UpdateProperties();
-    private Map<String, String> map = new HashMap<String, String>();
 
+    @AfterClass
+    public static void generateReports() {
+        UpdateProperties props = new UpdateProperties();
+        OpenBrowser browser = new OpenBrowser();
+        File reportOutputDirectory = new File("target");
+        List<String> jsonFiles = new ArrayList<>();
+        jsonFiles.add("target/cucumber-json-report");
 
-    @cucumber.api.java.Before
+        String buildNumber = System.getenv("bamboo.buildNumber");
+        String projectName = "Pricing-e2e-tests";
+        boolean parallelTesting = false;
+
+        Configuration configuration = new Configuration(reportOutputDirectory, projectName);
+        configuration.setParallelTesting(false);
+        configuration.setBuildNumber(buildNumber);
+
+        configuration.addClassifications("Environment", props.getEnv());
+        configuration.addClassifications("Browser", browser.getSelectedDriver());
+
+        ReportBuilder reportBuilder = new ReportBuilder(jsonFiles, configuration);
+        Reportable result = reportBuilder.generateReports();
+
+    }
+
+    @Before
     public void initialization() throws Exception {
+
+        Map<String, String> map = new HashMap<String, String>();
+        UpdateProperties props = new UpdateProperties();
         if (props.getEnv().equalsIgnoreCase("docker")) {
             Verify.verify(props.startServiceContainer(ipDatabase, "epe-config:latest"));
             map.put("pricing.ui", "localhost:" + String.valueOf(uiPort));
@@ -47,5 +81,5 @@ public class RunTest {
             System.out.println("Arquillian - Containers has started .");
         }
     }
-
 }
+

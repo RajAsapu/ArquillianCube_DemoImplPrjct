@@ -32,9 +32,8 @@ public class AutoStartContainersOrder implements AutoStartParser {
         String environment = updateProperties.getEnv();
         if (environment.equals("Docker")) {
             for (String name : containersNames) {
-                if (name.contains("service")) {
+                if (name.equals("service"))
                     continue;
-                }
                 nodes.put(new StringBuilder(name).reverse().toString(), Node.from(name));
             }
         }

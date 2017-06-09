@@ -90,18 +90,17 @@ public class PageCurrencyExchangeSteps {
     }
 
     @And("^the user clicks on search in currency exchange$")
-    public void the_user_clicks_on_search_in_currency_exchange()
-    {
+    public void the_user_clicks_on_search_in_currency_exchange() {
         pageFactory.getListCurrencyExchangeMethods().clickOnSearchButton();
     }
 
     @When("^sets the currency type as \"([^\"]*)\"")
-    public void sets_the_currency_type_as(String type) throws Throwable {
+    public void sets_the_currency_type_as(String type)  {
         pageFactory.getCreateCurrencyExchangeMethods().setType(type);
     }
 
     @When("^sets the currencyFrom field in create page to \"([^\"]*)\"")
-    public void sets_the_currencyFrom_field_in_create_page_to(String fromCurrency) throws Throwable {
+    public void sets_the_currencyFrom_field_in_create_page_to(String fromCurrency) {
         pageFactory.getCreateCurrencyExchangeMethods().setFromCurrency(fromCurrency);
     }
 

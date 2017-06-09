@@ -9,9 +9,8 @@ public class CreateIndexMethods extends GenericWebElementMethods {
 
     private EventFiringWebDriver edriver;
 
-    public CreateIndexMethods()
-    {
-        edriver= DriverBean.getDriver();
+    public CreateIndexMethods() {
+        edriver = DriverBean.getDriver();
     }
 
     public void setName(String name) {

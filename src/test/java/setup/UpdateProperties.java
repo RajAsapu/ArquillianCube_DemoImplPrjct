@@ -6,21 +6,28 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.github.dockerjava.api.DockerClient;
 import com.github.dockerjava.api.command.CreateContainerResponse;
 import com.github.dockerjava.api.command.InspectContainerResponse;
-import com.github.dockerjava.api.model.ExposedPort;
-import com.github.dockerjava.api.model.InternetProtocol;
-import com.github.dockerjava.api.model.PortBinding;
-import com.github.dockerjava.api.model.RestartPolicy;
+import com.github.dockerjava.api.model.*;
 import com.github.dockerjava.core.DockerClientBuilder;
+import com.github.dockerjava.core.command.WaitContainerResultCallback;
+import com.google.common.base.Verify;
 import org.junit.Assert;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.net.URL;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.ResourceBundle;
+import java.util.concurrent.TimeUnit;
+
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class UpdateProperties {
 
+    protected static Logger log = null;
     public Properties props;
     File resourceFile;
     String resourceFilePath;
@@ -32,6 +39,7 @@ public class UpdateProperties {
 
     public UpdateProperties() {
         props = new Properties();
+        log = LoggerFactory.getLogger(UpdateProperties.class);
     }
 
     public void setProperty(Map<String, String> map) {
@@ -65,7 +73,7 @@ public class UpdateProperties {
 
     public void updateHostConfig() {
         JsonNode root;
-        String resultUpdate=null;
+        String resultUpdate = null;
         FileWriter fwrite;
         ObjectMapper mapper = new ObjectMapper();
         /*
@@ -89,8 +97,8 @@ public class UpdateProperties {
                 fwrite.write(resultUpdate);
                 fwrite.close();
             }
-        }catch (IOException exp) {
-            System.out.println("Error creating the hostConfig File"+exp.getMessage());
+        } catch (IOException exp) {
+            log.info("Error creating the hostConfig File" + exp.getMessage());
         }
         /*
          * Copying the hostConfig.json file to the Container
@@ -98,11 +106,10 @@ public class UpdateProperties {
         try {
             dockerClient = DockerClientBuilder.getInstance().build();
             dockerClient.copyArchiveToContainerCmd(getContainerIdUsingName("ui")).withRemotePath("/usr/share/nginx/html/config").withHostResource(hostConfigFile.getAbsolutePath()).withNoOverwriteDirNonDir(false).exec();
-            System.out.println("hostConfig file is updated in the ui container");
-            System.out.println(resultUpdate);
-        }catch (Exception exp)
-        {
-            System.out.println("Check if environment is set to docker in application.properties!!"+exp.getMessage());
+            log.info("hostConfig file is updated in the ui container");
+            log.info(resultUpdate);
+        } catch (Exception exp) {
+            Assert.fail("Check if environment is set to docker in application.properties!!" + exp.getMessage());
         }
     }
 
@@ -113,6 +120,7 @@ public class UpdateProperties {
 
     public boolean startServiceContainer(String dbIpAddress, String image) {
         try {
+            Thread.sleep(5000);
             dockerClient = DockerClientBuilder.getInstance().build();
             CreateContainerResponse container = dockerClient.createContainerCmd(image)
                     .withExposedPorts(new ExposedPort(8080, InternetProtocol.TCP))
@@ -126,7 +134,14 @@ public class UpdateProperties {
                     .exec();
 
             dockerClient.startContainerCmd(container.getId()).exec();
-            System.out.println("Started Service Container");
+            log.info("Started Service Container");
+            /*
+             * Display list of running conatiners
+             */
+            List<Container> containers = dockerClient.listContainersCmd().withShowAll(true).exec();
+            assertThat(containers, notNullValue());
+            log.info("Container List: {}", containers);
+
             return true;
         } catch (Exception exp) {
             if (exp.getMessage().contains("already in use by container")) {

@@ -3,7 +3,7 @@ ui:
     ports:
         - "4200:80"
 datamock:
-    image: "epe-data-mock:latest"
+    image: "epe-data-mock:${DATAMOCK_IMAGE_TAG}"
     environment:
       - server.port=8082
       - "spring.datasource.url=jdbc:oracle:thin:@devdb.wfs.com:1535:dev"
@@ -13,13 +13,13 @@ datamock:
     ports:
         - "8082:8082"
 engine:
-    image: "epe-price-engine:latest"
+    image: "epe-price-engine:${ENGINE_IMAGE_TAG}"
     environment:
         - server.port=8081
     ports:
         - "8081:8081"
 database:
-    image: "solr-cassandra:latest"
+    image: "solr-cassandra:${DATABASE_IMAGE_TAG}"
     ports:
         - "9042:9042"
         - "8943:8943"

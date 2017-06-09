@@ -38,7 +38,7 @@ public class RunTest {
     /*
      *  Service image name
      */
-    private final static String SERVICE_IMAGE = "epe-config";
+    private final static String SERVICE_IMAGE = "test-epe-c-service";
     /*
      * List of container names
      */

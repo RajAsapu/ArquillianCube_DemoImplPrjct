@@ -11,12 +11,13 @@
     <extension qualifier="docker">
         <!--<property name="serverVersion">1.12.3</property>-->
         <!--<property name="serverUri">http://localhost:2375</property>-->
-        <property name="dockerRegistry">http://jfrog.aws.wfscorp.com:80/artifactory/docker/docker-dev-local/</property>
+        <property name="dockerRegistry">http://jfrog.aws.wfscorp.com:80/artifactory/docker-dev-local/docker-dev-local/</property>
         <property name="clean">true</property>
         <property name="dockerContainersFile">src/test/resources/docker-compose.yml</property>
         <property name="definitionFormat">COMPOSE</property>
         <property name="cleanBuildImage">true</property>
         <property name="autoStartContainers">custom:setup.AutoStartContainersOrder</property>
+        <property name="alwaysPull">true</property>
         <property name="cubeSpecificProperties">
             database:
                 await:

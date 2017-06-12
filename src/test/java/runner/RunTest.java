@@ -6,9 +6,11 @@ import cucumber.runtime.arquillian.CukeSpace;
 import net.masterthought.cucumber.Configuration;
 import net.masterthought.cucumber.ReportBuilder;
 import net.masterthought.cucumber.Reportable;
+import org.arquillian.cube.CubeController;
 import org.arquillian.cube.CubeIp;
 import org.arquillian.cube.HostPort;
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.test.api.ArquillianResource;
 import org.junit.*;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -22,12 +24,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@RunWith(CukeSpace.class)
+@RunWith(Arquillian.class)
 @CucumberOptions(
         plugin = {"progress","html:target/cucumber-html-report", "json:target/cucumber-json-report"},
         features = {"src/test/resources/features/"},
         glue = {"classpath:"},
-        tags = {"@TestIndex"}
+        tags = {"@AppTestData"}
 )
 public class RunTest {
 
@@ -38,7 +40,7 @@ public class RunTest {
     /*
      *  Service image name
      */
-    private final static String SERVICE_IMAGE = "test-epe-c-service";
+    private final static String SERVICE_IMAGE = "epe-config/service";
     /*
      * List of container names
      */
@@ -48,6 +50,9 @@ public class RunTest {
      */
     @CubeIp(containerName = DATABASE_CONTAINER_NAME)
     private String ipDatabase;
+
+    @ArquillianResource
+    CubeController cubeController;
 
     @AfterClass
     public static void generateReports() {

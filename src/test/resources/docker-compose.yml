@@ -1,5 +1,5 @@
 ui:
-    image: "docker-dev-local/epe-ui-nokeycloak:${UI_IMAGE_TAG}"
+    image: "epe-ui-nokeycloak:latest"
     ports:
         - "4200:80"
 datamock:

@@ -19,7 +19,3 @@ database:
     ports:
         - "9042:9042"
         - "8943:8943"
-
-
-
-http://jfrog.aws.wfscorp.com:80/artifactory/docker-dev-local/scheduler-service/dev

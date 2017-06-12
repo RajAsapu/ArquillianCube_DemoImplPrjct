@@ -2,6 +2,7 @@ ui:
     image: "epe-ui-nokeycloak:${UI_IMAGE_TAG}"
     ports:
         - "4200:80"
+    alwaysPull: false
 datamock:
     image: "epe-data-mock:${DATAMOCK_IMAGE_TAG}"
     environment:
@@ -12,17 +13,20 @@ datamock:
       - spring.datasource.password=apps
     ports:
         - "8082:8082"
+    alwaysPull: false
 engine:
     image: "epe-price-engine:${ENGINE_IMAGE_TAG}"
     environment:
         - server.port=8081
     ports:
         - "8081:8081"
+    alwaysPull: false
 database:
-    image: "solr-cassandra:${DATABASE_IMAGE_TAG}"
+    image: "docker-dev-local/solr-cassandra:${DATABASE_IMAGE_TAG}"
     ports:
         - "9042:9042"
         - "8943:8943"
+    alwaysPull: false
 
 
 

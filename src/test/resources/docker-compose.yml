@@ -22,7 +22,7 @@ engine:
         - "8081:8081"
     alwaysPull: false
 database:
-    image: "docker-dev-local/solr-cassandra:${DATABASE_IMAGE_TAG}"
+    image: "solr-cassandra:${DATABASE_IMAGE_TAG}"
     ports:
         - "9042:9042"
         - "8943:8943"

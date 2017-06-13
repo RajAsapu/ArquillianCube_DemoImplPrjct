@@ -1,2 +1,2 @@
 ui:
-    image: "calendar-ui:DEV"
+    image: "docker-dev-local/calendar-ui:DEV"

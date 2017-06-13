@@ -1,4 +1,4 @@
 ui:
-    image: "docker-dev-local/epe-ui-nokeycloak:latest"
+    image: "epe-ui-nokeycloak:latest"
     ports:
         - "4200:80"

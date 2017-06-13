@@ -1,4 +1,2 @@
 ui:
-    image: "epe-ui-nokeycloak:latest"
-    ports:
-        - "4200:80"
+    image: "calendar-ui:DEV"

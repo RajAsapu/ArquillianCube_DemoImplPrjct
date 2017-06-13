@@ -2,20 +2,3 @@ ui:
     image: "epe-ui-nokeycloak:latest"
     ports:
         - "4200:80"
-datamock:
-    image: "docker-dev-local/epe-data-mock:${DATAMOCK_IMAGE_TAG}"
-    environment:
-      - server.port=8082
-      - "spring.datasource.url=jdbc:oracle:thin:@devdb.wfs.com:1535:dev"
-      - spring.datasource.driverClassName=oracle.jdbc.OracleDriver
-      - spring.datasource.username=apps
-      - spring.datasource.password=apps
-engine:
-    image: "docker-dev-local/docker-dev-local/epe-price-engine:${ENGINE_IMAGE_TAG}"
-    environment:
-        - server.port=8081
-database:
-    image: "docker-dev-local/solr-cassandra:${DATABASE_IMAGE_TAG}"
-    ports:
-        - "9042:9042"
-        - "8943:8943"

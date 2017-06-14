@@ -1,4 +1,4 @@
 ui:
-     image: "epe-ui-nokeycloak:latest"
-     ports:
-           - "4200:80""
+    image: "epe-ui-nokeycloak:latest"
+    ports:
+           - "4200:80"

@@ -5,8 +5,8 @@ Feature: Test Data
     Given  the user has logged into the pricing application
 
   Scenario Outline: To verify if the user is able to create a calculation rule with type as Day.
-    Given the user has navigated to the "Create" page under the "Calculation_Rule"
-    When  the user enters name  as "<name>"
+    Given  the user has navigated to the "Create" page under the "Calculation_Rule"
+    When   the user creates calculation rule with "<name>"
     And    set the start date as "<startDate>"
     And    set the end date as "<endDate>"
     And    select type as "<type>"
@@ -21,7 +21,7 @@ Feature: Test Data
       | TestCalcDayRule | 23-JAN-2017 | today   | Day  | for testing | Day Wrap | 2               | 2              |
   Scenario Outline: To verify if the user is able to create a calculation rule with type as Week.
     Given the user has navigated to the "Create" page under the "Calculation_Rule"
-    When  the user enters name  as "<name>"
+    When  the user creates calculation rule with "<name>"
     And    set the start date as "<startDate>"
     And    set the end date as "<endDate>"
     And    select type as "<type>"
@@ -38,7 +38,7 @@ Feature: Test Data
       | TestCalcWeekRule | 23-JAN-2017 | today   | Week | for testing | Monday       | 1            | Tuesday      | 2            | 1      |
   Scenario Outline: To verify if the user is able to create a calculation rule with type as Month.
     Given the user has navigated to the "Create" page under the "Calculation_Rule"
-    When  the user enters name  as "<name>"
+    When  the user creates calculation rule with "<name>"
     And    set the start date as "<startDate>"
     And    set the end date as "<endDate>"
     And    select type as "<type>"
@@ -82,7 +82,7 @@ Feature: Test Data
     # Test data : Work book definition
   Scenario Outline: To verify if the user is able to create a workbook configuration by adding supplier and supplier site as the attribute.
     Given the user has navigated to the "Create" page under the "Workbook"
-    When  name is set to "<name>"
+    When  the user creates workbook with name as "<name>"
     And   description is set to "<description>"
     And   formula type is set to "<formulaType>"
     And   segment type is set to "<segmentType>"
@@ -98,7 +98,7 @@ Feature: Test Data
       | TestWorkbook3Attr | for testing | PRICE       | LAND        | 20           |
   Scenario Outline: To verify if the user is able to create a workbook configuration by adding all the available attributes.
     Given the user has navigated to the "Create" page under the "Workbook"
-    When  name is set to "<name>"
+    When  the user creates workbook with name as "<name>"
     And   description is set to "<description>"
     And   formula type is set to "<formulaType>"
     And   segment type is set to "<segmentType>"
@@ -131,7 +131,7 @@ Feature: Test Data
     # Test data : Formula
   Scenario Outline: To verify if the user is able to create formula.
     Given the user has navigated to the "Create" page under the "Formula"
-    When  the user creates a formula with "<name>"
+    When  the user creates a formula with name as "<name>"
     And   description as "<description>"
     And   set type as "<type>"
     And   expression as "<expression>"

@@ -1,3 +1,4 @@
+@CurrencyExchange
 Feature: List page of Currency Exchange
 
   Acceptance Criteria: User shall be able to search currency exchanges using filters.

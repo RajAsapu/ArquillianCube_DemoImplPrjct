@@ -32,7 +32,7 @@ public class PageCommonSteps extends OpenBrowser {
     }
 
     @And("^wait for sometime$")
-    public void wait_for_sometime() throws Exception {
+    public void wait_for_sometime()  {
         pageFactory.getPageCommonMethods().waitFor(5);
     }
 
@@ -69,6 +69,7 @@ public class PageCommonSteps extends OpenBrowser {
         }
         Actions actions = new Actions(edriver);
         actions.click(search).perform();
+        wait_for_sometime();
     }
 
     /*
@@ -83,6 +84,7 @@ public class PageCommonSteps extends OpenBrowser {
         Actions actions = new Actions(edriver);
         actions.click(update).perform();
         actions.click().perform();
+        wait_for_sometime();
     }
 
     /*
@@ -94,6 +96,7 @@ public class PageCommonSteps extends OpenBrowser {
         WebElement search = edriver.findElement(By.xpath(Constants.indexCreate_search_xpath));
         Actions actions = new Actions(edriver);
         actions.click(search).perform();
+        wait_for_sometime();
     }
 
     /*
@@ -102,7 +105,7 @@ public class PageCommonSteps extends OpenBrowser {
     @And("^clicks on the submit button$")
     public void clicks_on_the_submit_button() throws Exception {
         edriver.findElement(By.xpath(Constants.indexCreate_submit_xpath)).click();
-        pageFactory.getPageCommonMethods().waitFor(3);
+        pageFactory.getPageCommonMethods().waitFor(5);
     }
 
     /*
@@ -111,7 +114,7 @@ public class PageCommonSteps extends OpenBrowser {
     @And("^clicks on the save button$")
     public void clicks_on_the_save_button() {
         edriver.findElement(By.xpath(Constants.workbookData_save_xpath)).click();
-        pageFactory.getPageCommonMethods().waitFor(3);
+        pageFactory.getPageCommonMethods().waitFor(5);
     }
 
     /*

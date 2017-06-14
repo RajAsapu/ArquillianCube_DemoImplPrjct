@@ -21,8 +21,12 @@ public class CreateWorkBookMethods extends GenericWebElementMethods {
         edriver = DriverBean.getDriver();
     }
 
-    public void setName(String name) {
-        sendKeysToWE(Constants.workbookCreate_name_xpath, name + getDateWithTime());
+    public void setName(String name,boolean withTimeStamp) {
+        if(withTimeStamp){
+        sendKeysToWE(Constants.workbookCreate_name_xpath, name + getDateWithTime());}
+        else{
+            sendKeysToWE(Constants.workbookCreate_name_xpath, name);
+        }
     }
 
     public void setDescription(String description) {

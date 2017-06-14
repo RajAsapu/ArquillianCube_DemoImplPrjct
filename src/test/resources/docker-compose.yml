@@ -1,4 +1,4 @@
 ui:
-    image: "epe-ui-nokeycloak:latest"
+    image: "vault:latest"
     ports:
            - "4200:80"

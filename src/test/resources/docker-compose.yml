@@ -1,2 +1,4 @@
 ui:
-    image: "docker-dev-local/calendar-ui:DEV"
+     image: "epe-ui-nokeycloak:latest"
+     ports:
+           - "4200:80""

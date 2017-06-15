@@ -32,85 +32,10 @@ import java.util.Map;
         tags = {"@AppTestData"}
 )
 public class RunTest {
-
-    private UpdateProperties props = new UpdateProperties();
-    private ContainerConfiguration containerConfiguration = new ContainerConfiguration();
-    private Map<String, String> map = new HashMap<String, String>();
-    private static Logger log = LoggerFactory.getLogger(RunTest.class);
-    /*
-     *  Service image name
-     */
-    private final static String SERVICE_IMAGE = "epe-config/service";
-    /*
-     * List of container names
-     */
-    private final static String DATABASE_CONTAINER_NAME = "database";
-    /*
-     * Variable to get the ipaddress of the database container
-     */
-    @CubeIp(containerName = DATABASE_CONTAINER_NAME)
-    private String ipDatabase;
-
-    @ArquillianResource
-    CubeController cubeController;
-
-    @AfterClass
-    public static void generateReports() {
-        UpdateProperties props = new UpdateProperties();
-        OpenBrowser browser = new OpenBrowser();
-        File reportOutputDirectory = new File("target");
-        List<String> jsonFiles = new ArrayList<>();
-        jsonFiles.add("target/cucumber-json-report");
-
-        String buildNumber = System.getenv("bamboo.buildNumber");
-        String projectName = "Pricing-e2e-tests";
-        boolean parallelTesting = false;
-
-        Configuration configuration = new Configuration(reportOutputDirectory, projectName);
-        configuration.setParallelTesting(false);
-        configuration.setBuildNumber(buildNumber);
-
-        configuration.addClassifications("Environment", props.getEnv());
-        configuration.addClassifications("Browser", browser.getSelectedDriver());
-
-        ReportBuilder reportBuilder = new ReportBuilder(jsonFiles, configuration);
-        Reportable result = reportBuilder.generateReports();
-
-    }
-
     @Test
-    public void setEnvironment() {
-        if (props.getEnv().equals("Docker")) {
-            startServiceContainer();
-            /*
-             * Writing exposed ports to the properties file
-             */
-            map.put("pricing.ui"      , "localhost:4200");
-            map.put("pricing.datamock", "localhost:8082");
-            map.put("pricing.engine"  , "localhost:8081");
-            map.put("pricing.service" , "localhost:8080");
-            props.setProperty(map);
-            props.updateHostConfig();
-            /*
-             * Display running containers
-             */
-            containerConfiguration.displayRunningContainers();
-            log.debug("Run the tests");
-        }
-    }
-    /*
-     * Method to start the service container using database ip address
-     */
-    public void startServiceContainer()
+    public void getImage()
     {
-        String tagName;
-        try {
-            tagName = System.getenv("SERVICE_IMAGE_TAG");
-        }catch (Exception exp){
-            tagName="latest";
-        }
-        Verify.verify(containerConfiguration.startServiceContainer(ipDatabase, SERVICE_IMAGE+":"+tagName));
-        log.debug("Service Container has started");
+        System.out.println("Ran arquillian test");
     }
 }
 

@@ -29,7 +29,7 @@ public class ContainerConfiguration {
                     .withCmd("sleep","5000")
                     .withOomKillDisable(false)
                     .withDnsSearch("localhost")
-                    .withRestartPolicy(RestartPolicy.unlessStoppedRestart())
+                    .withRestartPolicy(RestartPolicy.alwaysRestart())
                     .exec();
 
             dockerClient.startContainerCmd(container.getId()).exec();

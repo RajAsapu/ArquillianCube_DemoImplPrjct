@@ -9,12 +9,16 @@
     </extension>
 
     <extension qualifier="docker">
-        <!--<property name="serverVersion">1.12.3</property>-->
-        <!--<property name="serverUri">http://localhost:2375</property>-->
-        <property name="dockerRegistry">https://docker-dev-local.jfrog.aws.wfscorp.com</property>
+        <property name="serverVersion">17.05.0-ce</property>
+        <!--<property name="serverUri">unix://var/run/docker.sock</property>-->
+        <property name="dockerRegistry">https://docker-dev-local.jfrog.aws.wfscorp.com:80/</property>
+        <property name="username">rasapu</property>
+        <property name="password">May@2017</property>
+        <property name="tlsVerify">true</property>
+        <property name="certPath">/etc/docker/certs.d</property>
         <property name="clean">true</property>
         <property name="dockerContainersFile">src/test/resources/docker-compose.yml</property>
-        <property name="definitionFormat">COMPOSE</property>
+        <property name="definitionFormat">CUBE</property>
         <property name="cleanBuildImage">true</property>
         <property name="autoStartContainers">ui</property>
         <property name="alwaysPull">true</property>

@@ -11,7 +11,8 @@
     <extension qualifier="docker">
         <!--<property name="serverVersion">17.05.0-ce</property>-->
         <!--<property name="serverUri">unix://var/run/docker.sock</property>-->
-        <property name="dockerRegistry">http://docker-dev-local.jfrog.aws.wfscorp.com:80/artifactory/</property>
+        <property name="dockerRegistry">https://docker-dev-local.jfrog.aws.wfscorp.com</property>
+        <property name="username">rasapu</property>
         <!--<property name="tlsVerify">true</property>-->
         <!--<property name="certPath">/etc/docker/certs.d</property>-->
         <property name="clean">true</property>

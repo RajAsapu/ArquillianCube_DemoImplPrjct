@@ -86,7 +86,10 @@ public class RunTest {
              */
             cubeController.stop("service");
             cubeController.destroy("service");
-
+            /*
+             * Start service container
+             */
+            startServiceContainer();
             /*
              * Writing exposed ports to the properties file
              */

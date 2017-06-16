@@ -3,7 +3,7 @@ Feature: Test Data
 
   Background:
     Given  the user has logged into the pricing application
-
+  @TestCalc
   Scenario Outline: To verify if the user is able to create a calculation rule with type as Day.
     Given  the user has navigated to the "Create" page under the "Calculation_Rule"
     When   the user creates calculation rule with "<name>"

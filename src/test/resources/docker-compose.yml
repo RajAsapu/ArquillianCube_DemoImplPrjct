@@ -45,9 +45,12 @@ database:
   publishAllPorts: true
   attachStdin: true
   attachSterr: true
-  alwaysPull: true
+  alwaysPull: false
   dnsSearch: [localhost]
   portBindings: [9042->9042/tcp,8943->8943/tcp]
   restartPolicy:
         name: failure
         maximumRetryCount: 2
+service:
+  image: '${DOCKER_REGISTRY}/epe-config:${SERVICE_IMAGE_TAG}'
+

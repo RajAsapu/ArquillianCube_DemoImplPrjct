@@ -24,12 +24,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@RunWith(CukeSpace.class)
+@RunWith(Arquillian.class)
 @CucumberOptions(
         plugin = {"progress","html:target/cucumber-html-report", "json:target/cucumber-json-report"},
         features = {"src/test/resources/features/"},
         glue = {"classpath:"},
-        tags = {"@AppTestData"}
+        tags = {"@TestCalc"}
 )
 public class RunTest {
 
@@ -40,7 +40,7 @@ public class RunTest {
     /*
      *  Service image name
      */
-    private final static String SERVICE_IMAGE = "/docker-dev-local/epe-config";
+    private final static String SERVICE_IMAGE = "/epe-config";
     /*
      * List of container names
      */
@@ -50,6 +50,9 @@ public class RunTest {
      */
     @CubeIp(containerName = DATABASE_CONTAINER_NAME)
     private String ipDatabase;
+
+    @ArquillianResource
+    CubeController cubeController;
 
     @AfterClass
     public static void generateReports() {
@@ -78,7 +81,12 @@ public class RunTest {
     @Test
     public void setEnvironment() {
         if (props.getEnv().equals("Docker")) {
-            startServiceContainer();
+            /*
+             * Remove service running container
+             */
+            cubeController.stop("service");
+            cubeController.destroy("service");
+
             /*
              * Writing exposed ports to the properties file
              */

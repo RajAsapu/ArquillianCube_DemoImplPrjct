@@ -13,7 +13,7 @@ repositories {
 test {
     reports.junitXml.enabled = false
     reports.html.enabled = false
-    environment "SERVICE_IMAGE_TAG", "latest"
+    environment "SERVICE_IMAGE_TAG", "DEV"
     environment "UI_IMAGE_TAG", "latest"
     environment "DATAMOCK_IMAGE_TAG", "latest"
     environment "ENGINE_IMAGE_TAG", "latest"

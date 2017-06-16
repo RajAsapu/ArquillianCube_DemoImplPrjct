@@ -24,7 +24,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@RunWith(Arquillian.class)
+@RunWith(CukeSpace.class)
 @CucumberOptions(
         plugin = {"progress","html:target/cucumber-html-report", "json:target/cucumber-json-report"},
         features = {"src/test/resources/features/"},

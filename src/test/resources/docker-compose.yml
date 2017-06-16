@@ -1,3 +1,4 @@
 ui:
-    image: "test-epe-c-service:DEV"
+    image: "docker-dev-local.jfrog.aws.wfscorp.com:80/test-epe-c-service:DEV"
     portBindings: [4200->80/tcp]
+

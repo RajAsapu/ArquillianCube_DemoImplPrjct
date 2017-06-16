@@ -18,6 +18,7 @@ test {
     environment "DATAMOCK_IMAGE_TAG", "latest"
     environment "ENGINE_IMAGE_TAG", "latest"
     environment "DATABASE_IMAGE_TAG", "latest"
+    environment "DOCKER_REGISTRY","docker-dev-local.jfrog.aws.wfscorp.com:80"
 }
 
 dependencies {

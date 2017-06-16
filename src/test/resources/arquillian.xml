@@ -4,18 +4,52 @@
             xsi:schemaLocation="http://jboss.org/schema/arquillian
   http://jboss.org/schema/arquillian/arquillian_1_0.xsd">
 
+    <extension qualifier="cube">
+        <property name="connectionMode">STARTORCONNECT</property>
+    </extension>
 
     <extension qualifier="docker">
-        <property name="connectionMode">STARTANDSTOP</property>
-        <!--<property name="serverVersion">17.05.0-ce</property>-->
-        <!--<property name="serverUri">unix://var/run/docker.sock</property>-->
-        <!--<property name="dockerRegistry">https://docker-dev-local.jfrog.aws.wfscorp.com</property>-->
-        <!--<property name="tlsVerify">true</property>-->
-        <!--<property name="certPath">/home/rasapu/.docker/</property>-->
         <property name="clean">true</property>
         <property name="dockerContainersFile">src/test/resources/docker-compose.yml</property>
-        <property name="definitionFormat">COMPOSE</property>
+        <property name="definitionFormat">CUBE</property>
         <property name="cleanBuildImage">true</property>
-        <property name="autoStartContainers">ui</property>
+        <property name="autoStartContainers">custom:setup.AutoStartContainersOrder</property>
+        <property name="cubeSpecificProperties">
+            database:
+                await:
+                    strategy: log
+                    match: 'DSE startup complete'
+                    sleepPollingTime: 10 s
+                    iterations: 5
+                    stdOut: true
+                    stdErr: true
+                    timeout: 1800
+            ui:
+                await:
+                    strategy: polling
+                    sleepPollingTime: 10 s
+                    iterations: 5
+                    stdOut: true
+                    stdErr: true
+                    timeout: 1800
+            datamock:
+                await:
+                    strategy: log
+                    match: 'Successfully connected'
+                    sleepPollingTime: 10 s
+                    iterations: 5
+                    stdOut: true
+                    stdErr: true
+                    timeout: 1800
+            engine:
+                await:
+                    strategy: log
+                    match: 'Message broker is not set up'
+                    sleepPollingTime: 5 s
+                    iterations: 5
+                    stdOut: true
+                    stdErr: true
+                    timeout: 1800
+        </property>
     </extension>
 </arquillian>

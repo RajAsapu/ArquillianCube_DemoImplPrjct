@@ -29,7 +29,7 @@ import java.util.Map;
         plugin = {"progress","html:target/cucumber-html-report", "json:target/cucumber-json-report"},
         features = {"src/test/resources/features/"},
         glue = {"classpath:"},
-        tags = {"@TestCalc"}
+        tags = {"@AppTestData"}
 )
 public class RunTest {
 

@@ -39,13 +39,10 @@ dependencies {
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.8.7'
 
     //Arquillian dependencies
-    compile group: 'org.jboss.arquillian.junit', name: 'arquillian-junit-standalone', version: '1.1.13.Final'
-    compile group: 'org.arquillian.cube', name: 'arquillian-cube-docker', version: '1.5.0'
-    compile group: 'org.arquillian.cube', name: 'arquillian-cube-api', version: '1.5.0'
-    compile group: 'org.arquillian.cube', name: 'arquillian-cube-spi', version: '1.5.0'
-    compile group: 'org.arquillian.cube', name: 'arquillian-cube-core', version: '1.5.0'
-    compile group: 'org.jboss.arquillian.extension', name: 'arquillian-phantom-driver', version: '1.2.1.1'
-    compile group: 'org.jboss.arquillian.container', name: 'arquillian-container-test-spi', version: '1.1.13.Final'
+     compile group: 'org.jboss.arquillian.junit', name: 'arquillian-junit-standalone', version: '1.1.13.Final'
+     compile 'org.arquillian.cube:arquillian-cube-docker:1.6.0'
+     compile group: 'org.jboss.arquillian.extension', name: 'arquillian-phantom-driver', version: '1.2.1.1'
+     compile group: 'org.jboss.arquillian.container', name: 'arquillian-container-test-spi', version: '1.1.13.Final'
 
 
 }

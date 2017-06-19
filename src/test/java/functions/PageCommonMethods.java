@@ -65,7 +65,7 @@ public class PageCommonMethods {
      * Method to login to the application
      */
     public void login() {
-        WebElement element = (new WebDriverWait(edriver, 30)).until(new ExpectedCondition<WebElement>() {
+        WebElement element = (new WebDriverWait(edriver, 90)).until(new ExpectedCondition<WebElement>() {
             @Override
             public WebElement apply(WebDriver d) {
                 return d.findElement(By.xpath(Constants.login_username_xpath));

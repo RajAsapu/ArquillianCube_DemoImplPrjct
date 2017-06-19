@@ -9,3 +9,4 @@ target/integration-cucumber/*
 target/*
 C:\log4j-application.log
 gradle/*
+gradle/wrapper/gradle-wrapper.properties

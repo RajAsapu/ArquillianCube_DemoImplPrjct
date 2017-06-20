@@ -7,10 +7,12 @@ sourceCompatibility = 1.8
 
 repositories {
     maven { url 'http://jfrog.aws.wfscorp.com:80/artifactory/maven-mirror' }
+    jcenter()
     mavenCentral()
 }
 
 test {
+    maxParallelForks = Runtime.runtime.availableProcessors()
     reports.junitXml.enabled = false
     reports.html.enabled = false
     environment "SERVICE_IMAGE_TAG", "DEV"
@@ -30,6 +32,7 @@ dependencies {
     compile group: 'org.seleniumhq.selenium', name: 'selenium-server', version: '3.4.0'
     compile group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '3.4.0'
     compile group: 'net.masterthought', name: 'cucumber-reporting', version: '3.7.0'
+    compile 'io.github.prashant-ramcharan:courgette-jvm:1.3.1'
     testCompile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
     compile 'io.rest-assured:xml-path:3.0.2'
     testCompile group: 'org.mockito', name: 'mockito-all', version: '2.0.2-beta'

@@ -8,8 +8,6 @@ import net.masterthought.cucumber.ReportBuilder;
 import net.masterthought.cucumber.Reportable;
 import org.arquillian.cube.CubeController;
 import org.arquillian.cube.CubeIp;
-import org.arquillian.cube.HostPort;
-import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.junit.*;
 import org.junit.runner.RunWith;
@@ -23,7 +21,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+/*
+  One Scenario
+  Running on
+        phantom js - 1m 12 s
+        chromeheadless - 37 s
+        grid/chrome stable - 1m 24s
 
+ */
 @RunWith(CukeSpace.class)
 @CucumberOptions(
         plugin = {"progress","html:target/cucumber-html-report", "json:target/cucumber-json-report"},

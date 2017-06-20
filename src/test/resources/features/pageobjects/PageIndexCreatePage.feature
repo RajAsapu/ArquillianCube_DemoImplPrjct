@@ -1,6 +1,6 @@
 @SmokeTest
 @IndexCreate
-Feature: To verify if the user is able to access create page under index.
+Feature: Create Index Page
 
   Acceptance Criteria: User shall be able to access features in the Create page under index.
 

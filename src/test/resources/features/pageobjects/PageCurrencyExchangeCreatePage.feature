@@ -1,7 +1,7 @@
 @SmokeTest
 @CurrExCreate
 @CurrencyExchange
-Feature: To verify if the user is able to create currency exchange rate info under curreny exchange.
+Feature: Create Currency Exchange
 
   Acceptance Criteria: User shall be able to create a currency exchange info under currency exchange.
 

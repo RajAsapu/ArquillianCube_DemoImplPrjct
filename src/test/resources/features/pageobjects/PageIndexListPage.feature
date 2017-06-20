@@ -1,6 +1,6 @@
 @SmokeTest
 @IndexList
-Feature: To verify if the user is able to access list page under index.
+Feature: List Index Page
 
   Acceptance Criteria: User shall be able to access features in the list page under index.
 

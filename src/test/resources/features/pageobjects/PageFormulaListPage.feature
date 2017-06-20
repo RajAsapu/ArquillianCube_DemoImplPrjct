@@ -1,6 +1,6 @@
 @SmokeTest
 @FormulaList
-Feature: To verify if the user is able to access list page under formula.
+Feature: List Formula Page
 
   Acceptance Criteria: User shall be able to access features in the list page under formula.
 

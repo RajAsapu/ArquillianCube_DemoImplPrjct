@@ -1,9 +1,6 @@
 package runner;
 
 import com.google.common.base.Verify;
-import courgette.api.CourgetteOptions;
-import courgette.api.CourgetteRunLevel;
-import courgette.api.junit.Courgette;
 import cucumber.api.CucumberOptions;
 import cucumber.runtime.arquillian.CukeSpace;
 import net.masterthought.cucumber.Configuration;
@@ -11,10 +8,8 @@ import net.masterthought.cucumber.ReportBuilder;
 import net.masterthought.cucumber.Reportable;
 import org.arquillian.cube.CubeController;
 import org.arquillian.cube.CubeIp;
-import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.junit.*;
-import org.junit.runner.JUnitCore;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,10 +33,10 @@ import java.util.Map;
  */
 @RunWith(CukeSpace.class)
 @CucumberOptions(
-        plugin = {"progress","html:target/cucumber-html-report", "json:target/cucumber-json-report"},
+        plugin = {"json:target/cucumber-json-report"},
         features = {"src/test/resources/features/"},
         glue = {"classpath:"},
-        tags = {"@SmokeTest"}
+        tags = {"@AppTestData"}
 )
 public class RunTest {
 
@@ -133,5 +128,5 @@ public class RunTest {
         Verify.verify(containerConfiguration.startServiceContainer(ipDatabase, registryName+SERVICE_IMAGE+":"+tagName));
         log.debug("Service Container has started");
     }
-}
 
+}

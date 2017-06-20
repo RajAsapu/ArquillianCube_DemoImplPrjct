@@ -36,7 +36,7 @@ import java.util.Map;
         plugin = {"json:target/cucumber-json-report"},
         features = {"src/test/resources/features/"},
         glue = {"classpath:"},
-        tags = {"@AppTestData"}
+        tags = {"@AppTestData,@SmokeTest"}
 )
 public class RunTest {
 

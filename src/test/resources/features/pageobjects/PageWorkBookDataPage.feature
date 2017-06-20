@@ -37,7 +37,6 @@ Feature: Workbook Data Page
     Given the user has navigated to the "List" page under the "Workbook"
     When  the user clicks on manage data for a workbook with name as "TestWorkbook3Attr"
     And   clicked on "Row"
-    And   clicked on "Manage Data"
     And   clicked on "Upload"
     And   choose file having path "<filePath>"
     #Yet to be implemented
@@ -70,7 +69,7 @@ Feature: Workbook Data Page
     Examples:
       | supplier               | supplierSite               | location       | item    | hauler           | customerShipTo | customer                              | fbo              | priceBasis | uom | startDate         | endDate           | currencyCode | status   |
       | 101 LIMITED            | MIAMI EXECUTIVE AVIATION-A | HOUSTON COUNTY | AEROJET | AAGAARD EURO OIL | LAND           | SKYCHASE / TAK                        | KEYSON AIRWAYS-A | All        | 300 | 04-May-2017 10:19 | 04-May-2017 10:19 | AMD          | Active   |
-      | HANJIN SHIPPING CO LTD |                            | MIAMI INTL     |         |                  |                | COTRADER SIX LTD C/O CLIPPER BULK A/S |                  | All        | 323 | 17-Apr-2017 15:2  |                   | ARS          | Inactive |
+      | HANJIN SHIPPING CO LTD |                            | MIAMI INTL1    |         |                  |                | COTRADER SIX LTD C/O CLIPPER BULK A/S |                  | All        | 323 | 17-Apr-2017 15:2  |                   | ARS          | Inactive |
 
   Scenario Outline:To verify if the user is able to create work book data with price basis as price scale.
     Given the user has navigated to the "List" page under the "Workbook"
@@ -92,6 +91,6 @@ Feature: Workbook Data Page
     Then  the application displays an success message as "Workbook data created successfully."
     Examples:
       | supplier    | location                  | customer       | priceBasis        | uom | startDate         | currencyCode |
-      | 3 HONG KONG | HOUSTON EXECUTIVE AIRPORT | SKYCHASE / TAK | Price Point Scale | 300 | 09-May-2017 10:19 | AMD          |
-      | 3 HONG KONG | HOUSTON EXECUTIVE AIRPORT | SKYCHASE / TAK | Price Break Scale | 300 | 09-May-2017 10:19 | AMD          |
+      | 3 HONG KONG | HOUSTON EXECUTIVE AIRPORT | SKYCHASE / TAK | Price Point Scale | 300 | 09-May-2017 10:19 | USD          |
+      | 3 HONG KONG | HOUSTON EXECUTIVE AIRPORT | SKYCHASE / TAK | Price Break Scale | 300 | 09-May-2017 10:19 | USD          |
 

@@ -2,7 +2,7 @@ package functions;
 
 import com.google.common.base.Verify;
 import com.google.common.collect.Lists;
-import org.apache.maven.shared.utils.StringUtils;
+import org.apache.commons.lang.StringUtils;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -21,6 +21,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+
+import static org.apache.commons.lang.StringUtils.*;
 
 /*
  * Class has the methods to perform operations on the web elements
@@ -276,8 +278,8 @@ public class GenericWebElementMethods extends PageCommonMethods {
             autoFill = getElementFromListWithPosition("//*[normalize-space()='" + value.toUpperCase() + "']", position);
         } else if (getSizeOfList("//*[normalize-space()='" + value.replaceAll(" ", "") + "']") > 0) {
             autoFill = getElementFromListWithPosition("//*[normalize-space()='" + value.replaceAll(" ", "") + "']", position);
-        } else if (getSizeOfList("//*[normalize-space()='" + StringUtils.capitalise(value) + "']") > 0) {
-            autoFill = getElementFromListWithPosition("//*[normalize-space()='" + StringUtils.capitalise(value) + "']", position);
+        } else if (getSizeOfList("//*[normalize-space()='" + capitalise(value) + "']") > 0) {
+            autoFill = getElementFromListWithPosition("//*[normalize-space()='" + capitalise(value) + "']", position);
         } else {
             Assert.fail("Auto Fill options are not displayed");
         }

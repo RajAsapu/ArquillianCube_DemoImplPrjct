@@ -13,8 +13,8 @@ repositories {
 
 test {
     maxParallelForks = Runtime.runtime.availableProcessors()
-    reports.junitXml.enabled = false
-    reports.html.enabled = false
+    reports.junitXml.enabled = true
+    reports.html.enabled = true
     environment "SERVICE_IMAGE_TAG", "DEV"
     environment "UI_IMAGE_TAG", "latest"
     environment "DATAMOCK_IMAGE_TAG", "latest"

@@ -3,8 +3,6 @@ package runner;
 import com.google.common.base.Verify;
 import cucumber.api.CucumberOptions;
 import cucumber.runtime.arquillian.CukeSpace;
-import cucumber.runtime.arquillian.api.Tags;
-import cucumber.runtime.arquillian.config.CucumberConfiguration;
 import net.masterthought.cucumber.Configuration;
 import net.masterthought.cucumber.ReportBuilder;
 import net.masterthought.cucumber.Reportable;
@@ -24,9 +22,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import setup.AppProperties;
-
-import static java.util.Collections.singletonList;
 
 @RunWith(CukeSpace.class)
 @CucumberOptions(
@@ -70,17 +65,15 @@ public class RunTest {
         List<String> jsonFiles = new ArrayList<>();
         jsonFiles.add("target/cucumber-json-report");
 
-        String buildNumber = System.getenv("bamboo.buildNumber");
         String projectName = "Pricing-e2e-tests";
         boolean parallelTesting = false;
 
         Configuration configuration = new Configuration(reportOutputDirectory, projectName);
         configuration.setParallelTesting(false);
-        configuration.setBuildNumber(buildNumber);
 
         configuration.addClassifications("Environment", AppProperties.getEnv());
         configuration.addClassifications("Browser", browser.getSelectedDriver());
-        configuration.addClassifications("Build Number",buildNumber);
+        configuration.addClassifications("Build Number","${buildNumber}");
 
         ReportBuilder reportBuilder = new ReportBuilder(jsonFiles, configuration);
         Reportable result = reportBuilder.generateReports();

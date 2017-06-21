@@ -14,6 +14,7 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class ContainerConfiguration {
+    private static boolean dockerEnvBroken = false;
     private DockerClient dockerClient;
     private static Logger log = LoggerFactory.getLogger(ContainerConfiguration.class);
 
@@ -59,10 +60,15 @@ public class ContainerConfiguration {
             log.info("Name:" + temp.getNames()[0] + ",Status:" + temp.getStatus());
             if (Arrays.asList(activeContainers).contains(temp.getNames()[0]) ) {
                 if (!temp.getStatus().contains("Up")) {
+                    dockerEnvBroken=true;
                     Assert.fail("Failed to start container:" + temp.getNames()[0]);
-
                 }
             }
         }
+    }
+
+    public static boolean getDockerEnvStatus()
+    {
+        return dockerEnvBroken;
     }
 }

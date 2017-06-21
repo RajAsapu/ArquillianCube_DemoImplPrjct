@@ -33,7 +33,7 @@ import static java.util.Collections.singletonList;
         plugin = {"json:target/cucumber-json-report"},
         features = {"src/test/resources/features/"},
         glue = {"classpath:"},
-        tags = {"@TestCalc"}
+        tags = {"@AppTestData,@SmokeTest"}
 )
 public class RunTest {
 

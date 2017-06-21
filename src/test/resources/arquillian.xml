@@ -50,6 +50,9 @@
                     stdOut: true
                     stdErr: true
                     timeout: 1800
+            service:
+                await:
+                    strategy: native
         </property>
     </extension>
 </arquillian>

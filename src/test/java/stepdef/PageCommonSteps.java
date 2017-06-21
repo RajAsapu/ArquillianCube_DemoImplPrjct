@@ -10,10 +10,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
-import setup.Constants;
-import setup.OpenBrowser;
-import setup.PageFactory;
-import setup.UpdateProperties;
+import setup.*;
 
 public class PageCommonSteps extends OpenBrowser {
     final static Logger logger = Logger.getLogger(PageCommonSteps.class.getName());
@@ -27,7 +24,7 @@ public class PageCommonSteps extends OpenBrowser {
 
     public PageCommonSteps() {
         updateProperties = new UpdateProperties();
-        environment = updateProperties.getEnv();
+        environment = AppProperties.getEnv();
         pageFactory = new PageFactory();
     }
 
@@ -41,11 +38,11 @@ public class PageCommonSteps extends OpenBrowser {
      */
     public void openApplication() {
         if (environment.equalsIgnoreCase("Docker")) {
-            edriver = initBrowser(updateProperties.getPricingProperty("pricing.ui"));
+            edriver = initBrowser(AppProperties.getPricingProperty("pricing.ui"));
         } else if (environment.equalsIgnoreCase("Test")) {
-            edriver = initBrowser(updateProperties.getApplicationProperty("testPricingUrl"));
+            edriver = initBrowser(AppProperties.getApplicationProperty("testPricingUrl"));
         } else if (environment.equalsIgnoreCase("Dev")) {
-            edriver = initBrowser(updateProperties.getApplicationProperty("devPricingUrl"));
+            edriver = initBrowser(AppProperties.getApplicationProperty("devPricingUrl"));
         }
     }
 

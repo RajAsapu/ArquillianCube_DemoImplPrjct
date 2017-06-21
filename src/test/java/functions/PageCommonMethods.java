@@ -65,6 +65,11 @@ public class PageCommonMethods {
      * Method to login to the application
      */
     public void login() {
+        try{
+            edriver.findElement(By.partialLinkText("Back to Application")).click();
+        }catch (Exception exp){
+            log.info("KeyCloak displayed error 'Invalid parameter: redirect_uri'");
+        }
         WebElement element = (new WebDriverWait(edriver, 90)).until(new ExpectedCondition<WebElement>() {
             @Override
             public WebElement apply(WebDriver d) {

@@ -7,6 +7,8 @@ import com.github.dockerjava.core.DockerClientBuilder;
 import org.junit.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.Arrays;
 import java.util.List;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -26,7 +28,7 @@ public class ContainerConfiguration {
                     .withAttachStdin(true)
                     .withEnv("cassandra.contactpoints=" + dbIpAddress)
                     .withName("service")
-                    .withCmd("sleep","5000")
+                    .withCmd("sleep", "5000")
                     .withOomKillDisable(false)
                     .withDnsSearch("localhost")
                     .withRestartPolicy(RestartPolicy.unlessStoppedRestart())
@@ -45,20 +47,22 @@ public class ContainerConfiguration {
         }
 
     }
+
     /*
      * Method to display running containers
      */
-    public void displayRunningContainers()
-    {
-//        List<Container> containers = dockerClient.listContainersCmd().withShowAll(true).exec();
-//        assertThat(containers, notNullValue());
-//        for(Container temp:containers)
-//        {
-//            log.debug("#--------------Running--------------#");
-//            log.debug("Name:"+temp.getNames()[0].toUpperCase()+",Status:"+temp.getStatus());
-//            if(!temp.getStatus().contains("Up")){
-//                Assert.fail("Failed to start container:"+temp.getNames()[0]);
-//            }
-//        }
+    public void displayRunningContainers() {
+        List<Container> containers = dockerClient.listContainersCmd().withShowAll(true).exec();
+        String activeContainers[] = {"/ui", "/datamock", "/engine", "/database", "/service"};
+        for (Container temp : containers) {
+            log.info("#--------------Running--------------#");
+            log.info("Name:" + temp.getNames()[0] + ",Status:" + temp.getStatus());
+            if (Arrays.asList(activeContainers).contains(temp.getNames()[0]) ) {
+                if (!temp.getStatus().contains("Up")) {
+                    Assert.fail("Failed to start container:" + temp.getNames()[0]);
+
+                }
+            }
+        }
     }
 }

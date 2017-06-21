@@ -3,6 +3,8 @@ package runner;
 import com.google.common.base.Verify;
 import cucumber.api.CucumberOptions;
 import cucumber.runtime.arquillian.CukeSpace;
+import cucumber.runtime.arquillian.api.Tags;
+import cucumber.runtime.arquillian.config.CucumberConfiguration;
 import net.masterthought.cucumber.Configuration;
 import net.masterthought.cucumber.ReportBuilder;
 import net.masterthought.cucumber.Reportable;
@@ -13,6 +15,7 @@ import org.junit.*;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import setup.AppProperties;
 import setup.ContainerConfiguration;
 import setup.OpenBrowser;
 import setup.UpdateProperties;
@@ -21,22 +24,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import setup.AppProperties;
 
+import static java.util.Collections.singletonList;
 
-/*
-  One Scenario
-  Running on
-        phantom js - 1m 12 s
-        chromeheadless - 37 s
-        grid/chrome stable - 1m 24s
-
- */
 @RunWith(CukeSpace.class)
 @CucumberOptions(
         plugin = {"json:target/cucumber-json-report"},
         features = {"src/test/resources/features/"},
         glue = {"classpath:"},
-        tags = {"@AppTestData,@SmokeTest"}
+        tags = {"@TestCalc"}
 )
 public class RunTest {
 
@@ -44,6 +41,7 @@ public class RunTest {
     private ContainerConfiguration containerConfiguration = new ContainerConfiguration();
     private Map<String, String> map = new HashMap<String, String>();
     private static Logger log = LoggerFactory.getLogger(RunTest.class);
+
     /*
      *  Service image name
      */
@@ -63,6 +61,9 @@ public class RunTest {
 
     @AfterClass
     public static void generateReports() {
+        /*
+         * Destroy service container
+         */
         UpdateProperties props = new UpdateProperties();
         OpenBrowser browser = new OpenBrowser();
         File reportOutputDirectory = new File("target");
@@ -77,8 +78,9 @@ public class RunTest {
         configuration.setParallelTesting(false);
         configuration.setBuildNumber(buildNumber);
 
-        configuration.addClassifications("Environment", props.getEnv());
+        configuration.addClassifications("Environment", AppProperties.getEnv());
         configuration.addClassifications("Browser", browser.getSelectedDriver());
+        configuration.addClassifications("Build Number",buildNumber);
 
         ReportBuilder reportBuilder = new ReportBuilder(jsonFiles, configuration);
         Reportable result = reportBuilder.generateReports();
@@ -87,12 +89,13 @@ public class RunTest {
 
     @Test
     public void setEnvironment() {
-        if (props.getEnv().equals("Docker")) {
+        if (AppProperties.getEnv().equals("Docker")) {
             /*
              * Remove service running container
              */
             cubeController.stop("service");
             cubeController.destroy("service");
+            log.debug("Stopped service container");
             /*
              * Start service container
              */
@@ -110,7 +113,7 @@ public class RunTest {
              * Display running containers
              */
             containerConfiguration.displayRunningContainers();
-            log.debug("Run the tests");
+            log.debug("Running tests");
         }
     }
     /*

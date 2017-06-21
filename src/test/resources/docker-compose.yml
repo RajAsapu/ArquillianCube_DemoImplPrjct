@@ -53,4 +53,5 @@ database:
         maximumRetryCount: 2
 service:
   image: '${DOCKER_REGISTRY}/epe-config:${SERVICE_IMAGE_TAG}'
+  manual: true
 

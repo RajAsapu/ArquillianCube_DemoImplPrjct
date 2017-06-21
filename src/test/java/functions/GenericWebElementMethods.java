@@ -278,8 +278,8 @@ public class GenericWebElementMethods extends PageCommonMethods {
             autoFill = getElementFromListWithPosition("//*[normalize-space()='" + value.toUpperCase() + "']", position);
         } else if (getSizeOfList("//*[normalize-space()='" + value.replaceAll(" ", "") + "']") > 0) {
             autoFill = getElementFromListWithPosition("//*[normalize-space()='" + value.replaceAll(" ", "") + "']", position);
-        } else if (getSizeOfList("//*[normalize-space()='" + capitalise(value) + "']") > 0) {
-            autoFill = getElementFromListWithPosition("//*[normalize-space()='" + capitalise(value) + "']", position);
+        } else if (getSizeOfList("//*[normalize-space()='" + StringUtils.capitalize(value) + "']") > 0) {
+            autoFill = getElementFromListWithPosition("//*[normalize-space()='" + StringUtils.capitalize(value) + "']", position);
         } else {
             Assert.fail("Auto Fill options are not displayed");
         }

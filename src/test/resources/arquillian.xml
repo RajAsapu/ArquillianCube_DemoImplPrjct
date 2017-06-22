@@ -4,12 +4,9 @@
             xsi:schemaLocation="http://jboss.org/schema/arquillian
   http://jboss.org/schema/arquillian/arquillian_1_0.xsd">
 
-    <!--<extension qualifier="cube">-->
-        <!--<property name="connectionMode">STARTORCONNECT</property>-->
-    <!--</extension>-->
-
     <extension qualifier="docker">
         <property name="clean">true</property>
+        <property name="connectionMode">STARTANDSTOP</property>
         <property name="dockerContainersFile">src/test/resources/docker-compose.yml</property>
         <property name="definitionFormat">CUBE</property>
         <property name="cleanBuildImage">true</property>
@@ -49,7 +46,7 @@
                     iterations: 5
                     stdOut: true
                     stdErr: true
-                    timeout: 1800
+                    timeout: 180
             service:
                 await:
                     strategy: sleeping

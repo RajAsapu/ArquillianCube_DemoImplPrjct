@@ -5,15 +5,14 @@ import cucumber.api.CucumberOptions;
 import cucumber.runtime.arquillian.CukeSpace;
 import net.masterthought.cucumber.Configuration;
 import net.masterthought.cucumber.ReportBuilder;
-import net.masterthought.cucumber.Reportable;
+import org.arquillian.cube.CubeController;
 import org.arquillian.cube.CubeIp;
-import org.arquillian.cube.HostPort;
-import org.jboss.arquillian.container.test.api.RunAsClient;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
+import org.jboss.arquillian.test.api.ArquillianResource;
+import org.junit.*;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import setup.ContainerConfiguration;
 import setup.OpenBrowser;
 import setup.UpdateProperties;
 import java.io.File;
@@ -24,22 +23,29 @@ import java.util.Map;
 
 @RunWith(CukeSpace.class)
 @CucumberOptions(
-        plugin = {"html:target/cucumber-html-report", "json:target/cucumber-json-report"},
-        features = {"src/test/resources/features/pageobjects/"},
+        plugin = {"json:target/cucumber-json-report"},
+        features = {"src/test/resources/features/"},
         glue = {"classpath:"},
-        tags = {"@TestData,@WorkBookList"}
+        tags = {"@AppTestData,@SmokeTest"}
 )
-@RunAsClient
 public class RunTest {
 
-    @HostPort(containerName = "ui", value = 80)
-    private static int uiPort;
-    @HostPort(containerName = "datamock", value = 5555)
-    private static int datamockPort;
-    @HostPort(containerName = "engine", value = 6666)
-    private static int enginePort;
-    @CubeIp(containerName = "database")
-    protected String ipDatabase;
+    private UpdateProperties props = new UpdateProperties();
+    private ContainerConfiguration containerConfiguration = new ContainerConfiguration();
+    private Map<String, String> map = new HashMap<String, String>();
+    private static Logger log = LoggerFactory.getLogger(RunTest.class);
+    /*
+     * List of container names
+     */
+    private final static String DATABASE_CONTAINER_NAME = "database";
+    /*
+     * Variable to get the ipaddress of the database container
+     */
+    @CubeIp(containerName = DATABASE_CONTAINER_NAME)
+    private String ipDatabase;
+
+    @ArquillianResource
+    CubeController cubeController;
 
     @AfterClass
     public static void generateReports() {
@@ -49,37 +55,56 @@ public class RunTest {
         List<String> jsonFiles = new ArrayList<>();
         jsonFiles.add("target/cucumber-json-report");
 
-        String buildNumber = System.getenv("bamboo.buildNumber");
         String projectName = "Pricing-e2e-tests";
         boolean parallelTesting = false;
 
         Configuration configuration = new Configuration(reportOutputDirectory, projectName);
         configuration.setParallelTesting(false);
-        configuration.setBuildNumber(buildNumber);
 
-        configuration.addClassifications("Environment", props.getEnv());
+        configuration.addClassifications("Environment", System.getenv("ENV"));
         configuration.addClassifications("Browser", browser.getSelectedDriver());
+        configuration.addClassifications("Build Number",System.getenv("bamboo.buildNumber"));
 
         ReportBuilder reportBuilder = new ReportBuilder(jsonFiles, configuration);
-        Reportable result = reportBuilder.generateReports();
-
+        reportBuilder.generateReports();
     }
 
-    @Before
-    public void initialization() throws Exception {
-
-        Map<String, String> map = new HashMap<String, String>();
-        UpdateProperties props = new UpdateProperties();
-        if (props.getEnv().equalsIgnoreCase("docker")) {
-            Verify.verify(props.startServiceContainer(ipDatabase, "epe-config:latest"));
-            map.put("pricing.ui", "localhost:" + String.valueOf(uiPort));
-            map.put("pricing.datamock", "localhost:" + String.valueOf(datamockPort));
-            map.put("pricing.engine", "localhost:" + String.valueOf(enginePort));
-            map.put("pricing.service", "localhost:8080");
+    @Test
+    public void setEnvironment() {
+        if (System.getenv("ENV").equals("Docker")) {
+            /*
+             * Remove service running container
+             */
+            cubeController.stop("service");
+            cubeController.destroy("service");
+            log.debug("Stopped service container");
+            /*
+             * Start service container
+             */
+            startServiceContainer();
+            /*
+             * Writing exposed ports to the properties file
+             */
+            map.put("pricing.ui"      , System.getenv("UI_URL"));
+            map.put("pricing.datamock", System.getenv("DATAMOCK_URL"));
+            map.put("pricing.engine"  , System.getenv("ENGINE_URL"));
+            map.put("pricing.service" , System.getenv("SERVICE_URL"));
             props.setProperty(map);
             props.updateHostConfig();
-            System.out.println("Arquillian - Containers has started .");
+            /*
+             * Display running containers
+             */
+            containerConfiguration.displayRunningContainers();
+            log.debug("Running tests");
         }
     }
-}
+    /*
+     * Method to start the service container using database ip address
+     */
+    public void startServiceContainer()
+    {
+        Verify.verify(containerConfiguration.startServiceContainer(ipDatabase, System.getenv("DOCKER_REGISTRY")+"/"+System.getenv("SERVICE_IMAGE")));
+        log.debug("Service Container has started");
+    }
 
+}

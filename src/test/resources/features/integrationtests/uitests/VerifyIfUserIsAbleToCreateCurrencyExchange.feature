@@ -1,3 +1,4 @@
+@CurrencyExchange
 Feature: Currency Exchange
   Acceptance Criteria: User shall be able to create currency exchange
 

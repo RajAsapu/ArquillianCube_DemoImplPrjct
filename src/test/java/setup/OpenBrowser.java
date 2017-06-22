@@ -1,6 +1,7 @@
 package setup;
 
 import org.jboss.arquillian.phantom.resolver.ResolvingPhantomJSDriverService;
+import org.junit.Assert;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -9,9 +10,14 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.openqa.selenium.phantomjs.PhantomJSDriverService;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import runner.RunTest;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -22,9 +28,21 @@ public class OpenBrowser {
     public WebDriver driver;
     private EventFiringWebDriver edriver;
     private IEventListener listener;
+    private static Logger log = LoggerFactory.getLogger(OpenBrowser.class);
 
     public EventFiringWebDriver initBrowser(String url) {
-        driver = getDriver(Open.PhantomJS);
+        String browser = System.getenv("BROWSER");
+        log.info("Tests are running on browser:"+browser);
+        if(browser.equalsIgnoreCase("chrome")){
+            driver = getDriver(Open.Chrome);
+        }else if(browser.equalsIgnoreCase("chromeHeadless")){
+            driver = getDriver(Open.Chrome_Headless);
+        }else if(browser.equalsIgnoreCase("phantomsJs")){
+            driver = getDriver(Open.PhantomJS);
+        }else{
+            Assert.fail("Browser:"+browser+" is not available");
+        }
+
         listener = new IEventListener();
         edriver = new EventFiringWebDriver(driver);
         edriver.register(listener);
@@ -34,11 +52,6 @@ public class OpenBrowser {
         edriver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
         edriver.manage().timeouts().setScriptTimeout(30, TimeUnit.SECONDS);
         return edriver;
-    }
-
-    public void closeBrowser() {
-        edriver.unregister(listener);
-        edriver.quit();
     }
 
     public WebDriver getDriver(Open browser) {
@@ -57,8 +70,17 @@ public class OpenBrowser {
         options.addArguments("--disable-extensions");
         options.addArguments("window-size=1280x1024");
         System.setProperty("webdriver.chrome.driver", "chromedriver");
-
+        DesiredCapabilities capabilities=new DesiredCapabilities();
+        capabilities.setBrowserName("chrome");
+        capabilities.setCapability(ChromeOptions.CAPABILITY,options);
         switch (browser) {
+            case Grid:
+                try {
+                    driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), capabilities);
+                }catch (Exception exp){
+                    exp.printStackTrace();
+                }
+                break;
             case Chrome:
                 driver = new ChromeDriver(options);
                 break;
@@ -73,7 +95,7 @@ public class OpenBrowser {
             case PhantomJS:
                 try {
                     String[] cli_args = new String[]{"--ignore-ssl-errors=true", "--debug=true"};
-                    DesiredCapabilities capabilities = DesiredCapabilities.phantomjs();
+                    capabilities = DesiredCapabilities.phantomjs();
                     capabilities.setJavascriptEnabled(true);
                     capabilities.acceptInsecureCerts();
                     capabilities.setCapability(PhantomJSDriverService.PHANTOMJS_CLI_ARGS, cli_args);
@@ -95,6 +117,6 @@ public class OpenBrowser {
     }
 
     public static enum Open {
-        Chrome, PhantomJS, Chrome_Headless
+        Chrome, PhantomJS, Chrome_Headless , Grid
     }
 }

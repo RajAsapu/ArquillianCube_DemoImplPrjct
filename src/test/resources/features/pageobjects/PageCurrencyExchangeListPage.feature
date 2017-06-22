@@ -1,6 +1,7 @@
 @SmokeTest
 @CurrExcList
-Feature: To verify if the user is able to access list page under curreny exchange.
+@CurrencyExchange
+Feature: List Currency Exchange
 
   Acceptance Criteria: User shall be able to access features in the currency exchange under index.
 

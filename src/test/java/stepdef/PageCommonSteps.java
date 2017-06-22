@@ -10,10 +10,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
-import setup.Constants;
-import setup.OpenBrowser;
-import setup.PageFactory;
-import setup.UpdateProperties;
+import setup.*;
 
 public class PageCommonSteps extends OpenBrowser {
     final static Logger logger = Logger.getLogger(PageCommonSteps.class.getName());
@@ -27,12 +24,12 @@ public class PageCommonSteps extends OpenBrowser {
 
     public PageCommonSteps() {
         updateProperties = new UpdateProperties();
-        environment = updateProperties.getEnv();
+        environment = System.getenv("ENV");
         pageFactory = new PageFactory();
     }
 
     @And("^wait for sometime$")
-    public void wait_for_sometime() throws Exception {
+    public void wait_for_sometime()  {
         pageFactory.getPageCommonMethods().waitFor(5);
     }
 
@@ -41,11 +38,11 @@ public class PageCommonSteps extends OpenBrowser {
      */
     public void openApplication() {
         if (environment.equalsIgnoreCase("Docker")) {
-            edriver = initBrowser(updateProperties.getPricingProperty("pricing.ui"));
+            edriver = initBrowser(AppProperties.getPricingProperty("pricing.ui"));
         } else if (environment.equalsIgnoreCase("Test")) {
-            edriver = initBrowser(updateProperties.getApplicationProperty("testPricingUrl"));
+            edriver = initBrowser(System.getenv("TEST_PRICING_URL"));
         } else if (environment.equalsIgnoreCase("Dev")) {
-            edriver = initBrowser(updateProperties.getApplicationProperty("devPricingUrl"));
+            edriver = initBrowser(System.getenv("DEV_PRICING_URL"));
         }
     }
 
@@ -69,6 +66,7 @@ public class PageCommonSteps extends OpenBrowser {
         }
         Actions actions = new Actions(edriver);
         actions.click(search).perform();
+        wait_for_sometime();
     }
 
     /*
@@ -83,6 +81,7 @@ public class PageCommonSteps extends OpenBrowser {
         Actions actions = new Actions(edriver);
         actions.click(update).perform();
         actions.click().perform();
+        wait_for_sometime();
     }
 
     /*
@@ -94,6 +93,7 @@ public class PageCommonSteps extends OpenBrowser {
         WebElement search = edriver.findElement(By.xpath(Constants.indexCreate_search_xpath));
         Actions actions = new Actions(edriver);
         actions.click(search).perform();
+        wait_for_sometime();
     }
 
     /*
@@ -102,7 +102,7 @@ public class PageCommonSteps extends OpenBrowser {
     @And("^clicks on the submit button$")
     public void clicks_on_the_submit_button() throws Exception {
         edriver.findElement(By.xpath(Constants.indexCreate_submit_xpath)).click();
-        pageFactory.getPageCommonMethods().waitFor(3);
+        pageFactory.getPageCommonMethods().waitFor(5);
     }
 
     /*
@@ -111,7 +111,7 @@ public class PageCommonSteps extends OpenBrowser {
     @And("^clicks on the save button$")
     public void clicks_on_the_save_button() {
         edriver.findElement(By.xpath(Constants.workbookData_save_xpath)).click();
-        pageFactory.getPageCommonMethods().waitFor(3);
+        pageFactory.getPageCommonMethods().waitFor(5);
     }
 
     /*

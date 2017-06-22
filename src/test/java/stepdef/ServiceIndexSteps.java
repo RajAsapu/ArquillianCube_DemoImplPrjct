@@ -4,15 +4,21 @@ import com.google.common.base.Verify;
 import cucumber.api.DataTable;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.response.ResponseBody;
+import org.apache.commons.collections.map.HashedMap;
 import org.apache.log4j.Logger;
+import org.openqa.selenium.Cookie;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 import setup.DriverBean;
 import setup.PageFactory;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class ServiceIndexSteps extends AbstractApiDefinitions {
 

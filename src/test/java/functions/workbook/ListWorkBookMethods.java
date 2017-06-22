@@ -1,6 +1,7 @@
 package functions.workbook;
 
 import functions.GenericWebElementMethods;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 import setup.Constants;
 import setup.DriverBean;
@@ -59,7 +60,8 @@ public class ListWorkBookMethods extends GenericWebElementMethods {
     }
 
     public void clickOnRadioButton(int position) {
-        getElementFromListWithPosition(Constants.workbookList_radioButtonColumn_xpath, position).click();
+        Actions act=new Actions(edriver);
+        act.click(getElementFromListWithPosition(Constants.workbookList_radioButtonColumn_xpath, position)).perform();
     }
 
     public void clickOnViewWorkBookConfiguration(int position) {

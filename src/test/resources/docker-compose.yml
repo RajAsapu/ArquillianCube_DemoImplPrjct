@@ -1,69 +1,57 @@
 ui:
-  image: 'epe-ui-nokeycloak:latest'
+  image: '${DOCKER_REGISTRY}/${UI_IMAGE}'
   exposedPorts: [4200/tcp]
   publishAllPorts: true
   attachStdin: true
   attachSterr: true
   dnsSearch: [localhost]
-  networks:
-        - mynetwork
   alwaysPull: true
   portBindings: [4200->80/tcp]
 datamock:
-  image: 'epe-data-mock:latest'
-  exposedPorts: [5555/tcp]
+  image: '${DOCKER_REGISTRY}/${DATAMOCK_IMAGE}'
+  exposedPorts: [8082/tcp]
   attachStdin: true
   attachSterr: true
   networkMode: host
   privileged: true
   alwaysPull: true
   dnsSearch: [losthost]
-  networks:
-       - mynetwork
   env:
-    - server.port=5555
+    - server.port=8082
     - "spring.datasource.url=jdbc:oracle:thin:@devdb.wfs.com:1535:dev"
     - spring.datasource.driverClassName=oracle.jdbc.OracleDriver
     - spring.datasource.username=apps
     - spring.datasource.password=apps
-  portBindings: [5555->5555/tcp]
+  portBindings: [8082->8082/tcp]
   restartPolicy:
         name: failure
         maximumRetryCount: 2
 engine:
-  image: 'epe-price-engine:latest'
-  exposedPorts: [6666/tcp]
+  image: '${DOCKER_REGISTRY}/${ENGINE_IMAGE}'
+  exposedPorts: [8081/tcp]
   publishAllPorts: true
   attachStdin: true
   attachSterr: true
   alwaysPull: true
   dnsSearch: [localhost]
-  env: [server.port=6666]
-  portBindings: [8081->6666/tcp]
-  networks:
-        - mynetwork
+  env: [server.port=8081]
+  portBindings: [8081->8081/tcp]
   restartPolicy:
         name: failure
         maximumRetryCount: 2
 database:
-  image: 'solr-cassandra:latest'
+  image: '${DOCKER_REGISTRY}/${DATABASE_IMAGE}'
   exposedPorts: [9042/tcp]
   publishAllPorts: true
   attachStdin: true
   attachSterr: true
   alwaysPull: false
   dnsSearch: [localhost]
-  cpuShares: 5
-  cpuQuota: 5000
   portBindings: [9042->9042/tcp,8943->8943/tcp]
-  networks:
-        - mynetwork
   restartPolicy:
         name: failure
         maximumRetryCount: 2
-networks:
-   mynetwork:
-      driver: bridge
-
-
+service:
+  image: '${DOCKER_REGISTRY}/${SERVICE_IMAGE}'
+  manual: true
 

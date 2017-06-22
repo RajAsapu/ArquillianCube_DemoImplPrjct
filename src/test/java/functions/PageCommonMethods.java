@@ -17,6 +17,7 @@ import setup.Constants;
 import setup.DriverBean;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class PageCommonMethods {
 
@@ -65,7 +66,13 @@ public class PageCommonMethods {
      * Method to login to the application
      */
     public void login() {
-        WebElement element = (new WebDriverWait(edriver, 30)).until(new ExpectedCondition<WebElement>() {
+        try{
+            edriver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
+            edriver.findElement(By.partialLinkText("Back to Application")).click();
+            log.info("KeyCloak displayed error 'Invalid parameter: redirect_uri'");
+        }catch (Exception exp){}
+        edriver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        WebElement element = (new WebDriverWait(edriver, 60)).until(new ExpectedCondition<WebElement>() {
             @Override
             public WebElement apply(WebDriver d) {
                 return d.findElement(By.xpath(Constants.login_username_xpath));

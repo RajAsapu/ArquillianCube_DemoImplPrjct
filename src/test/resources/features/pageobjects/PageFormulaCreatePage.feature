@@ -1,6 +1,6 @@
 @SmokeTest
 @FormulaCreate
-Feature: To verify if the user is able to create formula.
+Feature: Create Formula Page
 
   Acceptance Criteria: User shall be able to create a formula.
 

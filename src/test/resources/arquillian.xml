@@ -4,15 +4,9 @@
             xsi:schemaLocation="http://jboss.org/schema/arquillian
   http://jboss.org/schema/arquillian/arquillian_1_0.xsd">
 
-    <extension qualifier="cube">
-        <property name="connectionMode">STARTANDSTOP</property>
-    </extension>
-
     <extension qualifier="docker">
-        <!--<property name="serverVersion">1.12.3</property>-->
-        <!--<property name="serverUri">http://localhost:2375</property>-->
-        <property name="dockerRegistry">http://jfrog.aws.wfscorp.com/artifactory/docker/docker-dev-local/</property>
         <property name="clean">true</property>
+        <property name="connectionMode">STARTANDSTOP</property>
         <property name="dockerContainersFile">src/test/resources/docker-compose.yml</property>
         <property name="definitionFormat">CUBE</property>
         <property name="cleanBuildImage">true</property>
@@ -26,7 +20,7 @@
                     iterations: 5
                     stdOut: true
                     stdErr: true
-                    timeout: 1800
+                    timeout: 180
             ui:
                 await:
                     strategy: polling
@@ -34,7 +28,7 @@
                     iterations: 5
                     stdOut: true
                     stdErr: true
-                    timeout: 1800
+                    timeout: 180
             datamock:
                 await:
                     strategy: log
@@ -43,7 +37,7 @@
                     iterations: 5
                     stdOut: true
                     stdErr: true
-                    timeout: 1800
+                    timeout: 180
             engine:
                 await:
                     strategy: log
@@ -52,7 +46,11 @@
                     iterations: 5
                     stdOut: true
                     stdErr: true
-                    timeout: 1800
+                    timeout: 180
+            service:
+                await:
+                    strategy: sleeping
+                    sleepTime: 5 s
         </property>
     </extension>
 </arquillian>

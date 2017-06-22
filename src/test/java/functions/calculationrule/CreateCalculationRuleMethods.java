@@ -18,8 +18,11 @@ public class CreateCalculationRuleMethods extends GenericWebElementMethods {
         edriver = DriverBean.getDriver();
     }
 
-    public void setName(String name) {
-        sendKeysToWE(Constants.calculationRuleCreate_name_xpath, name + getDateWithTime());
+    public void setName(String name,boolean withTimeStamp) {
+        if(withTimeStamp){
+            sendKeysToWE(Constants.calculationRuleCreate_name_xpath, name + getDateWithTime());}
+        else{
+            sendKeysToWE(Constants.calculationRuleCreate_name_xpath, name );}
     }
 
     public void setStartDate(String startDate) {

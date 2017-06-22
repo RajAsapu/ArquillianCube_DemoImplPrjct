@@ -23,8 +23,12 @@ public class CreateFormulaMethods extends GenericWebElementMethods {
         clickButton(Constants.formulaCreate_addParameter_xpath);
     }
 
-    public void setName(String name) {
-        sendKeysToWE(Constants.formulaCreate_name_xpath, name + getDateWithTime());
+    public void setName(String name,boolean withTimeStamp) {
+        if(withTimeStamp){
+        sendKeysToWE(Constants.formulaCreate_name_xpath, name + getDateWithTime());}
+        else{
+            sendKeysToWE(Constants.formulaCreate_name_xpath, name);
+        }
     }
 
     public void setDescription(String description) {

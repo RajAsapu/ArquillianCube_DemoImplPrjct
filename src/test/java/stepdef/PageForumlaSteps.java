@@ -26,16 +26,20 @@ public class PageForumlaSteps {
     }
 
     @When("^the user filters the list using \"([^\"]*)\"$")
-    public void the_user_filters_the_list_using(String filter) throws Throwable {
+    public void the_user_filters_the_list_using(String filter) throws Exception {
         Thread.sleep(3000);
         temp = pageFactory.getListFormulaMethods().applyFilter(filter.toLowerCase());
     }
 
     @Then("^the list should display the results applying the filters$")
-    public void the_list_should_display_the_results_applying_the_filters(DataTable table) throws Throwable {
+    public void the_list_should_display_the_results_applying_the_filters(DataTable table)  {
         List<List<String>> row = table.raw();
         String filter = row.get(0).get(0);
-        Thread.sleep(3000);
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         pageFactory.getListFormulaMethods().verifyIfFilterIsApplied(filter);
     }
 
@@ -43,74 +47,83 @@ public class PageForumlaSteps {
      * Create Formula with name
      */
     @When("^the user creates a formula with \"([^\"]*)\"$")
-    public void the_user_creates_a_formula_with(String name) throws Throwable {
-        pageFactory.getCreateFormulaMethods().setName(name);
+    public void the_user_creates_a_formula_with(String name)  {
+        pageFactory.getCreateFormulaMethods().setName(name,true);
+    }
+
+    @When("^the user creates a formula with name as \"([^\"]*)\"$")
+    public void the_user_creates_a_formula_with_name_as(String name)  {
+        pageFactory.getCreateFormulaMethods().setName(name,false);
     }
 
     @When("^description as \"([^\"]*)\"$")
-    public void description_as(String description) throws Throwable {
+    public void description_as(String description)  {
         pageFactory.getCreateFormulaMethods().setDescription(description);
     }
 
     @When("^set type as \"([^\"]*)\"$")
-    public void set_type_as(String type) throws Throwable {
+    public void set_type_as(String type)  {
         pageFactory.getCreateFormulaMethods().setType(type);
     }
 
     @When("^expression as \"([^\"]*)\"$")
-    public void expression_as(String expression) throws Throwable {
+    public void expression_as(String expression)  {
         pageFactory.getCreateFormulaMethods().setExpression(expression);
     }
 
     @When("^set the start date for formula as \"([^\"]*)\"$")
-    public void set_the_start_date_for_formula_as(String startDate) throws Throwable {
+    public void set_the_start_date_for_formula_as(String startDate)  {
         pageFactory.getCreateFormulaMethods().setStartDate(startDate);
     }
 
     @When("^(set|update) the end date for formula as \"([^\"]*)\"$")
-    public void set_the_end_date_for_formula_as(String action, String endDate) throws Throwable {
+    public void set_the_end_date_for_formula_as(String action, String endDate)  {
         pageFactory.getCreateFormulaMethods().setEndDate(endDate);
     }
 
     @When("^set the rounding mode as \"([^\"]*)\"$")
-    public void set_the_rounding_mode_as(String mode) throws Throwable {
+    public void set_the_rounding_mode_as(String mode)  {
         pageFactory.getCreateFormulaMethods().setRoundingMode(mode);
     }
 
     @When("^set the rounding precision to \"([^\"]*)\"$")
-    public void set_the_rounding_precision_to(String precisionTo) throws Throwable {
+    public void set_the_rounding_precision_to(String precisionTo)  {
         pageFactory.getCreateFormulaMethods().setRoundingPrecision(precisionTo);
     }
 
     @When("^enter the details for the paramters$")
-    public void enter_the_details_for_the_paramters(DataTable arg1) throws Throwable {
+    public void enter_the_details_for_the_paramters(DataTable arg1)  {
         List<List<String>> params = arg1.raw();
         pageFactory.getCreateFormulaMethods().addParameters(params);
     }
 
     @When("^validate the expression and click on Create$")
-    public void validate_the_expression_and_click_on_Create() throws Throwable {
+    public void validate_the_expression_and_click_on_Create()  {
         pageFactory.getCreateFormulaMethods().createFormula();
     }
 
     @Then("^the formula (should|should not) be (created|updated)$")
-    public void the_formula_should_be_createdUpdated(String perform, String action) throws Throwable {
+    public void the_formula_should_be_createdUpdated(String perform, String action)  {
         pageFactory.getCreateFormulaMethods().verifyIfFormulaCreatedOrNot(perform, action);
     }
 
     @When("^the user clicks on \"([^\"]*)\" button$")
-    public void the_user_clicks_on_button(String button) throws Throwable {
-        Thread.sleep(3000);
+    public void the_user_clicks_on_button(String button)  {
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         pageFactory.getListFormulaMethods().clickOnButton(button);
     }
 
     @Then("^the inactive formulas shouldn't have option to edit$")
-    public void the_inactive_formulas_shouldn_t_have_option_to_edit() throws Throwable {
+    public void the_inactive_formulas_shouldn_t_have_option_to_edit()  {
         pageFactory.getListFormulaMethods().verifyIfInactiveElementHasEdit();
     }
 
     @When("^the user searches the (inactive|active) record$")
-    public void the_user_searches_the_activeOrinactive_record(String act) throws Throwable {
+    public void the_user_searches_the_activeOrinactive_record(String act) throws Exception {
         // Modify when DFCT - 275 is fixed
         if (act.equals("inactive")) {
             the_user_filters_the_list_using("status");
@@ -138,7 +151,7 @@ public class PageForumlaSteps {
      * Move to the List Formula Methods Class
      */
     @Then("^the formula rules shall be displayed in (ascending order|descending order)$")
-    public void the_calculation_rules_shall_be_displayed_in_sorted_order(String order, DataTable table) throws Throwable {
+    public void the_calculation_rules_shall_be_displayed_in_sorted_order(String order, DataTable table) throws Exception {
         Thread.sleep(3000);
         List<List<String>> rows = table.raw();
         String header = rows.get(0).get(0);

@@ -34,7 +34,7 @@ public class Hooks {
     @Before
     public void startUp(Scenario scenario) {
        log.debug("Scenario Running:"+scenario.getName());
-        if(System.getenv("ENV").equalsIgnoreCase("Docker")){
+        if(System.getenv("ENV").equalsIgnoreCase("Docker") && ContainerConfiguration.getDockerEnvStatus() ){
            Assume.assumeTrue(!ContainerConfiguration.getDockerEnvStatus());
         }
     }

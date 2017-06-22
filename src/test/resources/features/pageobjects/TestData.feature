@@ -3,7 +3,7 @@ Feature: Test Data
 
   Background:
     Given  the user has logged into the pricing application
-  @TestCalc
+
   Scenario Outline: To verify if the user is able to create a calculation rule with type as Day.
     Given  the user has navigated to the "Create" page under the "Calculation_Rule"
     When   the user creates calculation rule with "<name>"
@@ -67,7 +67,6 @@ Feature: Test Data
       | lowPrice | midPrice | highPrice | closePrice |
       | 10.5     | 15.8     | 30.2      | 18.8       |
     # Test data : Currency Exchange
-  @TestIndex
   Scenario Outline: To verify if the user is able to search on the list page with start date as filter.
     Given the user has navigated to the "Create" page under the "Currency_Exchange"
     When  the user selects the sets the date as "<date>"

@@ -7,20 +7,75 @@ sourceCompatibility = 1.8
 
 repositories {
     maven { url 'http://jfrog.aws.wfscorp.com:80/artifactory/maven-mirror' }
-    jcenter()
-    mavenCentral()
 }
 
-test {
-    maxParallelForks = Runtime.runtime.availableProcessors()
-    reports.junitXml.enabled = true
-    reports.html.enabled = true
-    environment "SERVICE_IMAGE_TAG", "DEV"
-    environment "UI_IMAGE_TAG", "latest"
-    environment "DATAMOCK_IMAGE_TAG", "latest"
-    environment "ENGINE_IMAGE_TAG", "latest"
-    environment "DATABASE_IMAGE_TAG", "latest"
-    environment "DOCKER_REGISTRY","docker-dev-local.jfrog.aws.wfscorp.com:80"
+test{
+    /*
+     * Flag to generate xml reports
+     */
+    reports.junitXml.enabled = false
+    reports.html.enabled     = false
+    /*
+     * Variable to set environment , @Acceptable values : Test,Dev or Docker
+     */
+    def env = 'Docker'
+    /*
+     * Variable to set the dev and test environment urls
+     */
+    def devPricingUrl  = 'https://epe-priceconfig-ui.dev.aws.wfscorp.com/'
+    def testPricingUrl = 'https://epe-priceconfig-ui.test.aws.wfscorp.com/'
+    /*
+     * Variable to set the image name with tag
+     */
+    def uiImage       = 'docker-dev-local/epe-ui:latest'
+    def datamockImage = 'docker-dev-local/epe-data-mock:latest'
+    def engineImage   = 'docker-dev-local/epe-price-engine:latest'
+    def databaseImage = 'docker-dev-local/solr-cassandra:latest'
+    def serviceImage  = 'epe-config:DEV'
+    /*
+     * Variable to set the docker registry
+     */
+    def dockerRegistry = 'docker-dev-local.jfrog.aws.wfscorp.com:80'
+    /*
+     * Variable to set the browser , @Acceptable values : chrome , phantomsJs , chromeHeadless
+     */
+    def browser = 'phantomsJs'
+    /*
+     *  Variables to set the dns and port numbers for the images
+     *  Note : These port numbers should match the values in the docker-compose.yml file
+     */
+    def uiDnsWithPort       = "localhost:4200"
+    def datamockDnsWithPort = "localhost:8082"
+    def engineDnsWithPort   = "localhost:8081"
+    def serviceDnsWithPort  = "localhost:8080"
+    /*
+     * Set environment variables
+     */
+    environment "ENV"             , env
+    environment "DEV_PRICING_URL" , devPricingUrl
+    environment "TEST_PRICING_URL", testPricingUrl
+    environment "SERVICE_IMAGE"   , serviceImage
+    environment "UI_IMAGE"        , uiImage
+    environment "DATAMOCK_IMAGE"  , datamockImage
+    environment "ENGINE_IMAGE"    , engineImage
+    environment "DATABASE_IMAGE"  , databaseImage
+    environment "DOCKER_REGISTRY" , dockerRegistry
+    environment "BROWSER"         , browser
+    environment "UI_URL"          , uiDnsWithPort
+    environment "DATAMOCK_URL"    , datamockDnsWithPort
+    environment "ENGINE_URL"      , engineDnsWithPort
+    environment "SERVICE_URL"     , serviceDnsWithPort
+    // Modify cucumber options based on environment , Only SmokeTests run on Test and Dev environment
+    if(env.equals('Test'))
+        {
+            System.properties.setProperty('cucumber.options','--tags @SmokeTest')
+            println "Changed tags to @SmokeTest as the environment is Test"
+        }
+        else if(env.equals('Docker')){
+            System.properties.setProperty('cucumber.options','--tags @SmokeTest')
+            println "Changed tags to @SmokeTest as the environment is Dev"
+        }
+    systemProperties= System.properties
 }
 
 dependencies {

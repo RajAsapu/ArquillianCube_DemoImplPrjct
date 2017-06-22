@@ -5,7 +5,6 @@ import cucumber.api.CucumberOptions;
 import cucumber.runtime.arquillian.CukeSpace;
 import net.masterthought.cucumber.Configuration;
 import net.masterthought.cucumber.ReportBuilder;
-import net.masterthought.cucumber.Reportable;
 import org.arquillian.cube.CubeController;
 import org.arquillian.cube.CubeIp;
 import org.jboss.arquillian.test.api.ArquillianResource;
@@ -13,7 +12,6 @@ import org.junit.*;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import setup.AppProperties;
 import setup.ContainerConfiguration;
 import setup.OpenBrowser;
 import setup.UpdateProperties;
@@ -36,11 +34,6 @@ public class RunTest {
     private ContainerConfiguration containerConfiguration = new ContainerConfiguration();
     private Map<String, String> map = new HashMap<String, String>();
     private static Logger log = LoggerFactory.getLogger(RunTest.class);
-
-    /*
-     *  Service image name
-     */
-    private final static String SERVICE_IMAGE = "/epe-config";
     /*
      * List of container names
      */
@@ -71,18 +64,17 @@ public class RunTest {
         Configuration configuration = new Configuration(reportOutputDirectory, projectName);
         configuration.setParallelTesting(false);
 
-        configuration.addClassifications("Environment", AppProperties.getEnv());
+        configuration.addClassifications("Environment", System.getenv("ENV"));
         configuration.addClassifications("Browser", browser.getSelectedDriver());
-        configuration.addClassifications("Build Number","${buildNumber}");
+        configuration.addClassifications("Build Number",System.getenv("bamboo.buildNumber"));
 
         ReportBuilder reportBuilder = new ReportBuilder(jsonFiles, configuration);
-        Reportable result = reportBuilder.generateReports();
-
+        reportBuilder.generateReports();
     }
 
     @Test
     public void setEnvironment() {
-        if (AppProperties.getEnv().equals("Docker")) {
+        if (System.getenv("ENV").equals("Docker")) {
             /*
              * Remove service running container
              */
@@ -96,10 +88,10 @@ public class RunTest {
             /*
              * Writing exposed ports to the properties file
              */
-            map.put("pricing.ui"      , "localhost:4200");
-            map.put("pricing.datamock", "localhost:8082");
-            map.put("pricing.engine"  , "localhost:8081");
-            map.put("pricing.service" , "localhost:8080");
+            map.put("pricing.ui"      , System.getenv("UI_URL"));
+            map.put("pricing.datamock", System.getenv("DATAMOCK_URL"));
+            map.put("pricing.engine"  , System.getenv("ENGINE_URL"));
+            map.put("pricing.service" , System.getenv("SERVICE_URL"));
             props.setProperty(map);
             props.updateHostConfig();
             /*
@@ -114,14 +106,7 @@ public class RunTest {
      */
     public void startServiceContainer()
     {
-        String tagName,registryName=null;
-        try {
-            registryName = System.getenv("DOCKER_REGISTRY");
-            tagName = System.getenv("SERVICE_IMAGE_TAG");
-        }catch (Exception exp){
-            tagName="latest";
-        }
-        Verify.verify(containerConfiguration.startServiceContainer(ipDatabase, registryName+SERVICE_IMAGE+":"+tagName));
+        Verify.verify(containerConfiguration.startServiceContainer(ipDatabase, System.getenv("DOCKER_REGISTRY")+"/"+System.getenv("SERVICE_IMAGE")));
         log.debug("Service Container has started");
     }
 

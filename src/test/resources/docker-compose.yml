@@ -1,5 +1,5 @@
 ui:
-  image: '${DOCKER_REGISTRY}/docker-dev-local/epe-ui:${UI_IMAGE_TAG}'
+  image: '${DOCKER_REGISTRY}/${UI_IMAGE}'
   exposedPorts: [4200/tcp]
   publishAllPorts: true
   attachStdin: true
@@ -8,7 +8,7 @@ ui:
   alwaysPull: true
   portBindings: [4200->80/tcp]
 datamock:
-  image: '${DOCKER_REGISTRY}/docker-dev-local/epe-data-mock:${DATAMOCK_IMAGE_TAG}'
+  image: '${DOCKER_REGISTRY}/${DATAMOCK_IMAGE}'
   exposedPorts: [8082/tcp]
   attachStdin: true
   attachSterr: true
@@ -27,7 +27,7 @@ datamock:
         name: failure
         maximumRetryCount: 2
 engine:
-  image: '${DOCKER_REGISTRY}/docker-dev-local/epe-price-engine:${ENGINE_IMAGE_TAG}'
+  image: '${DOCKER_REGISTRY}/${ENGINE_IMAGE}'
   exposedPorts: [8081/tcp]
   publishAllPorts: true
   attachStdin: true
@@ -40,7 +40,7 @@ engine:
         name: failure
         maximumRetryCount: 2
 database:
-  image: '${DOCKER_REGISTRY}/docker-dev-local/solr-cassandra:${DATABASE_IMAGE_TAG}'
+  image: '${DOCKER_REGISTRY}/${DATABASE_IMAGE}'
   exposedPorts: [9042/tcp]
   publishAllPorts: true
   attachStdin: true
@@ -52,6 +52,6 @@ database:
         name: failure
         maximumRetryCount: 2
 service:
-  image: '${DOCKER_REGISTRY}/epe-config:${SERVICE_IMAGE_TAG}'
+  image: '${DOCKER_REGISTRY}/${SERVICE_IMAGE}'
   manual: true
 

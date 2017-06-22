@@ -53,7 +53,7 @@ public class UpdateProperties {
          * Updating the hostConfig file
          */
         try {
-            if (AppProperties.getEnv().equals("Docker")) {
+            if (System.getenv("ENV").equals("Docker")) {
                 hostConfigFile = new File("./hostConfig.json");
                 if (!hostConfigFile.exists()) {
                     hostConfigFile.createNewFile();

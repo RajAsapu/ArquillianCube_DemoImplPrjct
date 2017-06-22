@@ -29,8 +29,7 @@ public class AutoStartContainersOrder implements AutoStartParser {
                 cubeDockerConfigurationInstance.get().getDockerContainersContent();
         final Map<String, Node> nodes = new HashMap<>();
         final Set<String> containersNames = new TreeSet<>(dockerContainersContent.getContainers().keySet());
-        String environment = AppProperties.getEnv();
-        if (environment.equals("Docker")) {
+        if (System.getenv("ENV").equals("Docker")) {
             for (String name : containersNames) {
                 nodes.put(new StringBuilder(name).reverse().toString(), Node.from(name));
             }

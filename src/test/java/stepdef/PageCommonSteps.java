@@ -24,7 +24,7 @@ public class PageCommonSteps extends OpenBrowser {
 
     public PageCommonSteps() {
         updateProperties = new UpdateProperties();
-        environment = AppProperties.getEnv();
+        environment = System.getenv("ENV");
         pageFactory = new PageFactory();
     }
 
@@ -40,9 +40,9 @@ public class PageCommonSteps extends OpenBrowser {
         if (environment.equalsIgnoreCase("Docker")) {
             edriver = initBrowser(AppProperties.getPricingProperty("pricing.ui"));
         } else if (environment.equalsIgnoreCase("Test")) {
-            edriver = initBrowser(AppProperties.getApplicationProperty("testPricingUrl"));
+            edriver = initBrowser(System.getenv("TEST_PRICING_URL"));
         } else if (environment.equalsIgnoreCase("Dev")) {
-            edriver = initBrowser(AppProperties.getApplicationProperty("devPricingUrl"));
+            edriver = initBrowser(System.getenv("DEV_PRICING_URL"));
         }
     }
 

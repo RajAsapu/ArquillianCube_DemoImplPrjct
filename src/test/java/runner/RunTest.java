@@ -45,10 +45,11 @@ public class RunTest {
     private String ipDatabase;
 
     @ArquillianResource
-    CubeController cubeController;
+    static CubeController cubeController;
 
     @AfterClass
     public static void generateReports() {
+        removeServiceContainer();
         UpdateProperties props = new UpdateProperties();
         OpenBrowser browser = new OpenBrowser();
         File reportOutputDirectory = new File("target");
@@ -72,11 +73,7 @@ public class RunTest {
     @Test
     public void setEnvironment() {
         if (System.getenv("ENV").equals("Docker")) {
-            /*
-             * Remove service running container
-             */
-            cubeController.stop("service");
-            cubeController.destroy("service");
+            removeServiceContainer();
             log.debug("Stopped service container");
             /*
              * Start service container
@@ -105,6 +102,14 @@ public class RunTest {
     {
         Verify.verify(containerConfiguration.startServiceContainer(ipDatabase, System.getenv("DOCKER_REGISTRY")+"/"+System.getenv("SERVICE_IMAGE")));
         log.debug("Service Container has started");
+    }
+    /*
+     * Remove running service container
+     */
+    public static void removeServiceContainer()
+    {
+        cubeController.stop("service");
+        cubeController.destroy("service");
     }
 
 }

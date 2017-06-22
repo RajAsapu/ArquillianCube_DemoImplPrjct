@@ -49,9 +49,6 @@ public class RunTest {
 
     @AfterClass
     public static void generateReports() {
-        /*
-         * Destroy service container
-         */
         UpdateProperties props = new UpdateProperties();
         OpenBrowser browser = new OpenBrowser();
         File reportOutputDirectory = new File("target");

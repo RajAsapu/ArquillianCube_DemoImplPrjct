@@ -65,7 +65,9 @@ test{
     environment "DATAMOCK_URL"    , datamockDnsWithPort
     environment "ENGINE_URL"      , engineDnsWithPort
     environment "SERVICE_URL"     , serviceDnsWithPort
-    // Modify cucumber options based on environment , Only SmokeTests run on Test and Dev environment
+    /*
+     * Modify cucumber options based on environment , Only SmokeTests run on Test and Dev environment
+     */
     if(env.equals('Test'))
         {
             System.properties.setProperty('cucumber.options','--tags @SmokeTest')

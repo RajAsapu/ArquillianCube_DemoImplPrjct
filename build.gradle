@@ -73,7 +73,7 @@ test{
             System.properties.setProperty('cucumber.options','--tags @SmokeTest')
             println "Changed tags to @SmokeTest as the environment is Test"
         }
-        else if(env.equals('Docker')){
+        else if(env.equals('Dev')){
             System.properties.setProperty('cucumber.options','--tags @SmokeTest')
             println "Changed tags to @SmokeTest as the environment is Dev"
         }

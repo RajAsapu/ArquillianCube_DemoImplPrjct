@@ -64,7 +64,7 @@ public class UpdateProperties {
                 root = mapper.readTree(hostConfigFile);
                 ((ObjectNode) root).put("priceEngineServiceUrl", AppProperties.getPricingProperty("pricing.engine"));
                 ((ObjectNode) root).put("masterDataServiceUrl", AppProperties.getPricingProperty("pricing.datamock"));
-                ((ObjectNode) root).put("priceConfigServiceUrl", "http://localhost:8080/");
+                ((ObjectNode) root).put("priceConfigServiceUrl", AppProperties.getPricingProperty("pricing.service"));
                 resultUpdate = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(root);
                 fwrite = new FileWriter(hostConfigFile);
                 fwrite.write(resultUpdate);

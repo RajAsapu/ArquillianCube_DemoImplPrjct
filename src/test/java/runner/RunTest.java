@@ -7,6 +7,7 @@ import net.masterthought.cucumber.Configuration;
 import net.masterthought.cucumber.ReportBuilder;
 import org.arquillian.cube.CubeController;
 import org.arquillian.cube.CubeIp;
+import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.junit.*;
 import org.junit.runner.RunWith;
@@ -26,7 +27,7 @@ import java.util.Map;
         plugin = {"json:target/cucumber-json-report"},
         features = {"src/test/resources/features/"},
         glue = {"classpath:"},
-        tags = {"@AppTestData,@SmokeTest"}
+        tags = {"@TestCalc"}
 )
 public class RunTest {
 
@@ -70,15 +71,22 @@ public class RunTest {
         reportBuilder.generateReports();
     }
 
-    @Test
+
+//
+//    public void startService()
+//    {
+//        cubeController.start("pricing_service");
+//        log.debug("Running tests");
+//    }
+
     public void setEnvironment() {
         if (System.getenv("ENV").equals("Docker")) {
-            removeServiceContainer();
-            log.debug("Stopped service container");
+//            removeServiceContainer();
+//            log.debug("Stopped service container");
             /*
              * Start service container
              */
-            startServiceContainer();
+//            startServiceContainer();
             /*
              * Writing exposed ports to the properties file
              */

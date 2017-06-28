@@ -4,15 +4,19 @@
             xsi:schemaLocation="http://jboss.org/schema/arquillian
   http://jboss.org/schema/arquillian/arquillian_1_0.xsd">
 
+    <extension qualifier="cube">
+    <property name="connectionMode">STARTORCONNECT</property>
+    </extension>
+
     <extension qualifier="docker">
         <property name="clean">true</property>
-        <property name="connectionMode">STARTANDSTOP</property>
+        <!--<property name="connectionMode">STARTANDSTOP</property>-->
         <property name="dockerContainersFile">src/test/resources/docker-compose.yml</property>
-        <property name="definitionFormat">CUBE</property>
+        <property name="definitionFormat">COMPOSE</property>
         <property name="cleanBuildImage">true</property>
         <property name="autoStartContainers">custom:setup.AutoStartContainersOrder</property>
         <property name="cubeSpecificProperties">
-            database:
+            pricing_database:
                 await:
                     strategy: log
                     match: 'DSE startup complete'
@@ -21,7 +25,7 @@
                     stdOut: true
                     stdErr: true
                     timeout: 180
-            ui:
+            pricing_ui:
                 await:
                     strategy: polling
                     sleepPollingTime: 10 s
@@ -29,7 +33,7 @@
                     stdOut: true
                     stdErr: true
                     timeout: 180
-            datamock:
+            pricing_datamock:
                 await:
                     strategy: log
                     match: 'Successfully connected'
@@ -38,7 +42,7 @@
                     stdOut: true
                     stdErr: true
                     timeout: 180
-            engine:
+            pricing_engine:
                 await:
                     strategy: log
                     match: 'Message broker is not set up'
@@ -47,10 +51,14 @@
                     stdOut: true
                     stdErr: true
                     timeout: 180
-            service:
+            pricing_service:
                 await:
-                    strategy: sleeping
-                    sleepTime: 5 s
+                    strategy: polling
+                    sleepPollingTime: 10 s
+                    iterations: 5
+                    stdOut: true
+                    stdErr: true
+                    timeout: 180
         </property>
     </extension>
 </arquillian>

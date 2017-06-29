@@ -78,8 +78,8 @@ public class UpdateProperties {
          */
         try {
             dockerClient = DockerClientBuilder.getInstance().build();
-            dockerClient.copyArchiveToContainerCmd(getContainerIdUsingName("ui")).withRemotePath("/usr/share/nginx/html/config").withHostResource(hostConfigFile.getAbsolutePath()).withNoOverwriteDirNonDir(false).exec();
-            log.info("hostConfig file is updated in the ui container");
+            dockerClient.copyArchiveToContainerCmd(getContainerIdUsingName("pricing_ui")).withRemotePath("/usr/share/nginx/html/config").withHostResource(hostConfigFile.getAbsolutePath()).withNoOverwriteDirNonDir(false).exec();
+            log.info("hostConfig file is updated in the pricing_ui container");
             log.info(resultUpdate);
         } catch (Exception exp) {
             Assert.fail("Check if environment is set to docker in application.properties!!" + exp.getMessage());

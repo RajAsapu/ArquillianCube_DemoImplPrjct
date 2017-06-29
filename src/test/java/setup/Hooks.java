@@ -3,18 +3,11 @@ package setup;
 import cucumber.api.Scenario;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
-import cucumber.api.junit.Cucumber;
-import cucumber.runtime.CucumberException;
 import org.junit.Assume;
-import org.junit.internal.runners.model.EachTestNotifier;
-import org.junit.runner.notification.RunNotifier;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import runner.RunTest;
-
-import java.util.Collection;
 
 public class Hooks {
     private static Logger log = LoggerFactory.getLogger(Hooks.class);

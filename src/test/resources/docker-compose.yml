@@ -1,6 +1,17 @@
 version: '2'
 
 services:
+  pricing_service:
+     image: '${DOCKER_REGISTRY}/${SERVICE_IMAGE}'
+     environment:
+        - cassandra.contactpoints=172.31.0.2
+        - solr.cassandra.contactpoints=172.31.0.2
+     ports:
+        - 8080:8080
+     restart: always
+     networks:
+          price_network:
+            ipv4_address: 172.31.0.3
   pricing_database:
      image: '${DOCKER_REGISTRY}/${DATABASE_IMAGE}'
      restart: on-failure:2
@@ -10,35 +21,14 @@ services:
      networks:
            price_network:
              ipv4_address: 172.31.0.2
-  pricing_service:
-     image: '${DOCKER_REGISTRY}/${SERVICE_IMAGE}'
-     depends_on:
-        - pricing_database
-     links:
-        - pricing_database:pricing_database
-     environment:
-        - cassandra.contactpoints=172.31.0.2
-        - solr.cassandra.contactpoints=172.31.0.2
-     ports:
-        - 8080:8080
-     command: ["sleep","20000"]
-     networks:
-          price_network:
-            ipv4_address: 172.31.0.3
   pricing_ui:
      image: '${DOCKER_REGISTRY}/${UI_IMAGE}'
      ports:
        - 4200:80
-     networks:
-         price_network:
-            ipv4_address: 172.31.0.4
   pricing_datamock:
      image: '${DOCKER_REGISTRY}/${DATAMOCK_IMAGE}'
      ports:
            - 8082:8082
-     networks:
-           price_network:
-              ipv4_address: 172.31.0.5
      environment:
            - server.port=8082
            - "spring.datasource.url=jdbc:oracle:thin:@devdb.wfs.com:1535:dev"
@@ -51,9 +41,6 @@ services:
         - 8081:8081
      environment:
         - server.port=8081
-     networks:
-          price_network:
-             ipv4_address: 172.31.0.6
 networks:
      price_network:
         driver: bridge

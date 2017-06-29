@@ -21,16 +21,17 @@ public class AutoStartContainersOrder implements AutoStartParser {
 
     @Inject
     public Instance<CubeDockerConfiguration> cubeDockerConfigurationInstance;
-    public UpdateProperties updateProperties = new UpdateProperties();
 
     @Override
-    public Map<String, Node> parse() {
+    public Map<String, Node> parse(){
         final DockerCompositions dockerContainersContent =
                 cubeDockerConfigurationInstance.get().getDockerContainersContent();
         final Map<String, Node> nodes = new HashMap<>();
         final Set<String> containersNames = new TreeSet<>(dockerContainersContent.getContainers().keySet());
         if (System.getenv("ENV").equals("Docker")) {
             for (String name : containersNames) {
+                if(name.equals("pricing_service"))
+                    continue;
                 nodes.put(new StringBuilder(name).reverse().toString(), Node.from(name));
             }
         }

@@ -1,13 +1,10 @@
 package runner;
 
-import com.google.common.base.Verify;
 import cucumber.api.CucumberOptions;
 import cucumber.runtime.arquillian.CukeSpace;
 import net.masterthought.cucumber.Configuration;
 import net.masterthought.cucumber.ReportBuilder;
 import org.arquillian.cube.CubeController;
-import org.arquillian.cube.CubeIp;
-import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.junit.*;
 import org.junit.runner.RunWith;
@@ -35,22 +32,44 @@ public class RunTest {
     private ContainerConfiguration containerConfiguration = new ContainerConfiguration();
     private Map<String, String> map = new HashMap<String, String>();
     private static Logger log = LoggerFactory.getLogger(RunTest.class);
-    /*
-     * List of container names
-     */
-    private final static String DATABASE_CONTAINER_NAME = "database";
-    /*
-     * Variable to get the ipaddress of the database container
-     */
-    @CubeIp(containerName = DATABASE_CONTAINER_NAME)
-    private String ipDatabase;
+
+    private static String pricing_Service_ContainerName = "pricing_service";
+    private static String pricing_Database_ContainerName = "pricing_database";
+    private static String pricing_Ui_ContainerName = "pricing_ui";
+    private static String pricing_Datamock_ContainerName = "pricing_datamock";
+    private static String pricing_Engine_ContainerName = "pricing_engine";
 
     @ArquillianResource
     static CubeController cubeController;
 
+    @Test
+    public void setEnvironment() {
+        if (System.getenv("ENV").equals("Docker"))
+        {
+            cubeController.create(pricing_Service_ContainerName);
+            cubeController.start(pricing_Service_ContainerName);
+            log.debug("Service Container has started");
+            /*
+             * Writing exposed ports to the properties file
+             */
+            map.put("pricing.ui"      , System.getenv("UI_URL"));
+            map.put("pricing.datamock", System.getenv("DATAMOCK_URL"));
+            map.put("pricing.engine"  , System.getenv("ENGINE_URL"));
+            map.put("pricing.service" , System.getenv("SERVICE_URL"));
+            props.setProperty(map);
+            props.updateHostConfig();
+            /*
+             * Display running containers
+             */
+            containerConfiguration.checkIfContainersAreRunning();
+            log.debug("Running tests");
+        }
+    }
+
     @AfterClass
     public static void generateReports() {
-        removeServiceContainer();
+        removeContainers();
+        ContainerConfiguration.removePriceNetwork();
         UpdateProperties props = new UpdateProperties();
         OpenBrowser browser = new OpenBrowser();
         File reportOutputDirectory = new File("target");
@@ -71,53 +90,12 @@ public class RunTest {
         reportBuilder.generateReports();
     }
 
-
-//
-//    public void startService()
-//    {
-//        cubeController.start("pricing_service");
-//        log.debug("Running tests");
-//    }
-
-    public void setEnvironment() {
-        if (System.getenv("ENV").equals("Docker")) {
-//            removeServiceContainer();
-//            log.debug("Stopped service container");
-            /*
-             * Start service container
-             */
-//            startServiceContainer();
-            /*
-             * Writing exposed ports to the properties file
-             */
-            map.put("pricing.ui"      , System.getenv("UI_URL"));
-            map.put("pricing.datamock", System.getenv("DATAMOCK_URL"));
-            map.put("pricing.engine"  , System.getenv("ENGINE_URL"));
-            map.put("pricing.service" , System.getenv("SERVICE_URL"));
-            props.setProperty(map);
-            props.updateHostConfig();
-            /*
-             * Display running containers
-             */
-            containerConfiguration.displayRunningContainers();
-            log.debug("Running tests");
-        }
-    }
-    /*
-     * Method to start the service container using database ip address
-     */
-    public void startServiceContainer()
+    public static void removeContainers()
     {
-        Verify.verify(containerConfiguration.startServiceContainer(ipDatabase, System.getenv("DOCKER_REGISTRY")+"/"+System.getenv("SERVICE_IMAGE")));
-        log.debug("Service Container has started");
+        cubeController.destroy(pricing_Service_ContainerName);
+        cubeController.destroy(pricing_Ui_ContainerName);
+        cubeController.destroy(pricing_Database_ContainerName);
+        cubeController.destroy(pricing_Datamock_ContainerName);
+        cubeController.destroy(pricing_Engine_ContainerName);
     }
-    /*
-     * Remove running service container
-     */
-    public static void removeServiceContainer()
-    {
-        cubeController.stop("service");
-        cubeController.destroy("service");
-    }
-
 }

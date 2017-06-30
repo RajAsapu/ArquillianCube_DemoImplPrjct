@@ -16,6 +16,7 @@ test{
     reports.junitXml.enabled = false
     reports.html.enabled     = false
     def env=this.properties["env"].toString()
+    println  "Environment Set:"+env
     /*
      * Set environment variables
      */

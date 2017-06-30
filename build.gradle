@@ -15,56 +15,24 @@ test{
      */
     reports.junitXml.enabled = false
     reports.html.enabled     = false
-    /*
-     * Variable to set environment , @Acceptable values : Test,Dev or Docker
-     */
-    def env = 'Docker'
-    /*
-     * Variable to set the dev and test environment urls
-     */
-    def devPricingUrl  = 'https://epe-priceconfig-ui.dev.aws.wfscorp.com/'
-    def testPricingUrl = 'https://epe-priceconfig-ui.test.aws.wfscorp.com/'
-    /*
-     * Variable to set the image name with tag
-     */
-    def uiImage       = 'docker-dev-local/epe-ui:latest'
-    def datamockImage = 'docker-dev-local/epe-data-mock:latest'
-    def engineImage   = 'docker-dev-local/epe-price-engine:latest'
-    def databaseImage = 'docker-dev-local/solr-cassandra:latest'
-    def serviceImage  = 'epe-config:DEV'
-    /*
-     * Variable to set the docker registry
-     */
-    def dockerRegistry = 'docker-dev-local.jfrog.aws.wfscorp.com:80'
-    /*
-     * Variable to set the browser , @Acceptable values : chrome , phantomsJs , chromeHeadless
-     */
-    def browser = 'phantomsJs'
-    /*
-     *  Variables to set the dns and port numbers for the images
-     *  Note : These port numbers should match the values in the docker-compose.yml file
-     */
-    def uiDnsWithPort       = "localhost:4200"
-    def datamockDnsWithPort = "localhost:8082"
-    def engineDnsWithPort   = "localhost:8081"
-    def serviceDnsWithPort  = "localhost:8080"
+    def env=this.properties["env"].toString()
     /*
      * Set environment variables
      */
     environment "ENV"             , env
-    environment "DEV_PRICING_URL" , devPricingUrl
-    environment "TEST_PRICING_URL", testPricingUrl
-    environment "SERVICE_IMAGE"   , serviceImage
-    environment "UI_IMAGE"        , uiImage
-    environment "DATAMOCK_IMAGE"  , datamockImage
-    environment "ENGINE_IMAGE"    , engineImage
-    environment "DATABASE_IMAGE"  , databaseImage
-    environment "DOCKER_REGISTRY" , dockerRegistry
-    environment "BROWSER"         , browser
-    environment "UI_URL"          , uiDnsWithPort
-    environment "DATAMOCK_URL"    , datamockDnsWithPort
-    environment "ENGINE_URL"      , engineDnsWithPort
-    environment "SERVICE_URL"     , serviceDnsWithPort
+    environment "DEV_PRICING_URL" , this.properties["devPricingUrl"]
+    environment "TEST_PRICING_URL", this.properties["testPricingUrl"]
+    environment "SERVICE_IMAGE"   , this.properties["serviceImage"]
+    environment "UI_IMAGE"        , this.properties["uiImage"]
+    environment "DATAMOCK_IMAGE"  , this.properties["datamockImage"]
+    environment "ENGINE_IMAGE"    , this.properties["engineImage"]
+    environment "DATABASE_IMAGE"  , this.properties["databaseImage"]
+    environment "DOCKER_REGISTRY" , this.properties["dockerRegistry"]
+    environment "BROWSER"         , this.properties["browser"]
+    environment "UI_URL"          , this.properties["uiDnsWithPort"]
+    environment "DATAMOCK_URL"    , this.properties["datamockDnsWithPort"]
+    environment "ENGINE_URL"      , this.properties["engineDnsWithPort"]
+    environment "SERVICE_URL"     , this.properties["serviceDnsWithPort"]
     /*
      * Modify cucumber options based on environment , Only SmokeTests run on Test and Dev environment
      */
@@ -92,7 +60,7 @@ dependencies {
     testCompile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
     compile 'io.rest-assured:xml-path:3.0.2'
     testCompile group: 'org.mockito', name: 'mockito-all', version: '2.0.2-beta'
-    testCompile group: 'com.github.docker-java', name: 'docker-java', version: '3.0.10'
+    testCompile group: 'com.github.docker-java', name: 'docker-java', version: '3.0.6'
     testCompile group: 'io.rest-assured', name: 'rest-assured', version: '3.0.3'
     testCompile group: 'com.jayway.jsonpath', name: 'json-path', version: '2.2.0'
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.8.7'

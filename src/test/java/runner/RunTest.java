@@ -5,6 +5,7 @@ import cucumber.runtime.arquillian.CukeSpace;
 import net.masterthought.cucumber.Configuration;
 import net.masterthought.cucumber.ReportBuilder;
 import org.arquillian.cube.CubeController;
+import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.junit.*;
 import org.junit.runner.RunWith;

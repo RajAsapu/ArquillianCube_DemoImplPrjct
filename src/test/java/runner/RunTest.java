@@ -5,7 +5,6 @@ import cucumber.runtime.arquillian.CukeSpace;
 import net.masterthought.cucumber.Configuration;
 import net.masterthought.cucumber.ReportBuilder;
 import org.arquillian.cube.CubeController;
-import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.junit.*;
 import org.junit.runner.RunWith;
@@ -69,8 +68,6 @@ public class RunTest {
 
     @AfterClass
     public static void generateReports() {
-        removeContainers();
-        ContainerConfiguration.removePriceNetwork();
         UpdateProperties props = new UpdateProperties();
         OpenBrowser browser = new OpenBrowser();
         File reportOutputDirectory = new File("target");
@@ -89,14 +86,5 @@ public class RunTest {
 
         ReportBuilder reportBuilder = new ReportBuilder(jsonFiles, configuration);
         reportBuilder.generateReports();
-    }
-
-    public static void removeContainers()
-    {
-        cubeController.destroy(pricing_Service_ContainerName);
-        cubeController.destroy(pricing_Ui_ContainerName);
-        cubeController.destroy(pricing_Database_ContainerName);
-        cubeController.destroy(pricing_Datamock_ContainerName);
-        cubeController.destroy(pricing_Engine_ContainerName);
     }
 }

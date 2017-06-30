@@ -3,24 +3,20 @@ version: '2'
 services:
   pricing_service:
      image: '${DOCKER_REGISTRY}/${SERVICE_IMAGE}'
+     links:
+        - pricing_database
      environment:
-        - cassandra.contactpoints=172.31.0.2
-        - solr.cassandra.contactpoints=172.31.0.2
+        - cassandra.contactpoints=pricing_database
+        - solr.cassandra.contactpoints=pricing_database
      ports:
         - 8080:8080
      restart: always
-     networks:
-          price_network:
-            ipv4_address: 172.31.0.3
   pricing_database:
      image: '${DOCKER_REGISTRY}/${DATABASE_IMAGE}'
      restart: on-failure:2
      ports:
         - 9042:9042
         - 8943:8943
-     networks:
-           price_network:
-             ipv4_address: 172.31.0.2
   pricing_ui:
      image: '${DOCKER_REGISTRY}/${UI_IMAGE}'
      ports:
@@ -41,10 +37,3 @@ services:
         - 8081:8081
      environment:
         - server.port=8081
-networks:
-     price_network:
-        driver: bridge
-        ipam:
-          config:
-            - subnet: 172.31.0.0/16
-              gateway: 172.31.0.1

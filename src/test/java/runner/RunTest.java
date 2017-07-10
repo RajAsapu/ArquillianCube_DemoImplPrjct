@@ -24,7 +24,7 @@ import java.util.Map;
         plugin = {"json:target/cucumber-json-report"},
         features = {"src/test/resources/features/"},
         glue = {"classpath:"},
-        tags = {"@AppTestData"}
+        tags = {"@TestCalc"}
 )
 public class RunTest {
 
@@ -33,11 +33,7 @@ public class RunTest {
     private Map<String, String> map = new HashMap<String, String>();
     private static Logger log = LoggerFactory.getLogger(RunTest.class);
 
-    private static String pricing_Service_ContainerName = "pricing_service";
-    private static String pricing_Database_ContainerName = "pricing_database";
-    private static String pricing_Ui_ContainerName = "pricing_ui";
-    private static String pricing_Datamock_ContainerName = "pricing_datamock";
-    private static String pricing_Engine_ContainerName = "pricing_engine";
+    private static String pricing_Service_ContainerName = "pricing_service_1";
 
     @ArquillianResource
     static CubeController cubeController;

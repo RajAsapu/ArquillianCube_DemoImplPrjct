@@ -6,8 +6,8 @@ services:
      links:
         - pricing_database
      environment:
-        - cassandra.contactpoints=pricing_database
-        - solr.cassandra.contactpoints=pricing_database
+        - cassandra.contactpoints=172.31.0.2
+        - solr.cassandra.contactpoints=172.31.0.2
      ports:
         - 8080:8080
      restart: always
@@ -17,6 +17,9 @@ services:
      ports:
         - 9042:9042
         - 8943:8943
+     networks:
+        pricenetwork:
+             ipv4_address: 172.31.0.2
   pricing_ui:
      image: '${DOCKER_REGISTRY}/${UI_IMAGE}'
      ports:
@@ -37,3 +40,10 @@ services:
         - 8081:8081
      environment:
         - server.port=8081
+networks:
+    pricenetwork:
+        driver: bridge
+        ipam:
+          config:
+            - subnet: 172.31.0.0/16
+              gateway: 172.31.0.1

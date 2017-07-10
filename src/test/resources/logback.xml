@@ -8,7 +8,7 @@
     <logger name="pricing-e2e-tests" level="DEBUG"/>
 
 
-    <root level="DEBUG">
+    <root level="INFO,DEBUG">
         <appender-ref ref="STDOUT" />
     </root>
 

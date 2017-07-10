@@ -34,6 +34,7 @@ test{
     environment "DATAMOCK_URL"    , this.properties["datamockDnsWithPort"]
     environment "ENGINE_URL"      , this.properties["engineDnsWithPort"]
     environment "SERVICE_URL"     , this.properties["serviceDnsWithPort"]
+    environment "COMPOSE_PROJECT_NAME" , this.properties["project"]
     /*
      * Modify cucumber options based on environment , Only SmokeTests run on Test and Dev environment
      */

@@ -10,6 +10,7 @@ import org.junit.Assert;
 import setup.PageFactory;
 
 import java.util.List;
+import java.util.Map;
 
 public class PageWorkbooksteps extends PageCommonMethods {
 
@@ -39,7 +40,7 @@ public class PageWorkbooksteps extends PageCommonMethods {
 
     @When("^name is set to \"([^\"]*)\"$")
     public void name_is_set_to(String name)  {
-        pageFactory.getCreateWorkBookMethods().setName(name,true);
+        pageFactory.getCreateWorkBookMethods().setName(name,false);
     }
 
     @When("^the user creates workbook with name as \"([^\"]*)\"$")
@@ -140,7 +141,7 @@ public class PageWorkbooksteps extends PageCommonMethods {
     public void clicked_on_(String button) throws Exception {
         switch (button.toLowerCase()) {
             case ROW:
-                pageFactory.getListWorkBookMethods().clickOnRadioButton(0);
+                //pageFactory.getListWorkBookMethods().selectWorkbookConfig(0);
                 break;
             case VIEW_WORKBOOK_CONFIGURATION:
                 pageFactory.getListWorkBookMethods().clickOnViewWorkBookConfiguration(0);
@@ -174,9 +175,9 @@ public class PageWorkbooksteps extends PageCommonMethods {
 
     @And("^the definition should be displayed with the below details$")
     public void the_definition_should_be_displayed_with_below_details(DataTable dataTable) {
-        List<List<String>> rows = dataTable.transpose().raw();
-        pageFactory.getListWorkBookMethods().checkIfRecordExistsUsingNameFilter(rows.get(0).get(0));
-        pageFactory.getListWorkBookMethods().clickOnRadioButton(0);
+        List<Map<String,String>> rows = dataTable.asMaps(String.class,String.class);
+        pageFactory.getListWorkBookMethods().checkIfRecordExistsUsingNameFilter(rows.get(0).get("name"));
+        pageFactory.getListWorkBookMethods().selectWorkbookConfig(rows.get(0).get("name"));
         pageFactory.getListWorkBookMethods().clickOnViewWorkBookConfiguration(0);
         pageFactory.getCreateWorkBookMethods().verifyIfWorkbookConfigurationIsDisplayed(dataTable);
     }

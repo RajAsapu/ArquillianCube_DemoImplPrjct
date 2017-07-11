@@ -111,7 +111,7 @@ Feature: Test Data
     # Test data : Work book data
   Scenario Outline:To verify if the user is able to create work book data.
     Given the user has navigated to the "List" page under the "Workbook"
-    When  the user clicks on manage data for a workbook with name as "TestWorkbook3Attr"
+    When  the user clicks on manage data of a workbook with name as "TestWorkbook3Attr"
     And   clicked on "Add New Data"
     And   supplier as "<supplier>"
     And   location as "<location>"

@@ -10,7 +10,7 @@ Feature: Workbook Data Page
   @DefectPrice770
   Scenario Outline:To verify if the user is able to create work book data.
     Given the user has navigated to the "List" page under the "Workbook"
-    When  the user clicks on manage data for a workbook with name as "TestWorkbookAllAttr"
+    When  the user clicks on manage data of a workbook with name as "TestWorkbookAllAttr"
     And   clicked on "Add New Data"
     And   supplier as "<supplier>"
     And   supplierSite as "<supplierSite>"
@@ -35,7 +35,7 @@ Feature: Workbook Data Page
 
   Scenario Outline:To verify if the user is able to upload work book data.
     Given the user has navigated to the "List" page under the "Workbook"
-    When  the user clicks on manage data for a workbook with name as "TestWorkbook3Attr"
+    When  the user clicks on manage data of a workbook with name as "TestWorkbook3Attr"
     And   clicked on "Row"
     And   clicked on "Upload"
     And   choose file having path "<filePath>"
@@ -47,7 +47,7 @@ Feature: Workbook Data Page
   @DefectPrice770
   Scenario Outline:To verify if the user is able to search work book data.
     Given the user has navigated to the "List" page under the "Workbook"
-    When  the user clicks on manage data for a workbook with name as "TestWorkbookAllAttr"
+    When  the user clicks on manage data of a workbook with name as "TestWorkbookAllAttr"
     And   clicked on "Search"
     And   supplier as "<supplier>"
     And   supplierSite as "<supplierSite>"
@@ -73,7 +73,7 @@ Feature: Workbook Data Page
 
   Scenario Outline:To verify if the user is able to create work book data with price basis as price scale.
     Given the user has navigated to the "List" page under the "Workbook"
-    When  the user clicks on manage data for a workbook with name as "TestWorkbook3Attr"
+    When  the user clicks on manage data of a workbook with name as "TestWorkbook3Attr"
     And   clicked on "Add New Data"
     And   supplier as "<supplier>"
     And   location as "<location>"

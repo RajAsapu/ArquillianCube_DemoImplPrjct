@@ -49,8 +49,8 @@ Feature: Workbook Create Page
     Then the application displays an error message as "Workbook already exists"
     And  the workbook configuration should not be created
     Examples:
-      | name   | description | formulaType | segmentType | defaultValue |
-      | Test   | for testing | PRICE       | LAND        | 20           |
+      | name                | description | formulaType | segmentType | defaultValue |
+      | TestWorkbook3Attr   | for testing | PRICE       | LAND        | 20           |
 
   Scenario Outline: To verify that the user is allowed to create workbook definition with only required attributes.
     Given the user has navigated to the "Create" page under the "Workbook"

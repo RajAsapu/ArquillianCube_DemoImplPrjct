@@ -187,7 +187,7 @@ public class PageWorkbooksteps extends PageCommonMethods {
         pageFactory.getWorkBookDataMethods().clickOnChoose(filePath);
     }
 
-    @When("^the user clicks on (manage data|view workbook configuration) for a workbook with name as \"([^\"]*)\"$")
+    @When("^the user clicks on (manage data|view workbook configuration) of a workbook with name as \"([^\"]*)\"$")
     public void the_user_clicks_on_manage_data_for_a_workbook_with_name_as(String fn, String workBookName) {
         if (fn.contains("workbook configuration")) {
             pageFactory.getListWorkBookMethods().viewDefinitionWithName(workBookName);
@@ -203,5 +203,11 @@ public class PageWorkbooksteps extends PageCommonMethods {
         } else {
             pageFactory.getWorkBookDataMethods().verifyIfWorkbookDataIsReadOnly();
         }
+    }
+
+    @And("^none of the attributes are selected$")
+    public void none_of_the_attributes_are_selected()
+    {
+        pageFactory.getCreateWorkBookMethods().removeMultipleAttribte();
     }
 }

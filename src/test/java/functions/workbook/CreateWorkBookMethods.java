@@ -119,7 +119,7 @@ public class CreateWorkBookMethods extends GenericWebElementMethods {
         List<Map<String,String>> list = table.asMaps(String.class,String.class);
 
         for(Map<String,String> row:list) {
-            verifyTextOnWeIsContainsValue(Constants.workbookCreate_name_xpath, row.get("name"));
+            verifyTextOnWeContainsValue(Constants.workbookCreate_name_xpath, row.get("name"));
             verifyTextOnWeIsEqualToValue(Constants.workbookCreate_description_xpath, row.get("description"));
             verifyTextOnWeIsEqualToValue(Constants.workbookView_formulaType_xpath, row.get("formulaType"));
             verifyTextOnWeIsEqualToValue(Constants.workbookView_segmentType_xpath, row.get("segmentType"));

@@ -385,7 +385,7 @@ public class GenericWebElementMethods extends PageCommonMethods {
         Verify.verify(getValue(identifier).equals(value), "Actual:" + getValue(identifier) + " Expected:" + value);
     }
 
-    protected void verifyTextOnWeIsContainsValue(String identifier, String value) {
+    protected void verifyTextOnWeContainsValue(String identifier, String value) {
         Verify.verify(getValue(identifier).contains(value), "Actual:" + getValue(identifier) + " Expected:" + value);
     }
 

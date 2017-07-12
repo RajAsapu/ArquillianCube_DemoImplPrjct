@@ -85,7 +85,7 @@ public class PageCurrencyExchangeSteps {
     }
 
     @When("^the user selects the sets the date as \"([^\"]*)\"$")
-    public void the_user_selects_the_sets_the_date_as(String date)  {
+    public void the_user_selects_the_sets_the_date_as(String date) {
         pageFactory.getCreateCurrencyExchangeMethods().setDate(date);
     }
 
@@ -95,7 +95,7 @@ public class PageCurrencyExchangeSteps {
     }
 
     @When("^sets the currency type as \"([^\"]*)\"")
-    public void sets_the_currency_type_as(String type)  {
+    public void sets_the_currency_type_as(String type) {
         pageFactory.getCreateCurrencyExchangeMethods().setType(type);
     }
 

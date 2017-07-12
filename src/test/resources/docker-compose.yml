@@ -1,49 +1,65 @@
-version: '2'
-
-services:
-  pricing_service:
-     image: '${DOCKER_REGISTRY}/${SERVICE_IMAGE}'
-     links:
-        - pricing_database
-     environment:
-        - cassandra.contactpoints=172.31.0.2
-        - solr.cassandra.contactpoints=172.31.0.2
-     ports:
-        - 8080:8080
-     restart: always
-  pricing_database:
-     image: '${DOCKER_REGISTRY}/${DATABASE_IMAGE}'
-     restart: on-failure:2
-     ports:
-        - 9042:9042
-        - 8943:8943
-     networks:
-        pricenetwork:
-             ipv4_address: 172.31.0.2
-  pricing_ui:
-     image: '${DOCKER_REGISTRY}/${UI_IMAGE}'
-     ports:
-       - 4200:80
-  pricing_datamock:
-     image: '${DOCKER_REGISTRY}/${DATAMOCK_IMAGE}'
-     ports:
-           - 8082:8082
-     environment:
-           - server.port=8082
-           - "spring.datasource.url=jdbc:oracle:thin:@devdb.wfs.com:1535:dev"
-           - spring.datasource.driverClassName=oracle.jdbc.OracleDriver
-           - spring.datasource.username=apps
-           - spring.datasource.password=apps
-  pricing_engine:
-     image: '${DOCKER_REGISTRY}/${ENGINE_IMAGE}'
-     ports:
-        - 8081:8081
-     environment:
-        - server.port=8081
-networks:
-    pricenetwork:
-        driver: bridge
-        ipam:
-          config:
-            - subnet: 172.31.0.0/16
-              gateway: 172.31.0.1
+ui:
+          image: '${DOCKER_REGISTRY}/${UI_IMAGE}'
+          exposedPorts: [4200/tcp]
+          publishAllPorts: true
+          attachStdin: true
+          attachSterr: true
+          dnsSearch: [localhost]
+          alwaysPull: true
+          portBindings: [4200->80/tcp]
+datamock:
+          image: '${DOCKER_REGISTRY}/${DATAMOCK_IMAGE}'
+          exposedPorts: [8082/tcp]
+          attachStdin: true
+          attachSterr: true
+          networkMode: host
+          privileged: true
+          alwaysPull: true
+          dnsSearch: [losthost]
+          env:
+            - server.port=8082
+            - "spring.datasource.url=jdbc:oracle:thin:@devdb.wfs.com:1535:dev"
+            - spring.datasource.driverClassName=oracle.jdbc.OracleDriver
+            - spring.datasource.username=apps
+            - spring.datasource.password=apps
+          portBindings: [8082->8082/tcp]
+          restartPolicy:
+                name: failure
+                maximumRetryCount: 2
+engine:
+          image: '${DOCKER_REGISTRY}/${ENGINE_IMAGE}'
+          exposedPorts: [8081/tcp]
+          publishAllPorts: true
+          attachStdin: true
+          attachSterr: true
+          alwaysPull: true
+          dnsSearch: [localhost]
+          env: [server.port=8081]
+          portBindings: [8081->8081/tcp]
+          restartPolicy:
+                name: failure
+                maximumRetryCount: 2
+database:
+          image: '${DOCKER_REGISTRY}/${DATABASE_IMAGE}'
+          exposedPorts: [9042/tcp,8943/tcp]
+          publishAllPorts: true
+          attachStdin: true
+          attachSterr: true
+          alwaysPull: true
+          dnsSearch: [localhost]
+          portBindings: [9042->9042/tcp,8943->8943/tcp]
+          restartPolicy:
+                name: failure
+                maximumRetryCount: 2
+service:
+          image: '${DOCKER_REGISTRY}/${SERVICE_IMAGE}'
+          exposedPorts: [8080/tcp,8080/tcp]
+          portBindings: [8080->8080/tcp]
+          attachStdin: true
+          attachSterr: true
+          alwaysPull: true
+          links:
+              - database:database
+          env:
+              - cassandra.contactpoints=database
+              - solr.cassandra.contactpoints=database

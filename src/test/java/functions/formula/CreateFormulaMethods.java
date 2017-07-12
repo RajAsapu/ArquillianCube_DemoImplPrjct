@@ -5,6 +5,7 @@ import com.google.common.base.Verify;
 import com.google.common.base.VerifyException;
 import functions.GenericWebElementMethods;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import setup.Constants;
 import setup.DriverBean;
 
@@ -23,10 +24,10 @@ public class CreateFormulaMethods extends GenericWebElementMethods {
         clickButton(Constants.formulaCreate_addParameter_xpath);
     }
 
-    public void setName(String name,boolean withTimeStamp) {
-        if(withTimeStamp){
-        sendKeysToWE(Constants.formulaCreate_name_xpath, name + getDateWithTime());}
-        else{
+    public void setName(String name, boolean withTimeStamp) {
+        if (withTimeStamp) {
+            sendKeysToWE(Constants.formulaCreate_name_xpath, name + getDateWithTime());
+        } else {
             sendKeysToWE(Constants.formulaCreate_name_xpath, name);
         }
     }
@@ -80,7 +81,6 @@ public class CreateFormulaMethods extends GenericWebElementMethods {
 
     public void addParameters(List<List<String>> parameters) {
 
-        scrollDown();
         for (int i = 0; i < parameters.size(); i++) {
             String type = parameters.get(i).get(1);
             String attributeName = getValue(Constants.formulaCreate_nameParameter_xpath);
@@ -105,9 +105,10 @@ public class CreateFormulaMethods extends GenericWebElementMethods {
 
     public void verifyIfFormulaCreatedOrNot(String perfom, String action) {
         if (!perfom.contains("not")) {
-            waitFor(4);
+            wait.until(ExpectedConditions.visibilityOf(getElementFromListWithPosition(Constants.formulaList_status_xpath, 0)));
             Verify.verify(edriver.getCurrentUrl().contains("formula/list"), "Formula is not Created !!");
         } else {
+            wait.until(ExpectedConditions.visibilityOf(getElementFromListWithPosition(Constants.formulaCreate_name_xpath, 0)));
             Verify.verify(edriver.getCurrentUrl().contains("formula/create"), "ERROR : Formula is Created !!");
         }
     }

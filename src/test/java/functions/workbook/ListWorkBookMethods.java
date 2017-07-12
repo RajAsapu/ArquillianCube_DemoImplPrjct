@@ -60,7 +60,7 @@ public class ListWorkBookMethods extends GenericWebElementMethods {
     }
 
     public void clickOnRadioButton(int position) {
-        Actions act=new Actions(edriver);
+        Actions act = new Actions(edriver);
         act.click(getElementFromListWithPosition(Constants.workbookList_radioButtonColumn_xpath, position)).perform();
     }
 

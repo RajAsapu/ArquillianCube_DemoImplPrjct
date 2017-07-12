@@ -38,37 +38,37 @@ public class PageWorkbooksteps extends PageCommonMethods {
     }
 
     @When("^name is set to \"([^\"]*)\"$")
-    public void name_is_set_to(String name)  {
-        pageFactory.getCreateWorkBookMethods().setName(name,true);
+    public void name_is_set_to(String name) {
+        pageFactory.getCreateWorkBookMethods().setName(name, true);
     }
 
     @When("^the user creates workbook with name as \"([^\"]*)\"$")
-    public void name_creates_workbook_with_name_as(String name)  {
-        pageFactory.getCreateWorkBookMethods().setName(name,false);
+    public void name_creates_workbook_with_name_as(String name) {
+        pageFactory.getCreateWorkBookMethods().setName(name, false);
     }
 
     @And("^description is set to \"([^\"]*)\"$")
-    public void description_is_set_to(String description)  {
+    public void description_is_set_to(String description) {
         pageFactory.getCreateWorkBookMethods().setDescription(description);
     }
 
     @And("^formula type is set to \"([^\"]*)\"$")
-    public void formula_type_is_set_to(String formulaType)  {
+    public void formula_type_is_set_to(String formulaType) {
         pageFactory.getCreateWorkBookMethods().setFormulaType(formulaType);
     }
 
     @And("^segment type is set to \"([^\"]*)\"$")
-    public void segment_type_is_set_to(String segmentType)  {
+    public void segment_type_is_set_to(String segmentType) {
         pageFactory.getCreateWorkBookMethods().setSegmentType(segmentType);
     }
 
     @And("^set the default value to \"([^\"]*)\"$")
-    public void set_the_default_value_to(String defaultValueTo)  {
+    public void set_the_default_value_to(String defaultValueTo) {
         pageFactory.getCreateWorkBookMethods().setDefaultValue(defaultValueTo);
     }
 
     @And("^(doesn't have|has) a default value$")
-    public void doesn_t_have_a_default_value(String cond)  {
+    public void doesn_t_have_a_default_value(String cond) {
         if (cond.contains("doesn't")) {
             pageFactory.getCreateWorkBookMethods().hasDefaultValue(false);
         } else {

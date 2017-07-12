@@ -30,12 +30,12 @@ public class PageCalculationRuleSteps {
 
     @When("^the user enters name  as \"([^\"]*)\"$")
     public void the_user_enters_name_as(String name) {
-        pageFactory.getCreateCalculationRuleMethods().setName(name,true);
+        pageFactory.getCreateCalculationRuleMethods().setName(name, true);
     }
 
     @When("^the user creates calculation rule with \"([^\"]*)\"$")
     public void the_user_creates_calculation_rule_with(String name) {
-        pageFactory.getCreateCalculationRuleMethods().setName(name,false);
+        pageFactory.getCreateCalculationRuleMethods().setName(name, false);
     }
 
     @When("^set the start date as \"([^\"]*)\"$")

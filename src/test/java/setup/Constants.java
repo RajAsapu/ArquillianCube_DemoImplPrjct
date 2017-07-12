@@ -7,7 +7,7 @@ public class Constants {
     /*
      * Default user id and password
 	 */
-    public static String username = "mkhanal";
+    public static String username = "cxl_admin1";
     public static String password = "Welcome01";
     /*
      * Login page identifiers

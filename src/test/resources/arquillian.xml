@@ -8,11 +8,11 @@
         <property name="clean">true</property>
         <property name="connectionMode">STARTANDSTOP</property>
         <property name="dockerContainersFile">src/test/resources/docker-compose.yml</property>
-        <property name="definitionFormat">COMPOSE</property>
+        <property name="definitionFormat">CUBE</property>
         <property name="cleanBuildImage">true</property>
         <property name="autoStartContainers">custom:setup.AutoStartContainersOrder</property>
         <property name="cubeSpecificProperties">
-            pricing_database:
+            database:
                 await:
                     strategy: log
                     match: 'DSE startup complete'
@@ -21,7 +21,7 @@
                     stdOut: true
                     stdErr: true
                     timeout: 180
-            pricing_ui:
+            ui:
                 await:
                     strategy: polling
                     sleepPollingTime: 10 s
@@ -29,7 +29,7 @@
                     stdOut: true
                     stdErr: true
                     timeout: 180
-            pricing_datamock:
+            datamock:
                 await:
                     strategy: log
                     match: 'Successfully connected'
@@ -38,7 +38,7 @@
                     stdOut: true
                     stdErr: true
                     timeout: 180
-            pricing_engine:
+            engine:
                 await:
                     strategy: log
                     match: 'Message broker is not set up'
@@ -47,7 +47,7 @@
                     stdOut: true
                     stdErr: true
                     timeout: 180
-            pricing_service:
+            service:
                 await:
                     strategy: polling
                     sleepPollingTime: 10 s

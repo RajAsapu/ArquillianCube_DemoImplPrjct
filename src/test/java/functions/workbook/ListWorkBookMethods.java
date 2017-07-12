@@ -59,9 +59,8 @@ public class ListWorkBookMethods extends GenericWebElementMethods {
         return temp;
     }
 
-    public void clickOnRadioButton(int position) {
-        Actions act = new Actions(edriver);
-        act.click(getElementFromListWithPosition(Constants.workbookList_radioButtonColumn_xpath, position)).perform();
+    public void selectWorkbookConfig(String workbookName) {
+        selectDataSearchingPages(Constants.workbookList_nameColumn_xpath,workbookName);
     }
 
     public void clickOnViewWorkBookConfiguration(int position) {
@@ -86,5 +85,4 @@ public class ListWorkBookMethods extends GenericWebElementMethods {
 
     }
 }
-
 

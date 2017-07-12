@@ -10,6 +10,7 @@ import org.junit.Assert;
 import setup.PageFactory;
 
 import java.util.List;
+import java.util.Map;
 
 public class PageWorkbooksteps extends PageCommonMethods {
 
@@ -38,37 +39,37 @@ public class PageWorkbooksteps extends PageCommonMethods {
     }
 
     @When("^name is set to \"([^\"]*)\"$")
-    public void name_is_set_to(String name) {
-        pageFactory.getCreateWorkBookMethods().setName(name, true);
+    public void name_is_set_to(String name)  {
+        pageFactory.getCreateWorkBookMethods().setName(name,false);
     }
 
     @When("^the user creates workbook with name as \"([^\"]*)\"$")
-    public void name_creates_workbook_with_name_as(String name) {
-        pageFactory.getCreateWorkBookMethods().setName(name, false);
+    public void name_creates_workbook_with_name_as(String name)  {
+        pageFactory.getCreateWorkBookMethods().setName(name,false);
     }
 
     @And("^description is set to \"([^\"]*)\"$")
-    public void description_is_set_to(String description) {
+    public void description_is_set_to(String description)  {
         pageFactory.getCreateWorkBookMethods().setDescription(description);
     }
 
     @And("^formula type is set to \"([^\"]*)\"$")
-    public void formula_type_is_set_to(String formulaType) {
+    public void formula_type_is_set_to(String formulaType)  {
         pageFactory.getCreateWorkBookMethods().setFormulaType(formulaType);
     }
 
     @And("^segment type is set to \"([^\"]*)\"$")
-    public void segment_type_is_set_to(String segmentType) {
+    public void segment_type_is_set_to(String segmentType)  {
         pageFactory.getCreateWorkBookMethods().setSegmentType(segmentType);
     }
 
     @And("^set the default value to \"([^\"]*)\"$")
-    public void set_the_default_value_to(String defaultValueTo) {
+    public void set_the_default_value_to(String defaultValueTo)  {
         pageFactory.getCreateWorkBookMethods().setDefaultValue(defaultValueTo);
     }
 
     @And("^(doesn't have|has) a default value$")
-    public void doesn_t_have_a_default_value(String cond) {
+    public void doesn_t_have_a_default_value(String cond)  {
         if (cond.contains("doesn't")) {
             pageFactory.getCreateWorkBookMethods().hasDefaultValue(false);
         } else {
@@ -140,7 +141,7 @@ public class PageWorkbooksteps extends PageCommonMethods {
     public void clicked_on_(String button) throws Exception {
         switch (button.toLowerCase()) {
             case ROW:
-                pageFactory.getListWorkBookMethods().clickOnRadioButton(0);
+                //pageFactory.getListWorkBookMethods().selectWorkbookConfig(0);
                 break;
             case VIEW_WORKBOOK_CONFIGURATION:
                 pageFactory.getListWorkBookMethods().clickOnViewWorkBookConfiguration(0);
@@ -174,9 +175,9 @@ public class PageWorkbooksteps extends PageCommonMethods {
 
     @And("^the definition should be displayed with the below details$")
     public void the_definition_should_be_displayed_with_below_details(DataTable dataTable) {
-        List<List<String>> rows = dataTable.transpose().raw();
-        pageFactory.getListWorkBookMethods().checkIfRecordExistsUsingNameFilter(rows.get(0).get(0));
-        pageFactory.getListWorkBookMethods().clickOnRadioButton(0);
+        List<Map<String,String>> rows = dataTable.asMaps(String.class,String.class);
+        pageFactory.getListWorkBookMethods().checkIfRecordExistsUsingNameFilter(rows.get(0).get("name"));
+        pageFactory.getListWorkBookMethods().selectWorkbookConfig(rows.get(0).get("name"));
         pageFactory.getListWorkBookMethods().clickOnViewWorkBookConfiguration(0);
         pageFactory.getCreateWorkBookMethods().verifyIfWorkbookConfigurationIsDisplayed(dataTable);
     }
@@ -186,7 +187,7 @@ public class PageWorkbooksteps extends PageCommonMethods {
         pageFactory.getWorkBookDataMethods().clickOnChoose(filePath);
     }
 
-    @When("^the user clicks on (manage data|view workbook configuration) for a workbook with name as \"([^\"]*)\"$")
+    @When("^the user clicks on (manage data|view workbook configuration) of a workbook with name as \"([^\"]*)\"$")
     public void the_user_clicks_on_manage_data_for_a_workbook_with_name_as(String fn, String workBookName) {
         if (fn.contains("workbook configuration")) {
             pageFactory.getListWorkBookMethods().viewDefinitionWithName(workBookName);
@@ -202,5 +203,11 @@ public class PageWorkbooksteps extends PageCommonMethods {
         } else {
             pageFactory.getWorkBookDataMethods().verifyIfWorkbookDataIsReadOnly();
         }
+    }
+
+    @And("^none of the attributes are selected$")
+    public void none_of_the_attributes_are_selected()
+    {
+        pageFactory.getCreateWorkBookMethods().removeMultipleAttribte();
     }
 }

@@ -13,6 +13,7 @@ import setup.Constants;
 import setup.DriverBean;
 
 import java.util.List;
+import java.util.Map;
 
 public class CreateWorkBookMethods extends GenericWebElementMethods {
     private EventFiringWebDriver edriver;
@@ -115,16 +116,18 @@ public class CreateWorkBookMethods extends GenericWebElementMethods {
     }
 
     public void verifyIfWorkbookConfigurationIsDisplayed(DataTable table) {
-        List<List<String>> list = table.raw();
+        List<Map<String,String>> list = table.asMaps(String.class,String.class);
 
-        verifyTextOnWeIsEqualToValue(Constants.workbookCreate_name_xpath, list.get(0).get(0));
-        verifyTextOnWeIsEqualToValue(Constants.workbookCreate_description_xpath, list.get(0).get(1));
-        verifyTextOnWeIsEqualToValue(Constants.workbookView_formulaType_xpath, list.get(0).get(2));
-        verifyTextOnWeIsEqualToValue(Constants.workbookView_segmentType_xpath, list.get(0).get(3));
-        verifyTextOnWeIsEqualToValue(Constants.workbookCreate_defaultValue_xpath, list.get(0).get(4));
-        verifyIfTextIsDisplayed(list.get(0).get(5));
-        verifyIfTextIsDisplayed(list.get(0).get(6));
-        verifyIfTextIsDisplayed(list.get(0).get(7));
+        for(Map<String,String> row:list) {
+            verifyTextOnWeContainsValue(Constants.workbookCreate_name_xpath, row.get("name"));
+            verifyTextOnWeIsEqualToValue(Constants.workbookCreate_description_xpath, row.get("description"));
+            verifyTextOnWeIsEqualToValue(Constants.workbookView_formulaType_xpath, row.get("formulaType"));
+            verifyTextOnWeIsEqualToValue(Constants.workbookView_segmentType_xpath, row.get("segmentType"));
+            verifyTextOnWeIsEqualToValue(Constants.workbookCreate_defaultValue_xpath, row.get("defaultValue"));
+            verifyIfTextIsDisplayed(row.get("Item"));
+            verifyIfTextIsDisplayed(row.get("Customer Brand"));
+            verifyIfTextIsDisplayed(row.get("Customer"));
+        }
     }
 
     public void verifyIfWorkbookConfigurationDefinitionIsReadOnly() {

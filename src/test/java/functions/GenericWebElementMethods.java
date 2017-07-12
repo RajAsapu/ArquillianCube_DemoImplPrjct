@@ -358,6 +358,10 @@ public class GenericWebElementMethods extends PageCommonMethods {
         Verify.verify(getValue(identifier).equals(value), "Actual:" + getValue(identifier) + " Expected:" + value);
     }
 
+    protected void verifyTextOnWeContainsValue(String identifier, String value) {
+        Verify.verify(getValue(identifier).contains(value), "Actual:" + getValue(identifier) + " Expected:" + value);
+    }
+
     protected void verifyIfTextIsDisplayed(String text) {
         Verify.verify(getSizeOfList("//*[normalize-space()='" + text + "']") > 0, "Text:" + text + " is not displayed");
     }

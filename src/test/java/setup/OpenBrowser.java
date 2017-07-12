@@ -35,36 +35,24 @@ public class OpenBrowser {
         return webDriverWait;
     }
 
-    public EventFiringWebDriver initBrowser(String url) {
-        String browser = System.getenv("BROWSER");
-        log.info("Tests are running on browser:" + browser);
-        if (browser.equalsIgnoreCase("chrome")) {
-            driver = getDriver(Open.Chrome);
-        } else if (browser.equalsIgnoreCase("chromeHeadless")) {
-            driver = getDriver(Open.Chrome_Headless);
-        } else if (browser.equalsIgnoreCase("phantomsJs")) {
-            driver = getDriver(Open.PhantomJS);
-        } else {
-            Assert.fail("Browser:" + browser + " is not available");
-        }
-
+    public EventFiringWebDriver initBrowser() {
+        choosenBrowser = System.getenv("BROWSER");
+        log.info("Tests would be running on browser:" + choosenBrowser);
+        driver = getDriver(choosenBrowser);
         listener = new IEventListener();
         edriver = new EventFiringWebDriver(driver);
         edriver.register(listener);
         DriverBean.setDriver(edriver);
         webDriverWait = new WebDriverWait(driver, 60);
-        edriver.navigate().to(url);
+        edriver.navigate().to(getUrl());
         edriver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
         edriver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
         edriver.manage().timeouts().setScriptTimeout(30, TimeUnit.SECONDS);
         return edriver;
     }
 
-    public WebDriver getDriver(Open browser) {
-        /*
-         * Chrome Options
-         */
-        choosenBrowser = browser.toString();
+    public WebDriver getDriver(String browser) {
+
         ChromeOptions options = new ChromeOptions();
         Map<String, Object> prefs = new HashMap<String, Object>();
         prefs.put("credentials_enable_service", false);
@@ -76,32 +64,23 @@ public class OpenBrowser {
         options.addArguments("--disable-extensions");
         options.addArguments("window-size=1280x1024");
         System.setProperty("webdriver.chrome.driver", "chromedriver");
-        DesiredCapabilities capabilities = new DesiredCapabilities();
-        capabilities.setBrowserName("chrome");
-        capabilities.setCapability(ChromeOptions.CAPABILITY, options);
-        switch (browser) {
-            case Grid:
-                try {
-                    driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), capabilities);
-                } catch (Exception exp) {
-                    exp.printStackTrace();
-                }
-                break;
-            case Chrome:
+
+        switch (browser.toLowerCase()) {
+            case "chrome":
                 driver = new ChromeDriver(options);
                 break;
             /*
              * Chrome version greater than 58 required
              */
-            case Chrome_Headless:
+            case "chromeheadless":
                 options.setBinary("/usr/bin/google-chrome-unstable");
                 options.addArguments("--headless");
                 driver = new ChromeDriver(options);
                 break;
-            case PhantomJS:
+            case "phantomsjs":
                 try {
                     String[] cli_args = new String[]{"--ignore-ssl-errors=true", "--debug=true"};
-                    capabilities = DesiredCapabilities.phantomjs();
+                    DesiredCapabilities capabilities = DesiredCapabilities.phantomjs();
                     capabilities.setJavascriptEnabled(true);
                     capabilities.acceptInsecureCerts();
                     capabilities.setCapability(PhantomJSDriverService.PHANTOMJS_CLI_ARGS, cli_args);
@@ -118,11 +97,22 @@ public class OpenBrowser {
         return driver;
     }
 
-    public String getSelectedDriver() {
-        return choosenBrowser;
+    public String getUrl()
+    {
+        switch (System.getenv("ENV")){
+            case "Docker":
+                        return ConfigureProperties.getGradleProperty("uiDnsWithPort");
+            case "Test":
+                        return System.getenv("TEST_PRICING_URL");
+            case "Dev":
+                        return System.getenv("DEV_PRICING_URL");
+            default:
+                    Assert.fail("Environment should be set to Docker,Test or Dev");
+                    return null;
+        }
     }
 
-    public static enum Open {
-        Chrome, PhantomJS, Chrome_Headless, Grid
+    public String getSelectedDriver() {
+        return choosenBrowser;
     }
 }

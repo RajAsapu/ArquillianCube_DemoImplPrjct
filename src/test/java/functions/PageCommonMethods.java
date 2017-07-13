@@ -53,11 +53,12 @@ public class PageCommonMethods {
         Actions act = new Actions(edriver);
         act.moveToElement(edriver.findElement(By.xpath("//*/a[normalize-space()='" + m.toString().replace("_", " ") + "']"))).clickAndHold().perform();
         List<WebElement> elementList = null;
-        wait.until(ExpectedConditions.visibilityOf(edriver.findElement(By.xpath("//*/*[normalize-space()='" + p.toString() + "']"))));
-        elementList = edriver.findElements(By.xpath("//*/*[normalize-space()='" + p.toString() + "']"));
+        waitFor(1);
+        elementList = edriver.findElements(By.xpath("//*[normalize-space()='" + p.toString() + "']"));
         for (WebElement temp : elementList) {
             if (temp.isDisplayed()) {
                 act.click(temp).perform();
+                break;
             }
         }
         System.out.println("Navigated to " + p.toString() + " page under " + m.toString());

@@ -419,7 +419,7 @@ public class GenericWebElementMethods extends PageCommonMethods {
                 clickButton(Constants.workbookList_nextPage_xpath);
             }
             position = 0;
-            wait.until(ExpectedConditions.visibilityOf(getElementFromListWithPosition(identifer, 0)));
+            waitFor(2);
             webElementList = edriver.findElements(By.xpath(identifer));
             for (WebElement temp : webElementList) {
                 if (temp.getText().equalsIgnoreCase(name)) {

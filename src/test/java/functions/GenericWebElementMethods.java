@@ -48,7 +48,7 @@ public class GenericWebElementMethods extends PageCommonMethods {
      */
     protected WebElement getElementFromListWithPosition(String identifier, int position) {
         List<WebElement> list = null;
-        wait.until(ExpectedConditions.visibilityOf(getElementFromListWithPosition(identifier,0)));
+        wait.until(ExpectedConditions.visibilityOf(edriver.findElement(By.xpath(identifier))));
         list = edriver.findElements(By.xpath(identifier));
         if (list.size() == 0) {
             log.info("No elements found matching the xpath:" + identifier);

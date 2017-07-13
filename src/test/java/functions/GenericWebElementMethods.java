@@ -48,6 +48,7 @@ public class GenericWebElementMethods extends PageCommonMethods {
      */
     protected WebElement getElementFromListWithPosition(String identifier, int position) {
         List<WebElement> list = null;
+        waitFor(1);
         list = edriver.findElements(By.xpath(identifier));
         if (list.size() == 0) {
             log.info("No elements found matching the xpath:" + identifier);
@@ -411,14 +412,14 @@ public class GenericWebElementMethods extends PageCommonMethods {
         boolean flag = false;
         List<WebElement> webElementList;
         List<WebElement> pageList;
-        wait.until(ExpectedConditions.visibilityOf(getElementFromListWithPosition(Constants.workbookList_noOfPages_xpath, 0)));
+        waitFor(1);
         pageList = edriver.findElements(By.xpath(Constants.workbookList_noOfPages_xpath));
         for (WebElement page : pageList) {
             if (position != 0) {
                 clickButton(Constants.workbookList_nextPage_xpath);
             }
             position = 0;
-            waitFor(2);
+            waitFor(1);
             webElementList = edriver.findElements(By.xpath(identifer));
             for (WebElement temp : webElementList) {
                 if (temp.getText().equalsIgnoreCase(name)) {

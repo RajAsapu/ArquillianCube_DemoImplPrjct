@@ -412,14 +412,14 @@ public class GenericWebElementMethods extends PageCommonMethods {
         boolean flag = false;
         List<WebElement> webElementList;
         List<WebElement> pageList;
-        waitFor(1);
+        waitFor(2);
         pageList = edriver.findElements(By.xpath(Constants.workbookList_noOfPages_xpath));
         for (WebElement page : pageList) {
             if (position != 0) {
                 clickButton(Constants.workbookList_nextPage_xpath);
             }
             position = 0;
-            waitFor(1);
+            waitFor(2);
             webElementList = edriver.findElements(By.xpath(identifer));
             for (WebElement temp : webElementList) {
                 if (temp.getText().equalsIgnoreCase(name)) {

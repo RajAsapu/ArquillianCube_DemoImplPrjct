@@ -26,7 +26,7 @@ public class PageCommonSteps extends OpenBrowser {
 
     @And("^wait for sometime$")
     public void wait_for_sometime() {
-        pageFactory.getPageCommonMethods().waitFor(1);
+       // pageFactory.getPageCommonMethods().waitFor(1);
     }
 
     /*

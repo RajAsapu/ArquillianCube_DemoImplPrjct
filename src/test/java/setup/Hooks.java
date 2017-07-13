@@ -14,14 +14,14 @@ public class Hooks {
 
     @After
     public void tearDown(Scenario scenario) {
-        log.info("Scenario executed:" + scenario.getName());
         if (scenario.isFailed()) {
             final byte[] screenshot = ((TakesScreenshot) DriverBean.getDriver())
                     .getScreenshotAs(OutputType.BYTES);
             scenario.embed(screenshot, "image/png");
         }
 
-        DriverBean.getDriver().close();
+        DriverBean.getDriver().quit();
+        log.info("Scenario executed:" + scenario.getName());
         log.info("Browser is closed");
 
     }

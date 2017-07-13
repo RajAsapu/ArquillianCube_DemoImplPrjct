@@ -1,5 +1,6 @@
 package setup;
 
+import io.github.bonigarcia.wdm.ChromeDriverManager;
 import org.jboss.arquillian.phantom.resolver.ResolvingPhantomJSDriverService;
 import org.junit.Assert;
 import org.openqa.selenium.Dimension;
@@ -77,7 +78,7 @@ public class OpenBrowser {
                 options.addArguments("--headless");
                 driver = new ChromeDriver(options);
                 break;
-            case "phantomsjs":
+            case "phantomjs":
                 try {
                     String[] cli_args = new String[]{"--ignore-ssl-errors=true", "--debug=true"};
                     DesiredCapabilities capabilities = DesiredCapabilities.phantomjs();

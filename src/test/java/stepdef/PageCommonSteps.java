@@ -104,7 +104,7 @@ public class PageCommonSteps extends OpenBrowser {
      */
     @Given("^the user has navigated to the \"([^\"]*)\" page under the \"([^\"]*)\"$")
     public void the_user_has_navigated_to_the_page_under_the(PageCommonMethods.page page, PageCommonMethods.module module)
-            throws Exception {
+             {
         pageFactory.getPageCommonMethods().moveTo(page, module);
     }
 }

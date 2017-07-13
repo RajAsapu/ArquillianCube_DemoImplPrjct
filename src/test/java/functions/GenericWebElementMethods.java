@@ -48,7 +48,7 @@ public class GenericWebElementMethods extends PageCommonMethods {
      */
     protected WebElement getElementFromListWithPosition(String identifier, int position) {
         List<WebElement> list = null;
-        waitFor(1);
+        wait.until(ExpectedConditions.visibilityOf(getElementFromListWithPosition(identifier,0)));
         list = edriver.findElements(By.xpath(identifier));
         if (list.size() == 0) {
             log.info("No elements found matching the xpath:" + identifier);
@@ -142,7 +142,7 @@ public class GenericWebElementMethods extends PageCommonMethods {
      */
     protected void checkDataInRowsMatchesFilter(String identifier, String value) {
         List<WebElement> list = null;
-        wait.until(ExpectedConditions.visibilityOf(getElementFromListWithPosition(identifier, 0)));
+        wait.until(ExpectedConditions.visibilityOf(getElementFromListWithPosition(identifier,0)));
         list = edriver.findElements(By.xpath(identifier));
         for (WebElement e : list) {
             if (!e.getText().toLowerCase().contains(value.toLowerCase())) {
@@ -412,16 +412,18 @@ public class GenericWebElementMethods extends PageCommonMethods {
         boolean flag = false;
         List<WebElement> webElementList;
         List<WebElement> pageList;
-        waitFor(2);
+        wait.until(ExpectedConditions.visibilityOf(edriver.findElement(By.xpath(Constants.workbookList_noOfPages_xpath))));
         pageList = edriver.findElements(By.xpath(Constants.workbookList_noOfPages_xpath));
         for (WebElement page : pageList) {
             if (position != 0) {
                 clickButton(Constants.workbookList_nextPage_xpath);
             }
             position = 0;
-            waitFor(2);
+            wait.until(ExpectedConditions.visibilityOf(edriver.findElement(By.xpath(identifer))));
             webElementList = edriver.findElements(By.xpath(identifer));
+            log.info("No Of Records in page->"+position+":"+webElementList.size());
             for (WebElement temp : webElementList) {
+                log.info("Workbook def:"+temp.getText());
                 if (temp.getText().equalsIgnoreCase(name)) {
                     temp.click();
                     flag = true;

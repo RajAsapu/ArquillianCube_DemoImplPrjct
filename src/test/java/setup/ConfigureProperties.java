@@ -8,6 +8,7 @@ import com.github.dockerjava.api.command.InspectContainerResponse;
 import com.github.dockerjava.api.model.Container;
 import com.github.dockerjava.core.DockerClientBuilder;
 import org.junit.Assert;
+import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,7 +20,7 @@ import java.util.ResourceBundle;
 
 public class ConfigureProperties {
 
-    public static Properties props;
+    public Properties props;
     private static Logger log = LoggerFactory.getLogger(ConfigureProperties.class);
     private static boolean dockerEnvBroken = false;
     PrintWriter out;
@@ -33,15 +34,18 @@ public class ConfigureProperties {
     /*
      * Method to retrieve pricing properties
      */
-    public static String getPricingProperty(String propertyName) {
-        ResourceBundle resourceBundle = ResourceBundle.getBundle("pricing");
-        return resourceBundle.getString(propertyName);
+    public static String getPricingProperty(String propertyName) throws Exception{
+        InputStream inputStream = new FileInputStream("src/test/resources/pricing.properties");
+        Properties properties = new Properties();
+        properties.loadFromXML(inputStream);
+        return properties.getProperty(propertyName);
     }
 
     /*
      *  Method to retrieve gradle properties
      */
     public static String getGradleProperty(String propertyName) {
+        Properties props=new Properties();
         try {
             InputStream inputStream = new FileInputStream("gradle.properties");
             props.load(inputStream);
@@ -58,16 +62,18 @@ public class ConfigureProperties {
     /*
      * Container urls are saved in the pricing properties file
      */
+    @Test
     public void updatePricingProperties() {
         try {
-            OutputStream outputStream = new FileOutputStream("pricing.properties");
-
-            props.setProperty("pricing.ui", getGradleProperty("uiDnsWithPort"));
+            OutputStream outputStream = new FileOutputStream("src/test/resources/pricing.properties");
+            props = new Properties();
+            props.setProperty("pricing.ui", getGradleProperty("uiDnsWithPort").toString());
             props.setProperty("pricing.datamock", getGradleProperty("datamockDnsWithPort"));
             props.setProperty("pricing.engine", getGradleProperty("engineDnsWithPort"));
             props.setProperty("pricing.service", getGradleProperty("serviceDnsWithPort"));
 
-            props.store(outputStream, "#Pricing Application - Container properties#");
+            props.storeToXML(outputStream, "#Pricing Application - Container properties#");
+            outputStream.close();
         } catch (Exception exp) {
             exp.printStackTrace();
         }

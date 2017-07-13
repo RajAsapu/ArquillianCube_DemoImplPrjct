@@ -23,7 +23,7 @@ import java.util.List;
         plugin = {"json:target/cucumber-json-report"},
         features = {"src/test/resources/features/"},
         glue = {"classpath:"},
-        tags = {"@TestCalc"}
+        tags = {"@AppTestData"}
 )
 public class RunTest {
 

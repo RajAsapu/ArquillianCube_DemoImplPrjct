@@ -4,6 +4,7 @@ import com.google.common.base.Verify;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -14,6 +15,7 @@ import setup.Constants;
 import setup.DriverBean;
 import setup.OpenBrowser;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class PageCommonMethods {
@@ -50,7 +52,14 @@ public class PageCommonMethods {
     public void moveTo(page p, module m) throws Exception {
         Actions act = new Actions(edriver);
         act.moveToElement(edriver.findElement(By.xpath("//*/a[normalize-space()='" + m.toString().replace("_", " ") + "']"))).clickAndHold().perform();
-        wait.until(ExpectedConditions.visibilityOf(edriver.findElement(By.xpath("//*/*[normalize-space()='" + p.toString() + "']")))).click();
+        List<WebElement> elementList = null;
+        wait.until(ExpectedConditions.visibilityOf(edriver.findElement(By.xpath("//*/*[normalize-space()='" + p.toString() + "']"))));
+        elementList = edriver.findElements(By.xpath("//*/*[normalize-space()='" + p.toString() + "']"));
+        for (WebElement temp : elementList) {
+            if (temp.isDisplayed()) {
+                act.click(temp).perform();
+            }
+        }
         System.out.println("Navigated to " + p.toString() + " page under " + m.toString());
     }
 

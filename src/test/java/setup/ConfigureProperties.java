@@ -68,7 +68,6 @@ public class ConfigureProperties {
             props.setProperty("pricing.service", getGradleProperty("serviceDnsWithPort"));
 
             props.store(outputStream, "#Pricing Application - Container properties#");
-            out.close();
         } catch (Exception exp) {
             exp.printStackTrace();
         }

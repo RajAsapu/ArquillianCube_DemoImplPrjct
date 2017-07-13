@@ -1,6 +1,5 @@
 package setup;
 
-import io.github.bonigarcia.wdm.ChromeDriverManager;
 import org.jboss.arquillian.phantom.resolver.ResolvingPhantomJSDriverService;
 import org.junit.Assert;
 import org.openqa.selenium.Dimension;
@@ -11,14 +10,12 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.openqa.selenium.phantomjs.PhantomJSDriverService;
 import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;

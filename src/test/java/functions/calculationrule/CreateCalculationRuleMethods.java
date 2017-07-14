@@ -5,6 +5,7 @@ import cucumber.api.DataTable;
 import functions.GenericWebElementMethods;
 import org.junit.Assert;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import setup.Constants;
 import setup.DriverBean;
 
@@ -18,11 +19,12 @@ public class CreateCalculationRuleMethods extends GenericWebElementMethods {
         edriver = DriverBean.getDriver();
     }
 
-    public void setName(String name,boolean withTimeStamp) {
-        if(withTimeStamp){
-            sendKeysToWE(Constants.calculationRuleCreate_name_xpath, name + getDateWithTime());}
-        else{
-            sendKeysToWE(Constants.calculationRuleCreate_name_xpath, name );}
+    public void setName(String name, boolean withTimeStamp) {
+        if (withTimeStamp) {
+            sendKeysToWE(Constants.calculationRuleCreate_name_xpath, name + getDateWithTime());
+        } else {
+            sendKeysToWE(Constants.calculationRuleCreate_name_xpath, name);
+        }
     }
 
     public void setStartDate(String startDate) {
@@ -124,8 +126,7 @@ public class CreateCalculationRuleMethods extends GenericWebElementMethods {
     }
 
     public void verifyIfPageIsCalculationRuleList() {
-        waitFor(5);
-        if (!edriver.getCurrentUrl().contains("/calc-rule/list")) {
+        if (!wait.until(ExpectedConditions.urlContains("/calc-rule/list"))) {
             Assert.fail("Calculation Rule is not created");
         }
     }

@@ -6,6 +6,7 @@ import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import setup.Constants;
 import setup.DriverBean;
 
@@ -154,8 +155,8 @@ public class ListIndexMethods extends GenericWebElementMethods {
     }
 
     public void verifyIfListPageDisplayed(boolean isListPage) {
-        waitFor(2);
         if (isListPage) {
+            wait.until(ExpectedConditions.visibilityOf(getElementFromListWithPosition(Constants.indexList_name_xpath, 0)));
             Verify.verify(edriver.getCurrentUrl().contains("/index/list"), "Index is not created or updated !!");
         } else {
             Verify.verify(!edriver.getCurrentUrl().contains("/index/list"), "Index is created or updated !!");

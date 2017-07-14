@@ -49,8 +49,12 @@
                     timeout: 180
             service:
                 await:
-                    strategy: sleeping
-                    sleepTime: 5 s
+                    strategy: polling
+                    sleepPollingTime: 10 s
+                    iterations: 5
+                    stdOut: true
+                    stdErr: true
+                    timeout: 1800
         </property>
     </extension>
 </arquillian>

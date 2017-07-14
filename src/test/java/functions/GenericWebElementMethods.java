@@ -10,11 +10,13 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.LoggerFactory;
 import setup.Constants;
-import setup.DateOperations;
 import setup.DriverBean;
+import setup.OpenBrowser;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -22,23 +24,22 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import static org.apache.commons.lang.StringUtils.*;
-
 /*
  * Class has the methods to perform operations on the web elements
  */
 public class GenericWebElementMethods extends PageCommonMethods {
-    protected static DateOperations dateOperations;
+
     protected static JavascriptExecutor js;
     protected static Actions actions = null;
+    protected WebDriverWait wait;
     private EventFiringWebDriver edriver;
 
     public GenericWebElementMethods() {
         edriver = DriverBean.getDriver();
         log = LoggerFactory.getLogger(GenericWebElementMethods.class);
-        dateOperations = new DateOperations();
         actions = new Actions(edriver);
         js = ((JavascriptExecutor) edriver);
+        wait = OpenBrowser.getWebDriverWait();
     }
 
     /*
@@ -46,10 +47,9 @@ public class GenericWebElementMethods extends PageCommonMethods {
      * position = -1 to get the last web element
      */
     protected WebElement getElementFromListWithPosition(String identifier, int position) {
-        waitFor(2);
         List<WebElement> list = null;
+        wait.until(ExpectedConditions.visibilityOf(edriver.findElement(By.xpath(identifier))));
         list = edriver.findElements(By.xpath(identifier));
-
         if (list.size() == 0) {
             log.info("No elements found matching the xpath:" + identifier);
         }
@@ -141,12 +141,8 @@ public class GenericWebElementMethods extends PageCommonMethods {
      * Check if the data in the rows is matching the value which is used as filter
      */
     protected void checkDataInRowsMatchesFilter(String identifier, String value) {
-        try {
-            Thread.sleep(4000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         List<WebElement> list = null;
+        wait.until(ExpectedConditions.visibilityOf(getElementFromListWithPosition(identifier,0)));
         list = edriver.findElements(By.xpath(identifier));
         for (WebElement e : list) {
             if (!e.getText().toLowerCase().contains(value.toLowerCase())) {
@@ -178,8 +174,7 @@ public class GenericWebElementMethods extends PageCommonMethods {
         WebElement autoFill = null;
         WebElement dropdown = getElementFromListWithPosition(identifier, -1);
         actions.click(dropdown).perform();
-        waitFor(1);
-        scrollIntoView("//li[normalize-space()='" + value + "']");
+        wait.until(ExpectedConditions.visibilityOf(edriver.findElement(By.xpath("//*[normalize-space()='" + value + "']"))));
         if (getSizeOfList("//li[normalize-space()='" + value + "']") > 0) {
             autoFill = getElementFromListWithPosition("//li[normalize-space()='" + value + "']", position);
         } else if (getSizeOfList("//*[normalize-space()='" + value.toUpperCase() + "']") > 0) {
@@ -199,10 +194,9 @@ public class GenericWebElementMethods extends PageCommonMethods {
         WebElement autoFill = null;
         WebElement dropdown = getElementFromListWithPosition(dropdownId, 0);
         actions.click(dropdown).perform();
-        waitFor(1);
+        wait.until(ExpectedConditions.visibilityOf(edriver.findElement(By.xpath(Constants.workbookData_searchInDropdown_xpath))));
         sendKeysToWE(Constants.workbookData_searchInDropdown_xpath, value);
-        waitFor(1);
-        scrollIntoView("//*[normalize-space()='" + value + "']");
+        wait.until(ExpectedConditions.visibilityOf(edriver.findElement(By.xpath("//*[normalize-space()='" + value + "']"))));
         if (getSizeOfList("//*[normalize-space()='" + value + "']") > 0) {
             autoFill = getElementFromListWithPosition("//li[normalize-space()='" + value + "']", -1);
         } else if (getSizeOfList("//*[normalize-space()='" + value.toUpperCase() + "']") > 0) {
@@ -222,8 +216,9 @@ public class GenericWebElementMethods extends PageCommonMethods {
         WebElement autoFill = null;
         WebElement dropdown = getElementFromListWithPosition(identifier, 0);
         actions.click(dropdown).perform();
-        waitFor(2);
-        List<WebElement> elementList = edriver.findElements(By.xpath(listIdentifier));
+        List<WebElement> elementList = null;
+        wait.until(ExpectedConditions.visibilityOf(getElementFromListWithPosition(identifier, 0)));
+        elementList = edriver.findElements(By.xpath(listIdentifier));
         for (WebElement temp : elementList) {
             if (temp.getText().equalsIgnoreCase(value)) {
                 temp.click();
@@ -269,7 +264,7 @@ public class GenericWebElementMethods extends PageCommonMethods {
         WebElement autoFill = null;
         getElementFromListWithPosition(identifier, -1).clear();
         getElementFromListWithPosition(identifier, -1).sendKeys(value.substring(0, value.length() - 1));
-        waitFor(3);
+        wait.until(ExpectedConditions.visibilityOf(edriver.findElement(By.xpath("//*[normalize-space()='" + value + "']"))));
         if (getSizeOfList("//li[normalize-space()='" + value + "']") > 0) {
             autoFill = getElementFromListWithPosition("//li[normalize-space()='" + value + "']", position);
         } else if (getSizeOfList("//span[normalize-space()='" + value + "']") > 0) {
@@ -299,24 +294,12 @@ public class GenericWebElementMethods extends PageCommonMethods {
     }
 
     /*
-     * Method to scroll down
-     */
-    protected void scrollDown() {
-//        js.executeScript("scroll(0,400)");
-    }
-
-    /*
      * Method to scroll inside an element
      */
     protected void scrollIntoView(String identifier) {
         WebElement list = edriver.findElement(By.xpath(identifier));
         actions.moveToElement(list).perform();
-        // js.executeScript("arguments[0].scrollIntoview(true);",list);
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        js.executeScript("arguments[0].scrollIntoview(true);", list);
     }
 
     /*
@@ -370,16 +353,6 @@ public class GenericWebElementMethods extends PageCommonMethods {
         return edriver.findElements(By.xpath(identifier)).size();
     }
 
-    /*
-     * Date Operations : Set date
-     */
-    protected void setDateWithTimeStamp(String operation, String datePicker, String dateField) {
-        dateOperations.setDate(operation, datePicker, dateField);
-    }
-
-    protected String getDate(String identifier) {
-        return dateOperations.getDate(identifier);
-    }
 
     protected void verifyTextOnWeIsEqualToValue(String identifier, String value) {
         Verify.verify(getValue(identifier).equals(value), "Actual:" + getValue(identifier) + " Expected:" + value);
@@ -439,17 +412,18 @@ public class GenericWebElementMethods extends PageCommonMethods {
         boolean flag = false;
         List<WebElement> webElementList;
         List<WebElement> pageList;
-        waitFor(2);
+        wait.until(ExpectedConditions.visibilityOf(edriver.findElement(By.xpath(Constants.workbookList_noOfPages_xpath))));
         pageList = edriver.findElements(By.xpath(Constants.workbookList_noOfPages_xpath));
-
         for (WebElement page : pageList) {
             if (position != 0) {
                 clickButton(Constants.workbookList_nextPage_xpath);
             }
             position = 0;
-            waitFor(3);
+            wait.until(ExpectedConditions.visibilityOf(edriver.findElement(By.xpath(identifer))));
             webElementList = edriver.findElements(By.xpath(identifer));
+            log.info("No Of Records in page->"+position+":"+webElementList.size());
             for (WebElement temp : webElementList) {
+                log.info("Workbook def:"+temp.getText());
                 if (temp.getText().equalsIgnoreCase(name)) {
                     temp.click();
                     flag = true;

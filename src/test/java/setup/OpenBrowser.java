@@ -28,9 +28,6 @@ public class OpenBrowser {
     public WebDriver driver;
     private EventFiringWebDriver edriver;
     private IEventListener listener;
-    public final static String TEST_ENV   = "Test";
-    public final static String DEV_ENV    = "Dev";
-    public final static String DOCKER_ENV = "Docker";
 
     public static WebDriverWait getWebDriverWait() {
         return webDriverWait;
@@ -101,11 +98,11 @@ public class OpenBrowser {
     public String getUrl()
     {
         switch (System.getenv("ENV")){
-            case DOCKER_ENV:
+            case Constants.DOCKER_ENV:
                         return ConfigureProperties.getGradleProperty("uiDnsWithPort");
-            case TEST_ENV:
+            case Constants.TEST_ENV:
                         return System.getenv("TEST_PRICING_URL");
-            case DEV_ENV:
+            case Constants.DEV_ENV:
                         return System.getenv("DEV_PRICING_URL");
             default:
                     Assert.fail("Environment should be set to Docker,Test or Dev");

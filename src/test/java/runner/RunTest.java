@@ -12,6 +12,7 @@ import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import setup.ConfigureProperties;
+import setup.Constants;
 import setup.OpenBrowser;
 
 import java.io.File;
@@ -38,7 +39,7 @@ public class RunTest {
         /*
          * Stop the service container
          */
-        if (System.getenv("ENV").equals("Docker")) {
+        if (System.getenv(Constants.ENV_KEY).equals(Constants.DOCKER_ENV)) {
         cubeController.stop(ConfigureProperties.getGradleProperty("serviceContainerName"));
         cubeController.destroy(ConfigureProperties.getGradleProperty("serviceContainerName")); }
         /*
@@ -55,7 +56,7 @@ public class RunTest {
         Configuration configuration = new Configuration(reportOutputDirectory, projectName);
         configuration.setParallelTesting(false);
 
-        configuration.addClassifications("Environment", System.getenv("ENV"));
+        configuration.addClassifications("Environment", System.getenv(Constants.ENV_KEY));
         configuration.addClassifications("Browser", browser.getSelectedDriver());
         configuration.addClassifications("Build Number", System.getenv("bamboo.buildNumber"));
 
@@ -65,7 +66,7 @@ public class RunTest {
 
     @Test
     public void setEnvironment() {
-        if (System.getenv("ENV").equals("Docker")) {
+        if (System.getenv(Constants.ENV_KEY).equals(Constants.DOCKER_ENV)) {
             /*
              * Start the service container
              */

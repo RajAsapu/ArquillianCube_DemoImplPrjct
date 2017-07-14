@@ -5,6 +5,13 @@ public class Constants {
      * Enterprise pricing identifiers
      */
     /*
+     * Environments
+     */
+    public final static String ENV_KEY = "ENV";
+    public final static String TEST_ENV   = "Test";
+    public final static String DEV_ENV    = "Dev";
+    public final static String DOCKER_ENV = "Docker";
+    /*
      * Default user id and password
 	 */
     public static String username = "cxl_admin1";

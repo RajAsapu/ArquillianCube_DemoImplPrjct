@@ -80,7 +80,6 @@ public class PageCommonSteps extends OpenBrowser {
         }
         Actions actions = new Actions(edriver);
         actions.click(update).perform();
-        actions.click().perform();
         wait_for_sometime();
     }
 

@@ -61,7 +61,7 @@ Feature: Test Data
     Given the user has navigated to the "Create" page under the "Index"
     When  the user enters rate basis as Unit
     And   <lowPrice> ,<midPrice> ,<highPrice> and <closePrice> are entered
-    And   name as PREMCBOBNYCARGO
+    And   name as UNLEADED US GULF WATER
     And   start date as 12-Dec-2016 and end date as today
     And   currency as USD
     And   unit of measurement as USG

@@ -62,7 +62,6 @@ public class ConfigureProperties {
     /*
      * Container urls are saved in the pricing properties file
      */
-    @Test
     public void updatePricingProperties() {
         try {
             OutputStream outputStream = new FileOutputStream("src/test/resources/pricing.properties");

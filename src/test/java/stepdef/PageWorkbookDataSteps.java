@@ -70,4 +70,10 @@ public class PageWorkbookDataSteps {
         pageFactory.getWorkBookDataMethods().clickOnDataWithSupplier(supplierName);
         pageFactory.getWorkBookDataMethods().clickOnUpdate();
     }
+
+    @And("the user sets search status to \"([^\"]*)\"")
+    public void the_user_sets_search_status_to(String status)
+    {
+        pageFactory.getWorkBookDataMethods().setStatusInSearch(status);
+    }
 }

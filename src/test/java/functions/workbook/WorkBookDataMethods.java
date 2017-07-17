@@ -181,17 +181,18 @@ public class WorkBookDataMethods extends GenericWebElementMethods {
             clickOnUpdate();
         }
     }
-
     public int getColumnNumber(String columnName) {
-        int position = 3;
-        List<WebElement> headerList = null;
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(Constants.workbookData_headerList_xpath)));
-        headerList = edriver.findElements(By.xpath(Constants.workbookData_headerList_xpath));
+        int position = 0;
+        waitFor(1);
+        List<WebElement> headerList = edriver.findElements(By.xpath(Constants.workbookData_headerList_xpath));
         for (WebElement temp : headerList) {
             if (temp.getText().equalsIgnoreCase(columnName)) {
                 break;
             }
             ++position;
+        }
+        if(columnName.equalsIgnoreCase(SUPPLIER)){
+            position=position+3;
         }
         return position;
     }
@@ -244,5 +245,10 @@ public class WorkBookDataMethods extends GenericWebElementMethods {
     public void verifyIfEditAndDeactivateIsDisplayed() {
         Verify.verify(getSizeOfList(Constants.workbookData_editDataAction_xpath) == 0, "Edit action is displayed for the inactive record");
         Verify.verify(getSizeOfList(Constants.workbookData_deActivateAction_xpath) == 0, "Deactivate action is displayed for the inactive record");
+    }
+
+    public void setStatusInSearch(String status)
+    {
+            selectFromDropDown_SelectTag(Constants.workbookData_searchStatus_xpath,status);
     }
 }

@@ -88,7 +88,7 @@ public class PageCommonMethods {
     public void verifyIfErrorMessageIsDisplayed(String errorOrSuccess, String message, boolean isDisplayed) {
         try {
             if (isDisplayed) {
-                wait.until(ExpectedConditions.visibilityOf(edriver.findElement(By.xpath("//*[normalize-space()=\"" + message + "\"]"))));
+                wait.until(ExpectedConditions.visibilityOf(edriver.findElement(By.xpath("//*[normalize-space()=\"" + message + "\"]")))).isDisplayed();
             } else {
                 Verify.verify(!edriver.findElement(By.xpath("//*[normalize-space()=\"" + message + "\"]")).isDisplayed(), errorOrSuccess + " Message is displayed!!");
             }

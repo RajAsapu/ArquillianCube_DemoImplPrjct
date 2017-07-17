@@ -10,6 +10,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import setup.*;
 
 public class PageCommonSteps extends OpenBrowser {
@@ -64,8 +65,7 @@ public class PageCommonSteps extends OpenBrowser {
         }
         Actions actions = new Actions(edriver);
         actions.click(update).perform();
-        actions.click().perform();
-        wait_for_sometime();
+        webDriverWait.until(ExpectedConditions.elementSelectionStateToBe(update,false));
     }
 
     /*
@@ -77,7 +77,6 @@ public class PageCommonSteps extends OpenBrowser {
         WebElement search = edriver.findElement(By.xpath(Constants.indexCreate_search_xpath));
         Actions actions = new Actions(edriver);
         actions.click(search).perform();
-        wait_for_sometime();
     }
 
     /*
@@ -85,8 +84,9 @@ public class PageCommonSteps extends OpenBrowser {
      */
     @And("^clicks on the submit button$")
     public void clicks_on_the_submit_button() throws Exception {
-        edriver.findElement(By.xpath(Constants.indexCreate_submit_xpath)).click();
-        wait_for_sometime();
+        WebElement submit = edriver.findElement(By.xpath(Constants.indexCreate_submit_xpath));
+        submit.click();
+        webDriverWait.until(ExpectedConditions.invisibilityOf(submit));
     }
 
     /*

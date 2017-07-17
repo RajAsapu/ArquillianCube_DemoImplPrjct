@@ -87,25 +87,14 @@ Feature: Workbook Data Page
     Given the user has navigated to the "List" page under the "Workbook"
     When  the user clicks on manage data of a workbook with name as "TestWorkbook3Attr"
     And   create the workbook data
-      | supplier                 | location   | customer                 | priceBasis | uom | startDate         | endDate  | currencyCode | amount |
-      | JET AVIATION HOUSTON INC | MIAMI INTL | BUSINESS AVIATION CENTRE | Unit       | 300 | 09-May-2017 10:19 | today    | BBD          | 100    |
-      | JET AVIATION HOUSTON INC | MIAMI INTL | BUSINESS AVIATION CENTRE | Unit       | 300 | tomorrow          | tomorrow | BBD          | 100    |
+      | supplier                 | location    | customer                 | priceBasis | uom | startDate         | endDate  | currencyCode | amount |
+      | JET AVIATION HOUSTON INC | MIAMI INTL1 | BUSINESS AVIATION CENTRE | Unit       | 300 | 09-May-2017 10:19 | today    | BBD          | 100    |
+      | JET AVIATION HOUSTON INC | MIAMI INTL1 | BUSINESS AVIATION CENTRE | Unit       | 300 | tomorrow          | tomorrow | BBD          | 100    |
     And   edit the record with the supplier name as "JET AVIATION HOUSTON INC"
     And   set the end date for data as "tomorrow"
     And   clicks on the update button
     Then  the application displays an error message as "Overlap exception"
 
-  # Test Case for the overlap check
-  # Defect : Application is not displaying error message
-  Scenario:To verify if the application displays an error message on trying to create a data overlapping on record with same name.
-    Given the user has navigated to the "List" page under the "Workbook"
-    When  the user clicks on manage data of a workbook with name as "TestWorkbook3Attr"
-    And   create the workbook data
-      | supplier               | location   | customer                 | priceBasis | uom | startDate         | endDate  | currencyCode | amount |
-      | JAMUNA OIL COMPANY LTD | MIAMI INTL | BUSINESS AVIATION CENTRE | Unit       | 300 | 09-May-2017 10:19 | tomorrow | BBD          | 100    |
-      | JAMUNA OIL COMPANY LTD | MIAMI INTL | BUSINESS AVIATION CENTRE | Unit       | 300 | today             | tomorrow | BBD          | 100    |
-    And  clicks on the save button
-    Then  the application displays an error message as "Overlap exception"
   # Error messages has to be implemented
   Scenario Outline:To verify if the application displays error message when the scale rates are invalid in the price point scale.
     Given the user has navigated to the "List" page under the "Workbook"

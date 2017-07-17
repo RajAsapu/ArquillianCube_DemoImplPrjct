@@ -43,7 +43,7 @@ public class WorkBookDataMethods extends GenericWebElementMethods {
     }
 
     public void clickOnAddNewData() {
-        wait.until(ExpectedConditions.elementToBeClickable(edriver.findElement(By.xpath(Constants.workbookData_addDataAction_xpath)))).click();
+        clickButton(Constants.workbookData_addDataAction_xpath);
     }
 
     public void clickOnSearch() {
@@ -185,7 +185,8 @@ public class WorkBookDataMethods extends GenericWebElementMethods {
     public int getColumnNumber(String columnName) {
         int position = 3;
         List<WebElement> headerList = null;
-        wait.until(ExpectedConditions.visibilityOfAllElements(headerList = edriver.findElements(By.xpath(Constants.workbookData_headerList_xpath))));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(Constants.workbookData_headerList_xpath)));
+        headerList = edriver.findElements(By.xpath(Constants.workbookData_headerList_xpath));
         for (WebElement temp : headerList) {
             if (temp.getText().equalsIgnoreCase(columnName)) {
                 break;
@@ -197,6 +198,7 @@ public class WorkBookDataMethods extends GenericWebElementMethods {
 
     public void clickOnSaveButton() {
         clickButton(Constants.workbookData_save_xpath);
+        wait.until(ExpectedConditions.invisibilityOf(getElementFromListWithPosition(Constants.workbookData_save_xpath,0)));
     }
 
 

@@ -48,7 +48,7 @@ public class GenericWebElementMethods extends PageCommonMethods {
      */
     protected WebElement getElementFromListWithPosition(String identifier, int position) {
         List<WebElement> list = null;
-        wait.until(ExpectedConditions.visibilityOf(edriver.findElement(By.xpath(identifier))));
+        wait.until(ExpectedConditions.numberOfElementsToBeMoreThan(By.xpath(identifier),0));
         list = edriver.findElements(By.xpath(identifier));
         if (list.size() == 0) {
             log.info("No elements found matching the xpath:" + identifier);
@@ -249,14 +249,15 @@ public class GenericWebElementMethods extends PageCommonMethods {
      * Method to click button
      */
     protected void clickButton(String identifier) {
+        wait.until(ExpectedConditions.numberOfElementsToBeMoreThan(By.xpath(identifier),0));
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath(identifier)));
         WebElement button = edriver.findElement(By.xpath(identifier));
         if (button.isEnabled() && button.isDisplayed()) {
-            button.click();
+          button.click();
         } else {
             Assert.fail("Button is disabled !!");
         }
     }
-
     /*
      * Method to set value from the auto fill list
      */
@@ -412,14 +413,14 @@ public class GenericWebElementMethods extends PageCommonMethods {
         boolean flag = false;
         List<WebElement> webElementList;
         List<WebElement> pageList;
-        wait.until(ExpectedConditions.visibilityOf(edriver.findElement(By.xpath(Constants.workbookList_noOfPages_xpath))));
+        wait.until(ExpectedConditions.numberOfElementsToBeMoreThan(By.xpath(Constants.workbookList_noOfPages_xpath),1));
         pageList = edriver.findElements(By.xpath(Constants.workbookList_noOfPages_xpath));
         for (WebElement page : pageList) {
             if (position != 0) {
                 clickButton(Constants.workbookList_nextPage_xpath);
             }
             position = 0;
-            wait.until(ExpectedConditions.visibilityOf(edriver.findElement(By.xpath(identifer))));
+            wait.until(ExpectedConditions.numberOfElementsToBeMoreThan(By.xpath(identifer),1));
             webElementList = edriver.findElements(By.xpath(identifer));
             log.info("No Of Records in page->"+position+":"+webElementList.size());
             for (WebElement temp : webElementList) {

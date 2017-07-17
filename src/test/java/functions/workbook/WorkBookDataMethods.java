@@ -43,7 +43,7 @@ public class WorkBookDataMethods extends GenericWebElementMethods {
     }
 
     public void clickOnAddNewData() {
-        wait.until(ExpectedConditions.elementToBeClickable(edriver.findElement(By.xpath(Constants.workbookData_addDataAction_xpath)))).click();
+        clickButton(Constants.workbookData_addDataAction_xpath);
     }
 
     public void clickOnSearch() {
@@ -181,7 +181,6 @@ public class WorkBookDataMethods extends GenericWebElementMethods {
             clickOnUpdate();
         }
     }
-
     public int getColumnNumber(String columnName) {
         int position = 0;
         waitFor(1);
@@ -200,6 +199,7 @@ public class WorkBookDataMethods extends GenericWebElementMethods {
 
     public void clickOnSaveButton() {
         clickButton(Constants.workbookData_save_xpath);
+        wait.until(ExpectedConditions.invisibilityOf(getElementFromListWithPosition(Constants.workbookData_save_xpath,0)));
     }
 
 

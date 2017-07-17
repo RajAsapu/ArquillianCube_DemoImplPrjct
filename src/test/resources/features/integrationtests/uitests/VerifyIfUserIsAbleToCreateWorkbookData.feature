@@ -85,7 +85,7 @@ Feature: Workbook Data Page
   # Test Case for the overlap check
   Scenario:To verify if the application displays an error message on trying to update a data overlapping on record with same name.
     Given the user has navigated to the "List" page under the "Workbook"
-    When  the user clicks on manage data for a workbook with name as "TestWorkbook3Attr"
+    When  the user clicks on manage data of a workbook with name as "TestWorkbook3Attr"
     And   create the workbook data
       | supplier                 | location    | customer                 | priceBasis | uom | startDate         | endDate  | currencyCode | amount |
       | JET AVIATION HOUSTON INC | MIAMI INTL1 | BUSINESS AVIATION CENTRE | Unit       | 300 | 09-May-2017 10:19 | today    | BBD          | 100    |
@@ -99,7 +99,7 @@ Feature: Workbook Data Page
   # Defect : Application is not displaying error message
   Scenario:To verify if the application displays an error message on trying to create a data overlapping on record with same name.
     Given the user has navigated to the "List" page under the "Workbook"
-    When  the user clicks on manage data for a workbook with name as "TestWorkbook3Attr"
+    When  the user clicks on manage data of a workbook with name as "TestWorkbook3Attr"
     And   create the workbook data
       | supplier               | location   | customer                 | priceBasis | uom | startDate         | endDate  | currencyCode | amount |
       | JAMUNA OIL COMPANY LTD | MIAMI INTL | BUSINESS AVIATION CENTRE | Unit       | 300 | 09-May-2017 10:19 | tomorrow | BBD          | 100    |
@@ -109,7 +109,7 @@ Feature: Workbook Data Page
   # Error messages has to be implemented
   Scenario Outline:To verify if the application displays error message when the scale rates are invalid in the price point scale.
     Given the user has navigated to the "List" page under the "Workbook"
-    When  the user clicks on manage data for a workbook with name as "TestWorkbook3Attr"
+    When  the user clicks on manage data of a workbook with name as "TestWorkbook3Attr"
     And   clicked on "Add New Data"
     And   supplier as "3 HONG KONG"
     And   location as "HOUSTON EXECUTIVE AIRPORT"
@@ -135,7 +135,7 @@ Feature: Workbook Data Page
 
   Scenario Outline:To verify if the application displays error message when the scale rates are invalid in the price break scale.
     Given the user has navigated to the "List" page under the "Workbook"
-    When  the user clicks on manage data for a workbook with name as "TestWorkbook3Attr"
+    When  the user clicks on manage data of a workbook with name as "TestWorkbook3Attr"
     And   clicked on "Add New Data"
     And   supplier as "3 HONG KONG"
     And   location as "HOUSTON EXECUTIVE AIRPORT"

@@ -19,31 +19,14 @@ public class PageCommonSteps extends OpenBrowser {
      * Global variables
      */
     private PageFactory pageFactory = null;
-    private UpdateProperties updateProperties;
-    private String environment = null;
 
     public PageCommonSteps() {
-        updateProperties = new UpdateProperties();
-        environment = System.getenv("ENV");
         pageFactory = new PageFactory();
     }
 
     @And("^wait for sometime$")
-    public void wait_for_sometime()  {
-        pageFactory.getPageCommonMethods().waitFor(5);
-    }
-
-    /*
-       Open and close application
-     */
-    public void openApplication() {
-        if (environment.equalsIgnoreCase("Docker")) {
-            edriver = initBrowser(AppProperties.getPricingProperty("pricing.ui"));
-        } else if (environment.equalsIgnoreCase("Test")) {
-            edriver = initBrowser(System.getenv("TEST_PRICING_URL"));
-        } else if (environment.equalsIgnoreCase("Dev")) {
-            edriver = initBrowser(System.getenv("DEV_PRICING_URL"));
-        }
+    public void wait_for_sometime() {
+       // pageFactory.getPageCommonMethods().waitFor(1);
     }
 
     /*
@@ -51,8 +34,9 @@ public class PageCommonSteps extends OpenBrowser {
      */
     @Given("^the user has logged into the pricing application$")
     public void the_user_has_logged_into_the_pricing_application() {
-        openApplication();
+        initBrowser();
         pageFactory.getPageCommonMethods().login();
+        edriver = DriverBean.getDriver();
     }
 
     /*
@@ -101,7 +85,7 @@ public class PageCommonSteps extends OpenBrowser {
     @And("^clicks on the submit button$")
     public void clicks_on_the_submit_button() throws Exception {
         edriver.findElement(By.xpath(Constants.indexCreate_submit_xpath)).click();
-        pageFactory.getPageCommonMethods().waitFor(5);
+        wait_for_sometime();
     }
 
     /*
@@ -110,7 +94,7 @@ public class PageCommonSteps extends OpenBrowser {
     @And("^clicks on the save button$")
     public void clicks_on_the_save_button() {
         edriver.findElement(By.xpath(Constants.workbookData_save_xpath)).click();
-        pageFactory.getPageCommonMethods().waitFor(5);
+        wait_for_sometime();
     }
 
     /*
@@ -119,7 +103,7 @@ public class PageCommonSteps extends OpenBrowser {
      */
     @Given("^the user has navigated to the \"([^\"]*)\" page under the \"([^\"]*)\"$")
     public void the_user_has_navigated_to_the_page_under_the(PageCommonMethods.page page, PageCommonMethods.module module)
-            throws Exception {
+             {
         pageFactory.getPageCommonMethods().moveTo(page, module);
     }
 }

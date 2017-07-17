@@ -172,16 +172,13 @@ public class ListCurrencyExchangeMethods extends GenericWebElementMethods {
         }
     }
 
-    public void verifyIfColumnOrder()
-    {
-        String []order = {"Status","From","To", "Date", "Rate Type", "Rate","Actions"};
+    public void verifyIfColumnOrder() {
+        String[] order = {"Status", "From", "To", "Date", "Rate Type", "Rate", "Actions"};
         List<WebElement> columnList = edriver.findElements(By.xpath(Constants.currencyExchangeList_columnHdrList_xpath));
-        int i=0;
-        for(WebElement temp:columnList)
-        {
-            if(!temp.getText().equals(order[i++]))
-            {
-              Assert.fail("Column order doesn't match Status, From, To, Date, Rate Type, Rate and Actions");
+        int i = 0;
+        for (WebElement temp : columnList) {
+            if (!temp.getText().equals(order[i++])) {
+                Assert.fail("Column order doesn't match Status, From, To, Date, Rate Type, Rate and Actions");
             }
         }
     }

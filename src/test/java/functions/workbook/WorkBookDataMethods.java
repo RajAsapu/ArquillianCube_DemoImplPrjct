@@ -113,7 +113,6 @@ public class WorkBookDataMethods extends GenericWebElementMethods {
 
     public void verifyIfWorkbookDataIsCreated(boolean condition, DataTable dataTable) throws Exception {
         String currentUrl = edriver.getCurrentUrl();
-        waitFor(4);
         boolean flag = true;
         List<List<String>> list = dataTable.raw();
 

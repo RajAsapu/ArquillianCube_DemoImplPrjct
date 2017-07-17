@@ -8,7 +8,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import setup.Constants;
 import setup.DriverBean;
 
@@ -44,9 +43,7 @@ public class WorkBookDataMethods extends GenericWebElementMethods {
     }
 
     public void clickOnAddNewData() {
-        waitFor(5);
-        WebDriverWait wait = new WebDriverWait(edriver, 10);
-        wait.until(ExpectedConditions.elementToBeClickable(edriver.findElement(By.xpath(Constants.workbookData_addDataAction_xpath)))).click();
+        clickButton(Constants.workbookData_addDataAction_xpath);
     }
 
     public void clickOnSearch() {
@@ -113,7 +110,7 @@ public class WorkBookDataMethods extends GenericWebElementMethods {
 
     public void verifyIfWorkbookDataIsCreated(boolean condition, DataTable dataTable) throws Exception {
         String currentUrl = edriver.getCurrentUrl();
-        waitFor(4);
+        wait.until(ExpectedConditions.visibilityOf(getElementFromListWithPosition(Constants.workbookData_search_xpath, 0)));
         boolean flag = true;
         List<List<String>> list = dataTable.raw();
 
@@ -184,7 +181,6 @@ public class WorkBookDataMethods extends GenericWebElementMethods {
             clickOnUpdate();
         }
     }
-
     public int getColumnNumber(String columnName) {
         int position = 0;
         waitFor(1);
@@ -203,6 +199,7 @@ public class WorkBookDataMethods extends GenericWebElementMethods {
 
     public void clickOnSaveButton() {
         clickButton(Constants.workbookData_save_xpath);
+        wait.until(ExpectedConditions.invisibilityOf(getElementFromListWithPosition(Constants.workbookData_save_xpath,0)));
     }
 
 

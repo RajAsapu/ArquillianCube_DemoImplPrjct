@@ -5,10 +5,10 @@
         </encoder>
     </appender>
 
-    <logger name="pricing-e2e-tests" level="DEBUG"/>
+    <logger name="pricing-e2e-tests" level="INFO"/>
 
 
-    <root level="DEBUG">
+    <root level="INFO">
         <appender-ref ref="STDOUT" />
     </root>
 

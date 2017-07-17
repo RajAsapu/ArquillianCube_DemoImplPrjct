@@ -4,6 +4,7 @@ Feature: Test Data
   Background:
     Given  the user has logged into the pricing application
 
+  @TestCalc
   Scenario Outline: To verify if the user is able to create a calculation rule with type as Day.
     Given  the user has navigated to the "Create" page under the "Calculation_Rule"
     When   the user creates calculation rule with "<name>"
@@ -19,6 +20,7 @@ Feature: Test Data
     Examples:
       | name            | startDate   | endDate | type | description | ruleType | daysBeforeEvent | daysAfterEvent |
       | TestCalcDayRule | 23-JAN-2017 | today   | Day  | for testing | Day Wrap | 2               | 2              |
+
   Scenario Outline: To verify if the user is able to create a calculation rule with type as Week.
     Given the user has navigated to the "Create" page under the "Calculation_Rule"
     When  the user creates calculation rule with "<name>"
@@ -36,6 +38,7 @@ Feature: Test Data
     Examples:
       | name             | startDate   | endDate | type | description | ep_StartDate | ep_NoOfWeeks | cp_StartDate | ep_NoOfWeeks | offset |
       | TestCalcWeekRule | 23-JAN-2017 | today   | Week | for testing | Monday       | 1            | Tuesday      | 2            | 1      |
+
   Scenario Outline: To verify if the user is able to create a calculation rule with type as Month.
     Given the user has navigated to the "Create" page under the "Calculation_Rule"
     When  the user creates calculation rule with "<name>"
@@ -53,11 +56,12 @@ Feature: Test Data
     Examples:
       | name              | startDate   | endDate | type  | description | mn_RuleType   | ep_NoOfMonths | ep_startDayMn | noOfMonthsCalc | cp_startDayMn | offset |
       | TestCalcMonthRule | 23-JAN-2017 | today   | Month | for testing | Single Period | 2             | 5             | 2              | 7             | 2      |
+
   Scenario Outline: To verify if the user is able to create an index.
     Given the user has navigated to the "Create" page under the "Index"
     When  the user enters rate basis as Unit
     And   <lowPrice> ,<midPrice> ,<highPrice> and <closePrice> are entered
-    And   name as PREMCBOBNYCARGO
+    And   name as UNLEADED US GULF WATER
     And   start date as 12-Dec-2016 and end date as today
     And   currency as USD
     And   unit of measurement as USG
@@ -95,6 +99,7 @@ Feature: Test Data
     Examples:
       | name              | description | formulaType | segmentType | defaultValue |
       | TestWorkbook3Attr | for testing | PRICE       | LAND        | 20           |
+
   Scenario Outline: To verify if the user is able to create a workbook configuration by adding all the available attributes.
     Given the user has navigated to the "Create" page under the "Workbook"
     When  the user creates workbook with name as "<name>"
@@ -111,7 +116,7 @@ Feature: Test Data
     # Test data : Work book data
   Scenario Outline:To verify if the user is able to create work book data.
     Given the user has navigated to the "List" page under the "Workbook"
-    When  the user clicks on manage data for a workbook with name as "TestWorkbook3Attr"
+    When  the user clicks on manage data of a workbook with name as "TestWorkbook3Attr"
     And   clicked on "Add New Data"
     And   supplier as "<supplier>"
     And   location as "<location>"

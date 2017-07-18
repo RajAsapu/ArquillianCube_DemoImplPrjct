@@ -39,37 +39,37 @@ public class PageWorkbooksteps extends PageCommonMethods {
     }
 
     @When("^name is set to \"([^\"]*)\"$")
-    public void name_is_set_to(String name)  {
-        pageFactory.getCreateWorkBookMethods().setName(name,false);
+    public void name_is_set_to(String name) {
+        pageFactory.getCreateWorkBookMethods().setName(name, false);
     }
 
     @When("^the user creates workbook with name as \"([^\"]*)\"$")
-    public void name_creates_workbook_with_name_as(String name)  {
-        pageFactory.getCreateWorkBookMethods().setName(name,false);
+    public void name_creates_workbook_with_name_as(String name) {
+        pageFactory.getCreateWorkBookMethods().setName(name, false);
     }
 
     @And("^description is set to \"([^\"]*)\"$")
-    public void description_is_set_to(String description)  {
+    public void description_is_set_to(String description) {
         pageFactory.getCreateWorkBookMethods().setDescription(description);
     }
 
     @And("^formula type is set to \"([^\"]*)\"$")
-    public void formula_type_is_set_to(String formulaType)  {
+    public void formula_type_is_set_to(String formulaType) {
         pageFactory.getCreateWorkBookMethods().setFormulaType(formulaType);
     }
 
     @And("^segment type is set to \"([^\"]*)\"$")
-    public void segment_type_is_set_to(String segmentType)  {
+    public void segment_type_is_set_to(String segmentType) {
         pageFactory.getCreateWorkBookMethods().setSegmentType(segmentType);
     }
 
     @And("^set the default value to \"([^\"]*)\"$")
-    public void set_the_default_value_to(String defaultValueTo)  {
+    public void set_the_default_value_to(String defaultValueTo) {
         pageFactory.getCreateWorkBookMethods().setDefaultValue(defaultValueTo);
     }
 
     @And("^(doesn't have|has) a default value$")
-    public void doesn_t_have_a_default_value(String cond)  {
+    public void doesn_t_have_a_default_value(String cond) {
         if (cond.contains("doesn't")) {
             pageFactory.getCreateWorkBookMethods().hasDefaultValue(false);
         } else {
@@ -140,60 +140,71 @@ public class PageWorkbooksteps extends PageCommonMethods {
     @And("^clicked on \"([^\"]*)\"")
     public void clicked_on_(String button) throws Exception {
         switch (button.toLowerCase()) {
-            case ROW:
-                //pageFactory.getListWorkBookMethods().selectWorkbookConfig(0);
-                break;
             case VIEW_WORKBOOK_CONFIGURATION:
                 pageFactory.getListWorkBookMethods().clickOnViewWorkBookConfiguration(0);
                 break;
-            case ADD_NEW_DATA:
-                pageFactory.getWorkBookDataMethods().clickOnAddNewData();
-                break;
-            case EDIT_DATA:
-                pageFactory.getWorkBookDataMethods().clickOnDataWithEditEnabled(STATUS_ACTIVE);
-                break;
-            case UPLOAD:
-                pageFactory.getWorkBookDataMethods().clickOnUpload();
-                break;
-            case SEARCH:
-                pageFactory.getWorkBookDataMethods().clickOnSearch();
-                break;
             case MANAGE_DATA:
                 pageFactory.getListWorkBookMethods().clickOnManageData(0);
-                break;
-            case DEACTIVATE:
-                pageFactory.getWorkBookDataMethods().clickOnDataWithDeActivateEnabled(STATUS_ACTIVE);
-                pageFactory.getWorkBookDataMethods().deactivateRecord();
-                break;
-            case INACTIVE_DATA:
-                pageFactory.getWorkBookDataMethods().clickOnDataWithInactiveStatus(STATUS_INACTIVE);
                 break;
             default:
                 Assert.fail("Option not found in the list");
         }
     }
 
+    @And("^the user adds new workbook data$")
+    public void the_user_adds_new_data() {
+        pageFactory.getWorkBookDataMethods().clickOnAddNewData();
+    }
+
+    @And("^the user edits workbook data$")
+    public void the_user_edits_new_data() {
+        pageFactory.getWorkBookDataMethods().clickOnDataWithEditEnabled(STATUS_ACTIVE);
+    }
+
+    @And("^the user deactivates workbook data$")
+    public void the_user_deactivates_workbook_data() {
+        pageFactory.getWorkBookDataMethods().clickOnDataWithDeActivateEnabled(STATUS_ACTIVE);
+        pageFactory.getWorkBookDataMethods().deactivateRecord();
+    }
+
+    @And("^the user selects inactive workbook data$")
+    public void the_user_selects_inactive_workbook_data() {
+        pageFactory.getWorkBookDataMethods().clickOnDataWithInactiveStatus(STATUS_INACTIVE);
+    }
+
+    @And("^the user sets status for the workbook data as ([^\"]*)$")
+    public void sets_the_status_as(String status) {
+        pageFactory.getListCurrencyExchangeMethods().setStatus(status);
+    }
+
+    @And("^the user navigates to the search page of workbook data$")
+    public void the_searches_for_workbook_data() {
+        pageFactory.getWorkBookDataMethods().clickOnSearch();
+    }
+
     @And("^the definition should be displayed with the below details$")
     public void the_definition_should_be_displayed_with_below_details(DataTable dataTable) {
-        List<Map<String,String>> rows = dataTable.asMaps(String.class,String.class);
+        List<Map<String, String>> rows = dataTable.asMaps(String.class, String.class);
         pageFactory.getListWorkBookMethods().checkIfRecordExistsUsingNameFilter(rows.get(0).get("name"));
         pageFactory.getListWorkBookMethods().selectWorkbookConfig(rows.get(0).get("name"));
         pageFactory.getListWorkBookMethods().clickOnViewWorkBookConfiguration(0);
         pageFactory.getCreateWorkBookMethods().verifyIfWorkbookConfigurationIsDisplayed(dataTable);
     }
 
-    @And("^choose file having path \"([^\"]*)\"$")
-    public void choose_file_having_path(String filePath) {
+    @And("^the user chooses a ([^\"]*) to upload$")
+    public void the_user_chooses_a_file_to_upload(String filePath) {
+        pageFactory.getWorkBookDataMethods().clickOnUpload();
         pageFactory.getWorkBookDataMethods().clickOnChoose(filePath);
     }
 
-    @When("^the user clicks on (manage data|view workbook configuration) of a workbook with name as \"([^\"]*)\"$")
-    public void the_user_clicks_on_manage_data_for_a_workbook_with_name_as(String fn, String workBookName) {
-        if (fn.contains("workbook configuration")) {
-            pageFactory.getListWorkBookMethods().viewDefinitionWithName(workBookName);
-        } else {
-            pageFactory.getListWorkBookMethods().viewDataForDefinitionWithName(workBookName);
-        }
+    @When("^the user views workbook configuration of ([^\"]*)$")
+    public void the_user_views_workbook_configuration_of(String workBookName) {
+        pageFactory.getListWorkBookMethods().viewDefinitionWithName(workBookName);
+    }
+
+    @When("^the user navigates to the workbook data of ([^\"]*)$")
+    public void the_user_navigates_to_the_workbook_data_of(String workBookName) {
+        pageFactory.getListWorkBookMethods().viewDataForDefinitionWithName(workBookName);
     }
 
     @Then("^the user is only allowed to read the attributes in workbook (configuration|data)$")
@@ -206,8 +217,7 @@ public class PageWorkbooksteps extends PageCommonMethods {
     }
 
     @And("^none of the attributes are selected$")
-    public void none_of_the_attributes_are_selected()
-    {
+    public void none_of_the_attributes_are_selected() {
         pageFactory.getCreateWorkBookMethods().removeMultipleAttribte();
     }
 }

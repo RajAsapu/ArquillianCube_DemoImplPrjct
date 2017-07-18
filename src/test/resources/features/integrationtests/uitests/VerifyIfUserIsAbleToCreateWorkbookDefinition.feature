@@ -23,13 +23,13 @@ Feature: Workbook Create Page
       | name   | description   | formulaType   | segmentType   | defaultValue   | Item | Customer Brand | Customer |
       | <name> | <description> | <formulaType> | <segmentType> | <defaultValue> | Item | Customer Brand | Customer |
     Examples:
-      | name   | description | formulaType | segmentType | defaultValue |
-      | Test   | for testing | PRICE       | LAND        | 20           |
+      | name | description | formulaType | segmentType | defaultValue |
+      | Test | for testing | PRICE       | LAND        | 20           |
 
      # Test Data : Workbook configuration with default value
   Scenario: To verify that all the attributes in work book definition are read only.
     Given the user has navigated to the "List" page under the "Workbook"
-    When  the user clicks on view workbook configuration of a workbook with name as "TestWorkbook3Attr"
+    When  the user views workbook configuration of TestWorkbook3Attr
     Then  the user is only allowed to read the attributes in workbook configuration
 
   # Test Data - Existing workbook definition should be used
@@ -49,8 +49,8 @@ Feature: Workbook Create Page
     Then the application displays an error message as "Workbook already exists"
     And  the workbook configuration should not be created
     Examples:
-      | name                | description | formulaType | segmentType | defaultValue |
-      | TestWorkbook3Attr   | for testing | PRICE       | LAND        | 20           |
+      | name              | description | formulaType | segmentType | defaultValue |
+      | TestWorkbook3Attr | for testing | PRICE       | LAND        | 20           |
 
   Scenario Outline: To verify that the user is allowed to create workbook definition with only required attributes.
     Given the user has navigated to the "Create" page under the "Workbook"

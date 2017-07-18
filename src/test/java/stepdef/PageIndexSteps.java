@@ -248,7 +248,7 @@ public class PageIndexSteps {
         pageFactory.getListIndexMethods().verifyScaleratesAreEditable();
     }
 
-    @And("^add the scale rates$")
+    @And("^adds the scale rates$")
     public void add_the_scale_rates(DataTable table) throws Exception {
         List<List<String>> list = table.raw();
         int i = 0;

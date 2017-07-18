@@ -49,7 +49,7 @@ public class PageCommonMethods {
      *  Currency Exchange
      *  Formula
      */
-    public void moveTo(page p, module m)  {
+    public void moveTo(page p, module m) {
         Actions act = new Actions(edriver);
         act.moveToElement(edriver.findElement(By.xpath("//*/a[normalize-space()='" + m.toString().replace("_", " ") + "']"))).clickAndHold().perform();
         List<WebElement> elementList = null;

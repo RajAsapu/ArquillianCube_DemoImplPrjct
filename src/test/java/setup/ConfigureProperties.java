@@ -8,7 +8,6 @@ import com.github.dockerjava.api.command.InspectContainerResponse;
 import com.github.dockerjava.api.model.Container;
 import com.github.dockerjava.core.DockerClientBuilder;
 import org.junit.Assert;
-import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,13 +15,12 @@ import java.io.*;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
-import java.util.ResourceBundle;
 
 public class ConfigureProperties {
 
-    public Properties props;
     private static Logger log = LoggerFactory.getLogger(ConfigureProperties.class);
     private static boolean dockerEnvBroken = false;
+    public Properties props;
     PrintWriter out;
     File hostConfigFile;
     private DockerClient dockerClient;
@@ -34,7 +32,7 @@ public class ConfigureProperties {
     /*
      * Method to retrieve pricing properties
      */
-    public static String getPricingProperty(String propertyName) throws Exception{
+    public static String getPricingProperty(String propertyName) throws Exception {
         InputStream inputStream = new FileInputStream("src/test/resources/pricing.properties");
         Properties properties = new Properties();
         properties.loadFromXML(inputStream);
@@ -45,7 +43,7 @@ public class ConfigureProperties {
      *  Method to retrieve gradle properties
      */
     public static String getGradleProperty(String propertyName) {
-        Properties props=new Properties();
+        Properties props = new Properties();
         try {
             InputStream inputStream = new FileInputStream("gradle.properties");
             props.load(inputStream);

@@ -14,8 +14,8 @@ Feature: List Page
     And   currency as <currency>
     And   unit of measurement as <uom>
     And   clicks on the search button
-    Then  the user shall be able to view the list of indexes matching the search criteria as "<startDate>,<status>,<type>,<rateBasis>,<name>,<currency>,<uom>" on list page
-
+    Then  the user shall be able to view the list of indexes matching the search criteria
+      | <startDate> | <status> | <type> | <rateBasis> | <name> | <currency> | <uom> |
     Examples:
       | startDate  | status | type   | rateBasis | name                | currency | uom |
       | 2016-12-10 | Active | MANUAL | Flat      | UNL87 9RVP USG PIPE | AFN      | 110 |
@@ -87,7 +87,7 @@ Feature: List Page
     And   currency as BOB
     And   unit of measurement as TOT
     And   comment as for testing
-    And   add the scale rates
+    And   adds the scale rates
       | 0   | 100  | 2   |
       | 100 | 500  | 1   |
       | 500 | 1000 | 0.9 |

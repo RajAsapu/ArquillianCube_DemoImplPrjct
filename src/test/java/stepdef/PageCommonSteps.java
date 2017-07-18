@@ -11,7 +11,10 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import setup.*;
+import setup.Constants;
+import setup.DriverBean;
+import setup.OpenBrowser;
+import setup.PageFactory;
 
 public class PageCommonSteps extends OpenBrowser {
     final static Logger logger = Logger.getLogger(PageCommonSteps.class.getName());
@@ -27,7 +30,7 @@ public class PageCommonSteps extends OpenBrowser {
 
     @And("^wait for sometime$")
     public void wait_for_sometime() {
-       // pageFactory.getPageCommonMethods().waitFor(1);
+        // pageFactory.getPageCommonMethods().waitFor(1);
     }
 
     /*
@@ -57,7 +60,7 @@ public class PageCommonSteps extends OpenBrowser {
     /*
      * User clicks on the update button in workbook data
      */
-    @When("^clicks on the update button$")
+    @When("^the user updates the record")
     public void clicks_on_the_update_button() {
         WebElement update = edriver.findElement(By.xpath(Constants.formulaList_updateAction_xpath));
         if (!update.isEnabled()) {
@@ -65,14 +68,14 @@ public class PageCommonSteps extends OpenBrowser {
         }
         Actions actions = new Actions(edriver);
         actions.click(update).perform();
-        webDriverWait.until(ExpectedConditions.elementSelectionStateToBe(update,false));
+        webDriverWait.until(ExpectedConditions.elementSelectionStateToBe(update, false));
     }
 
     /*
      * Overloaded method: User clicks on the search button in the Index and Currency Exchange pages
      * Doesn't validate if button is enabled
      */
-    @When("^search button is clicked$")
+    @When("^the user searches for the data$")
     public void search_button_is_clicked() {
         WebElement search = edriver.findElement(By.xpath(Constants.indexCreate_search_xpath));
         Actions actions = new Actions(edriver);
@@ -92,7 +95,7 @@ public class PageCommonSteps extends OpenBrowser {
     /*
     * User clicks on the save button in the Workbook data
     */
-    @And("^clicks on the save button$")
+    @And("^the user saves data$")
     public void clicks_on_the_save_button() {
         edriver.findElement(By.xpath(Constants.workbookData_save_xpath)).click();
         wait_for_sometime();
@@ -103,8 +106,7 @@ public class PageCommonSteps extends OpenBrowser {
      * (calculation,workbook,index,currency exchange or formula)
      */
     @Given("^the user has navigated to the \"([^\"]*)\" page under the \"([^\"]*)\"$")
-    public void the_user_has_navigated_to_the_page_under_the(PageCommonMethods.page page, PageCommonMethods.module module)
-             {
+    public void the_user_has_navigated_to_the_page_under_the(PageCommonMethods.page page, PageCommonMethods.module module) {
         pageFactory.getPageCommonMethods().moveTo(page, module);
     }
 }

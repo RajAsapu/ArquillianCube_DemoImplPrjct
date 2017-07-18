@@ -95,18 +95,17 @@ public class OpenBrowser {
         return driver;
     }
 
-    public String getUrl()
-    {
-        switch (System.getenv("ENV")){
+    public String getUrl() {
+        switch (System.getenv("ENV")) {
             case Constants.DOCKER_ENV:
-                        return ConfigureProperties.getGradleProperty("uiDnsWithPort");
+                return ConfigureProperties.getGradleProperty("uiDnsWithPort");
             case Constants.TEST_ENV:
-                        return System.getenv("TEST_PRICING_URL");
+                return System.getenv("TEST_PRICING_URL");
             case Constants.DEV_ENV:
-                        return System.getenv("DEV_PRICING_URL");
+                return System.getenv("DEV_PRICING_URL");
             default:
-                    Assert.fail("Environment should be set to Docker,Test or Dev");
-                    return null;
+                Assert.fail("Environment should be set to Docker,Test or Dev");
+                return null;
         }
     }
 

@@ -116,18 +116,18 @@ Feature: Test Data
     # Test data : Work book data
   Scenario Outline:To verify if the user is able to create work book data.
     Given the user has navigated to the "List" page under the "Workbook"
-    When  the user clicks on manage data of a workbook with name as "TestWorkbook3Attr"
+    When  the user navigates to the workbook data of TestWorkbook3Attr
     And   clicked on "Add New Data"
-    And   supplier as "<supplier>"
-    And   location as "<location>"
-    And   customer as "<customer>"
-    And   price basis as "<priceBasis>"
-    And   uom as "<uom>"
-    And   set the start date for data as "<startDate>"
-    And   set the end date for data as "<endDate>"
-    And   set the currency for data as "<currencyCode>"
-    And   set the amount for data as "<amount>"
-    Then  clicks on the save button
+    And   the user sets supplier for the workbook data as <supplier>
+    And   the user sets location for the workbook data as <location>
+    And   the user sets customer for the workbook data as <customer>
+    And   the user sets priceBasis for the workbook data as <priceBasis>
+    And   the user sets uom for the workbook data as <uom>
+    And   the user sets start date for the workbook data as <startDate>
+    And   the user sets end date for the workbook data as <endDate>
+    And   the user sets currency for the workbook data as <currencyCode>
+    And   the user sets amount for the workbook data as <amount>
+    Then  the user saves data
     Examples:
       | supplier                  | location                    | customer             | priceBasis | uom | startDate         | endDate | currencyCode | amount |
       | 121 INFLIGHT CATERING LLC | MINNEAPOLIS-ANOKA CO-BLAINE | ATLAS BLUE           | Unit       | 300 | 09-May-2017 10:19 | today   | AMD          | 100    |

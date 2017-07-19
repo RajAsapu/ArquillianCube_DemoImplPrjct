@@ -110,23 +110,19 @@ public class WorkBookDataMethods extends GenericWebElementMethods {
     }
 
     public void verifyIfWorkbookDataIsCreated(boolean condition, DataTable dataTable) throws Exception {
-        String currentUrl = edriver.getCurrentUrl();
         wait.until(ExpectedConditions.visibilityOf(getElementFromListWithPosition(Constants.workbookData_search_xpath, 0)));
         boolean flag = true;
         List<List<String>> list = dataTable.raw();
-        String x = null;
         for (int i = 0; i < list.size(); i++) {
             List<String> subList = list.get(i);
             for (String temp : subList) {
                 if (!isSizeOfWEListGtZero(temp)) {
                     flag = false;
-                    x = temp;
                     break;
                 }
             }
         }
         if (condition && !flag) {
-            Assert.fail(x);
             Assert.fail("Workbook data is not created or not found in the search");
         } else if (!condition && flag) {
             Assert.fail("Workbook data is created or found in the search");

@@ -15,6 +15,6 @@ Feature: Currency Exchange
     And   clicks on the submit button
     Then  the application displays an <status> message as "<message>"
     Examples:
-      | date        | type       | currencyFrom | currencyTo | rate |  message                                | status  |
-      | today       | Corporate  | USD          | AOA        | 5.00 |  Created currency exchange rate.        | success |
-      | today       | Corporate  | USD          | AOA        | 5.00 |  Currency exchange rate already exists. | error   |
+      | date  | type      | currencyFrom | currencyTo | rate | message                                | status  |
+      | today | Corporate | USD          | AOA        | 5.00 | Created currency exchange rate.        | success |
+      | today | Corporate | USD          | AOA        | 5.00 | Currency exchange rate already exists. | error   |

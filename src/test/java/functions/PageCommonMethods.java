@@ -49,7 +49,7 @@ public class PageCommonMethods {
      *  Currency Exchange
      *  Formula
      */
-    public void moveTo(page p, module m)  {
+    public void moveTo(page p, module m) {
         Actions act = new Actions(edriver);
         act.moveToElement(edriver.findElement(By.xpath("//*/a[normalize-space()='" + m.toString().replace("_", " ") + "']"))).clickAndHold().perform();
         List<WebElement> elementList = null;
@@ -88,7 +88,7 @@ public class PageCommonMethods {
     public void verifyIfErrorMessageIsDisplayed(String errorOrSuccess, String message, boolean isDisplayed) {
         try {
             if (isDisplayed) {
-                wait.until(ExpectedConditions.visibilityOf(edriver.findElement(By.xpath("//*[normalize-space()=\"" + message + "\"]"))));
+                wait.until(ExpectedConditions.visibilityOf(edriver.findElement(By.xpath("//*[normalize-space()=\"" + message + "\"]")))).isDisplayed();
             } else {
                 Verify.verify(!edriver.findElement(By.xpath("//*[normalize-space()=\"" + message + "\"]")).isDisplayed(), errorOrSuccess + " Message is displayed!!");
             }

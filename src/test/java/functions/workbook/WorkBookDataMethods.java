@@ -12,6 +12,7 @@ import setup.Constants;
 import setup.DriverBean;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -43,7 +44,7 @@ public class WorkBookDataMethods extends GenericWebElementMethods {
     }
 
     public void clickOnAddNewData() {
-        wait.until(ExpectedConditions.elementToBeClickable(edriver.findElement(By.xpath(Constants.workbookData_addDataAction_xpath)))).click();
+        clickButton(Constants.workbookData_addDataAction_xpath);
     }
 
     public void clickOnSearch() {
@@ -109,11 +110,9 @@ public class WorkBookDataMethods extends GenericWebElementMethods {
     }
 
     public void verifyIfWorkbookDataIsCreated(boolean condition, DataTable dataTable) throws Exception {
-        String currentUrl = edriver.getCurrentUrl();
         wait.until(ExpectedConditions.visibilityOf(getElementFromListWithPosition(Constants.workbookData_search_xpath, 0)));
         boolean flag = true;
         List<List<String>> list = dataTable.raw();
-
         for (int i = 0; i < list.size(); i++) {
             List<String> subList = list.get(i);
             for (String temp : subList) {
@@ -123,7 +122,6 @@ public class WorkBookDataMethods extends GenericWebElementMethods {
                 }
             }
         }
-
         if (condition && !flag) {
             Assert.fail("Workbook data is not created or not found in the search");
         } else if (!condition && flag) {
@@ -183,20 +181,24 @@ public class WorkBookDataMethods extends GenericWebElementMethods {
     }
 
     public int getColumnNumber(String columnName) {
-        int position = 3;
-        List<WebElement> headerList = null;
-        wait.until(ExpectedConditions.visibilityOfAllElements(headerList = edriver.findElements(By.xpath(Constants.workbookData_headerList_xpath))));
+        int position = 0;
+        waitFor(1);
+        List<WebElement> headerList = edriver.findElements(By.xpath(Constants.workbookData_headerList_xpath));
         for (WebElement temp : headerList) {
             if (temp.getText().equalsIgnoreCase(columnName)) {
                 break;
             }
             ++position;
         }
+        if (columnName.equalsIgnoreCase(SUPPLIER)) {
+            position = position + 3;
+        }
         return position;
     }
 
     public void clickOnSaveButton() {
         clickButton(Constants.workbookData_save_xpath);
+        wait.until(ExpectedConditions.invisibilityOf(getElementFromListWithPosition(Constants.workbookData_save_xpath, 0)));
     }
 
 
@@ -242,5 +244,27 @@ public class WorkBookDataMethods extends GenericWebElementMethods {
     public void verifyIfEditAndDeactivateIsDisplayed() {
         Verify.verify(getSizeOfList(Constants.workbookData_editDataAction_xpath) == 0, "Edit action is displayed for the inactive record");
         Verify.verify(getSizeOfList(Constants.workbookData_deActivateAction_xpath) == 0, "Deactivate action is displayed for the inactive record");
+    }
+
+    public void setStatusInSearch(String status) {
+        selectFromDropDown_SelectTag(Constants.workbookData_searchStatus_xpath, status);
+    }
+
+    public void createData(DataTable table) {
+        List<Map<String, String>> dataList = table.asMaps(String.class, String.class);
+
+        for (Map<String, String> row : dataList) {
+            clickOnAddNewData();
+            setAttribute("supplier", row.get("supplier"));
+            setAttribute("location", row.get("location"));
+            setAttribute("customer", row.get("customer"));
+            setAttribute("price basis", row.get("priceBasis"));
+            setAttribute("uom", row.get("uom"));
+            setStartDate(row.get("startDate"));
+            setEndDate(row.get("endDate"));
+            setAttribute("set the currency for data", row.get("currencyCode"));
+            setAttribute("set the amount for data", row.get("amount"));
+            clickOnSaveButton();
+        }
     }
 }

@@ -8,8 +8,8 @@ public class Constants {
      * Environments
      */
     public final static String ENV_KEY = "ENV";
-    public final static String TEST_ENV   = "Test";
-    public final static String DEV_ENV    = "Dev";
+    public final static String TEST_ENV = "Test";
+    public final static String DEV_ENV = "Dev";
     public final static String DOCKER_ENV = "Docker";
     /*
      * Default user id and password
@@ -292,10 +292,10 @@ public class Constants {
     public static String workbookData_upload_xpath = "//*/button[normalize-space()='Upload']";
     public static String workbookData_search_xpath = "//*/button[normalize-space()='Search']";
     public static String workbookData_chooseFile_xpath = "//button[@ng-reflect-label='Choose']";
-    public static String workbookData_headerList_xpath = "//table/thead/tr/th[*]";
+    public static String workbookData_headerList_xpath = "//p-datatable/div/div[1]/div/div[1]/div/table/thead/tr/th[*]";
     public static String workbookData_deActivateConfirmationYes_xpath = "//*/button[normalize-space()='Yes']";
     /*
-     * Add new data
+     * Add new workbook data
      */
     public static String workbookData_addNewDataEndDate_xpath = "//div[2]/div[2]/div/p-calendar/span/input";
     public static String workbookData_addNewDataStartDate_xpath = "//div[2]/div[1]/div/p-calendar/span/input";
@@ -314,6 +314,10 @@ public class Constants {
     public static String workbookData_addNewDataFbo_xpath = "//p-dropdown[@ng-reflect-name='fbo']/div/label";
     public static String workbookData_save_xpath = "//*/button[normalize-space()='Save']";
     public static String workbookData_searchInDropdown_xpath = "//input[@class='ui-dropdown-filter ui-inputtext ui-widget ui-state-default ui-corner-all']";
+    /*
+     * Search workbook data
+     */
+    public static String workbookData_searchStatus_xpath = "//select[@ng-reflect-name='status']";
 }
 
 

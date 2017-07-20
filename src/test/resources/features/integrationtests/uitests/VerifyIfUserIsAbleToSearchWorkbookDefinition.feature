@@ -19,5 +19,5 @@ Feature: Workbook List Page
     Then  the application displays an success message as "Workbook configuration TestAddFromList created."
 
     Examples:
-      | name              | description | formulaType | segmentType | defaultValue |
-      | TestAddFromList   | for testing | PRICE       | LAND        | 20           |
+      | name            | description | formulaType | segmentType | defaultValue |
+      | TestAddFromList | for testing | PRICE       | LAND        | 20           |

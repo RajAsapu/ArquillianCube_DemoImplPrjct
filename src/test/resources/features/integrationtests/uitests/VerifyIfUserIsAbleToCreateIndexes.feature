@@ -98,7 +98,7 @@ Feature: To verify if the user is able to access create page under index.
     And   currency as BOB
     And   unit of measurement as TOT
     And   comment as for testing
-    And   add the scale rates
+    And   adds the scale rates
       | <scaleFrom> | <scaleTo> | <scaleRate> |
       | 100         | 500       | 1           |
       | 500         | 1000      | 0.9         |
@@ -121,7 +121,7 @@ Feature: To verify if the user is able to access create page under index.
     And   currency as BOB
     And   unit of measurement as TOT
     And   comment as for testing
-    And   add the scale rates
+    And   adds the scale rates
       | <scaleFrom> | <scaleTo> | <scaleRate> |
       | 100         | 500       | 1           |
       | 500         | 1000      | 0.9         |

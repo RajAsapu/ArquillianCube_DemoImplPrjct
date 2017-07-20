@@ -116,9 +116,9 @@ public class CreateWorkBookMethods extends GenericWebElementMethods {
     }
 
     public void verifyIfWorkbookConfigurationIsDisplayed(DataTable table) {
-        List<Map<String,String>> list = table.asMaps(String.class,String.class);
+        List<Map<String, String>> list = table.asMaps(String.class, String.class);
 
-        for(Map<String,String> row:list) {
+        for (Map<String, String> row : list) {
             verifyTextOnWeContainsValue(Constants.workbookCreate_name_xpath, row.get("name"));
             verifyTextOnWeIsEqualToValue(Constants.workbookCreate_description_xpath, row.get("description"));
             verifyTextOnWeIsEqualToValue(Constants.workbookView_formulaType_xpath, row.get("formulaType"));

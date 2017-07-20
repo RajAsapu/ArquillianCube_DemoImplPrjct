@@ -17,8 +17,8 @@ Feature: List page of Currency Exchange
     And   clicks on the submit button
     Then  the application displays an success message as "Created currency exchange rate."
     Examples:
-      | date        | type       | currencyFrom | currencyTo | rate |
-      | today       | Corporate  | USD          | GBP        | 6.00 |
+      | date  | type      | currencyFrom | currencyTo | rate |
+      | today | Corporate | USD          | GBP        | 6.00 |
 
   Scenario: To verify if the columns in the list page are in the order of  Status, From, To, Date, Rate Type, Rate and Actions.
     Given the user has navigated to the "List" page under the "Currency_Exchange"

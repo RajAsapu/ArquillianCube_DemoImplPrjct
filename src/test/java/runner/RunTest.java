@@ -40,8 +40,9 @@ public class RunTest {
          * Stop the service container
          */
         if (System.getenv(Constants.ENV_KEY).equals(Constants.DOCKER_ENV)) {
-        cubeController.stop(ConfigureProperties.getGradleProperty("serviceContainerName"));
-        cubeController.destroy(ConfigureProperties.getGradleProperty("serviceContainerName")); }
+            cubeController.stop(ConfigureProperties.getGradleProperty("serviceContainerName"));
+            cubeController.destroy(ConfigureProperties.getGradleProperty("serviceContainerName"));
+        }
         /*
          * Generate report
          */

@@ -48,7 +48,7 @@ public class GenericWebElementMethods extends PageCommonMethods {
      */
     protected WebElement getElementFromListWithPosition(String identifier, int position) {
         List<WebElement> list = null;
-        wait.until(ExpectedConditions.visibilityOf(edriver.findElement(By.xpath(identifier))));
+        wait.until(ExpectedConditions.numberOfElementsToBeMoreThan(By.xpath(identifier), 0));
         list = edriver.findElements(By.xpath(identifier));
         if (list.size() == 0) {
             log.info("No elements found matching the xpath:" + identifier);
@@ -142,7 +142,7 @@ public class GenericWebElementMethods extends PageCommonMethods {
      */
     protected void checkDataInRowsMatchesFilter(String identifier, String value) {
         List<WebElement> list = null;
-        wait.until(ExpectedConditions.visibilityOf(getElementFromListWithPosition(identifier,0)));
+        wait.until(ExpectedConditions.visibilityOf(getElementFromListWithPosition(identifier, 0)));
         list = edriver.findElements(By.xpath(identifier));
         for (WebElement e : list) {
             if (!e.getText().toLowerCase().contains(value.toLowerCase())) {
@@ -194,7 +194,6 @@ public class GenericWebElementMethods extends PageCommonMethods {
         WebElement autoFill = null;
         WebElement dropdown = getElementFromListWithPosition(dropdownId, 0);
         actions.click(dropdown).perform();
-        wait.until(ExpectedConditions.visibilityOf(edriver.findElement(By.xpath(Constants.workbookData_searchInDropdown_xpath))));
         sendKeysToWE(Constants.workbookData_searchInDropdown_xpath, value);
         wait.until(ExpectedConditions.visibilityOf(edriver.findElement(By.xpath("//*[normalize-space()='" + value + "']"))));
         if (getSizeOfList("//*[normalize-space()='" + value + "']") > 0) {
@@ -249,6 +248,8 @@ public class GenericWebElementMethods extends PageCommonMethods {
      * Method to click button
      */
     protected void clickButton(String identifier) {
+        wait.until(ExpectedConditions.numberOfElementsToBeMoreThan(By.xpath(identifier), 0));
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath(identifier)));
         WebElement button = edriver.findElement(By.xpath(identifier));
         if (button.isEnabled() && button.isDisplayed()) {
             button.click();
@@ -393,7 +394,7 @@ public class GenericWebElementMethods extends PageCommonMethods {
         } else if (day.contains("yesterday")) {
             calendar.add(Calendar.DATE, -1);
         }
-
+        calendar.add(Calendar.HOUR, 1);
         date = formatter.format(calendar.getTime());
 
         if (day.equals("")) {
@@ -412,18 +413,18 @@ public class GenericWebElementMethods extends PageCommonMethods {
         boolean flag = false;
         List<WebElement> webElementList;
         List<WebElement> pageList;
-        wait.until(ExpectedConditions.visibilityOf(edriver.findElement(By.xpath(Constants.workbookList_noOfPages_xpath))));
+        wait.until(ExpectedConditions.numberOfElementsToBeMoreThan(By.xpath(Constants.workbookList_noOfPages_xpath), 1));
         pageList = edriver.findElements(By.xpath(Constants.workbookList_noOfPages_xpath));
         for (WebElement page : pageList) {
             if (position != 0) {
                 clickButton(Constants.workbookList_nextPage_xpath);
             }
             position = 0;
-            wait.until(ExpectedConditions.visibilityOf(edriver.findElement(By.xpath(identifer))));
+            wait.until(ExpectedConditions.numberOfElementsToBeMoreThan(By.xpath(identifer), 1));
             webElementList = edriver.findElements(By.xpath(identifer));
-            log.info("No Of Records in page->"+position+":"+webElementList.size());
+            log.info("No Of Records in page->" + position + ":" + webElementList.size());
             for (WebElement temp : webElementList) {
-                log.info("Workbook def:"+temp.getText());
+                log.info("Workbook def:" + temp.getText());
                 if (temp.getText().equalsIgnoreCase(name)) {
                     temp.click();
                     flag = true;

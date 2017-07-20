@@ -8,53 +8,14 @@
         <property name="clean">true</property>
         <property name="connectionMode">STARTANDSTOP</property>
         <property name="dockerContainersFile">src/test/resources/docker-compose.yml</property>
-        <property name="definitionFormat">CUBE</property>
+        <property name="definitionFormat">COMPOSE</property>
         <property name="cleanBuildImage">true</property>
-        <property name="autoStartContainers">custom:setup.AutoStartContainersOrder</property>
+        <property name="autoStartContainers">runJenkins</property>
         <property name="cubeSpecificProperties">
-            database:
-                await:
-                    strategy: log
-                    match: 'DSE startup complete'
-                    sleepPollingTime: 10 s
-                    iterations: 5
-                    stdOut: true
-                    stdErr: true
-                    timeout: 180
-            ui:
-                await:
-                    strategy: polling
-                    sleepPollingTime: 10 s
-                    iterations: 5
-                    stdOut: true
-                    stdErr: true
-                    timeout: 180
-            datamock:
-                await:
-                    strategy: log
-                    match: 'Successfully connected'
-                    sleepPollingTime: 10 s
-                    iterations: 5
-                    stdOut: true
-                    stdErr: true
-                    timeout: 180
-            engine:
-                await:
-                    strategy: log
-                    match: 'Message broker is not set up'
-                    sleepPollingTime: 5 s
-                    iterations: 5
-                    stdOut: true
-                    stdErr: true
-                    timeout: 180
-            service:
-                await:
-                    strategy: polling
-                    sleepPollingTime: 10 s
-                    iterations: 5
-                    stdOut: true
-                    stdErr: true
-                    timeout: 1800
+                 runJenkins:
+                    await:
+                        strategy: sleeping
+                        sleepTime: 200 s
         </property>
     </extension>
 </arquillian>

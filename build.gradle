@@ -6,62 +6,14 @@ apply plugin: 'java'
 sourceCompatibility = 1.8
 
 repositories {
-    maven { url 'http://jfrog.aws.wfscorp.com:80/artifactory/maven-mirror' }
-}
-
-test {
-    /*
-     * Flag to generate xml reports
-     */
-    reports.junitXml.enabled = false
-    reports.html.enabled = false
-    def env = this.properties["env"].toString()
-    println "Environment Set:" + env
-    /*
-     * Set environment variables
-     */
-    environment "ENV", env
-    environment "BROWSER", this.properties["browser"]
-    environment "DEV_PRICING_URL", this.properties["devPricingUrl"]
-    environment "TEST_PRICING_URL", this.properties["testPricingUrl"]
-    environment "SERVICE_IMAGE", this.properties["serviceImage"]
-    environment "UI_IMAGE", this.properties["uiImage"]
-    environment "DATAMOCK_IMAGE", this.properties["datamockImage"]
-    environment "ENGINE_IMAGE", this.properties["engineImage"]
-    environment "DATABASE_IMAGE", this.properties["databaseImage"]
-    environment "DOCKER_REGISTRY", this.properties["dockerRegistry"]
-
-    /*
-     * Modify cucumber options based on environment , Only SmokeTests run on Test and Dev environment
-     */
-    if (env.equals('Test')) {
-        System.properties.setProperty('cucumber.options', '--tags @SmokeTest')
-        println "Changed tags to @SmokeTest as the environment is Test"
-    } else if (env.equals('Dev')) {
-        System.properties.setProperty('cucumber.options', '--tags @SmokeTest')
-        println "Changed tags to @SmokeTest as the environment is Dev"
-    }
-    systemProperties = System.properties
+    mavenCentral()
 }
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
-    compile group: 'org.testinfected.hamcrest-matchers', name: 'hamcrest-matchers', version: '1.6'
-    compile group: 'io.github.bonigarcia', name: 'webdrivermanager', version: '1.7.1'
-
-    //Cucumber dependencies
-    compile group: 'info.cukes', name: 'cucumber-java', version: '1.2.5'
     compile group: 'com.github.cukespace', name: 'cukespace-core', version: '1.6.5'
-    compile group: 'org.seleniumhq.selenium', name: 'selenium-server', version: '3.4.0'
-    compile group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '3.4.0'
-    compile group: 'net.masterthought', name: 'cucumber-reporting', version: '3.7.0'
+
     testCompile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
-    compile 'io.rest-assured:xml-path:3.0.2'
-    testCompile group: 'org.mockito', name: 'mockito-all', version: '2.0.2-beta'
-    testCompile group: 'com.github.docker-java', name: 'docker-java', version: '3.0.6'
-    testCompile group: 'io.rest-assured', name: 'rest-assured', version: '3.0.3'
-    testCompile group: 'com.jayway.jsonpath', name: 'json-path', version: '2.2.0'
-    compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.8.7'
     compile group: 'javax.enterprise', name: 'cdi-api', version: '2.0'
 
     /*

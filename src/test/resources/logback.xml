@@ -5,7 +5,7 @@
         </encoder>
     </appender>
 
-    <logger name="pricing-e2e-tests" level="INFO"/>
+    <logger name="tests" level="INFO"/>
 
 
     <root level="INFO">

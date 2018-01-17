@@ -15,4 +15,5 @@ public class RunTest {
     {
         logger.info("Jenkins is running");
     }
+    public void test() {}
 }
